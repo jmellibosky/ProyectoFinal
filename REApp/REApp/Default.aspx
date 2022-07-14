@@ -65,7 +65,7 @@
 
         #iframepage {
             height: calc(100vh - 56px);
-            //background: url("Content/images/logo-watermark.png") center center no-repeat;
+            background: url("Content/images/logo-watermark.png") center center no-repeat;
         }
 
         .dropbtn {
