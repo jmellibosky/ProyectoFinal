@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet">
     <link href="Content/Site.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/8e4807e881.js" crossorigin="anonymous"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,7 +12,7 @@
     <title></title>
     <style>
         #lateral-menu {
-            background:#f0f0ff;
+            background: #f0f0ff;
         }
 
         body {
@@ -41,8 +41,7 @@
         }
 
         .navbar-header {
-            
-            background:#7777ff;
+            background: #7777ff;
         }
 
         #side-menu {
@@ -60,11 +59,12 @@
 
         #content-page {
             padding: 0px;
+            padding-left:220px;
         }
 
         #iframepage {
             height: calc(100vh - 56px);
-            background: url("Content/images/logo-watermark.png") center center no-repeat;
+            //background: url("Content/images/logo-watermark.png") center center no-repeat;
         }
 
         .dropbtn {
@@ -113,7 +113,18 @@
         .form-control {
             display: inline;
         }
+
+        .navbar-right {
+            margin-right: 0px;
+        }
     </style>
+
+    <%-- jQuery --%>
+    <script src="Scripts/jquery-3.4.1.min.js"></script>
+    <%-- Bootstrap --%>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <%-- CollapsibleMenu --%>
+    <script src="Scripts/collapsiblemenu.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -124,87 +135,101 @@
 <body>
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-        <nav id="navbar" class="navbar navbar-default navbar-static-top" role="navigation">
-            <div class="navbar-header">
-                <div class="dropdown nav navbar-top-links navbar-right">
-                    <button id="btnLogout" class="dropbtn" style="margin-right: 15px;" runat="server">
-                        <i class="fas fa-power-off"></i>
-                    </button>
-                </div>
-                <div class="dropdown nav navbar-top-links navbar-right">
-                    <button id="btnPerfilUsuario" class="dropbtn" runat="server">
-                        <i class="fas fa-user"></i>
-                    </button>
-                </div>
-            </div>
-
-            <%-- Menu lateral --%>
-            <asp:UpdatePanel runat="server">
-                <ContentTemplate>
-                    <div id="lateral-menu" class="navbar-default sidebar" style="width:200px;" role="navigation">
-                        <div class="sidebar-nav navbar-collapse">
-                            <ul id="side-menu" class="nav">
-                                <%-- Administrador --%>
-                                <li id="liAdministrador" runat="server">
-                                    <a href="#">
-                                        <strong>
-                                            <asp:Label Text="Administrador" runat="server" />
-                                        </strong>
-                                    </a>
-                                    <ul class="nav nav-second-level">
-                                        <li>
-                                            <a runat="server" id="lnkHomeAdministrador">
-                                                <i class="fa fa-home" aria-hidden="true"></i>
-                                                <asp:Label Text="Home" runat="server" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a runat="server" id="lnkGestionSolicitudes">
-                                                <i class="fas fa-list" aria-hidden="true"></i>
-                                                <asp:Label Text="Gestión de Solicitudes" runat="server" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a runat="server" id="lnkGestionUsuarios">
-                                                <i class="fas fa-user" aria-hidden="true"></i>
-                                                <asp:Label Text="Gestión de Usuarios" runat="server" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a runat="server" id="lnkGestionVehiculos">
-                                                <i class="fas fa-plane" aria-hidden="true"></i>
-                                                <asp:Label Text="Gestión de Vehículos Aéreos" runat="server" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a runat="server" id="lnkGestionAerodromos">
-                                                <i class="fas fa-plane-departure" aria-hidden="true"></i>
-                                                <asp:Label Text="Gestión de Aeródromos" runat="server" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a runat="server" id="lnkGestionZonasEspeciales">
-                                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                                                <asp:Label Text="Gestión de Zonas Especiales" runat="server" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a runat="server" id="lnkParametrizacion">
-                                                <i class="fa fa-cog" aria-hidden="true"></i>
-                                                <asp:Label Text="Parametrización" runat="server" />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+        <div class="wrapper">
+            <nav id="navbar" class="navbar navbar-default navbar-static-top" role="navigation">
+                <div class="navbar-header">
+                    <div class="dropdown nav navbar-top-links navbar-right">
+                        <button id="btnLogout" class="dropbtn" style="margin-right: 15px;" runat="server">
+                            <i class="fas fa-power-off"></i>
+                        </button>
                     </div>
-                </ContentTemplate>
-            </asp:UpdatePanel>
-        </nav>
-        <div id="content-page" class="container-fluid">
-            <%-- Paginas --%>
-            <iframe id="iframepage" name="iframePage" src="Forms/__Ejemplos.aspx" frameborder="0" width="100%" runat="server"></iframe>
+                    <div class="dropdown nav navbar-top-links navbar-right">
+                        <button id="btnPerfilUsuario" class="dropbtn" runat="server">
+                            <i class="fas fa-user"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <%-- Menu lateral --%>
+                <asp:UpdatePanel runat="server">
+                    <ContentTemplate>
+                        <div id="lateral-menu" class="navbar-default sidebar" style="width: 200px;" role="navigation">
+                            <div class="sidebar-nav navbar-collapse">
+                                <ul id="side-menu" class="nav">
+                                    <%-- Administrador --%>
+                                    <li id="liAdministrador" runat="server">
+                                        <a href="#">
+                                            <strong>
+                                                <asp:Label Text="Administrador" runat="server" />
+                                            </strong>
+                                        </a>
+                                        <ul class="nav nav-second-level">
+                                            <li>
+                                                <a href="Forms/__Ejemplos.aspx" class="item-menu" target="iframePage" runat="server">
+                                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                                    <asp:Label Text="__Ejemplos" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="Forms/__Ejemplos2.aspx" class="item-menu" target="iframePage" runat="server">
+                                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                                    <asp:Label Text="__Ejemplos2" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a runat="server" id="lnkHomeAdministrador">
+                                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                                    <asp:Label Text="Home" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a runat="server" id="lnkGestionSolicitudes">
+                                                    <i class="fas fa-list" aria-hidden="true"></i>
+                                                    <asp:Label Text="Gestión de Solicitudes" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a runat="server" id="lnkGestionUsuarios">
+                                                    <i class="fas fa-user" aria-hidden="true"></i>
+                                                    <asp:Label Text="Gestión de Usuarios" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a runat="server" id="lnkGestionVehiculos">
+                                                    <i class="fas fa-plane" aria-hidden="true"></i>
+                                                    <asp:Label Text="Gestión de Vehículos Aéreos" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a runat="server" id="lnkGestionAerodromos">
+                                                    <i class="fas fa-plane-departure" aria-hidden="true"></i>
+                                                    <asp:Label Text="Gestión de Aeródromos" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a runat="server" id="lnkGestionZonasEspeciales">
+                                                    <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                                                    <asp:Label Text="Gestión de Zonas Especiales" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a runat="server" id="lnkParametrizacion">
+                                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                                    <asp:Label Text="Parametrización" runat="server" />
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </nav>
+            <div id="content-page" class="container-fluid">
+                <%-- Paginas --%>
+                <iframe id="iframePage" style="height:1000px; background-color:white;" name="iframePage" src="Forms\__Ejemplos.aspx" frameborder="0" width="100%" runat="server"></iframe>
+            </div>
         </div>
     </form>
 </body>
