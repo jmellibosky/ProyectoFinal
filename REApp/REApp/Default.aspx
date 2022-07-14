@@ -4,8 +4,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link href="Content/bootstrap.min.css" rel="stylesheet">
-    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/Content/Site.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/8e4807e881.js" crossorigin="anonymous"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -120,11 +121,11 @@
     </style>
 
     <%-- jQuery --%>
-    <script src="Scripts/jquery-3.4.1.min.js"></script>
+    <script src="/Scripts/jquery-3.4.1.min.js"></script>
     <%-- Bootstrap --%>
-    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
     <%-- CollapsibleMenu --%>
-    <script src="Scripts/collapsiblemenu.min.js"></script>
+    <script src="/Scripts/collapsiblemenu.min.js"></script>
 
     <script>
         $(document).ready(function () {
