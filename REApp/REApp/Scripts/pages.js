@@ -360,7 +360,7 @@ function Init() {
             dGroup: "3",
             lZero: moneyLeadZeros,
             mRound: "S",
-            nBracket: null
+            nBracket: null,
             vMax: "0",
             vMin: "-999999999.99"
         };
