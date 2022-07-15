@@ -26,32 +26,35 @@
                 <div class="col-md-6 col-lg-7 d-flex align-items-center">
                   <div class="card-body p-4 p-lg-5 text-black">
 
-                    <form>
+                    <form id="FormLogin" runat="server">
 
                       <div class="d-flex align-items-center mb-1 pb-1">
-                        <i class="fas fa-plane fa-2x me-3 mr-4 mt-4" style="color: #79aaf7;"></i>
+                        <i class="fas fa-plane fa-2x me-3 mr-4" style="color: #79aaf7;"></i>
                         <span class="h1 fw-bold mb-1 font-weight-bolder">EANA REA</span>
                       </div>
 
                       <h5 class="fw-normal mb-3 pb-2" style="letter-spacing: 1px;">Bienvenido al Sistema REA</h5>
 
-                      <div class="form-outline mb-4">
-                        <input type="email" id="form2Example17" class="form-control form-control-lg" />
-                        <label class="form-label mt-2" for="form2Example17">Dirección de Email</label>
+                      <div class="form-outline mb-3">
+                        <input type="email" id="txt_email" runat="server" class="form-control form-control-lg" required="required" placeholder="Correo electronico"/>
+                        <%--<label class="form-label mt-2" for="txt_email">Dirección de Email</label>--%>
+                       
                       </div>
 
-                      <div class="form-outline mb-4">
-                        <input type="password" id="form2Example27" class="form-control form-control-lg" />
-                        <label class="form-label mt-2" for="form2Example27">Contraseña</label>
+                      <div class="form-outline mb-3">
+                        <input type="password" id="txt_password" runat="server" required="required" placeholder="Contraseña" class="form-control form-control-lg" />
+                        <%--<label class="form-label mt-2" for="txt_password">Contraseña</label>--%>
+                        
                       </div>
-
+                       
                       <div class="pt-1 mb-4">
-                        <button class="btn btn-dark btn-lg btn-block" type="button">Ingresar</button>
+                        <%--<button class="btn btn-dark btn-lg btn-block" runat="server" onclick="Validate_Email" type="button">Ingresar</button>--%>
+                          <asp:Button ID="login" runat="server" OnClick="btnSubmit_Click" CssClass="btn btn-primary btn-lg btn-block" Text="Ingresar"/>
                       </div>
 
-                      <a class="small text-muted" href="#!">Olvido su contraseña?</a>
-                      <p class="mb-5 pb-lg-2" style="color: #393f81;">No tiene una cuenta? <a href="#!"
-                          style="color: #393f81;">Registrese aquí</a></p>
+                      <a class="small text-muted" href="/Forms/UserForgotPassword.aspx">Olvido su contraseña?</a>
+                      <p class="mb-5 pb-lg-2" style="color: #393f81;">No tiene una cuenta? <a href="/Forms/UserRegister.aspx"
+                          style="color: #393f81; font-weight:500">Registrese aquí</a></p>
                       <a href="#!" class="small text-muted">Terms of use.</a>
                       <a href="#!" class="small text-muted">Privacy policy</a>
                     </form>

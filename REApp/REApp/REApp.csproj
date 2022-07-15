@@ -126,8 +126,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="Forms\UserForgotPassword.aspx" />
     <Content Include="Forms\UserLogin.aspx" />
-    <Content Include="Forms\GestionVants.aspx" />
+    <Content Include="Forms\UserRegister.aspx" />
     <Content Include="Forms\__Ejemplos.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -265,6 +266,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UserForgotPassword.aspx.cs">
+      <DependentUpon>UserForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\UserForgotPassword.aspx.designer.cs">
+      <DependentUpon>UserForgotPassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UserLogin.aspx.cs">
       <DependentUpon>UserLogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -272,12 +280,12 @@
     <Compile Include="Forms\UserLogin.aspx.designer.cs">
       <DependentUpon>UserLogin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Forms\GestionVants.aspx.cs">
-      <DependentUpon>GestionVants.aspx</DependentUpon>
+    <Compile Include="Forms\UserRegister.aspx.cs">
+      <DependentUpon>UserRegister.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Forms\GestionVants.aspx.designer.cs">
-      <DependentUpon>GestionVants.aspx</DependentUpon>
+    <Compile Include="Forms\UserRegister.aspx.designer.cs">
+      <DependentUpon>UserRegister.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\__Ejemplos.aspx.cs">
       <DependentUpon>__Ejemplos.aspx</DependentUpon>

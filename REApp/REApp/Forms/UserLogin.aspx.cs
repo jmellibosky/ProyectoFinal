@@ -13,5 +13,18 @@ namespace REApp.Forms
         {
 
         }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (txt_email.Value == "testing@hotmail.com" && txt_password.Value == "1234")
+            {
+                Response.Redirect("/Default.aspx");
+            }
+            else
+            {
+                return;
+            }
+        }
+
     }
 }

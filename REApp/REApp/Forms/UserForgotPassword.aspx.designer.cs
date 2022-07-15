@@ -7,29 +7,38 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace REApp
+namespace REApp.Forms
 {
 
 
-    public partial class SiteMaster
+    public partial class UserForgotPassword
     {
 
         /// <summary>
-        /// Control cphHead.
+        /// Control FormForgotPass.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder cphHead;
+        protected global::System.Web.UI.HtmlControls.HtmlForm FormForgotPass;
 
         /// <summary>
-        /// Control cphBody.
+        /// Control txt_email.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder cphBody;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txt_email;
+
+        /// <summary>
+        /// Control login.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button login;
     }
 }
