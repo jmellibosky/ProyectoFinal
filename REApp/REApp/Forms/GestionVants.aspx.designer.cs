@@ -11,7 +11,7 @@ namespace REApp.Forms
 {
 
 
-    public partial class @__Ejemplos
+    public partial class GestionarVants
     {
 
         /// <summary>
