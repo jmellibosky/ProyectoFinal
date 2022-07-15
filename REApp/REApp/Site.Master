@@ -18,12 +18,12 @@
     <script src="https://kit.fontawesome.com/b0b95091aa.js" crossorigin="anonymous"></script>
 
     <%--PLUGINS--%>
-    <script src="../Scripts/select2.min.js"></script>
     <script src="../Scripts/jquery-3.4.1.js"></script>
+    <script src="../Scripts/select2.min.js"></script>
     <script src="../Scripts/jscolor.js"></script>
     <script src="../Scripts/switchery.min.js"></script>
     <script src="../Scripts/datepicker.min.js"></script>
-    <script src="../Scripts/datatables.mid.js"></script>
+    <script src="../Scripts/datatables.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/sweetalert.min.js"></script>
     <script src="../Scripts/geocomplete.min.js"></script>
