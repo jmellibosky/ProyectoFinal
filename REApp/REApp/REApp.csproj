@@ -127,6 +127,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Forms\UserLogin.aspx" />
+    <Content Include="Forms\GestionVants.aspx" />
     <Content Include="Forms\__Ejemplos.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -270,6 +271,13 @@
     </Compile>
     <Compile Include="Forms\UserLogin.aspx.designer.cs">
       <DependentUpon>UserLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GestionVants.aspx.cs">
+      <DependentUpon>GestionVants.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\GestionVants.aspx.designer.cs">
+      <DependentUpon>GestionVants.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\__Ejemplos.aspx.cs">
       <DependentUpon>__Ejemplos.aspx</DependentUpon>
