@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace REApp.Forms
 {
-    public partial class __Ejemplos : System.Web.UI.Page
+    public partial class GestionarVants : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
