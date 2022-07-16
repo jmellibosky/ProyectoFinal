@@ -131,6 +131,7 @@
     <Content Include="Forms\UserForgotPassword.aspx" />
     <Content Include="Forms\UserLogin.aspx" />
     <Content Include="Forms\UserRegister.aspx" />
+    <Content Include="Forms\GestionTripulantes.aspx" />
     <Content Include="Forms\__Ejemplos.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -261,6 +262,8 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Code\Navegacion.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -302,6 +305,13 @@
     </Compile>
     <Compile Include="Forms\UserRegister.aspx.designer.cs">
       <DependentUpon>UserRegister.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GestionTripulantes.aspx.cs">
+      <DependentUpon>GestionTripulantes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\GestionTripulantes.aspx.designer.cs">
+      <DependentUpon>GestionTripulantes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\__Ejemplos.aspx.cs">
       <DependentUpon>__Ejemplos.aspx</DependentUpon>

@@ -18,32 +18,41 @@ function Asc(grid) {
 }
 
 function Init() {
+    if ($("table.data-table").length > 0) {
+        // Recorre las tablas con la clase table.data-table.
+        $("table.data-table").each(function () {
+            // Agrega las clases Bootstrap
+            $(this).addClass("table table-striped table-borderless no-footer dtr-column table-hover");
 
-    if ($(".grid-view").length > 0) {
-
-        $('.grid-view').each(function () {
-
+            // La tabla tiene filas?
             if ($(this).find("tbody tr").length > 1) {
-
+                // Si la tabla tiene el plugin aplicado no se vuelve a aplicar.
                 if (!$.fn.dataTable.isDataTable(this)) {
-
-                    if ($(this).find("thead").length == 0) {
-
+                    // Si la tabla no tiene thead se utiliza la primera fila del tbody como thead.
+                    if ($(this).find("thead").length === 0) {
+                        // Agrega el thead a la tabla.
                         $(this).prepend('<thead></thead>');
 
+                        // Primera fila del tbody como thead (tbody.tr.td -> thead.tr.th)
                         $(this).find('thead').append($(this).find("tr:eq(0)"));
                     }
 
+                    // Se agregan los data-order a las fechas y fechas horas para poder ordenarlas haciendo click en los titulos de las columnas.
                     $("#" + this.id + " td").each(function () {
-
-                        if (this.className == "date-time") {
+                        // date-time
+                        if (this.className === "date-time" || this.className === "date-only") {
                             var separador;
+
+                            var data;
+
                             if ($(this).html().indexOf("/") !== -1) {
                                 separador = "/";
                             }
+
                             if ($(this).html().indexOf("-") !== -1) {
                                 separador = "-";
                             }
+
                             if ($(this).html().indexOf(".") !== -1) {
                                 separador = ".";
                             }
@@ -52,144 +61,289 @@ function Init() {
                                 var fh = $(this).html().split(" ");
 
                                 var sf = fh[0];
-                                var d;
-                                var M;
-                                var y;
 
-                                if (regionalSettings.DateFormat.replace("/", "").replace("-", "").replace(".", "").startsWith("ddMM")) {
-                                    d = sf.split(separador)[0];
-                                    M = sf.split(separador)[1];
-                                    y = sf.split(separador)[2];
-                                }
-                                if (regionalSettings.DateFormat.replace("/", "").replace("-", "").replace(".", "").startsWith("MMdd")) {
-                                    M = sf.split(separador)[0];
-                                    d = sf.split(separador)[1];
-                                    y = sf.split(separador)[2];
-                                }
-                                if (regionalSettings.DateFormat.replace("/", "").replace("-", "").replace(".", "").startsWith("yyyy")) {
-                                    y = sf.split(separador)[0];
-                                    M = sf.split(separador)[1];
-                                    d = sf.split(separador)[2];
-                                }
+                                var d = sf.split(separador)[0];
 
-                                var sh = fh[1];
-                                var h = sh.split(":")[0];
-                                var m = sh.split(":")[1];
-                                var s = sh.split(":")[2];
+                                var M = sf.split(separador)[1];
 
-                                if ($(this).html().indexOf("AM") > 0) {
-                                    if (h == "12") h = "00";
-                                }
+                                var y = sf.split(separador)[2];
 
-                                if ($(this).html().indexOf("PM") > 0) {
-                                    if (h != 12) {
-                                        h = parseInt(h) + 12;
+                                if (this.className === "date-time") {
+                                    var sh = fh[0];
+
+                                    var h = sh.split(":")[0];
+
+                                    var m = sh.split(":")[1];
+
+                                    var s = sh.split(":")[2];
+
+                                    if ($(this).html().indexOf("AM") > 0) {
+                                        if (h === "12") h = "00";
                                     }
+
+                                    if ($(this).html().indexOf("PM") > 0) {
+                                        if (h !== 12) {
+                                            h = parseInt(h) + 12;
+                                        }
+                                    }
+
+                                    data = y + "-" + M + "-" + d + " " + h + ":" + m + ":" + s;
+                                } else {
+                                    data = y + "-" + M + "-" + d;
                                 }
 
-                                var data = y + "-" + M + "-" + d + " " + h + ":" + m + ":" + s;
-                                $(this).attr('data-order', data);
+                                $(this).attr('data-Order', data);
                             }
                         }
                     });
 
+                    // Si la tabla tiene al menos una columna que totalice se agrega el tfoot.
                     if ($(this).find('tr td.show-total').length > 0) {
-
-                        if ($(this).find("tfoot").length == 0) {
-
+                        // Si la tabla no tiene tfoot se clona desde el thead.
+                        if ($(this).find("tfoot").length === 0) {
+                            // Agrega el tfoot a la tabla.
                             $(this).append('<tfoot></tfoot>');
 
+                            // Clona el thead en el tfoot.
                             $(this).find("thead tr").clone().appendTo($(this).find("tfoot"));
 
+                            // Limpia el tfoot.
                             $(this).find("tfoot tr th").html('');
                         }
                     }
 
+                    // Si luego de utilizar la primer fila de tbody com othead, la tabla no tiene filas en el tbody no se aplicac el plugin.
                     if ($(this).find("tbody tr").length > 0) {
-
+                        // Parametros de inicializacion del plugin.
                         GridViewOptions = {
-                            language: {
-                                url: "../Content/vendor/datatables.plugins/languages/" + regionalSettings.Language + ".json"
+                            stateSave: false,
+                            language: { // Idioma.
+                                url: "../Vendors/DataTables/Spanish.json"
                             },
-                            responsive: {
+                            responsive: { // Responsive.
                                 details: {
                                     type: 'column'
                                 }
                             },
                             columnDefs: [
-                                {
+                                { // Primera columna con el +/- según las dimensiones de la pantalla.
                                     targets: 0,
                                     className: 'control'
                                 },
+                                { // Columna CryptoID excluida de las búsquedas utilizando el cuadro de texto buscar de DataTable
+                                    targets: 1,
+                                    searchable: false,
+                                    className: 'd-none'
+                                },
                                 {
-                                    targets: -1,
-                                    className: 'all'
-                                }],
-                            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]]
-                        }
+                                    responsivePriority: 1,
+                                    targets: 2
+                                },
+                                {
+                                    responsivePriority: 1,
+                                    targets: -1
+                                },
+                                {
+                                    type: 'currency',
+                                    targets: "numeric-money"
+                                }
+                            ],
+                            lengthMenu: ($(this).hasClass("no-paging")) ? [[-1], ["Todos"]] : [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
 
+                            // Si la grilla tiene la clase .no-paging se quita el paginado
+
+
+                            // Evento para totalizar columnas.
+                            "footerCallback": function (row, data, start, end, display) {
+                                // Objeto tabla.
+                                var api = this.api();
+
+                                var procCols = "";
+
+                                $(this).find('tr td.show-total').each(function () {
+                                    // Indice de la columna.
+                                    var colIndex = this.cellIndex;
+                                    if ($(this).parent().first().html().trim().startsWith("<td class=\"crypto-id-column\">")) {
+                                        colIndex++;
+                                    }
+
+                                    if (procCols.indexOf("|" + colIndex + "|") === -1) {
+                                        procCols = procCols + "|" + colIndex + "|";
+
+                                        var dataIndex = colIndex;
+
+                                        // Totaliza la tabla.
+                                        var table = api.column(dataIndex).data();
+                                        var totalTable = 0;
+                                        var tempTable = "";
+                                        for (var i = 0; i < table.length; i++) {
+                                            tempTable = table[i];
+
+                                            // Se limpia el dato quitándole la configuración regional.
+                                            tempTable = tempTable.replace("&nbsp;", 0);
+                                            tempTable = tempTable.replace(regionalSettings.MoneySymbol, "");
+                                            tempTable = tempTable.replace(regionalSettings.MoneyGroupSeparator, "");
+                                            tempTable = tempTable.replace(regionalSettings.MoneyDecimalSymbol, ".");
+                                            tempTable = tempTable.replace(" ", "");
+
+                                            // Sumar o contar.
+                                            if (isNaN(Number(tempTable))) {
+                                                totalTable++;
+                                            } else {
+                                                totalTable = totalTable + Number(tempTable);
+                                            }
+                                        }
+                                        totalTable = Math.round(totalTable * 100) / 100; // Redondea a 2 decimales.
+
+                                        // Totaliza la página.
+                                        var page = api.column(dataIndex, { page: 'current' }).data();
+                                        var totalPage = 0;
+                                        var tempPage = "";
+                                        for (var n = 0; n < page.length; n++) {
+                                            tempPage = page[n];
+
+                                            // Se limpia el dato quitándole la configuración regional.
+                                            tempPage = tempPage.replace("&nbsp;", 0);
+                                            tempPage = tempPage.replace(regionalSettings.MoneySymbol, "");
+                                            tempPage = tempPage.replace(regionalSettings.MoneyGroupSeparator, "");
+                                            tempPage = tempPage.replace(regionalSettings.MoneyDecimalSymbol, ".");
+                                            tempPage = tempPage.replace(" ", "");
+
+                                            // Sumar o contar.
+                                            if (isNaN(Number(tempPage))) {
+                                                totalPage++;
+                                            } else {
+                                                totalPage = totalPage + Number(tempPage);
+                                            }
+                                        }
+                                        totalPage = Math.round(totalPage * 100) / 100; // Redondea a 2 decimales.
+
+                                        // Selector del tfoot.th
+                                        if ($(this).parent().first().html().trim().startsWith("<td class=\"crypto-id-column\">")) {
+                                            colIndex--;
+                                        }
+                                        var selector = 'tfoot th:eq(' + colIndex.toString() + ')';
+
+                                        // Muestra los totales. Se aplica la misma clase que la columna para luego aplicar el plugin Autonumeric.
+                                        var inputPage = '<span class="t_' + this.classList.value + '">' + totalPage + '</span>';
+                                        var inputTable = '<span class="t_' + this.classList.value + '">' + totalTable + '</span>';
+
+                                        // Se muestra el resultado.
+                                        $(this).parent().parent().parent().find(selector).html(inputPage + "<br><b>" + inputTable + "</b>");
+
+                                    }
+                                });
+                            }
+                        };
+
+                        // Aplica el plugin DataTable.
                         $(this).dataTable(GridViewOptions);
+                        // Desactivo el stateSave para que no cachee la búsqueda realizada en el input "Buscar"
+                        $(document).ready(function () {
+                            $(this).DataTable({
+                                stateSave: false
+                            });
+                        });
 
+                        // Si tiene columnas busca el criterio de orden.
                         if (this.rows[0].cells.length > 1) {
-
+                            // Tiene creiterio de orden?
                             if (this.getAttribute('data-Order')) {
-
+                                // Ordena por el criterio.
                                 $(this).DataTable().order([Col(this), Asc(this)]);
                             }
                         }
 
+                        // Si la grilla tiene la clase .show-buttons se agregan los botones de exportación.
                         if ($(this).hasClass("show-buttons")) {
 
+                            let columns = [];
+                            for (var i = 3; i <= ($(this).children("tbody").children("tr:nth-child(1)").children("td").length); i++) {
+                                var result = $(this).children("tbody")
+                                    .children("tr:nth-child(1)")
+                                    .children("td:nth-child(" + i + ")")
+                                    .children().hasClass("exclude");
+                                if ((result === false)) {
+                                    columns.push(i - 1);
+                                }
+                            }
+
+                            // Agrega los botones de exportacón inmediatamente despues del wrapper del datatable.
                             var buttons = new $.fn.dataTable.Buttons(this, {
                                 buttons: [
                                     {
                                         extend: 'copy',
                                         exportOptions: {
-                                            columns: ':visible'
+                                            columns: columns,
+                                            format: {
+                                                body: function (data, row, column, node) {
+                                                    return modifyData(data);
+                                                }
+                                            }
                                         }
                                     },
                                     {
                                         extend: 'excel',
                                         exportOptions: {
-                                            columns: ':visible'
+                                            columns: columns,
+                                            format: {
+                                                body: function (data, row, column, node) {
+                                                    return modifyData(data);
+                                                }
+                                            }
                                         }
                                     },
                                     {
                                         extend: 'csv',
                                         exportOptions: {
-                                            columns: ':visible'
+                                            columns: columns,//':not(.no-exportar)'
+                                            format: {
+                                                body: function (data, row, column, node) {
+                                                    return modifyData(data);
+                                                }
+                                            }
                                         }
                                     },
                                     {
                                         extend: 'print',
                                         exportOptions: {
-                                            columns: ':visible'
+                                            columns: columns,
+                                            format: {
+                                                body: function (data, row, column, node) {
+                                                    return modifyData(data);
+                                                }
+                                            }
                                         }
                                     }
                                 ]
                             }).container().appendTo($(this).parent());
 
+                            $(".dt-buttons").addClass("text-center mt-3");
+
+                            // copiar
                             $(".buttons-copy").html('<i class="fa fa-files-o" aria-hidden="true"></i>');
-                            $('.buttons-copy').prop('title', 'Copiar');
+                            $(".buttons-copy").prop('title', 'Copiar');
 
+                            // exportar a excel
                             $(".buttons-excel").html('<i class="fa fa-file-excel-o" aria-hidden="true"></i>');
-                            $('.buttons-excel').prop('title', 'Exportar a Excel');
+                            $(".buttons-excel").prop('title', 'Exportar a Excel');
 
+                            // exportar a csv
                             $(".buttons-csv").html('<i class="fa fa-file-text-o" aria-hidden="true"></i>');
-                            $('.buttons-csv').prop('title', 'Exportar a CSV');
+                            $(".buttons-csv").prop('title', 'Exportar a CSV');
 
+                            // imprimir
                             $(".buttons-print").html('<i class="fa fa-print" aria-hidden="true"></i>');
-                            $('.buttons-print').prop('title', 'Imprimir');
+                            $(".buttons-print").prop('title', 'Imprimir');
 
                             $("a.dt-button").addClass("btn-sm btn-primary");
-                        }
-                    }
-                } 
-            }
+                        } // fin validacion grilla con botones
+                    } // fin validacion hay filas en el tbody despues de usar el primer tbody como thead
+                } // fin de la validacion de tabla con el plugin ya aplicado
+            } // fin de la validacion de filas en la grilla
+        }); // fin del loop que recorre las table.data-table
+    }
 
-            $(this).fadeIn();
-        });
-    };
 
     //// .numeric-only --------------------------------------------------------------------------------------------------------------------------------
     //if ($(".numeric-only").length > 0) {

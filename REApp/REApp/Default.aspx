@@ -193,6 +193,12 @@
                                                 </a>
                                             </li>
                                             <li>
+                                                <a href="Forms/GestionTripulantes.aspx" class="item-menu" target="iframePage" runat="server">
+                                                    <i class="fas fa-list" aria-hidden="true"></i>
+                                                    <asp:Label Text="Gestión de Tripulación" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
                                                 <a runat="server" id="lnkGestionUsuarios">
                                                     <i class="fas fa-user" aria-hidden="true"></i>
                                                     <asp:Label Text="Gestión de Usuarios" runat="server" />
