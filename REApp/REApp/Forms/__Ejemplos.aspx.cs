@@ -31,5 +31,15 @@ namespace REApp.Forms
                 }
             }
         }
+
+        protected void gvGrilla_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                // Convierte el Id del modelo en CryptoID.
+                string plainId = e.Row.Cells[1].Text;
+                e.Row.Cells[1].Text = plainId.ToInt().ToCryptoID();
+            }
+        }
     }
 }

@@ -191,213 +191,200 @@ function Init() {
         });
     };
 
-    // .numeric-only --------------------------------------------------------------------------------------------------------------------------------
-    if ($(".numeric-only").length > 0) {
-        var NumericIntegerOptions = {
-            aForm: false,
-            aPad: false,
-            anDefault: null,
-            dGroup: "3",
-            lZero: "keep",
-            mDec: "0",
-            mRound: "S",
-            nBracket: null,
-            pSign: "p",
-            vMax: "999999999",
-            vMin: "0"
-        };
-        $('.numeric-only').autoNumeric('init', NumericIntegerOptions);
-    };
+    //// .numeric-only --------------------------------------------------------------------------------------------------------------------------------
+    //if ($(".numeric-only").length > 0) {
+    //    var NumericIntegerOptions = {
+    //        aForm: false,
+    //        aPad: false,
+    //        anDefault: null,
+    //        dGroup: "3",
+    //        lZero: "keep",
+    //        mDec: "0",
+    //        mRound: "S",
+    //        nBracket: null,
+    //        pSign: "p",
+    //        vMax: "999999999",
+    //        vMin: "0"
+    //    };
+    //    new AutoNumeric('.numeric-only', NumericIntegerOptions);
+    //};
 
-    // .numeric-integer -----------------------------------------------------------------------------------------------------------------------------
-    if ($(".numeric-integer").length > 0) {
-        var NumericIntegerOptions = {
-            aForm: false,
-            aPad: false,
-            anDefault: null,
-            dGroup: "3",
-            lZero: numericLeadZeros,
-            mDec: "0",
-            mRound: "S",
-            nBracket: null,
-            pSign: "p",
-            vMax: "999999999",
-            vMin: "-999999999"
-        };
-        $('.numeric-integer').autoNumeric('init', NumericIntegerOptions);
-    };
+    //// .numeric-integer -----------------------------------------------------------------------------------------------------------------------------
+    //if ($(".numeric-integer").length > 0) {
+    //    var NumericIntegerOptions = {
+    //        aForm: false,
+    //        aPad: false,
+    //        anDefault: null,
+    //        dGroup: "3",
+    //        lZero: "0",
+    //        mDec: "0",
+    //        mRound: "S",
+    //        nBracket: null,
+    //        pSign: "p",
+    //        vMax: "999999999",
+    //        vMin: "-999999999"
+    //    };
+    //    new AutoNumeric('.numeric-integer', NumericIntegerOptions);
+    //};
 
-    // .numeric-integer-positive --------------------------------------------------------------------------------------------------------------------
-    if ($(".numeric-integer-positive").length > 0) {
-        var NumericIntegerPositiveOptions = {
-            aForm: false,
-            aPad: false,
-            anDefault: null,
-            dGroup: "3",
-            lZero: numericLeadZeros,
-            mDec: "0",
-            mRound: "S",
-            nBracket: null,
-            pSign: "p",
-            vMax: "999999999",
-            vMin: "0"
-        };
-        $('.numeric-integer-positive').autoNumeric('init', NumericIntegerPositiveOptions);
-    };
+    //// .numeric-integer-positive --------------------------------------------------------------------------------------------------------------------
+    //if ($(".numeric-integer-positive").length > 0) {
+    //    var NumericIntegerPositiveOptions = {
+    //        aForm: false,
+    //        aPad: false,
+    //        anDefault: null,
+    //        dGroup: "3",
+    //        lZero: "0",
+    //        mDec: "0",
+    //        mRound: "S",
+    //        nBracket: null,
+    //        pSign: "p",
+    //        vMax: "999999999",
+    //        vMin: "0"
+    //    };
+    //    new AutoNumeric('.numeric-integer-positive', NumericIntegerPositiveOptions);
+    //};
 
-    // .numeric-integer-negative --------------------------------------------------------------------------------------------------------------------
-    if ($(".numeric-integer-negative").length > 0) {
-        var NumericIntegerNegativeOptions = {
-            aForm: false,
-            aPad: false,
-            anDefault: null,
-            dGroup: "3",
-            lZero: numericLeadZeros,
-            mDec: "0",
-            mRound: "S",
-            nBracket: null,
-            pSign: "p",
-            vMax: "0",
-            vMin: "-999999999"
-        };
-        $('.numeric-integer-negative').autoNumeric('init', NumericIntegerNegativeOptions);
-    };
+    //// .numeric-integer-negative --------------------------------------------------------------------------------------------------------------------
+    //if ($(".numeric-integer-negative").length > 0) {
+    //    var NumericIntegerNegativeOptions = {
+    //        aForm: false,
+    //        aPad: false,
+    //        anDefault: null,
+    //        dGroup: "3",
+    //        lZero: "0",
+    //        mDec: "0",
+    //        mRound: "S",
+    //        nBracket: null,
+    //        pSign: "p",
+    //        vMax: "0",
+    //        vMin: "-999999999"
+    //    };
+    //    new AutoNumeric('.numeric-integer-negative', NumericIntegerNegativeOptions);
+    //};
 
-    // .numeric-decimal -----------------------------------------------------------------------------------------------------------------------------
-    if ($(".numeric-decimal").length > 0) {
-        var NumericDecimalOptions = {
-            aForm: false,
-            anDefault: null,
-            dGroup: "3",
-            lZero: numericLeadZeros,
-            mRound: "S",
-            nBracket: null,
-            pSign: "p",
-            vMax: "999999999.99",
-            vMin: "-999999999.99"
-        };
-        $('.numeric-decimal').autoNumeric('init', NumericDecimalOptions);
-    };
+    //// .numeric-decimal -----------------------------------------------------------------------------------------------------------------------------
+    //if ($(".numeric-decimal").length > 0) {
+    //    var NumericDecimalOptions = {
+    //        aForm: false,
+    //        anDefault: null,
+    //        dGroup: "3",
+    //        lZero: "0",
+    //        mRound: "S",
+    //        nBracket: null,
+    //        pSign: "p",
+    //        vMax: "999999999.99",
+    //        vMin: "-999999999.99"
+    //    };
+    //    new AutoNumeric('.numeric-decimal', NumericDecimalOptions);
+    //};
 
-    // .numeric-decimal-positive --------------------------------------------------------------------------------------------------------------------
-    if ($(".numeric-decimal-positive").length > 0) {
-        var NumericDecimalPositiveOptions = {
-            aForm: false,
-            aSign: "",
-            anDefault: null,
-            dGroup: "3",
-            lZero: numericLeadZeros,
-            mRound: "S",
-            nBracket: null,
-            pSign: "p",
-            vMax: "999999999.99",
-            vMin: "0"
-        };
-        $('.numeric-decimal-positive').autoNumeric('init', NumericDecimalPositiveOptions);
-    };
+    //// .numeric-decimal-positive --------------------------------------------------------------------------------------------------------------------
+    //if ($(".numeric-decimal-positive").length > 0) {
+    //    var NumericDecimalPositiveOptions = {
+    //        aForm: false,
+    //        aSign: "",
+    //        anDefault: null,
+    //        dGroup: "3",
+    //        lZero: "0",
+    //        mRound: "S",
+    //        nBracket: null,
+    //        pSign: "p",
+    //        vMax: "999999999.99",
+    //        vMin: "0"
+    //    };
+    //    new AutoNumeric('.numeric-decimal-positive', NumericDecimalPositiveOptions);
+    //};
 
-    // .numeric-decimal-negative --------------------------------------------------------------------------------------------------------------------
-    if ($(".numeric-decimal-negative").length > 0) {
-        var NumericDecimalNegativeOptions = {
-            aForm: false,
-            anDefault: null,
-            dGroup: "3",
-            lZero: numericLeadZeros,
-            mRound: "S",
-            nBracket: null,
-            pSign: "p",
-            vMax: "0",
-            vMin: "-999999999.99"
-        };
-        $('.numeric-decimal-negative').autoNumeric('init', NumericDecimalNegativeOptions);
-    };
+    //// .numeric-decimal-negative --------------------------------------------------------------------------------------------------------------------
+    //if ($(".numeric-decimal-negative").length > 0) {
+    //    var NumericDecimalNegativeOptions = {
+    //        aForm: false,
+    //        anDefault: null,
+    //        dGroup: "3",
+    //        lZero: "0",
+    //        mRound: "S",
+    //        nBracket: null,
+    //        pSign: "p",
+    //        vMax: "0",
+    //        vMin: "-999999999.99"
+    //    };
+    //    new AutoNumeric('.numeric-decimal-negative', NumericDecimalNegativeOptions);
+    //};
 
-    // .numeric-money -------------------------------------------------------------------------------------------------------------------------------
-    if ($(".numeric-money").length > 0) {
-        var NumericMoneyOptions = {
-            aForm: false,
-            aSign: '$',
-            dGroup: "3",
-            lZero: moneyLeadZeros,
-            mRound: "S",
-            nBracket: null,
-            vMax: "999999999.99",
-            vMin: "-999999999.99"
-        };
-        $('.numeric-money').autoNumeric('init', NumericMoneyOptions);
+    //// .numeric-money -------------------------------------------------------------------------------------------------------------------------------
+    //if ($(".numeric-money").length > 0) {
+    //    var NumericMoneyOptions = {
+    //        aForm: false,
+    //        aSign: '$',
+    //        dGroup: "3",
+    //        lZero: "0",
+    //        mRound: "S",
+    //        nBracket: null,
+    //        vMax: "999999999.99",
+    //        vMin: "-999999999.99"
+    //    };
+    //    new AutoNumeric('.numeric-money', NumericMoneyOptions);
 
-        // Importes negativos en rojo.
-        $('.numeric-money').change(function () {
-            if (this.value.startsWith("-")) {
-                $(this).css("color", "#d43b30");
-                $(this).css("text-shadow", "0px 0px 1px rgba(235, 235, 235, 1)");
-            }
-        })
-    };
+    //    // Importes negativos en rojo.
+    //    $('.numeric-money').change(function () {
+    //        if (this.value.startsWith("-")) {
+    //            $(this).css("color", "#d43b30");
+    //            $(this).css("text-shadow", "0px 0px 1px rgba(235, 235, 235, 1)");
+    //        }
+    //    })
+    //};
 
-    // .numeric-money-positive ----------------------------------------------------------------------------------------------------------------------
-    if ($(".numeric-money-positive").length > 0) {
-        var NumericMoneyPositiveOptions = {
-            aForm: false,
-            aSign: '$',
-            anDefault: null,
-            dGroup: "3",
-            lZero: moneyLeadZeros,
-            mRound: "S",
-            nBracket: null,
-            vMax: "999999999.99",
-            vMin: "0"
-        };
-        $('.numeric-money-positive').autoNumeric('init', NumericMoneyPositiveOptions);
-    };
+    //// .numeric-money-positive ----------------------------------------------------------------------------------------------------------------------
+    //if ($(".numeric-money-positive").length > 0) {
+    //    var NumericMoneyPositiveOptions = {
+    //        aForm: false,
+    //        aSign: '$',
+    //        anDefault: null,
+    //        dGroup: "3",
+    //        lZero: "0",
+    //        mRound: "S",
+    //        nBracket: null,
+    //        vMax: "999999999.99",
+    //        vMin: "0"
+    //    };
+    //    new AutoNumeric('.numeric-money-positive', NumericMoneyPositiveOptions);
+    //};
 
-    // .numeric-money-negaive -----------------------------------------------------------------------------------------------------------------------
-    if ($(".numeric-money-negative").length > 0) {
-        var NumericMoneyNegativeOptions = {
-            aForm: false,
-            aSign: '$',
-            anDefault: null,
-            dGroup: "3",
-            lZero: moneyLeadZeros,
-            mRound: "S",
-            nBracket: null,
-            vMax: "0",
-            vMin: "-999999999.99"
-        };
-        $('.numeric-money-negative').autoNumeric('init', NumericMoneyNegativeOptions);
+    //// .numeric-money-negaive -----------------------------------------------------------------------------------------------------------------------
+    //if ($(".numeric-money-negative").length > 0) {
+    //    var NumericMoneyNegativeOptions = {
+    //        aForm: false,
+    //        aSign: '$',
+    //        anDefault: null,
+    //        dGroup: "3",
+    //        lZero: "0",
+    //        mRound: "S",
+    //        nBracket: null,
+    //        vMax: "0",
+    //        vMin: "-999999999.99"
+    //    };
+    //    new AutoNumeric('.numeric-money-negative', NumericMoneyNegativeOptions);
 
-        // Importes negativos en rojo.
-        $(".numeric-money-negative").css("color", "#d43b30");
-        $(".numeric-money-negative").css("text-shadow", "0px 0px 1px rgba(235, 235, 235, 1)");
-    };
-
-    // .phone (Argentina) -----------------------------------------------------------------------------------------------------------------------
-    if ($(".phone").length > 0) {
-        var PhoneOptions = {
-            allowDecimalPadding: false,
-            decimalPlaces: 0,
-            digitGroupSeparator: "",
-            leadingZero: "keep",
-            maximumValue: "9999999999",
-            minimumValue: "0"
-        };
-        $('.phone').autoNumeric('init', PhoneOptions);
-    };
+    //    // Importes negativos en rojo.
+    //    $(".numeric-money-negative").css("color", "#d43b30");
+    //    $(".numeric-money-negative").css("text-shadow", "0px 0px 1px rgba(235, 235, 235, 1)");
+    //};
 
     // .select-single -------------------------------------------------------------------------------------------------------------------------------
-    if ($(".select-single").length > 0) {
-        $(".select-single").select2({
-            theme: "bootstrap"
-        });
-    }
+    //if ($(".select-single").length > 0) {
+    //    $(".select-single").select2({
+    //        theme: "bootstrap"
+    //    });
+    //}
 
-    // .select-multiple -----------------------------------------------------------------------------------------------------------------------------
-    if ($(".select-multiple").length > 0) {
-        $(".select-multiple").attr("multiple", "multiple");
-        $(".select-multiple").select2({
-            theme: "bootstrap"
-        });
-    }
+    //// .select-multiple -----------------------------------------------------------------------------------------------------------------------------
+    //if ($(".select-multiple").length > 0) {
+    //    $(".select-multiple").attr("multiple", "multiple");
+    //    $(".select-multiple").select2({
+    //        theme: "bootstrap"
+    //    });
+    //}
 
     // .date-picker ---------------------------------------------------------------------------------------------------------------------------------
     if ($(".date-picker").length > 0) {
@@ -589,19 +576,19 @@ function Init() {
         $(this).select();
     })
 
-    $('.password-check').password({
-        shortPass: 'La contraseña es demasiado corta',
-        badPass: 'Débil. Combine mayúsculas, minúsculas, números',
-        goodPass: 'Media. Incluya caracteres especiales',
-        strongPass: '',
-        containsUsername: 'La contraseña contiene el nombre de usuario',
-        enterPass: 'Ingrese la contraseña',
-        showPercent: false,
-        showText: true, // shows the text tips
-        animate: true, // whether or not to animate the progress bar on input blur/focus
-        animateSpeed: 'fast', // the above animation speed
-        username: false, // select the username field (selector or jQuery instance) for better password checks
-        usernamePartialMatch: true, // whether to check for username partials
-        minimumLength: 6 // minimum password length (below this threshold, the score is 0)
-    });
+    //$('.password-check').password({
+    //    shortPass: 'La contraseña es demasiado corta',
+    //    badPass: 'Débil. Combine mayúsculas, minúsculas, números',
+    //    goodPass: 'Media. Incluya caracteres especiales',
+    //    strongPass: '',
+    //    containsUsername: 'La contraseña contiene el nombre de usuario',
+    //    enterPass: 'Ingrese la contraseña',
+    //    showPercent: false,
+    //    showText: true, // shows the text tips
+    //    animate: true, // whether or not to animate the progress bar on input blur/focus
+    //    animateSpeed: 'fast', // the above animation speed
+    //    username: false, // select the username field (selector or jQuery instance) for better password checks
+    //    usernamePartialMatch: true, // whether to check for username partials
+    //    minimumLength: 6 // minimum password length (below this threshold, the score is 0)
+    //});
 };

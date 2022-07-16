@@ -4,9 +4,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <link href="/Content/Site.css?v=1.0" rel="stylesheet" />
     <link href="/Content/bootstrap.css" rel="stylesheet" />
-    <link href="/Content/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/Content/Site.css" rel="stylesheet" />
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/8e4807e881.js" crossorigin="anonymous"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -23,6 +23,7 @@
         }
 
         #navbar {
+            padding: 0px;
             margin-bottom: 0;
             border-bottom-color: #e7e7e7;
             border-bottom-width: 1px;
@@ -43,6 +44,7 @@
 
         .navbar-header {
             background: #7777ff;
+            text-align: end;
         }
 
         #side-menu {
@@ -60,12 +62,12 @@
 
         #content-page {
             padding: 0px;
-            padding-left:220px;
+            padding-left: 220px;
         }
 
         #iframepage {
             height: calc(100vh - 56px);
-            background: url("Content/images/logo-watermark.png") center center no-repeat;
+            //background: url("Content/images/logo-watermark.png") center center no-repeat;
         }
 
         .dropbtn {
@@ -118,6 +120,15 @@
         .navbar-right {
             margin-right: 0px;
         }
+
+        ul {
+            padding: 4px;
+        }
+
+        li {
+            padding: 4px;
+            width: -webkit-fill-available;
+        }
     </style>
 
     <%-- jQuery --%>
@@ -140,7 +151,7 @@
             <nav id="navbar" class="navbar navbar-default navbar-static-top" role="navigation">
                 <div class="navbar-header">
                     <div class="dropdown nav navbar-top-links navbar-right">
-                        <button id="btnLogout" class="dropbtn" style="margin-right: 15px;" runat="server">
+                        <button id="btnLogout" class="dropbtn" style="margin-right: 0px;" runat="server">
                             <i class="fas fa-power-off"></i>
                         </button>
                     </div>
@@ -152,9 +163,7 @@
                 </div>
 
                 <%-- Menu lateral --%>
-                <asp:UpdatePanel runat="server">
-                    <ContentTemplate>
-                        <div id="lateral-menu" class="navbar-default sidebar" style="width: 200px;" role="navigation">
+                        <div id="lateral-menu" class="navbar-default sidebar" style="margin-top:49em;" role="navigation">
                             <div class="sidebar-nav navbar-collapse">
                                 <ul id="side-menu" class="nav">
                                     <%-- Administrador --%>
@@ -169,12 +178,6 @@
                                                 <a href="Forms/__Ejemplos.aspx" class="item-menu" target="iframePage" runat="server">
                                                     <i class="fa fa-home" aria-hidden="true"></i>
                                                     <asp:Label Text="__Ejemplos" runat="server" />
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="Forms/__Ejemplos2.aspx" class="item-menu" target="iframePage" runat="server">
-                                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                                    <asp:Label Text="__Ejemplos2" runat="server" />
                                                 </a>
                                             </li>
                                             <li>
@@ -224,12 +227,10 @@
                                 </ul>
                             </div>
                         </div>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
             </nav>
             <div id="content-page" class="container-fluid">
                 <%-- Paginas --%>
-                <iframe id="iframePage" style="height:1000px; background-color:white;" name="iframePage" src="Forms\__Ejemplos.aspx" frameborder="0" width="100%" runat="server"></iframe>
+                <iframe id="iframePage" style="height: 1000px; background-color: white;" name="iframePage" src="Forms\__Ejemplos.aspx" frameborder="0" width="100%" runat="server"></iframe>
             </div>
         </div>
     </form>

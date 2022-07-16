@@ -1,17 +1,15 @@
 ﻿<%@ Page
     Title="__Ejemplos"
-    Language="C#" 
-    AutoEventWireup="true" 
-    CodeBehind="__Ejemplos.aspx.cs" 
+    Language="C#"
+    AutoEventWireup="true"
+    CodeBehind="__Ejemplos.aspx.cs"
     MasterPageFile="~/Site.Master"
-    Inherits="REApp.Forms.__Ejemplos" 
-%>
+    Inherits="REApp.Forms.__Ejemplos" %>
 
 <%--Head--%>
 <asp:Content ID="cHead" ContentPlaceHolderID="cphHead" runat="server">
     <%-- CSS --%>
     <style>
-
     </style>
 
     <%-- JS --%>
@@ -29,7 +27,7 @@
     <div class="row">
         <div class="col-12">
             <h2 class="page-header">
-                
+
                 <%-- Título --%>
                 <asp:Label ID="lblTitulo" Text="Ejemplos" runat="server" />
 
@@ -42,9 +40,12 @@
     <%-- Contenido --%>
     <div class="row">
         <div class="col-12">
+            <br />
             <div class="panel-body">
                 <div class="row">
                     <h3>TextBoxes</h3>
+                </div>
+                <div class="row">
                     <%-- Texto Plano --%>
                     <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="pnlTextoPlano">
                         <asp:Label Text="Texto Plano" runat="server" />
@@ -60,6 +61,23 @@
                         <asp:Label Text="Sólo Números Positivos" runat="server" />
                         <asp:TextBox runat="server" ID="txtSoloNumerosPositivos" Class="form-control numeric-integer-positive" />
                     </asp:Panel>
+                    <%--Clases autonumeric: (aún no funcan)
+                    numeric-only
+                    numeric-integer
+                    numeric-integer-positive
+                    numeric-integer-negative
+                    numeric-decimal
+                    numeric-decimal-positive
+                    numeric-decimal-negative
+                    numeric-money
+                    numeric-money-positive
+                    numeric-money-negative--%>
+                </div>
+                <br />
+                <div class="row">
+                    <h3>DropDownLists</h3>
+                </div>
+                <div class="row">
                     <%-- Combo Ejemplo --%>
                     <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="pnlComboEjemplo">
                         <asp:Label Text="Combo de Valores Predeterminados" runat="server" />
@@ -74,6 +92,7 @@
                         <asp:DropDownList runat="server" ID="ddlComboBD" CssClass="form-control select-single" />
                     </asp:Panel>
                 </div>
+                <br />
             </div>
         </div>
     </div>

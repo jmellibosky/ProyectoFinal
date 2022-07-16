@@ -1,1 +1,645 @@
-﻿
+﻿.page-header {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+h2 {
+    font-size: 27px;
+}
+
+#cphBody_lblTitulo {
+    font-stretch: condensed;
+    color: #535353;
+}
+
+.panel-body {
+    padding-top: 5px;
+}
+
+.panel {
+    margin-bottom: -16px;
+    background-color: whitesmoke;
+}
+
+.navbar-default {
+    border-color: #e7e7e7;
+}
+
+.btn-refresh {
+    margin-right: 10px;
+}
+
+.dataTables_wrapper {
+    margin-top: -14px;
+}
+
+.well {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: white;
+}
+
+hr {
+    margin-bottom: 10px;
+}
+/* * * * * * * * * * * * * * * * * * */
+
+body {
+    background-color: #f8f8f8;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+}
+
+#wrapper {
+    width: 100%;
+}
+
+#page-wrapper {
+    padding: 0 15px;
+    min-height: 100vh;
+    background-color: white;
+}
+
+@media (min-width: 768px) {
+    #page-wrapper {
+        position: inherit;
+        margin: 0 0 0 250px;
+        padding: 0 30px;
+        border-left: 1px solid #e7e7e7;
+    }
+}
+
+.navbar-top-links {
+    margin-right: 0;
+    font-size: 14px;
+}
+
+    .navbar-top-links li {
+        display: inline-block;
+    }
+
+        .navbar-top-links li:last-child {
+            margin-right: 15px;
+        }
+
+        .navbar-top-links li a {
+            padding: 15px;
+            min-height: 50px;
+        }
+
+    .navbar-top-links .dropdown-menu li {
+        display: block;
+    }
+
+        .navbar-top-links .dropdown-menu li:last-child {
+            margin-right: 0;
+        }
+
+        .navbar-top-links .dropdown-menu li a {
+            padding: 3px 20px;
+            min-height: 0;
+        }
+
+            .navbar-top-links .dropdown-menu li a div {
+                white-space: normal;
+            }
+
+    .navbar-top-links .dropdown-messages,
+    .navbar-top-links .dropdown-tasks,
+    .navbar-top-links .dropdown-alerts {
+        width: 310px;
+        min-width: 0;
+    }
+
+    .navbar-top-links .dropdown-messages {
+        margin-left: 5px;
+    }
+
+    .navbar-top-links .dropdown-tasks {
+        margin-left: -59px;
+    }
+
+    .navbar-top-links .dropdown-alerts {
+        margin-left: -123px;
+    }
+
+    .navbar-top-links .dropdown-user {
+        right: 0;
+        left: auto;
+        background-color: white;
+    }
+
+.sidebar {
+    font-size: 13px;
+}
+
+    .sidebar .sidebar-nav.navbar-collapse {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .sidebar .sidebar-search {
+        padding: 15px;
+    }
+
+    .sidebar ul li {
+        border-bottom: 1px solid #e7e7e7;
+    }
+
+        .sidebar ul li a.active {
+            background-color: transparent;
+        }
+
+    .sidebar .arrow {
+        float: right;
+    }
+
+    .sidebar .fa.arrow:before {
+        content: "\f104";
+    }
+
+    .sidebar [data-option="on"] > .fa.arrow:before {
+        content: "\f107";
+    }
+
+    .sidebar .nav-second-level li,
+    .sidebar .nav-third-level li,
+    .sidebar .nav-fourth-level li,
+    .sidebar .nav-fifth-level li {
+        border-bottom: none !important;
+    }
+
+        .sidebar .nav-second-level li a {
+            padding-left: 37px;
+        }
+
+        .sidebar .nav-third-level li a {
+            padding-left: 52px;
+        }
+
+        .sidebar .nav-fourth-level li a {
+            padding-left: 67px;
+        }
+
+        .sidebar .nav-fifth-level li a {
+            padding-left: 82px;
+        }
+
+@media (min-width: 768px) {
+    .sidebar {
+        z-index: 1;
+        position: absolute;
+        width: 250px;
+        margin-top: 51px;
+    }
+
+    .navbar-top-links .dropdown-messages,
+    .navbar-top-links .dropdown-tasks,
+    .navbar-top-links .dropdown-alerts {
+        margin-left: auto;
+    }
+}
+
+.btn-outline {
+    color: inherit;
+    background-color: transparent;
+    transition: all .5s;
+}
+
+.btn-primary.btn-outline {
+    color: #428bca;
+}
+
+.btn-success.btn-outline {
+    color: #5cb85c;
+}
+
+.btn-info.btn-outline {
+    color: #5bc0de;
+}
+
+.btn-warning.btn-outline {
+    color: #f0ad4e;
+}
+
+.btn-danger.btn-outline {
+    color: #d9534f;
+}
+
+    .btn-primary.btn-outline:hover,
+    .btn-success.btn-outline:hover,
+    .btn-info.btn-outline:hover,
+    .btn-warning.btn-outline:hover,
+    .btn-danger.btn-outline:hover {
+        color: white;
+    }
+
+.login-panel {
+    margin-top: 35px;
+}
+
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled {
+    background: transparent;
+}
+
+    table.dataTable thead .sorting_asc:after {
+        content: "\f0de";
+        float: right;
+        font-family: fontawesome;
+    }
+
+    table.dataTable thead .sorting_desc:after {
+        content: "\f0dd";
+        float: right;
+        font-family: fontawesome;
+    }
+
+    table.dataTable thead .sorting:after {
+        content: "\f0dc";
+        float: right;
+        font-family: fontawesome;
+        color: rgba(50, 50, 50, 0.5);
+    }
+
+.show-grid [class^="col-"] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #ddd;
+    background-color: #eee !important;
+}
+
+.show-grid {
+    margin: 15px 0;
+}
+
+.panel-green {
+    border-color: #5cb85c;
+}
+
+    .panel-green > .panel-heading {
+        border-color: #5cb85c;
+        color: white;
+        background-color: #5cb85c;
+    }
+
+    .panel-green > a {
+        color: #5cb85c;
+    }
+
+        .panel-green > a:hover {
+            color: #3d8b3d;
+        }
+
+.panel-red {
+    border-color: #d9534f;
+}
+
+    .panel-red > .panel-heading {
+        border-color: #d9534f;
+        color: white;
+        background-color: #d9534f;
+    }
+
+    .panel-red > a {
+        color: #d9534f;
+    }
+
+        .panel-red > a:hover {
+            color: #b52b27;
+        }
+
+.panel-yellow {
+    border-color: #f0ad4e;
+}
+
+    .panel-yellow > .panel-heading {
+        border-color: #f0ad4e;
+        color: white;
+        background-color: #f0ad4e;
+    }
+
+    .panel-yellow > a {
+        color: #f0ad4e;
+    }
+
+        .panel-yellow > a:hover {
+            color: #df8a13;
+        }
+
+/* Estilos personalizados - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+/* RequiredFieldValidators */
+.empty-required-field-validator {
+    color: #d9534f;
+    font-size: small;
+    visibility: hidden;
+}
+
+.required-field-validator {
+    color: #d9534f;
+    font-size: small;
+}
+
+/* Cursor sobre las dataTables */
+.grid-view {
+    cursor: pointer;
+    border-radius: 3px;
+    display: none;
+}
+
+/* Columna CryptoID invisible */
+.crypto-id-column {
+    display: none;
+}
+
+/* Fila CryptoID invisible */
+.crypto-id li:nth-child(1) {
+    display: none;
+}
+
+/* Clase text-capital */
+.text-capital {
+    text-transform: capitalize;
+}
+
+/* Clase text-upper */
+.text-upper {
+    text-transform: uppercase;
+}
+
+/* Clase text-lower */
+.text-lower {
+    text-transform: lowercase;
+}
+
+/* Titulos 3 */
+h3 {
+    margin: 15px 0px 10px !important;
+}
+
+/* Clase bottom-buttons (volver al listado, restablecer y guardar) */
+.bottom-buttons {
+    padding-bottom: 20px;
+    width: 100%;
+    height: 50px;
+}
+
+.btn-models {
+    float: left;
+}
+
+.btns-reset-save {
+    float: right;
+}
+
+/* Tabla checheable */
+.checkable {
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+    .checkable > tbody > tr:nth-child(1) > th:nth-child(1) {
+        display: none;
+    }
+
+    .checkable > tbody > tr > td:nth-child(1) {
+        display: none;
+    }
+
+/* Control File Uploader sin boton subir */
+.fileinput-upload-button {
+    display: none;
+}
+
+.form-control {
+    font-size: 12px;
+    height: 29px;
+}
+
+.btn {
+    height: 29px;
+    padding-top: 3px;
+}
+
+.form-group {
+    margin-bottom: 7px;
+    padding-right: 7px;
+    padding-left: 7px;
+}
+
+    /* Las etiquetas de los controles que desbordan el div horizontalmente se completan con ... */
+    .form-group > label {
+        height: 17px;
+        overflow: hidden;
+        float: inherit;
+        white-space: nowrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+        margin-bottom: 0px;
+    }
+
+.input-group {
+    display: inline-table !important;
+}
+
+/* Div para contener labels usadas para mostrar infomación estática */
+.control-div-static {
+    margin-top: 17px;
+    border-width: 1px;
+    padding: 2px;
+    border-radius: 3px;
+    background-color: whitesmoke;
+    border-color: #cccccc;
+    height: 29px;
+    text-align: inherit;
+    padding-top: 6px;
+    padding-left: 10px;
+}
+
+/* Radios 15% mas grandes */
+input[type=radio] {
+    -ms-transform: scale(1.25); /* IE */
+    -moz-transform: scale(1.25); /* FF */
+    -webkit-transform: scale(1.25); /* Safari and Chrome */
+    -o-transform: scale(1.25); /* Opera */
+    padding: 0px !important;
+    margin: 2px !important;
+}
+
+    input[type=radio] + span {
+        margin-left: 20px !important;
+    }
+
+.radio-inline .aspNetDisabled {
+    margin-right: 20px !important;
+}
+
+.radio .aspNetDisabled {
+    margin-right: 20px !important;
+}
+
+/* Select 2 */
+.select2 {
+    width: 100% !important;
+    height: 29px;
+    font-size: 12px;
+    text-align: left;
+}
+
+.select2-selection {
+    height: 29px !important;
+    min-height: 29px !important;
+    font-size: 12px;
+}
+
+.select2-selection__rendered {
+    height: 29px !important;
+    padding-top: 1px !important;
+    min-height: 29px !important;
+    font-size: 12px;
+}
+
+/* Select2 multiple items seleccionados centrados verticalmente */
+.select2-selection__choice {
+    margin-top: 2px !important;
+    font-size: 12px;
+}
+
+.inline-edit td {
+    text-align: center !important;
+    vertical-align: bottom !important;
+}
+
+.inline-edit td {
+    text-align: center !important;
+    vertical-align: bottom !important;
+}
+
+
+/* Bordes en los divs que contienen los tabs de bootstrap */
+.tab-content {
+    border-left-width: 1px;
+    border-left-color: #ddd;
+    border-left-style: solid;
+    border-right-width: 1px;
+    border-right-color: #ddd;
+    border-right-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #ddd;
+    border-bottom-style: solid;
+    overflow: auto;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+/* Botones de exportacion de las tablas */
+.dt-buttons {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+div.col-lg-12.text-center {
+    background: whitesmoke;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: #dddddd;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #dddddd;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #dddddd;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+
+/* Color de fondo en el tab activo */
+li.active > a {
+    background-color: rgb(254,254,254) !important;
+}
+
+div.tab-content {
+    background-color: rgb(254,254,254) !important;
+}
+
+/* Scrollbars con onda */
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgb(221, 221, 221);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: darkgray;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: gray;
+    }
+
+
+
+ul > li.paginate_button.active > a {
+    color: #337ab7;
+    font-weight: bold;
+}
+
+    ul > li.paginate_button.active > a:hover {
+        color: #337ab7;
+    }
+
+.switchery {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: -2px;
+}
+
+.pass-strength-visible input.form-control,
+input.form-control:focus {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.pass-strength-visible .pass-graybar,
+.pass-strength-visible .pass-colorbar,
+.form-control:focus + .pass-wrapper .pass-graybar,
+.form-control:focus + .pass-wrapper .pass-colorbar {
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.pass-text {
+    color: #555;
+    font-size: 10px;
+}
+
+.data-security {
+    margin-left: 5px;
+    margin-right: 3px;
+    color: purple;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

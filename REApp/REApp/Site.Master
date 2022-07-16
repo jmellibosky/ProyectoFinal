@@ -19,7 +19,7 @@
 
     <%--PLUGINS--%>
     <script src="../Scripts/jquery-3.4.1.js"></script>
-    <script src="../Scripts/select2.min.js"></script>
+    <script src="../Scripts/Select2/select2.min.js"></script>
     <script src="../Scripts/jscolor.js"></script>
     <script src="../Scripts/switchery.min.js"></script>
     <script src="../Scripts/datepicker.min.js"></script>
@@ -27,8 +27,14 @@
     <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/sweetalert.min.js"></script>
     <script src="../Scripts/geocomplete.min.js"></script>
-    <script src="../Scripts/autonumeric.min.js"></script>
-    <script src="../Scripts/pages.js"></script>
+    <script src="../Scripts/Autonumeric/autonumeric.min.js"></script>
+    <script src="../Scripts/pages.js?v=1.5"></script>
+
+    <script>
+        $(document).ready(function () {
+            Init();
+        });
+    </script>
 
     <asp:ContentPlaceHolder ID="cphHead" runat="server">
     </asp:ContentPlaceHolder>
