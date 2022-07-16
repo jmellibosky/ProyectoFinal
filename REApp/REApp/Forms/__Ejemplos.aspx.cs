@@ -22,7 +22,7 @@ namespace REApp.Forms
 
             // Si queremos un valor predeterminado
             ddlComboBD.Items.Add(new ListItem("Todos", "#"));
-            using (SP sp = new SP("ProyectoFinal"))
+            using (SP sp = new SP("bd_reapp"))
             {
                 DataTable dt = sp.Execute("usp_GetComboActividad");
                 for (int i = 0; i < dt.Rows.Count; i++)
