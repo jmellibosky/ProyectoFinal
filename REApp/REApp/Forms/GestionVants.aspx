@@ -70,7 +70,7 @@
                 </h1>
             </div>
 
-            <%-- Tabla VANTS --%>
+<%--            Tabla VANTS 
             <div class="container" margin-left="50px">
             <button class="button" type="button" title="Agregar"> <i class="fa-solid fa-square-plus"></i> &ensp; Agregar</button>
             </div>
@@ -104,7 +104,51 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>--%>
+
+            <div class="container justify-content-center" style="margin-left:350px;" >
+            <%--Generacion de GridView--%>
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed table-responsive table-hover"
+             Height="500px" Width="800px">  
+            <AlternatingRowStyle BackColor="white" />
+            <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+            <RowStyle BackColor="#e1dddd" />
+            <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+
+                <Columns>  
+                    <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                    <asp:BoundField DataField="IdVant" HeaderText="Id" />
+                    <asp:BoundField DataField="Nombre" HeaderText="Marca" /> <%--Vant.IdMarcaVant=MarcaVant.IdMarcaVant--%>
+                    <asp:BoundField DataField="Nombre" HeaderText="Tipo" /> <%--Vant.IdTipoVant=TipoVant.IdTipoVant--%>
+                    <asp:BoundField DataField="Modelo" HeaderText="Modelo" />
+                    <asp:BoundField DataField="FHAlta" HeaderText="Fecha Alta" />             
+                    <asp:BoundField DataField="FHBaja" HeaderText="Fecha Baja" />
+
+
+                    <%--Boton para editar vant de la BD ---- VER SI SE ABRE NUEVA PANTALLA O COMO SE EDITA--%>
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" ControlStyle-Width="75px">  
+                        <ItemTemplate>  
+                            <asp:LinkButton ID="lnkActualizarVant" runat="server" ><%--OnClick="lnkActualizarVant_Click"
+                            CommandArgument='<%# Eval("IdVant") %>'--%> 
+                                <i class="fa fa-pencil" aria-hidden="true"></i> <br />Actualizar
+                            </asp:LinkButton>  
+                        </ItemTemplate>  
+                    </asp:TemplateField> 
+
+                    <%--Boton para eliminar archivo de la BD--%>
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" ControlStyle-Width="75px">  
+                        <ItemTemplate>  
+                            <asp:LinkButton ID="lnkEliminarVant" runat="server" OnClick="lnkEliminarVant_Click"
+                            CommandArgument='<%# Eval("IdVant") %>'>
+                                <i class="fa fa-trash" aria-hidden="true"></i> <br />Eliminar
+                            </asp:LinkButton>  
+                        </ItemTemplate>  
+                    </asp:TemplateField>  
+
+                </Columns>  
+            </asp:GridView>
             </div>
+
 
 
         </div>
