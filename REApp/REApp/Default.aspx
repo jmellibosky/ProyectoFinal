@@ -194,7 +194,7 @@
                                             </li>
                                             <li>
                                                 <a href="Forms/GestionTripulantes.aspx" class="item-menu" target="iframePage" runat="server">
-                                                    <i class="fas fa-list" aria-hidden="true"></i>
+                                                    <i class="fas fa-users" aria-hidden="true"></i>
                                                     <asp:Label Text="Gestión de Tripulación" runat="server" />
                                                 </a>
                                             </li>

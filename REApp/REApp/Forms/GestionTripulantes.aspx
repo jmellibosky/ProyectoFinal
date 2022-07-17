@@ -29,9 +29,13 @@
             <h2 class="page-header">
                 <asp:Label ID="lblTitulo" Text="Gestión de Tripulantes" runat="server" />
 
-                <div style="text-align:end;">
-                    <asp:Button ID="btnNuevo" Text="Nuevo" CssClass="btn btn-primary" runat="server" OnClick="btnNuevo_Click" />
-                    <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info" runat="server" OnClick="btnVolver_Click" />
+                <div style="text-align: end;">
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <asp:Button ID="btnNuevo" Text="Nuevo" CssClass="btn btn-primary" runat="server" OnClick="btnNuevo_Click" />
+                            <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info" runat="server" OnClick="btnVolver_Click" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
             </h2>
         </div>
@@ -58,20 +62,16 @@
                             </div>
                             <br />
                             <div class="row">
-                                <asp:UpdatePanel ID="upTripulantes" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                                <asp:UpdatePanel ID="upTripulantes" Style="width: 100%;" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                                     <ContentTemplate>
                                         <asp:GridView
                                             ID="gvTripulantes"
                                             runat="server"
-                                            OnRowDataBound="gvTripulantes_RowDataBound"
                                             OnRowCommand="gvTripulantes_RowCommand"
                                             AutoGenerateColumns="false"
                                             EmptyDataText="No hay datos."
-                                            Width="100%"
-                                            CssClass="data-table crypto-id show-buttons">
+                                            Width="100%">
                                             <Columns>
-                                                <asp:BoundField />
-                                                <asp:BoundField HeaderText="#" DataField="IdTripulacion" HeaderStyle-CssClass="crypto-id-column" />
                                                 <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                                                 <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
                                                 <asp:BoundField HeaderText="DNI" DataField="DNI" />
@@ -79,14 +79,14 @@
                                                 <asp:TemplateField HeaderText="Ver Detalles">
                                                     <ItemTemplate>
                                                         <asp:LinkButton ID="btnVerDetalle" CommandName="Detalle" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
-                                                            <i class="fa fa-info-circle" />    
+                                                            <i class="fa fa-info-circle" aria-hidden="true" />    
                                                         </asp:LinkButton>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Eliminar">
                                                     <ItemTemplate>
                                                         <asp:LinkButton ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
-                                                            <i class="fa fa-times" />    
+                                                            <i class="fa fa-times" aria-hidden="true" />    
                                                         </asp:LinkButton>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
@@ -155,8 +155,11 @@
                                                 <asp:TextBox runat="server" ID="txtModalCorreo" CssClass="form-control" />
                                             </asp:Panel>
                                         </div>
+                                        <hr />
                                         <div class="row">
-                                            <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" OnClick="btnGuardar_Click" />
+                                            <div style="justify-content:center;">
+                                                <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" OnClick="btnGuardar_Click" />
+                                            </div>
                                         </div>
                                     </div>
                                 </ContentTemplate>
