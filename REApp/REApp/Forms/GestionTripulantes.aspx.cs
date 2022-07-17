@@ -19,7 +19,7 @@ namespace REApp.Forms
         protected void CargarComboSolicitante()
         {
             ddlSolicitante.Items.Clear();
-            using (SP sp = new SP("ProyectoFinal"))
+            using (SP sp = new SP("bd_reapp"))
             {
                 DataTable dt = new UsuarioController().GetComboSolicitante();
                 for (int i = 0; i < dt.Rows.Count; i++)
@@ -31,7 +31,7 @@ namespace REApp.Forms
         protected void CargarComboModalSolicitante()
         {
             ddlModalSolicitante.Items.Clear();
-            using (SP sp = new SP("ProyectoFinal"))
+            using (SP sp = new SP("bd_reapp"))
             {
                 DataTable dt = new UsuarioController().GetComboSolicitante();
                 for (int i = 0; i < dt.Rows.Count; i++)
@@ -44,7 +44,7 @@ namespace REApp.Forms
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
             DataTable dt = null;
-            using (SP sp = new SP("ProyectoFinal"))
+            using (SP sp = new SP("bd_reapp"))
             {
                 if (!ddlSolicitante.SelectedValue.Equals("#"))
                 {
@@ -88,7 +88,7 @@ namespace REApp.Forms
             }
             else
             { // Eliminar
-                using (SP sp = new SP("ProyectoFinal"))
+                using (SP sp = new SP("bd_reapp"))
                 {
                     sp.Execute("usp_DarDeBajaTripulacionUsuario",
                         P.Add("IdTripulacion", Tripulacion.IdTripulacion),
@@ -103,7 +103,7 @@ namespace REApp.Forms
             Models.Tripulacion Tripulacion = null;
             if (hdnIdTripulacion.Value.Equals(""))
             { // Insert
-                using (Tn tn = new Tn("ProyectoFinal"))
+                using (Tn tn = new Tn("bd_reapp"))
                 {
                     Tripulacion = new Models.Tripulacion();
                     Tripulacion.Nombre = txtModalNombre.Text;

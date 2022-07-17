@@ -7,7 +7,7 @@ namespace REApp
         public DataTable GetComboSolicitante()
         {
             DataTable dt = null;
-            using (SP sp = new SP("ProyectoFinal"))
+            using (SP sp = new SP("bd_reapp"))
             {
                 dt = sp.Execute("usp_GetComboUsuariosSolicitantes");
             }
