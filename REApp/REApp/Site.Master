@@ -28,7 +28,7 @@
     <script src="../Scripts/sweetalert.min.js"></script>
     <script src="../Scripts/geocomplete.min.js"></script>
     <script src="../Scripts/Autonumeric/autonumeric.min.js"></script>
-    <script src="../Scripts/pages.js?v=1.5"></script>
+    <script src="../Scripts/pages.js?v=1.6"></script>
 
     <script>
         $(document).ready(function () {
