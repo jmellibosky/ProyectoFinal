@@ -223,6 +223,12 @@
                                                 </a>
                                             </li>
                                             <li>
+                                                <a href="Forms/FileUpload.aspx" class="item-menu" target="iframePage" runat="server">
+                                                    <i class="fas fa-file-archive"></i>
+                                                    <asp:Label Text="Archivos" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
                                                 <a runat="server" id="lnkParametrizacion">
                                                     <i class="fa fa-cog" aria-hidden="true"></i>
                                                     <asp:Label Text="Parametrización" runat="server" />

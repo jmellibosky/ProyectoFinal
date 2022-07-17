@@ -15,27 +15,15 @@
     <form id="form1" runat="server">
 
          <h1 class="row justify-content-center">
-             <label class="form-label mt-2" style="margin-left:350px;">Subida de Archivos</label>
-         </h1>
+             <label class="fw-normal mb-3 pb-2">Subida de Archivos</label>
+        </h1>
 
-         <%--Subida de Archivo--%>
-        <div class="container" style=" border: solid 2px black;"">
-            <h1 class="row justify-content-center">
-                <label class="fw-normal mb-3 pb-2">(subida)</label>
-            </h1>
-            <br/><br/>
-            <asp:FileUpload ID="FileUpload1" runat="server" />
-            <br />
-            <asp:Button ID="Upload" runat="server" Text="Subir Archivo" OnClick="Upload_Click" CssClass="btn btn-dark"/>
-            <br/><br/>
-            <asp:Label ID="LbArchivo" runat="server" Text=""></asp:Label>
-        </div>
 
         <%-- Mostrar Archivos--%>
-        <div class="container justify-content-center" style="margin-left:350px;" >
+        <div class="container justify-content-center" style="margin-left:150px;" >
             <%--Generacion de GridView--%>
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed table-responsive table-hover"
-             Height="500px" Width="800px">  
+             Height="500px" Width="900px">  
             <AlternatingRowStyle BackColor="white" />
             <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
             <RowStyle BackColor="#e1dddd" />
@@ -64,7 +52,7 @@
                         <ItemTemplate>  
                             <asp:LinkButton ID="lnkEliminarArchivo" runat="server" OnClick="lnkEliminarArchivo_Click"
                             CommandArgument='<%# Eval("IdDocumento") %>'>
-                                <i class="fa fa-trash" aria-hidden="true"></i> Eliminar
+                                <i class="fa fa-trash" aria-hidden="true" style='font-size:24px;'></i> Eliminar
                             </asp:LinkButton>  
                         </ItemTemplate>  
                     </asp:TemplateField>  
@@ -72,6 +60,16 @@
                 </Columns>  
             </asp:GridView>
             </div>
+
+         <%--Subida de Archivo--%>
+        <div class="row justify-content-center">
+            <br/><br/>
+            <asp:FileUpload ID="FileUpload1" runat="server" />
+            <br/>
+            <asp:Button ID="Upload" runat="server" Text="Subir Archivo" OnClick="Upload_Click" CssClass="btn btn-dark"/>
+            <br/><br/>
+            <asp:Label ID="LbArchivo" runat="server" Text=""></asp:Label>
+        </div>
 
     </form>
 </body>
