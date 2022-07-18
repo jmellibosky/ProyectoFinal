@@ -13,33 +13,114 @@ namespace REApp.Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //CargarComboBD();
+            cargarGvUsuarios();
         }
 
-        //protected void CargarComboBD()
-        //{
-        //    ddlComboBD.Items.Clear();
+        //Carga de datos
 
-        //    // Si queremos un valor predeterminado
-        //    ddlComboBD.Items.Add(new ListItem("Todos", "#"));
-        //    using (SP sp = new SP("bd_reapp"))
-        //    {
-        //        DataTable dt = sp.Execute("usp_GetComboActividad");
-        //        for (int i = 0; i < dt.Rows.Count; i++)
-        //        {
-        //            ddlComboBD.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdActividad"].ToString().ToInt().ToCryptoID()));
-        //        }
-        //    }
-        //}
+        protected void cargarGvUsuarios()
+        {
+            DataTable dt = null;
+            using (SP sp = new SP("bd_reapp"))
+            {
 
-        //protected void gvGrilla_RowDataBound(object sender, GridViewRowEventArgs e)
-        //{
-        //    if (e.Row.RowType == DataControlRowType.DataRow)
-        //    {
-        //        // Convierte el Id del modelo en CryptoID.
-        //        string plainId = e.Row.Cells[1].Text;
-        //        e.Row.Cells[1].Text = plainId.ToInt().ToCryptoID();
-        //    }
-        //}
+                dt = sp.Execute("usp_GetUsuariosRol");
+
+            }
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                gvUsuarios.DataSource = dt;
+            }
+            else
+            {
+                gvUsuarios.DataSource = null;
+            }
+            gvUsuarios.DataBind();
+
+        }
+
+
+        protected void gvUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+            //int IdUsuario = e.CommandArgument.ToString().ToInt();
+            Models.Usuario Usuario = new Models.Usuario().Select(3);
+
+            if (e.CommandName.Equals("DisplayUser"))
+            {
+                MostrarUsuario(Usuario);
+            }
+            else if (e.CommandName.Equals("UpdateUser"))
+            {
+                ModificarUsuario(Usuario);
+            }
+            else
+            {
+                EliminarUsuario(Usuario);
+            }
+
+            OcultarGv();
+            
+        }
+
+        //Alta Usuario
+
+        protected void btnNuevoUsuario()
+        {
+
+        }
+
+        protected void btnAgregarUsuario()
+        {
+
+        }
+
+        //Eliminar Usuario
+        protected void EliminarUsuario(Models.Usuario Usuario)
+        {
+            using (SP sp = new SP("bd_reapp"))
+            {
+                sp.Execute("usp_DeleteUser",
+                    P.Add("IdUsuario", Usuario.IdUsuario)
+                );
+            }
+        }
+
+        //Modificar Usuario
+        protected void ModificarUsuario(Models.Usuario Usuario)
+        {
+            using (SP sp = new SP("bd_reapp"))
+            {
+                sp.Execute("usp_UpdateUser",
+                    P.Add("IdUsuario", Usuario.IdUsuario)
+                );
+            }
+        }
+
+        //Mostrar Usuario
+        protected void MostrarUsuario(Models.Usuario Usuario)
+        {
+            //hdnIdTripulacion.Value = IdUsuario.ToString();
+            //txtModalApellido.Text = Usuario.Apellido;
+            //txtModalNombre.Text = Tripulacion.Nombre;
+            //txtModalDNI.Text = Tripulacion.DNI;
+            //txtModalFechaNacimiento.Text = Tripulacion.FechaNacimiento.ToString();
+            //txtModalTelefono.Text = Tripulacion.Telefono;
+            //txtModalCorreo.Text = Tripulacion.Correo;
+
+            //MostrarABM();
+        }
+
+        //Visualización
+        protected void MostrarAbmUsuarios()
+        {
+
+        }
+
+        protected void OcultarGv()
+        {
+            pnlListado.Visible = false;
+        }
+
     }
 }

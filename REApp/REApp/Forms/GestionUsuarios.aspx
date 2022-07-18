@@ -95,20 +95,27 @@
 <%-- Body --%>
 <asp:Content ID="cBody" ContentPlaceHolderID="cphBody" runat="server">
 
+  
     <%-- Encabezado --%>
     <div class="row">
         <div class="col-12">
             <h2 class="page-header">
+                <asp:Label ID="Label1" Text="Gestión de Usuarios" runat="server" />
 
-                <%-- Título --%>
-                <asp:Label ID="lblTitulo" Text="Gestión de Usuarios" runat="server" class="text-center"/>
-
+                <div style="text-align: end;">
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <asp:Button ID="btnNuevo" Text="Nuevo" CssClass="btn btn-primary" runat="server" />
+                            <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info" runat="server" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
             </h2>
         </div>
-        </div>
+    </div>
 
     <%-- Contenido --%>
-    <div class="container" style="margin-top:10px;" id="griviewUsers" >
+    <div class="container" style="margin-top:10px;" id="griviewUsers" visible="false">
 
         <div class="row">
             <h3>Listado de Usuarios</h3>
@@ -119,8 +126,9 @@
                             <th class="text-center" width="50px">ID</th>
                             <th class="text-center">Nombre</th>
                             <th class="text-center">Tipo</th>
-                            <th class="text-center">Estado</th>
+                            <th class="text-center" width="20px">Estado</th>
                             <th class="text-center">DNI</th>
+                            <th class="text-center">Mail</th>
                             <th class="text-center text-nowrap">Acciones</th>
                         </tr>
                     </thead>
@@ -129,8 +137,9 @@
                             <td class="text-center">1</td>
                             <td class="text-center">Franco</td>
                             <td class="text-center">Administrador</td>
-                            <td class="text-center">Activo</td>
+                            <td class="text-center" width="20px">Activo</td>
                             <td class="text-center">41294371</td>
+                            <td class="text-center">aa@aa.com</td>
                             <td class="text-center">
                                 <button class="button" type="button"  title="Eliminar">
                                     <i class="fa-solid fa-eye"></i>
@@ -258,5 +267,64 @@
         <%-- Botón No Guardar --%>
         <button class="button" type="button" title="NoGuardar" onclick="hide('UpdateUser');display('griviewUsers')"> <i class="fa-solid fa-xmark"></i> &ensp; Cancelar</button>
     </div>
+
+    <%-- ejemplo Joaquin --%>
+    <asp:UpdatePanel ID="upForm" runat="server" Visible="true">
+        <%-- Contenido --%>
+        <ContentTemplate>
+            <%-- Grilla Usuarios --%>
+            <asp:Panel ID="pnlListado" runat="server" Visible="true">
+                <div class="row" visible="true">
+                    <div class="col-12" visible="true">
+                        <br />
+                        <div class="panel-body" visible="true">
+                            <br />
+                            <div class="row" visible="true">
+                                <asp:UpdatePanel ID="upUsuarios" Style="width: 100%;" runat="server" ChildrenAsTriggers="true" UpdateMode="Conditional" Visible="true">
+                                    <ContentTemplate>
+                                        <asp:GridView Visible="true" CssClass="text-center"
+                                            ID="gvUsuarios"
+                                            runat="server"
+                                            OnRowCommand="gvUsuarios_RowCommand"
+                                            AutoGenerateColumns="false"
+                                            EmptyDataText="No hay datos."
+                                            Width="100%">
+                                            <Columns>
+                                                <asp:BoundField HeaderText="IdUsuario" DataField="IdUsuario" />
+                                                <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
+                                                <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
+                                                <asp:BoundField HeaderText="DNI" DataField="DNI" />
+                                                <asp:BoundField HeaderText="Email" DataField="Email"/>
+                                                <asp:BoundField HeaderText="Telefono" DataField="Telefono" />
+                                                <asp:BoundField HeaderText="NombreRol" DataField="NombreRol" />
+                                                <asp:TemplateField HeaderText="Acciones" >
+                                                    <ItemTemplate>
+                                                        <%-- Botón Mostrar Usuario --%>
+                                                        <asp:LinkButton ID="btnDisplayUser" CommandName="DisplayUser" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
+                                                            <i class="fa-solid fa-eye"></i>    
+                                                        </asp:LinkButton>
+                                                        <%-- Botón Modificar Usuario --%>
+                                                        <asp:LinkButton ID="btnUpdateUser" CommandName="UpdateUser" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
+                                                            <i class="fa-solid fa-pen"></i> 
+                                                        </asp:LinkButton>
+                                                        <%-- Botón Eliminar Usuario --%>
+                                                        <asp:LinkButton ID="btnDeleteUser" CommandName="DeleteUser" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
+                                                            <i class="fa-solid fa-trash"></i>    
+                                                        </asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </asp:Panel>
+            <%-- ABM Usuarios --%>
+           
+        </ContentTemplate>
+    </asp:UpdatePanel>
 
 </asp:Content>

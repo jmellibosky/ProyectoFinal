@@ -67,7 +67,7 @@
 
         #iframepage {
             height: calc(100vh - 56px);
-            //background: url("Content/images/logo-watermark.png") center center no-repeat;
+            background: url("Content/images/logo-watermark.png") center center no-repeat;
         }
 
         .dropbtn {
@@ -199,7 +199,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a runat="server" id="lnkGestionUsuarios">
+                                                <a href="Forms/GestionUsuarios.aspx" class="item-menu" runat="server" target="iframePage">
                                                     <i class="fas fa-user" aria-hidden="true"></i>
                                                     <asp:Label Text="Gestión de Usuarios" runat="server" />
                                                 </a>
