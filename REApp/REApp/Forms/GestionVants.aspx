@@ -70,41 +70,6 @@
                 </h1>
             </div>
 
-<%--            Tabla VANTS 
-            <div class="container" margin-left="50px">
-            <button class="button" type="button" title="Agregar"> <i class="fa-solid fa-square-plus"></i> &ensp; Agregar</button>
-            </div>
-            
-            <div class="container" style="margin-top:10px;" >
-
-                <table class="table table-striped table-hover">
-                  <thead>
-                        <tr>
-                            <th class="text-center" width="50px">ID</th>
-                            <th class="text-center">Marca</th>
-                            <th class="text-center">Tipo</th>
-                            <th class="text-center">Modelo</th>
-                            <th class="text-center text-nowrap">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">Id</td>
-                            <td class="text-center">IdMarcaVant</td>
-                            <td class="text-center">IdTipoVant </td>
-                            <td class="text-center">Modelo</td>
-                            <td>
-                                <button class="button" type="button"  title="Editar">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-							    <button class="button" type="button"  title="Eliminar">
-                                    <i class="fa-solid fa-trash"></i>
-                     		    </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>--%>
 
             <div class="container justify-content-center" style="margin-left:350px;" >
             <%--Generacion de GridView--%>

@@ -127,6 +127,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Forms\FileUpload.aspx" />
+    <Content Include="Forms\GestionUsuarios.aspx" />
     <Content Include="Forms\GestionVants.aspx" />
     <Content Include="Forms\UserForgotPassword.aspx" />
     <Content Include="Forms\UserLogin.aspx" />
@@ -277,6 +278,13 @@
     </Compile>
     <Compile Include="Forms\FileUpload.aspx.designer.cs">
       <DependentUpon>FileUpload.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GestionUsuarios.aspx.cs">
+      <DependentUpon>GestionUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\GestionUsuarios.aspx.designer.cs">
+      <DependentUpon>GestionUsuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\GestionVants.aspx.cs">
       <DependentUpon>GestionVants.aspx</DependentUpon>

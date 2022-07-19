@@ -163,7 +163,7 @@
                 </div>
 
                 <%-- Menu lateral --%>
-                        <div id="lateral-menu" class="navbar-default sidebar" style="margin-top:49em;" role="navigation">
+                        <div id="lateral-menu" class="navbar-default sidebar" style="margin-top:100vh;" role="navigation">
                             <div class="sidebar-nav navbar-collapse">
                                 <ul id="side-menu" class="nav">
                                     <%-- Administrador --%>
@@ -174,12 +174,12 @@
                                             </strong>
                                         </a>
                                         <ul class="nav nav-second-level">
-                                            <li>
+<%--                                            <li>
                                                 <a href="Forms/__Ejemplos.aspx" class="item-menu" target="iframePage" runat="server">
                                                     <i class="fa fa-home" aria-hidden="true"></i>
                                                     <asp:Label Text="__Ejemplos" runat="server" />
                                                 </a>
-                                            </li>
+                                            </li>--%>
                                             <li>
                                                 <a runat="server" id="lnkHomeAdministrador">
                                                     <i class="fa fa-home" aria-hidden="true"></i>
@@ -205,7 +205,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a runat="server" id="lnkGestionVehiculos">
+                                                <a href="Forms/GestionVants.aspx" class="item-menu"  runat="server" id="lnkGestionVehiculos" target="iframePage">
                                                     <i class="fas fa-plane" aria-hidden="true"></i>
                                                     <asp:Label Text="Gestión de Vehículos Aéreos" runat="server" />
                                                 </a>
@@ -242,7 +242,7 @@
             </nav>
             <div id="content-page" class="container-fluid">
                 <%-- Paginas --%>
-                <iframe id="iframePage" style="height: 1000px; background-color: white;" name="iframePage" src="Forms\__Ejemplos.aspx" frameborder="0" width="100%" runat="server"></iframe>
+                <iframe id="iframePage" style="height: 1000px; background-color: white;" name="iframePage" src="Forms\GestionTripulantes.aspx" frameborder="0" width="100%" runat="server"></iframe>
             </div>
         </div>
     </form>
