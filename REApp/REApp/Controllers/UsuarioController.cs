@@ -13,5 +13,25 @@ namespace REApp
             }
             return dt;
         }
+
+        public DataTable GetComboMarcaVant()
+        {
+            DataTable dt = null;
+            using (SP sp = new SP("bd_reapp"))
+            {
+                dt = sp.Execute("usp_GetComboMarcaVant");
+            }
+            return dt;
+        }
+
+        public DataTable GetComboTipoVant()
+        {
+            DataTable dt = null;
+            using (SP sp = new SP("bd_reapp"))
+            {
+                dt = sp.Execute("usp_GetComboTipoVant");
+            }
+            return dt;
+        }
     }
 }

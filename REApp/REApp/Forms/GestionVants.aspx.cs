@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using MagicSQL;
+using REApp.Models;
 
 namespace REApp.Forms
 {
@@ -14,80 +16,156 @@ namespace REApp.Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindGrid();
+            cargarGvVants();
         }
 
-        protected void BindGrid()
+        protected void cargarGvVants()
         {
-            string constr = ConfigurationManager.ConnectionStrings["bd_reapp"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(constr))
+            DataTable dt = null;
+            using (SP sp = new SP("bd_reapp"))
             {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "Select Vant.IdVant, MarcaVant.Nombre, TipoVant.Nombre, Vant.FHAlta, Vant.FHBaja, Vant.Modelo FROM Vant JOIN MarcaVant ON Vant.IdMarcaVant=MarcaVant.IdMarcaVant JOIN TipoVant ON Vant.IdMarcaVant=TipoVant.IdTipoVant";
-                    cmd.Connection = con;
-                    con.Open();
-                    GridView1.DataSource = cmd.ExecuteReader();
-                    GridView1.DataBind();
-                    con.Close();
-                }
+                dt = sp.Execute("usp_VantConsultar");
             }
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                gvVants.DataSource = dt;
+            }
+            else
+            {
+                gvVants.DataSource = null;
+            }
+            gvVants.DataBind();
 
         }
+
         protected void btnNuevoVant_Click(object sender, EventArgs e)
         {
-
-            BindGrid();
+            LimpiarModal();
+            CargarComboMarcaVant();
+            CargarComboTipoVant();
+            MostrarABM();
         }
 
-        protected void btnVolver_Click(object sender, EventArgs e)
+        protected void CargarComboMarcaVant()
         {
+            ddlMarcaVant.Items.Clear();
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = new UsuarioController().GetComboMarcaVant();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ddlMarcaVant.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdMarcaVant"].ToString().ToInt().ToCryptoID()));
+                }
+            }
+        }
 
-            BindGrid();
+        protected void CargarComboTipoVant()
+        {
+            ddlTipoVant.Items.Clear();
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = new UsuarioController().GetComboTipoVant();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ddlTipoVant.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdTipoVant"].ToString().ToInt().ToCryptoID()));
+                }
+            }
         }
 
         protected void btnEliminarVant_Click(object sender, EventArgs e)
         {
             int id = int.Parse((sender as LinkButton).CommandArgument);
-            string constr = ConfigurationManager.ConnectionStrings["bd_reapp"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(constr))
+
+            Models.Vant Vant = new Models.Vant().Select(id);
+
+            using (SP sp = new SP("bd_reapp"))
             {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "DELETE FROM Vant WHERE Vant.IdVant = @IdVant";
-                    cmd.Parameters.AddWithValue("@IdVant", id);
-                    cmd.Connection = con;
-                    con.Open();
-                    using (SqlDataReader sdr = cmd.ExecuteReader())
-                    {
-                        sdr.Read();
-                    }
-                    con.Close();
-                }
+                sp.Execute("usp_DarDeBajaVant",
+                    P.Add("IdVant", Vant.IdVant)
+                );
             }
-            BindGrid();
+            cargarGvVants();
         }
 
-        //protected void btnActualizarVant_Click(object sender, EventArgs e)
-        //{
-        //    int id = int.Parse((sender as LinkButton).CommandArgument);
-        //    string constr = ConfigurationManager.ConnectionStrings["bd_reapp"].ConnectionString;
-        //    using (SqlConnection con = new SqlConnection(constr))
-        //    {
-        //        using (SqlCommand cmd = new SqlCommand())
-        //        {
-        //            cmd.CommandText = "UPDATE FROM Vant WHERE Vant.IdVant = @IdVant";
-        //            cmd.Parameters.AddWithValue("@IdVant", id);
-        //            cmd.Connection = con;
-        //            con.Open();
-        //            using (SqlDataReader sdr = cmd.ExecuteReader())
-        //            {
-        //                sdr.Read();
-        //            }
-        //            con.Close();
-        //        }
-        //    }
-        //    BindGrid();
-        //}
+        protected void btnModificarVant_Click(object sender, EventArgs e)
+        {
+
+            int id = int.Parse((sender as LinkButton).CommandArgument);
+            Models.Vant Vant = new Models.Vant().Select(id);
+            hdnIdVant.Value = id.ToString();
+            LimpiarModal();
+            CargarComboMarcaVant();
+            CargarComboTipoVant();
+
+            //ddlMarcaVant.SelectedValue = Vant.IdMarcaVant.ToString();
+            //ddlTipoVant.SelectedValue = Vant.IdTipoVant.ToString();
+            //txtModelo.Text = Vant.Modelo.ToString();
+            MostrarABM();
+
+
+
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            Models.Vant Vant = null;
+            if (hdnIdVant.Value.Equals(""))
+            { // Insert
+                using (Tn tn = new Tn("bd_reapp"))
+                {
+                    Vant = new Models.Vant();
+                    Vant.IdMarcaVant = ddlMarcaVant.SelectedValue.ToIntID();
+                    Vant.IdTipoVant = ddlTipoVant.SelectedValue.ToIntID();
+                    Vant.Modelo = txtModelo.Text;
+                    Vant.FHAlta = DateTime.Now;
+                    Vant.Insert();
+
+                }
+            }
+            else
+            { // Update
+
+                Vant = new Models.Vant().Select(hdnIdVant.Value.ToInt());
+
+                
+                Vant.IdMarcaVant = ddlMarcaVant.SelectedValue.ToIntID();
+                Vant.IdTipoVant = ddlTipoVant.SelectedValue.ToIntID();
+                Vant.Modelo = txtModelo.Text;
+                Vant.Update();
+            }
+
+            MostrarListado();
+            cargarGvVants();
+        }
+
+        protected void LimpiarModal()
+        {
+            ddlMarcaVant.Items.Clear();
+            ddlTipoVant.Items.Clear();
+            txtModelo.Text = "";
+        }
+
+
+        protected void MostrarListado()
+        {
+            pnlListado.Visible = true;
+            btnNuevo.Visible = true;
+            pnlABM.Visible = false;
+            btnVolver.Visible = false;
+        }
+
+        protected void MostrarABM()
+        {
+            pnlListado.Visible = false;
+            btnNuevo.Visible = false;
+            pnlABM.Visible = true;
+            btnVolver.Visible = true;
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            MostrarListado();
+        }
+
     }
 }
