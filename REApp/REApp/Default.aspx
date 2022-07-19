@@ -225,7 +225,7 @@
                                             <li>
                                                 <a href="Forms/FileUpload.aspx" class="item-menu" target="iframePage" runat="server">
                                                     <i class="fas fa-file-archive"></i>
-                                                    <asp:Label Text="Archivos" runat="server" />
+                                                    <asp:Label Text="Gestion de Documentación" runat="server" />
                                                 </a>
                                             </li>
                                             <li>

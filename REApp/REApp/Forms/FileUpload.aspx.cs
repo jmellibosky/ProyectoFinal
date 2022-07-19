@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MagicSQL;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -14,128 +16,135 @@ namespace REApp.Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindGrid();
+
+            if (IsPostBack)
+            {
+                BindGrid();
+            }
+            if (!IsPostBack)
+            {
+                CargarComboSolicitante();
+                BindGrid();
+            }
+        }
+
+        protected void CargarComboSolicitante()
+        {
+            ddlSolicitante.Items.Clear();
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = new UsuarioController().GetComboSolicitante();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ddlSolicitante.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdUsuario"].ToString().ToInt().ToCryptoID()));
+                }
+            }
         }
 
         private void BindGrid()
         {
-            string constr = ConfigurationManager.ConnectionStrings["bd_reapp"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(constr))
+            DataTable dt = null;
+            using (SP sp = new SP("bd_reapp"))
             {
-                using (SqlCommand cmd = new SqlCommand())
+                if (!ddlSolicitante.SelectedItem.Value.Equals("#"))
                 {
-                    cmd.CommandText = "select IdDocumento, Nombre, Extension, TipoMIME, FHAlta from Documento";
-                    cmd.Connection = con;
-                    con.Open();
-                    GridView1.DataSource = cmd.ExecuteReader();
-                    GridView1.DataBind();
-                    con.Close();
+                    dt = sp.Execute("usp_GetArchivos", P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()));
                 }
             }
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                gvArchivos.DataSource = dt;
+            }
+            else
+            {
+                gvArchivos.DataSource = null;
+            }
+            gvArchivos.DataBind();
 
         }
 
-        //Subida de Archivo
+
         protected void Upload_Click(object sender, EventArgs e)
         {
             if (FileUpload1.HasFile)
             {
-                //Se obtiene la extension
+                //Se obtienen los datos del documento
+                string filename = Path.GetFileName(FileUpload1.PostedFile.FileName);
                 string extension = System.IO.Path.GetExtension(FileUpload1.FileName);
                 extension = extension.ToLower();
-
-                //Tamaño del archivo en bytes
+                string contentType = FileUpload1.PostedFile.ContentType;
+                    //(Tamaño del archivo en bytes)
                 int tam = FileUpload1.PostedFile.ContentLength;
-
-                //Se verifica la extension 
-                if (extension == ".pdf")
+                byte[] bytes;
+                using (Stream fs = FileUpload1.PostedFile.InputStream)
                 {
-                    //Se verifica el tamaño del archivo en bytes (1000000 = 1Mb)
+                    using (BinaryReader br = new BinaryReader(fs))
+                    {
+                        bytes = br.ReadBytes((Int32)fs.Length);
+                    }
+                }
+                if(extension == ".pdf")
+                {
+                    //Tamaño de archivo menor a 1Mb
                     if (tam <= 1000000)
                     {
-                        //Se verifica si el archivo ya existe, si no existe se realiza la subida
-                        //Esto es para local, ver para bd como hacerlo
-                        if (!File.Exists(Server.MapPath("~/Files/" + FileUpload1.FileName)))
+                        //Insert MagicSQL
+                        Models.Documento Documento = null;
+                        using (Tn tn = new Tn("bd_reapp"))
                         {
-                            string filename = Path.GetFileName(FileUpload1.PostedFile.FileName);
-                            string contentType = FileUpload1.PostedFile.ContentType;
-                            using (Stream fs = FileUpload1.PostedFile.InputStream)
-                            {
-                                using (BinaryReader br = new BinaryReader(fs))
-                                {
-                                    byte[] bytes = br.ReadBytes((Int32)fs.Length);
-                                    string constr = ConfigurationManager.ConnectionStrings["bd_reapp"].ConnectionString;
-                                    using (SqlConnection con = new SqlConnection(constr))
-                                    {
-                                        //Amoldar a la BD real
-                                        string query = "insert into Documento values (NULL, NULL, NULL, @Nombre, @Extension, @TipoMIME, @FHAlta, NULL, @Datos)";
-                                        using (SqlCommand cmd = new SqlCommand(query))
-                                        {
-                                            cmd.Connection = con;
-                                            cmd.Parameters.AddWithValue("@Nombre", filename);
-                                            cmd.Parameters.AddWithValue("@Extension", extension);
-                                            cmd.Parameters.AddWithValue("@TipoMIME", contentType);
-                                            cmd.Parameters.AddWithValue("@FHAlta", DateTime.Today);
-                                            cmd.Parameters.AddWithValue("@Datos", bytes);
-                                            con.Open();
-                                            cmd.ExecuteNonQuery();
-                                            con.Close();
-                                        }
-                                    }
-                                }
-                            }
-                            Response.Redirect(Request.Url.AbsoluteUri);
-                            BindGrid();
-                            //Ver Donde poner para q lo muesrtre!!!
-                            LbArchivo.Text = "Archivo subido con éxito!";
-                        }
+                            //Se crea y guardan los campos de documento
+                            Documento = new Models.Documento();
 
-                        else
-                        {
-                            LbArchivo.Text = "Ya existe un archivo con ese nombre";
+                            Documento.Nombre = filename;
+                            Documento.IdSolicitud = null;
+                            Documento.Datos = bytes;
+                            Documento.Extension = extension;
+                            Documento.IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+                            Documento.FHAlta = DateTime.Today;
+                            Documento.TipoMIME = contentType;
+                            //Documento.FHBaja = null;
+
+                            Documento.Insert();
                         }
+                        BindGrid();
+                        LbArchivo.Text = "El archivo se subió con éxito.";
+                        LbArchivo.CssClass = "hljs-string";
                     }
                     else
                     {
                         LbArchivo.Text = "El tamaño del archivo debe ser menor a 1Mb";
                     }
-
                 }
                 else
                 {
-                    LbArchivo.Text = "Selecciona solo archivos con extension .PDF";
+                    LbArchivo.Text = "Selecciona solo archivos con extensión .PDF";
                 }
             }
             else
             {
-                LbArchivo.Text = "No se selecciono un archivo";
+                LbArchivo.Text = "No se seleccionó un archivo.";
             }
+
+
         }
+
 
         protected void lnkDownload_Click1(object sender, EventArgs e)
         {
             int id = int.Parse((sender as LinkButton).CommandArgument);
-            byte[] bytes;
-            string fileName, contentType;
-            string constr = ConfigurationManager.ConnectionStrings["bd_reapp"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(constr))
+            DataTable dt;
+            Models.Documento Documento = new Models.Documento().Select(id);
+            using (SP sp = new SP("bd_reapp"))
             {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "select Nombre, Datos, TipoMIME from Documento where IdDocumento=@IdDocumento";
-                    cmd.Parameters.AddWithValue("@IdDocumento", id);
-                    cmd.Connection = con;
-                    con.Open();
-                    using (SqlDataReader sdr = cmd.ExecuteReader())
-                    {
-                        sdr.Read();
-                        bytes = (byte[])sdr["Datos"];
-                        contentType = sdr["TipoMIME"].ToString();
-                        fileName = sdr["Nombre"].ToString();
-                    }
-                    con.Close();
-                }
+                dt = sp.Execute("__DocumentoSelect_v1",
+                    P.Add("IdDocumento", Documento.IdDocumento)
+                );
             }
+            //Segun la columna en la que trae los datos se pone el segundo []
+            string contentType = dt.Rows[0][5].ToString();
+            string fileName = dt.Rows[0][4].ToString();
+            byte[] bytes = (byte[])dt.Rows[0][7];
+
             Response.Clear();
             Response.Buffer = true;
             Response.Charset = "";
@@ -145,28 +154,41 @@ namespace REApp.Forms
             Response.BinaryWrite(bytes);
             Response.Flush();
             Response.End();
+
         }
+
 
         protected void lnkEliminarArchivo_Click(object sender, EventArgs e)
         {
             int id = int.Parse((sender as LinkButton).CommandArgument);
-            string constr = ConfigurationManager.ConnectionStrings["bd_reapp"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(constr))
+
+            Models.Documento Documento = new Models.Documento().Select(id);
+
+            using (SP sp = new SP("bd_reapp"))
             {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "DELETE from DOCUMENTO WHERE IdDocumento = @IdDocumento";
-                    cmd.Parameters.AddWithValue("@IdDocumento", id);
-                    cmd.Connection = con;
-                    con.Open();
-                    using (SqlDataReader sdr = cmd.ExecuteReader())
-                    {
-                        sdr.Read();
-                    }
-                    con.Close();
-                }
+                sp.Execute("__DocumentoDelete_v1",
+                    P.Add("IdDocumento", Documento.IdDocumento)    
+                );
             }
             BindGrid();
+        }
+
+        //protected void btnFiltrar_Click(object sender, EventArgs e)
+        //{
+        //    BindGrid();
+        //}
+
+        protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
+
+        {
+            ddlSolicitante.SelectedValue = ddlSolicitante.SelectedItem.Value;
+            ddlSolicitante.SelectedValue = ddlSolicitante.SelectedValue.ToString();
+            string testSV = ddlSolicitante.SelectedValue;
+            string testSIV = ddlSolicitante.SelectedItem.Value;
+            int test4SVID = ddlSolicitante.SelectedValue.ToIntID();
+            int tes3tSIVID = ddlSolicitante.SelectedItem.Value.ToIntID();
+            ddlSolicitante.SelectedValue = ddlSolicitante.SelectedItem.Value;
+
         }
     }
 }
