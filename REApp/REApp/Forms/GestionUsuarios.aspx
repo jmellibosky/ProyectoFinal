@@ -90,8 +90,6 @@
 
 </asp:Content>
 
-
-
 <%-- Body --%>
 <asp:Content ID="cBody" ContentPlaceHolderID="cphBody" runat="server">
 
@@ -106,7 +104,7 @@
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
                             <asp:Button ID="btnNuevo" Text="Nuevo" CssClass="btn btn-primary" runat="server" />
-                            <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info" runat="server" />
+                            <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info" runat="server" OnClick="btnVolver_Click"/>
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
@@ -114,166 +112,12 @@
         </div>
     </div>
 
-    <%-- Contenido --%>
-    <div class="container" style="margin-top:10px;" id="griviewUsers" visible="false">
-
-        <div class="row">
-            <h3>Listado de Usuarios</h3>
-        </div>
-                <table class="table table-striped table-hover">
-                  <thead>
-                        <tr>
-                            <th class="text-center" width="50px">ID</th>
-                            <th class="text-center">Nombre</th>
-                            <th class="text-center">Tipo</th>
-                            <th class="text-center" width="20px">Estado</th>
-                            <th class="text-center">DNI</th>
-                            <th class="text-center">Mail</th>
-                            <th class="text-center text-nowrap">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td class="text-center">Franco</td>
-                            <td class="text-center">Administrador</td>
-                            <td class="text-center" width="20px">Activo</td>
-                            <td class="text-center">41294371</td>
-                            <td class="text-center">aa@aa.com</td>
-                            <td class="text-center">
-                                <button class="button" type="button"  title="Eliminar">
-                                    <i class="fa-solid fa-eye"></i>
-                     		    </button>
-                                <button class="button" type="button"  title="Modificar" onclick="display('UpdateUser');hide('griviewUsers')">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-							    <button class="button" type="button"  title="Eliminar">
-                                    <i class="fa-solid fa-trash"></i>
-                     		    </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-        <%-- Botón Nuevo Usuario --%>
-        <button class="button" type="button" title="Agregar" onclick="display('InsertUser');hide('griviewUsers')"> <i class="fa-solid fa-square-plus"></i> &ensp; Agregar</button>
-      </div>
-    
-    <%-- Crear nuevo usuario --%>
-    <div class="container" style="margin-top:10px;" id="InsertUser">
-        <div class="row">
-            <h3>Registrar Nuevo Usuario</h3>
-        </div>
-        <div class="row">
-            <%-- ID Usuario --%>
-            <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="Panel2" Enabled="false">
-                <asp:Label Text="ID Usuario" runat="server" />
-                <asp:TextBox runat="server" ID="TextBox1" Class="form-control text-plain" />
-            </asp:Panel>
-            <%-- Nombre --%>
-            <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="Panel3">
-                <asp:Label Text="Nombre" runat="server" />
-                <asp:TextBox runat="server" ID="TextBox2" Class="form-control numeric-integer" />
-            </asp:Panel>
-            <%-- Email --%>
-            <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="Panel4">
-                <asp:Label Text="Email" runat="server" />
-                <asp:TextBox runat="server" ID="TextBox3" Class="form-control numeric-integer-positive" />
-            </asp:Panel>
-        </div>
-        <br />
-        <div class="row">
-            <%-- Tipo Usuario --%>
-            <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="Panel5">
-                <asp:Label Text="Tipo Usuario" runat="server" />
-                <asp:DropDownList runat="server" ID="DropDownList2" CssClass="form-control select-single">
-                    <asp:ListItem Value="1" Text="Administrador" />
-                    <asp:ListItem Value="2" Text="Operador" />
-                    <asp:ListItem Value="3" Text="Afectado" />
-                    <asp:ListItem Value="4" Text="Solicitante" />
-                </asp:DropDownList>
-            </asp:Panel>
-            <%-- Tipo DNI --%>
-            <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="Panel6">
-                <asp:Label Text="Tipo DNI" runat="server" />
-                <asp:DropDownList runat="server" ID="DropDownList1" CssClass="form-control select-single">
-                    <asp:ListItem Value="1" Text="A" />
-                    <asp:ListItem Value="2" Text="B" />
-                </asp:DropDownList>
-            </asp:Panel>
-            <%-- DNI --%>
-            <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="Panel7">
-                <asp:Label Text="DNI" runat="server" />
-                <asp:TextBox runat="server" ID="TextBox6" Class="form-control numeric-integer-positive" />
-            </asp:Panel>
-         </div>
-        <br />
-        <%-- Botón Registrar --%>
-        <button class="button" type="button" title="Registrar" onclick="hide('InsertUser');display('griviewUsers')"> <i class="fa-solid fa-square-plus"></i> &ensp; Registrar</button>
-        <%-- Botón Cancelar --%>
-        <button class="button" type="button" title="Cancelar" onclick="hide('InsertUser');display('griviewUsers')"> <i class="fa-solid fa-xmark"></i> &ensp; Cancelar</button>
-    </div>
-
-    <%-- Modificar usuario--%>
-    <div class="container" style="margin-top:10px;" id="UpdateUser">
-        <div class="row">
-            <h3>Modificar Usuario</h3>
-        </div>
-        <div class="row">
-            <%-- ID Usuario --%>
-            <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="Panel8" Enabled="false">
-                <asp:Label Text="ID Usuario" runat="server" />
-                <asp:TextBox runat="server" ID="TextBox4" Class="form-control text-plain" />
-            </asp:Panel>
-            <%-- Nombre --%>
-            <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="Panel9">
-                <asp:Label Text="Nombre" runat="server" />
-                <asp:TextBox runat="server" ID="TextBox5" Class="form-control numeric-integer" />
-            </asp:Panel>
-            <%-- Email --%>
-            <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="Panel10">
-                <asp:Label Text="Email" runat="server" />
-                <asp:TextBox runat="server" ID="TextBox7" Class="form-control numeric-integer-positive" />
-            </asp:Panel>
-        </div>
-        <br />
-        <div class="row">
-            <%-- Tipo Usuario --%>
-            <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="Panel11">
-                <asp:Label Text="Tipo Usuario" runat="server" />
-                <asp:DropDownList runat="server" ID="DropDownList3" CssClass="form-control select-single">
-                    <asp:ListItem Value="1" Text="Administrador" />
-                    <asp:ListItem Value="2" Text="Operador" />
-                    <asp:ListItem Value="3" Text="Afectado" />
-                    <asp:ListItem Value="4" Text="Solicitante" />
-                </asp:DropDownList>
-            </asp:Panel>
-            <%-- Tipo DNI --%>
-            <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="Panel12">
-                <asp:Label Text="Tipo DNI" runat="server" />
-                <asp:DropDownList runat="server" ID="DropDownList4" CssClass="form-control select-single">
-                    <asp:ListItem Value="1" Text="A" />
-                    <asp:ListItem Value="2" Text="B" />
-                </asp:DropDownList>
-            </asp:Panel>
-            <%-- DNI --%>
-            <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12" runat="server" ID="Panel13">
-                <asp:Label Text="DNI" runat="server" />
-                <asp:TextBox runat="server" ID="TextBox8" Class="form-control numeric-integer-positive" />
-            </asp:Panel>
-         </div>
-        <br />
-        <%-- Botón Guardar --%>
-        <button class="button" type="button" title="Guardar" onclick="hide('UpdateUser');display('griviewUsers')"> <i class="fa-solid fa-floppy-disk"></i> &ensp; Guardar</button>
-        <%-- Botón No Guardar --%>
-        <button class="button" type="button" title="NoGuardar" onclick="hide('UpdateUser');display('griviewUsers')"> <i class="fa-solid fa-xmark"></i> &ensp; Cancelar</button>
-    </div>
-
     <%-- ejemplo Joaquin --%>
     <asp:UpdatePanel ID="upForm" runat="server" Visible="true">
         <%-- Contenido --%>
         <ContentTemplate>
             <%-- Grilla Usuarios --%>
-            <asp:Panel ID="pnlListado" runat="server" Visible="true">
+            <asp:Panel ID="pnlGvUsuarios" runat="server" Visible="true">
                 <div class="row" visible="true">
                     <div class="col-12" visible="true">
                         <br />
@@ -323,7 +167,81 @@
                 </div>
             </asp:Panel>
             <%-- ABM Usuarios --%>
-           
+           <asp:Panel ID="pnlABM" runat="server" Visible="false">
+                <div class="row">
+                    <div class="col-12">
+                        <br />
+                        <div class="panel-body">
+                            <asp:UpdatePanel ID="upModalABM" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                                <ContentTemplate>
+                                    <div class="col-12">
+                                        <br />
+                                        <div class="row" id="TituloABM">
+                                            <h6>Informacion Usuario</h6>
+                                        </div>
+                                        <div class="row">
+                                            <asp:Panel ID="pnlNombre" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Nombre" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" />
+                                            </asp:Panel>
+
+                                            <asp:Panel ID="pnlApellido" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Apellido" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtApellido" CssClass="form-control" />
+                                            </asp:Panel>
+
+                                            <asp:Panel ID="pnlRol" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Rol" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtRol" CssClass="form-control" />
+                                            </asp:Panel>
+                                        </div>
+                                        <div class="row">
+                                            <asp:Panel ID="pnlDNI" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="DNI" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtDNI" CssClass="form-control" />
+                                            </asp:Panel>
+
+                                            <asp:Panel ID="pnlTipoDni" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Tipo DNI" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtTipoDni" CssClass="form-control" />
+                                            </asp:Panel>
+
+                                            <asp:Panel ID="pnlFechaNacimiento" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Fecha de Nacimiento" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtFechaNacimiento" CssClass="form-control" />
+                                            </asp:Panel>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <h6>Datos de Contacto</h6>
+                                        </div>
+                                        <div class="row">
+
+                                            <asp:Panel ID="pnlCorreo" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Correo Electrónico" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtCorreo" CssClass="form-control" />
+                                            </asp:Panel>
+
+                                            <asp:Panel ID="pnlTelefono" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Teléfono" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtTelefono" CssClass="form-control" />
+                                            </asp:Panel>
+
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div style="justify-content:center;">
+                                                <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </div>
+                    </div>
+                </div>
+            </asp:Panel>
+            <%-- Fin ABM Usuarios --%>
         </ContentTemplate>
     </asp:UpdatePanel>
 

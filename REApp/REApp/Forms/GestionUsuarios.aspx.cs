@@ -39,7 +39,7 @@ namespace REApp.Forms
 
         }
 
-
+        // Acciones ejecutadas por pnlGvUsuarios
         protected void gvUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 
@@ -52,14 +52,12 @@ namespace REApp.Forms
             }
             else if (e.CommandName.Equals("UpdateUser"))
             {
-                ModificarUsuario(Usuario);
+                MostrarModificacionUsuario(Usuario);
             }
             else
             {
                 EliminarUsuario(Usuario);
             }
-
-            OcultarGv();
             
         }
 
@@ -100,27 +98,76 @@ namespace REApp.Forms
         //Mostrar Usuario
         protected void MostrarUsuario(Models.Usuario Usuario)
         {
-            //hdnIdTripulacion.Value = IdUsuario.ToString();
-            //txtModalApellido.Text = Usuario.Apellido;
-            //txtModalNombre.Text = Tripulacion.Nombre;
-            //txtModalDNI.Text = Tripulacion.DNI;
-            //txtModalFechaNacimiento.Text = Tripulacion.FechaNacimiento.ToString();
-            //txtModalTelefono.Text = Tripulacion.Telefono;
-            //txtModalCorreo.Text = Tripulacion.Correo;
+            string NombreRol = GetRolUsuario(Usuario);
 
-            //MostrarABM();
+            txtNombre.Text = Usuario.Nombre;
+            txtApellido.Text = Usuario.Apellido;
+            txtRol.Text = NombreRol;
+            txtDNI.Text = Usuario.Dni.ToString();
+            txtTipoDni.Text = Usuario.TipoDni;
+            txtFechaNacimiento.Text = Usuario.FechaNacimiento.ToString();
+            txtCorreo.Text = Usuario.Email;
+            txtTelefono.Text = Usuario.Telefono;
+
+            MostrarABMUsuario();
         }
 
         //Visualización
-        protected void MostrarAbmUsuarios()
+        protected void MostrarABMUsuario()
         {
+            pnlABM.Visible = true;
+            btnGuardar.Visible = false;
+            btnNuevo.Visible = false;
+            btnVolver.Visible = true;
+            pnlGvUsuarios.Visible = false;
 
         }
 
-        protected void OcultarGv()
+        protected void OcultarABMUsuario()
         {
-            pnlListado.Visible = false;
+            pnlABM.Visible = false;
+            btnGuardar.Visible = false;
+            btnNuevo.Visible = true;
+            btnVolver.Visible = false;
+            pnlGvUsuarios.Visible = true;
         }
 
+        protected void MostrarModificacionUsuario()
+        {
+            pnlABM.Visible = true;
+            btnGuardar.Visible = true;
+            btnNuevo.Visible = false;
+            btnVolver.Visible = true;
+            pnlGvUsuarios.Visible = false;
+        }
+
+        protected void MostrarModificacionUsuario(Models.Usuario Usuario)
+        {
+            //string NombreRol = GetRolUsuario(Usuario);
+
+            //txtNombre.Text = Usuario.Nombre;
+            //txtApellido.Text = Usuario.Apellido;
+            //txtRol.Text = NombreRol;
+            //txtDNI.Text = Usuario.Dni.ToString();
+            //txtTipoDni.Text = Usuario.TipoDni;
+            //txtFechaNacimiento.Text = Usuario.FechaNacimiento.ToString();
+            //txtCorreo.Text = Usuario.Email;
+            //txtTelefono.Text = Usuario.Telefono;
+
+            //MostrarModificacionUsuario();
+        }
+
+        protected string GetRolUsuario(Models.Usuario Usuario)
+        {
+            int IdRol = Usuario.IdRol;
+            Models.Rol Rol = new Models.Rol().Select(IdRol);
+
+            return Rol.Nombre;
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            OcultarABMUsuario();
+        }
     }
 }
