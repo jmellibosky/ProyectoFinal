@@ -26,7 +26,7 @@ namespace REApp.Models
 
         public string TipoMIME { get; set; }
 
-        public string Datos { get; set; }
+        public byte[] Datos { get; set; }
 
         public DateTime FHAlta { get; set; }
 
