@@ -103,7 +103,7 @@
                 <div style="text-align: end;">
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
-                            <asp:Button ID="btnNuevo" Text="Nuevo" CssClass="btn btn-primary" runat="server" />
+                            <asp:Button ID="btnNuevo" Text="Nuevo" CssClass="btn btn-primary" runat="server" OnClick="btnNuevo_Click"/>
                             <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info" runat="server" OnClick="btnVolver_Click"/>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -179,6 +179,9 @@
                                         <div class="row" id="TituloABM">
                                             <h6>Informacion Usuario</h6>
                                         </div>
+
+                                        <asp:HiddenField ID="hdnIdUsuario" runat="server" />
+
                                         <div class="row">
                                             <asp:Panel ID="pnlNombre" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Nombre" runat="server" />
@@ -192,7 +195,7 @@
 
                                             <asp:Panel ID="pnlRol" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Rol" runat="server" />
-                                                <asp:TextBox runat="server" ID="txtRol" CssClass="form-control" />
+                                                <asp:DropDownList runat="server" ID="ddlRol" CssClass="form-control select-single" />
                                             </asp:Panel>
                                         </div>
                                         <div class="row">
@@ -231,7 +234,7 @@
                                         <hr />
                                         <div class="row">
                                             <div style="justify-content:center;">
-                                                <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" />
+                                                <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" OnClick="btnGuardar_Click"/>
                                             </div>
                                         </div>
                                     </div>

@@ -96,6 +96,15 @@ namespace REApp.Forms
         protected global::System.Web.UI.UpdatePanel upModalABM;
 
         /// <summary>
+        /// Control hdnIdUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnIdUsuario;
+
+        /// <summary>
         /// Control pnlNombre.
         /// </summary>
         /// <remarks>
@@ -141,13 +150,13 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Panel pnlRol;
 
         /// <summary>
-        /// Control txtRol.
+        /// Control ddlRol.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRol;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRol;
 
         /// <summary>
         /// Control pnlDNI.

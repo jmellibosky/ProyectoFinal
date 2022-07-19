@@ -33,5 +33,15 @@ namespace REApp
             }
             return dt;
         }
+
+        public DataTable GetComboRol()
+        {
+            DataTable dt = null;
+            using (SP sp = new SP("bd_reapp"))
+            {
+                dt = sp.Execute("usp_GetComboRol");
+            }
+            return dt;
+        }
     }
 }

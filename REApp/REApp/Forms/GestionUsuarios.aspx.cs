@@ -14,6 +14,7 @@ namespace REApp.Forms
         protected void Page_Load(object sender, EventArgs e)
         {
             cargarGvUsuarios();
+            CargarComboRol();
         }
 
         //Carga de datos
@@ -48,29 +49,19 @@ namespace REApp.Forms
 
             if (e.CommandName.Equals("DisplayUser"))
             {
-                MostrarUsuario(Usuario);
+                CargarDatosUsuario(Usuario);
+                MostrarABMUsuario();
             }
             else if (e.CommandName.Equals("UpdateUser"))
             {
-                MostrarModificacionUsuario(Usuario);
+                CargarDatosUsuario(Usuario);
+                MostrarModificacionUsuario();
             }
             else
             {
                 EliminarUsuario(Usuario);
             }
             
-        }
-
-        //Alta Usuario
-
-        protected void btnNuevoUsuario()
-        {
-
-        }
-
-        protected void btnAgregarUsuario()
-        {
-
         }
 
         //Eliminar Usuario
@@ -95,21 +86,20 @@ namespace REApp.Forms
             }
         }
 
-        //Mostrar Usuario
-        protected void MostrarUsuario(Models.Usuario Usuario)
+        // Cargar datos usuario
+        protected void CargarDatosUsuario(Models.Usuario Usuario)
         {
             string NombreRol = GetRolUsuario(Usuario);
 
             txtNombre.Text = Usuario.Nombre;
             txtApellido.Text = Usuario.Apellido;
-            txtRol.Text = NombreRol;
+            ddlRol.SelectedIndex = Usuario.IdRol; // comboBox
             txtDNI.Text = Usuario.Dni.ToString();
             txtTipoDni.Text = Usuario.TipoDni;
             txtFechaNacimiento.Text = Usuario.FechaNacimiento.ToString();
             txtCorreo.Text = Usuario.Email;
             txtTelefono.Text = Usuario.Telefono;
-
-            MostrarABMUsuario();
+            hdnIdUsuario.Value = Usuario.IdUsuario.ToString();
         }
 
         //Visualización
@@ -120,6 +110,16 @@ namespace REApp.Forms
             btnNuevo.Visible = false;
             btnVolver.Visible = true;
             pnlGvUsuarios.Visible = false;
+
+            //Habilitacion de campos
+            txtNombre.Enabled =
+            txtApellido.Enabled =
+            ddlRol.Enabled =
+            txtDNI.Enabled =
+            txtTipoDni.Enabled =
+            txtFechaNacimiento.Enabled =
+            txtCorreo.Enabled =
+            txtTelefono.Enabled = false;
 
         }
 
@@ -139,22 +139,16 @@ namespace REApp.Forms
             btnNuevo.Visible = false;
             btnVolver.Visible = true;
             pnlGvUsuarios.Visible = false;
-        }
 
-        protected void MostrarModificacionUsuario(Models.Usuario Usuario)
-        {
-            //string NombreRol = GetRolUsuario(Usuario);
-
-            //txtNombre.Text = Usuario.Nombre;
-            //txtApellido.Text = Usuario.Apellido;
-            //txtRol.Text = NombreRol;
-            //txtDNI.Text = Usuario.Dni.ToString();
-            //txtTipoDni.Text = Usuario.TipoDni;
-            //txtFechaNacimiento.Text = Usuario.FechaNacimiento.ToString();
-            //txtCorreo.Text = Usuario.Email;
-            //txtTelefono.Text = Usuario.Telefono;
-
-            //MostrarModificacionUsuario();
+            //Habilitacion de campos
+            txtNombre.Enabled =
+            txtApellido.Enabled =
+            ddlRol.Enabled =
+            txtDNI.Enabled =
+            txtTipoDni.Enabled =
+            txtFechaNacimiento.Enabled =
+            txtCorreo.Enabled =
+            txtTelefono.Enabled = true;
         }
 
         protected string GetRolUsuario(Models.Usuario Usuario)
@@ -169,5 +163,81 @@ namespace REApp.Forms
         {
             OcultarABMUsuario();
         }
+
+        protected void CargarComboRol()
+        {
+            ddlRol.Items.Clear();
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = new UsuarioController().GetComboRol();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ddlRol.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdRol"].ToString().ToInt().ToCryptoID()));
+                }
+            }
+        }
+
+        protected void btnNuevo_Click(object sender, EventArgs e)
+        {
+            MostrarModificacionUsuario();
+
+            //Setear campos
+            txtNombre.Text =
+            txtApellido.Text =
+            txtDNI.Text =
+            txtTipoDni.Text =
+            txtCorreo.Text =
+            txtTelefono.Text =
+            txtFechaNacimiento.Text = "";
+            ddlRol.SelectedIndex = 0;
+
+            //Habilitar btn Registrar
+            btnGuardar.Visible = false;
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            Models.Usuario Usuario = null;
+
+            if (hdnIdUsuario.Value.Equals(""))
+            {
+                using (Tn tn = new Tn("bd_reapp"))
+                {
+                    Usuario = new Models.Usuario();
+                    Usuario.Nombre = txtNombre.Text;
+                    Usuario.Apellido = txtApellido.Text;
+                    Usuario.IdRol = ddlRol.SelectedIndex;
+                    Usuario.Dni = txtDNI.Text.ToInt();
+                    Usuario.TipoDni = txtTipoDni.Text;
+                    Usuario.FechaNacimiento = txtFechaNacimiento.Text.ToDateTime();
+                    Usuario.Telefono = txtTelefono.Text;
+                    Usuario.Email = txtCorreo.Text;
+                    Usuario.CreatedOn = DateTime.Now;
+                    Usuario.CreatedBy = 1; // -------------------------------------------> Modificar para que lo cree el usuario que este logueado
+                    Usuario.DeletedOn = null;
+                    Usuario.DeletedBy = null;
+                    Usuario.Insert();
+
+                }
+            }
+            else
+            {
+                // Update
+                Usuario = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
+                Usuario.Nombre = txtNombre.Text;
+                Usuario.Apellido = txtApellido.Text;
+                Usuario.IdRol = ddlRol.SelectedValue;
+                Usuario.Dni = txtDNI.Text.ToInt();
+                Usuario.TipoDni = txtTipoDni.Text;
+                Usuario.FechaNacimiento = txtFechaNacimiento.Text.ToDateTime();
+                Usuario.Telefono = txtTelefono.Text;
+                Usuario.Email = txtCorreo.Text;
+                Usuario.Update();
+
+                hdnIdUsuario.Value = "";
+                OcultarABMUsuario();
+            }
+        }
+
     }
 }
