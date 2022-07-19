@@ -34,8 +34,19 @@ namespace REApp.Forms
             }
 
         }
+        protected void btnNuevoVant_Click(object sender, EventArgs e)
+        {
 
-        protected void lnkEliminarVant_Click(object sender, EventArgs e)
+            BindGrid();
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+
+            BindGrid();
+        }
+
+        protected void btnEliminarVant_Click(object sender, EventArgs e)
         {
             int id = int.Parse((sender as LinkButton).CommandArgument);
             string constr = ConfigurationManager.ConnectionStrings["bd_reapp"].ConnectionString;
@@ -57,7 +68,7 @@ namespace REApp.Forms
             BindGrid();
         }
 
-        //protected void lnkActualizarVant_Click(object sender, EventArgs e)
+        //protected void btnActualizarVant_Click(object sender, EventArgs e)
         //{
         //    int id = int.Parse((sender as LinkButton).CommandArgument);
         //    string constr = ConfigurationManager.ConnectionStrings["bd_reapp"].ConnectionString;

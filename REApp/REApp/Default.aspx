@@ -207,7 +207,7 @@
                                             <li>
                                                 <a href="Forms/GestionVants.aspx" class="item-menu"  runat="server" id="lnkGestionVehiculos" target="iframePage">
                                                     <i class="fas fa-plane" aria-hidden="true"></i>
-                                                    <asp:Label Text="Gestión de Vehículos Aéreos" runat="server" />
+                                                    <asp:Label Text="Gestión de Vants" runat="server" />
                                                 </a>
                                             </li>
                                             <li>
