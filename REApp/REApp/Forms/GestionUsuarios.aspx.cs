@@ -43,8 +43,8 @@ namespace REApp.Forms
         protected void gvUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 
-            //int IdUsuario = e.CommandArgument.ToString().ToInt();
-            Models.Usuario Usuario = new Models.Usuario().Select(3);
+            int IdUsuario = e.CommandArgument.ToString().ToInt();
+            Models.Usuario Usuario = new Models.Usuario().Select(IdUsuario);
 
             if (e.CommandName.Equals("DisplayUser"))
             {

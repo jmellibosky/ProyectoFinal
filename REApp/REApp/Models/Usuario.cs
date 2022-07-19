@@ -1,8 +1,7 @@
-﻿using MagicSQL;
+﻿// Created for MagicSQL using MagicMaker [v.3.77.125.7055]
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using MagicSQL;
 
 namespace REApp.Models
 {
@@ -14,18 +13,28 @@ namespace REApp.Models
 
         public int IdUsuario { get; set; }
 
-        public int IdRol { get; set; }
-
         public string Nombre { get; set; }
 
         public string Apellido { get; set; }
 
-        public string DNI { get; set; }
+        public string Email { get; set; }
+
+        public int Dni { get; set; }
+
+        public string TipoDni { get; set; }
+
+        public int IdRol { get; set; }
+
+        public DateTime? CreatedOn { get; set; }
+
+        public int? CreatedBy { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
+
+        public int? DeletedBy { get; set; }
 
         public DateTime? FechaNacimiento { get; set; }
 
-        public DateTime FHAlta { get; set; }
-
-        public DateTime? FHBaja { get; set; }
+        public string Telefono { get; set; }
     }
 }
