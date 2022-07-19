@@ -173,22 +173,15 @@ namespace REApp.Forms
             BindGrid();
         }
 
+        protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
         //protected void btnFiltrar_Click(object sender, EventArgs e)
         //{
         //    BindGrid();
         //}
 
-        protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
-
-        {
-            ddlSolicitante.SelectedValue = ddlSolicitante.SelectedItem.Value;
-            ddlSolicitante.SelectedValue = ddlSolicitante.SelectedValue.ToString();
-            string testSV = ddlSolicitante.SelectedValue;
-            string testSIV = ddlSolicitante.SelectedItem.Value;
-            int test4SVID = ddlSolicitante.SelectedValue.ToIntID();
-            int tes3tSIVID = ddlSolicitante.SelectedItem.Value.ToIntID();
-            ddlSolicitante.SelectedValue = ddlSolicitante.SelectedItem.Value;
-
-        }
     }
 }

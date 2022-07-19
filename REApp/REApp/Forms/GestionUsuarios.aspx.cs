@@ -226,7 +226,7 @@ namespace REApp.Forms
                 Usuario = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
                 Usuario.Nombre = txtNombre.Text;
                 Usuario.Apellido = txtApellido.Text;
-                Usuario.IdRol = ddlRol.SelectedValue;
+                //Usuario.IdRol = ddlRol.SelectedValue;
                 Usuario.Dni = txtDNI.Text.ToInt();
                 Usuario.TipoDni = txtTipoDni.Text;
                 Usuario.FechaNacimiento = txtFechaNacimiento.Text.ToDateTime();
