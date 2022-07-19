@@ -62,9 +62,9 @@
 
     <%-- JS --%>
     <script>
-        function ShowModal() {
-            $('#modalABM').modal('show');
-        }
+        //function ShowModal() {
+        //    $('#modalABM').modal('show');
+        //}
     </script>
 </asp:Content>
 

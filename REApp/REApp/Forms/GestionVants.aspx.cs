@@ -10,14 +10,14 @@ using MagicSQL;
 
 namespace REApp.Forms
 {
-    public partial class GestionarVants : System.Web.UI.Page
+    public partial class GestionVants : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             BindGrid();
         }
 
-        private void BindGrid()
+        protected void BindGrid()
         {
             string constr = ConfigurationManager.ConnectionStrings["bd_reapp"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
