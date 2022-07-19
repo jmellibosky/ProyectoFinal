@@ -128,11 +128,7 @@
                                                                     <asp:LinkButton ID="btnModificarVant" runat="server" OnClick="btnModificarVant_Click"
                                                                     CommandArgument='<%# Eval("IdVant") %>' >
                                                                         <i class="fa fa-pencil" aria-hidden="true"></i> <br />Modificar
-                                                                    </asp:LinkButton>  
-                                                                                                                                    <asp:LinkButton ID="btnEliminarVant" runat="server" OnClick="btnEliminarVant_Click"
-                                                                CommandArgument='<%# Eval("IdVant") %>'>
-                                                                    <i class="fa fa-trash" aria-hidden="true" style='font-size:24px;'></i> Eliminar
-                                                                </asp:LinkButton>
+                                                                    </asp:LinkButton> 
                                                                 </ItemTemplate>  
                                                             </asp:TemplateField> 
 
