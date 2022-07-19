@@ -9,14 +9,8 @@
 
 <%--Head--%>
 <asp:Content ID="cHead" ContentPlaceHolderID="cphHead" runat="server">
-    <%-- CSS --%>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Gestión VANTS</title>
-    <link href="/Content/bootstrap.css" rel="stylesheet" />
-    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="/Content/Site.css" rel="stylesheet" />
-    <script src="https://kit.fontawesome.com/ae7187225e.js" crossorigin="anonymous"></script>
-
+   
+     <%-- CSS --%>
     <style>
             
 		body {
@@ -98,7 +92,7 @@
 
 
 
-                <div class="container justify-content-center" style="margin-left:350px;" >
+        <div class="container justify-content-center" style="margin-left:350px;" >
             <%--Generacion de GridView--%>
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed table-responsive table-hover"
              Height="500px" Width="800px">  
@@ -139,6 +133,6 @@
 
                 </Columns>  
             </asp:GridView>
-            </div>
+         </div>
 
  </asp:Content>
