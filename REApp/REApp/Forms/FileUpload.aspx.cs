@@ -73,7 +73,7 @@ namespace REApp.Forms
                 string extension = System.IO.Path.GetExtension(FileUpload1.FileName);
                 extension = extension.ToLower();
                 string contentType = FileUpload1.PostedFile.ContentType;
-                    //(Tamaño del archivo en bytes)
+                //(Tamaño del archivo en bytes)
                 int tam = FileUpload1.PostedFile.ContentLength;
                 byte[] bytes;
                 using (Stream fs = FileUpload1.PostedFile.InputStream)
@@ -83,7 +83,7 @@ namespace REApp.Forms
                         bytes = br.ReadBytes((Int32)fs.Length);
                     }
                 }
-                if(extension == ".pdf")
+                if (extension == ".pdf")
                 {
                     //Tamaño de archivo menor a 1Mb
                     if (tam <= 1000000)
@@ -167,7 +167,7 @@ namespace REApp.Forms
             using (SP sp = new SP("bd_reapp"))
             {
                 sp.Execute("__DocumentoDelete_v1",
-                    P.Add("IdDocumento", Documento.IdDocumento)    
+                    P.Add("IdDocumento", Documento.IdDocumento)
                 );
             }
             BindGrid();
