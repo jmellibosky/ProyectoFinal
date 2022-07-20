@@ -19,32 +19,78 @@
 		font-family: sans-serif;
 		font-size: 15px;
 		}
-		table {
-		  table-layout:fixed;
-          border: 1px solid black;
-		  border-collapse: separate;
-		  border-spacing: 2px;
-		  border-color: gray;
-          
-          width:50%;
-		}
-        thead th:nth-child(1) {
-          width: 5%;
+        * {
+            padding: 0;
+            margin: 0;
         }
-        thead th:nth-child(2) {
-          width: 20%;
+
+        body {
+            font: 11px Tahoma;
         }
-        thead th:nth-child(3) {
-          width: 20%;
+
+        h1 {
+            font: bold 32px Times;
+            color: #666;
+            text-align: center;
+            padding: 20px 0;
         }
-        thead th:nth-child(4) {
-          width: 20%;
+
+        #container {
+            width: 700px;
+            margin: 10px auto;
         }
-        thead th:nth-child(5) {
-          width: 10%;
+
+        .mGrid {
+            width: 100%;
+            background-color: #fff;
+            margin: 5px 0 10px 0;
+            border: solid 1px #525252;
+            border-collapse: collapse;
         }
-        th, td {
-          padding: 2px;
+
+            .mGrid td {
+                padding: 2px;
+                border: solid 1px #c1c1c1;
+                color: #717171;
+            }
+
+            .mGrid th {
+                padding: 4px 2px;
+                color: #fff;
+                background: #424242 url(grd_head.png) repeat-x top;
+                border-left: solid 1px #525252;
+                font-size: 0.9em;
+            }
+
+            .mGrid .alt {
+                background: #fcfcfc url(grd_alt.png) repeat-x top;
+            }
+
+            .mGrid .pgr {
+                background: #424242 url(grd_pgr.png) repeat-x top;
+            }
+
+        .mGrid .pgr table {
+            margin: 5px 0;
+        }
+
+        .mGrid .pgr td {
+            border-width: 0;
+            padding: 0 6px;
+            border-left: solid 1px #666;
+            font-weight: bold;
+            color: #fff;
+            line-height: 12px;
+        }
+
+        .mGrid .pgr a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .mGrid .pgr a:hover {
+            color: #000;
+            text-decoration: none;
         }
         button{
           background-color: #343a40;
@@ -66,6 +112,7 @@
             $('#modalABM').modal('show');
         }
     </script>
+
 </asp:Content>
 
 
@@ -105,7 +152,7 @@
                                              ID="gvVants" 
                                              runat="server" 
                                              AutoGenerateColumns="false" 
-                                             CssClass="table table-bordered table-condensed table-responsive table-hover"
+                                             CssClass="mGrid" PagerStyle-CssClass="pgr"
                                                      Height="500px" Width="800px">  
                                                     <AlternatingRowStyle BackColor="white" />
                                                     <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
@@ -128,19 +175,19 @@
                                                                     <asp:LinkButton ID="btnModificarVant" runat="server" OnClick="btnModificarVant_Click"
                                                                     CommandArgument='<%# Eval("IdVant") %>' >
                                                                         <i class="fa fa-pencil" aria-hidden="true"></i> <br />Modificar
-                                                                    </asp:LinkButton> 
+                                                                    </asp:LinkButton>                                                                 
                                                                 </ItemTemplate>  
                                                             </asp:TemplateField> 
 
                                                             <%--Boton para eliminar archivo de la BD --%>
-                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" ControlStyle-Width="75px">
-                                                            <ItemTemplate>
-                                                                <asp:LinkButton ID="btnEliminarVant" runat="server" OnClick="btnEliminarVant_Click"
-                                                                CommandArgument='<%# Eval("IdVant") %>'>
-                                                                    <i class="fa fa-trash" aria-hidden="true" style='font-size:24px;'></i> Eliminar
-                                                                </asp:LinkButton>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>  
+                                                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" ControlStyle-Width="75px">
+                                                                <ItemTemplate>
+                                                                    <asp:LinkButton ID="btnEliminarVant" runat="server" OnClick="btnEliminarVant_Click"
+                                                                    CommandArgument='<%# Eval("IdVant") %>' OnClientClick="return confirm('¿Seguro que desea eliminar este VANT?')">
+                                                                        <i class="fa fa-trash" aria-hidden="true" style='font-size:24px;'></i> Eliminar
+                                                                    </asp:LinkButton>
+                                                                </ItemTemplate>
+                                                            </asp:TemplateField>  
 
                                                         </Columns>  
                                            </asp:GridView>

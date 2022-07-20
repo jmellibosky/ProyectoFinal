@@ -40,6 +40,7 @@ namespace REApp.Forms
 
         protected void btnNuevoVant_Click(object sender, EventArgs e)
         {
+            hdnIdVant.Value = "";
             LimpiarModal();
             CargarComboMarcaVant();
             CargarComboTipoVant();
@@ -78,13 +79,21 @@ namespace REApp.Forms
 
             Models.Vant Vant = new Models.Vant().Select(id);
 
-            using (SP sp = new SP("bd_reapp"))
+            if(Vant.FHBaja is null)
             {
-                sp.Execute("usp_DarDeBajaVant",
-                    P.Add("IdVant", Vant.IdVant)
-                );
+                using (SP sp = new SP("bd_reapp"))
+                {
+                    sp.Execute("usp_DarDeBajaVant",
+                        P.Add("IdVant", Vant.IdVant)
+                    );
+                }
+                cargarGvVants();
             }
-            cargarGvVants();
+            else
+            {
+                
+            }
+
         }
 
         protected void btnModificarVant_Click(object sender, EventArgs e)
@@ -96,13 +105,7 @@ namespace REApp.Forms
             LimpiarModal();
             CargarComboMarcaVant();
             CargarComboTipoVant();
-
-            //ddlMarcaVant.SelectedValue = Vant.IdMarcaVant.ToString();
-            //ddlTipoVant.SelectedValue = Vant.IdTipoVant.ToString();
-            //txtModelo.Text = Vant.Modelo.ToString();
             MostrarABM();
-
-
 
         }
 

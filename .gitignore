@@ -1,0 +1,12 @@
+
+*.cache
+*.cache
+*.dll
+REApp/.vs/REApp/config/applicationhost.config
+REApp/.vs/REApp/FileContentIndex/1c62ab27-51d0-4fc7-a665-39357e87665a.vsidx
+REApp/.vs/REApp/FileContentIndex/b7eeb766-b442-4379-89ce-6791bdea1b73.vsidx
+REApp/.vs/REApp/FileContentIndex/1c62ab27-51d0-4fc7-a665-39357e87665a.vsidx
+REApp/.vs/REApp/FileContentIndex/ee188dc1-c6e7-466a-a50a-34d42d64861f.vsidx
+REApp/.vs/REApp/v17/.suo
+REApp/REApp.Tests/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+REApp/REApp.Tests/obj/Debug/REApp.Tests.csproj.AssemblyReference.cache
