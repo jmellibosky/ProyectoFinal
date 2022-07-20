@@ -69,10 +69,12 @@ namespace REApp.Forms
         {
             using (SP sp = new SP("bd_reapp"))
             {
-                sp.Execute("usp_DeleteUser",
+                sp.Execute("__UsuarioDelete_v1",
                     P.Add("IdUsuario", Usuario.IdUsuario)
                 );
             }
+
+            cargarGvUsuarios();
         }
 
         //Modificar Usuario
@@ -96,7 +98,7 @@ namespace REApp.Forms
             ddlRol.SelectedIndex = Usuario.IdRol; // comboBox
             txtDNI.Text = Usuario.Dni.ToString();
             txtTipoDni.Text = Usuario.TipoDni;
-            txtFechaNacimiento.Text = Usuario.FechaNacimiento.ToString();
+            txtFechaNacimiento.Text = Usuario.FechaNacimiento.ToString().Substring(0, 10);
             txtCorreo.Text = Usuario.Email;
             txtTelefono.Text = Usuario.Telefono;
             hdnIdUsuario.Value = Usuario.IdUsuario.ToString();
@@ -190,9 +192,6 @@ namespace REApp.Forms
             txtTelefono.Text =
             txtFechaNacimiento.Text = "";
             ddlRol.SelectedIndex = 0;
-
-            //Habilitar btn Registrar
-            btnGuardar.Visible = false;
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -206,7 +205,7 @@ namespace REApp.Forms
                     Usuario = new Models.Usuario();
                     Usuario.Nombre = txtNombre.Text;
                     Usuario.Apellido = txtApellido.Text;
-                    Usuario.IdRol = ddlRol.SelectedIndex;
+                    Usuario.IdRol = ddlRol.SelectedValue.ToIntID();
                     Usuario.Dni = txtDNI.Text.ToInt();
                     Usuario.TipoDni = txtTipoDni.Text;
                     Usuario.FechaNacimiento = txtFechaNacimiento.Text.ToDateTime();
@@ -218,6 +217,8 @@ namespace REApp.Forms
                     Usuario.DeletedBy = null;
                     Usuario.Insert();
 
+                    OcultarABMUsuario();
+                    cargarGvUsuarios();
                 }
             }
             else
@@ -226,16 +227,17 @@ namespace REApp.Forms
                 Usuario = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
                 Usuario.Nombre = txtNombre.Text;
                 Usuario.Apellido = txtApellido.Text;
-                //Usuario.IdRol = ddlRol.SelectedValue;
+                Usuario.IdRol = ddlRol.SelectedValue.ToIntID();
                 Usuario.Dni = txtDNI.Text.ToInt();
                 Usuario.TipoDni = txtTipoDni.Text;
-                Usuario.FechaNacimiento = txtFechaNacimiento.Text.ToDateTime();
+                Usuario.FechaNacimiento = txtFechaNacimiento.Text.ToDateTime().Date;
                 Usuario.Telefono = txtTelefono.Text;
                 Usuario.Email = txtCorreo.Text;
                 Usuario.Update();
 
                 hdnIdUsuario.Value = "";
                 OcultarABMUsuario();
+                cargarGvUsuarios();
             }
         }
 

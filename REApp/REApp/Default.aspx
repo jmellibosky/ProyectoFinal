@@ -187,7 +187,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a runat="server" id="lnkGestionSolicitudes">
+                                                <a href="Forms/GestionSolicitudes" class="item-menu" target="iframePage" runat="server">
                                                     <i class="fas fa-list" aria-hidden="true"></i>
                                                     <asp:Label Text="Gestión de Solicitudes" runat="server" />
                                                 </a>
