@@ -192,9 +192,6 @@ namespace REApp.Forms
             txtTelefono.Text =
             txtFechaNacimiento.Text = "";
             ddlRol.SelectedIndex = 0;
-
-            //Habilitar btn Registrar
-            btnGuardar.Visible = true;
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
