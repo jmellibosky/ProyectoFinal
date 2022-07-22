@@ -165,6 +165,7 @@
                                                             <asp:BoundField DataField="Marca" HeaderText="Marca" /> <%--Vant.IdMarcaVant=MarcaVant.IdMarcaVant--%>
                                                             <asp:BoundField DataField="Tipo" HeaderText="Tipo" /> <%--Vant.IdTipoVant=TipoVant.IdTipoVant--%>
                                                             <asp:BoundField DataField="Modelo" HeaderText="Modelo" />
+                                                            <asp:BoundField DataField="Nombre" HeaderText="Solicitante" />
                                                             <asp:BoundField DataField="FHAlta" HeaderText="Fecha Alta" />             
                                                             <asp:BoundField DataField="FHBaja" HeaderText="Fecha Baja" />
 
@@ -227,6 +228,11 @@
                                             <asp:Panel ID="pnlModalModelo" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Modelo" runat="server" />
                                                 <asp:TextBox runat="server" ID="txtModelo" CssClass="form-control" />
+                                            </asp:Panel>
+                                           
+                                            <asp:Panel ID="PanelModalSolicitante" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Solicitante" runat="server" />
+                                                <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" />
                                             </asp:Panel>
                                         </div>
                                         <hr />

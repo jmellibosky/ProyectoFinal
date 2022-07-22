@@ -23,5 +23,7 @@ namespace REApp.Models
         public DateTime? FHBaja { get; set; }
 
         public string Modelo { get; set; }
+
+        public int IdUsuario { get; set; }
     }
 }

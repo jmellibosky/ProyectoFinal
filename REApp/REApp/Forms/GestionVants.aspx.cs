@@ -44,6 +44,7 @@ namespace REApp.Forms
             LimpiarModal();
             CargarComboMarcaVant();
             CargarComboTipoVant();
+            CargarComboSolicitante();
             MostrarABM();
         }
 
@@ -69,6 +70,19 @@ namespace REApp.Forms
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     ddlTipoVant.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdTipoVant"].ToString().ToInt().ToCryptoID()));
+                }
+            }
+        }
+
+        protected void CargarComboSolicitante()
+        {
+            ddlSolicitante.Items.Clear();
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = new UsuarioController().GetComboSolicitante();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ddlSolicitante.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdUsuario"].ToString().ToInt().ToCryptoID()));
                 }
             }
         }
@@ -121,6 +135,7 @@ namespace REApp.Forms
                     Vant.IdTipoVant = ddlTipoVant.SelectedValue.ToIntID();
                     Vant.Modelo = txtModelo.Text;
                     Vant.FHAlta = DateTime.Now;
+                    Vant.IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
                     Vant.Insert();
 
                 }
