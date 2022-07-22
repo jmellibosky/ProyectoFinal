@@ -104,6 +104,7 @@
                                                 </asp:Panel>
                                                 <asp:Panel ID="pnlModalSolicitante" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
                                                     <%--Lo deje invisible al ddlModalSolicitante, ver--%>
+                                                    <%--Lo deje invisible al ddlModalSolicitante, ver--%>
                                                     <asp:DropDownList runat="server" ID="ddlModalSolicitante" CssClass="form-control select-single"/>
                                                 </asp:Panel>
                                             </div>
@@ -115,7 +116,7 @@
                                                     <asp:Label Text="Actividad" runat="server" />
                                                     <asp:DropDownList runat="server" ID="ddlModalActividad" CssClass="form-control select-single" AutoPostBack="true" OnSelectedIndexChanged="ddlModalActividad_SelectedIndexChanged" />
                                                     <asp:Label Text="Modalidad" runat="server" />
-                                                    <asp:DropDownList runat="server" ID="ddlModalModalidad" CssClass="form-control select-single" />
+                                                    <asp:DropDownList runat="server" ID="ddlModalModalidad" CssClass="form-control select-single"/>
                                                 </asp:Panel>
                                             </div>
                                             <div class="row">

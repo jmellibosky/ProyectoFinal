@@ -101,6 +101,19 @@ namespace REApp.Forms
                 }
             }
         }
+        protected void CargarComboModalSoloModalidades()
+        {
+            ddlModalModalidad.Items.Clear();
+
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = sp.Execute("usp_GetComboModalidades");
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ddlModalModalidad.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdModalidad"].ToString().ToInt().ToCryptoID()));
+                }
+            }
+        }
 
 
         protected void LimpiarModal()
@@ -233,6 +246,9 @@ namespace REApp.Forms
             int IdEstado = (int)Solicitud.IdEstadoSolicitud;
             Models.EstadoSolicitud Estado = new Models.EstadoSolicitud().Select(IdEstado);
 
+            int IdModalidad = Solicitud.IdModalidad;
+            Models.Modalidad Modalidad = new Models.Modalidad().Select(IdModalidad);
+
             if (e.CommandName.Equals("Detalle"))
             { // Detalle
                 LimpiarModal();
@@ -243,15 +259,10 @@ namespace REApp.Forms
                 ddlModalSolicitante.Enabled = false;
 
                 CargarComboModalActividades();
-                int idActividad = ddlModalActividad.SelectedItem.Value.ToIntID();
-                CargarComboModalModalidades(idActividad);
+                CargarComboModalSoloModalidades();
 
-                var a = Solicitud.IdModalidad.ToString().ToInt().ToCryptoID();
-               
-                //ddlModalModalidad.SelectedValue = a;
-
-                //int idActividad = ddlModalActividad.SelectedItem.Value.ToIntID();
-                //CargarComboModalModalidades(idActividad);
+                ddlModalActividad.SelectedValue = Modalidad.IdActividad.ToCryptoID().ToString();
+                ddlModalModalidad.SelectedValue = Solicitud.IdModalidad.ToCryptoID().ToString();
 
                 hdnIdSolicitud.Value = IdSolicitud.ToString();
                 txtModalNombreSolicitud.Text = Solicitud.Nombre;
@@ -278,7 +289,5 @@ namespace REApp.Forms
             int idActividad = ddlModalActividad.SelectedItem.Value.ToIntID();
             CargarComboModalModalidades(idActividad);
         }
-
-
     }
 }
