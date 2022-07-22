@@ -91,14 +91,15 @@ namespace REApp.Forms
         // Cargar datos usuario
         protected void CargarDatosUsuario(Models.Usuario Usuario)
         {
-            string NombreRol = GetRolUsuario(Usuario);
+            //string NombreRol = GetRolUsuario(Usuario);
+            hdnIdRol.Value = Usuario.IdRol.ToCryptoID().ToString();
 
             txtNombre.Text = Usuario.Nombre;
             txtApellido.Text = Usuario.Apellido;
-            ddlRol.SelectedIndex = Usuario.IdRol; // comboBox
+            ddlRol.SelectedValue = Usuario.IdRol.ToCryptoID().ToString(); // comboBox
             txtDNI.Text = Usuario.Dni.ToString();
             txtTipoDni.Text = Usuario.TipoDni;
-            txtFechaNacimiento.Text = Usuario.FechaNacimiento.ToString().Substring(0, 10);
+            txtFechaNacimiento.Text = Usuario.FechaNacimiento.ToString();
             txtCorreo.Text = Usuario.Email;
             txtTelefono.Text = Usuario.Telefono;
             hdnIdUsuario.Value = Usuario.IdUsuario.ToString();
@@ -145,12 +146,14 @@ namespace REApp.Forms
             //Habilitacion de campos
             txtNombre.Enabled =
             txtApellido.Enabled =
-            ddlRol.Enabled =
             txtDNI.Enabled =
             txtTipoDni.Enabled =
             txtFechaNacimiento.Enabled =
             txtCorreo.Enabled =
             txtTelefono.Enabled = true;
+
+            ddlRol.Enabled = true;
+            //int numId = ddlRol.SelectedValue.ToIntID();
         }
 
         protected string GetRolUsuario(Models.Usuario Usuario)
@@ -198,6 +201,9 @@ namespace REApp.Forms
         {
             Models.Usuario Usuario = null;
 
+            int rolID = ddlRol.SelectedValue.ToInt();
+
+
             if (hdnIdUsuario.Value.Equals(""))
             {
                 using (Tn tn = new Tn("bd_reapp"))
@@ -227,10 +233,11 @@ namespace REApp.Forms
                 Usuario = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
                 Usuario.Nombre = txtNombre.Text;
                 Usuario.Apellido = txtApellido.Text;
-                Usuario.IdRol = ddlRol.SelectedValue.ToIntID();
+                //Usuario.IdRol = ddlRol.SelectedValue.ToIntID();
+                Usuario.IdRol = hdnIdRol.Value.ToInt();
                 Usuario.Dni = txtDNI.Text.ToInt();
                 Usuario.TipoDni = txtTipoDni.Text;
-                Usuario.FechaNacimiento = txtFechaNacimiento.Text.ToDateTime().Date;
+                Usuario.FechaNacimiento = txtFechaNacimiento.Text.ToDateTime();
                 Usuario.Telefono = txtTelefono.Text;
                 Usuario.Email = txtCorreo.Text;
                 Usuario.Update();
@@ -241,5 +248,9 @@ namespace REApp.Forms
             }
         }
 
+        protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            hdnIdRol.Value = ddlRol.SelectedValue.ToString();
+        }
     }
 }

@@ -181,6 +181,7 @@
                                         </div>
 
                                         <asp:HiddenField ID="hdnIdUsuario" runat="server" />
+                                        <asp:HiddenField ID="hdnIdRol" runat="server" />
 
                                         <div class="row">
                                             <asp:Panel ID="pnlNombre" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
@@ -195,7 +196,7 @@
 
                                             <asp:Panel ID="pnlRol" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Rol" runat="server" />
-                                                <asp:DropDownList runat="server" ID="ddlRol" CssClass="form-control select-single" />
+                                                <asp:DropDownList runat="server" ID="ddlRol" CssClass="form-control select-single" AutoPostBack="false" OnSelectedIndexChanged="ddlRol_SelectedIndexChanged" />
                                             </asp:Panel>
                                         </div>
                                         <div class="row">
