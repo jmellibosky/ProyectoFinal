@@ -15,7 +15,7 @@
             
 		body {
 		color: #566787;
-		background: #f5f5f5;
+		background: #e8f4fa;
 		font-family: sans-serif;
 		font-size: 15px;
 		}
@@ -42,16 +42,26 @@
 
         .mGrid {
             width: 100%;
-            background-color: #fff;
+            background-color: #525252;
             margin: 5px 0 10px 0;
-            border: solid 1px #525252;
+            border: solid 2px #525252;
             border-collapse: collapse;
+            border-radius: 1rem 0 0 1rem;
+             
+              
+            /*-webkit-border-radius: 50px;*/
+            /*-moz-border-radius: 50px;*/
+            border-radius: 8px;
+            overflow: hidden;
+      
         }
 
             .mGrid td {
                 padding: 2px;
                 border: solid 1px #c1c1c1;
-                color: #717171;
+                color: #525252;
+                
+                
             }
 
             .mGrid th {
@@ -60,6 +70,8 @@
                 background: #424242 url(grd_head.png) repeat-x top;
                 border-left: solid 1px #525252;
                 font-size: 0.9em;
+                text-align: center;
+                font-size:15px
             }
 
             .mGrid .alt {
@@ -92,6 +104,8 @@
             color: #000;
             text-decoration: none;
         }
+
+
         button{
           background-color: #343a40;
           border: none;
@@ -104,6 +118,7 @@
           margin: 4px 2px;
           cursor: pointer;
         }
+
     </style>
 
     <%-- JS --%>
@@ -123,7 +138,7 @@
         <div class="row">
             <div class="col-12">
                 <h2 class="page-header">
-                    <asp:Label ID="lblTitulo" Text="Gestión de Vants" runat="server" />
+                    <asp:Label style="text-align:center" class="h1" ID="lblTitulo" Text="Gestión de Vants" runat="server" />
 
                     <div style="text-align: end;">
                         <asp:UpdatePanel runat="server">
@@ -145,7 +160,7 @@
                     <div class="col-12">
                         <br />
                         <div class="panel-body">
-                            <div class="row">
+                            <div class="row" style="overflow-y: scroll;height: 500px; width: 1000px;">
                                 <asp:UpdatePanel ID="upVants" Style="width: 100%;" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                                     <ContentTemplate>
                                          <asp:GridView 
@@ -154,6 +169,8 @@
                                              AutoGenerateColumns="false" 
                                              CssClass="mGrid" PagerStyle-CssClass="pgr"
                                                      Height="500px" Width="800px">  
+
+                                             
                                                     <AlternatingRowStyle BackColor="white" />
                                                     <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
                                                     <RowStyle BackColor="#e1dddd" />
@@ -161,34 +178,39 @@
 
                                                         <Columns>  
                                                             <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                            <asp:BoundField DataField="IdVant" HeaderText="Id" />
-                                                            <asp:BoundField DataField="Marca" HeaderText="Marca" /> <%--Vant.IdMarcaVant=MarcaVant.IdMarcaVant--%>
-                                                            <asp:BoundField DataField="Tipo" HeaderText="Tipo" /> <%--Vant.IdTipoVant=TipoVant.IdTipoVant--%>
-                                                            <asp:BoundField DataField="Modelo" HeaderText="Modelo" />
-                                                            <asp:BoundField DataField="Nombre" HeaderText="Solicitante" />
-                                                            <asp:BoundField DataField="FHAlta" HeaderText="Fecha Alta" />             
-                                                            <asp:BoundField DataField="FHBaja" HeaderText="Fecha Baja" />
+                                                            <asp:BoundField DataField="IdVant" ItemStyle-Width="10%" ItemStyle-Wrap="false" ItemStyle-HorizontalAlign="Center" HeaderText="ID" />
+                                                            <asp:BoundField DataField="Marca" ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="MARCA" /> <%--Vant.IdMarcaVant=MarcaVant.IdMarcaVant--%>
+                                                            <asp:BoundField DataField="Tipo" ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="TIPO" /> <%--Vant.IdTipoVant=TipoVant.IdTipoVant--%>
+                                                            <asp:BoundField DataField="Modelo" ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="MODELO" />
+                                                            <asp:BoundField DataField="Nombre" ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="SOLICITANTE" />
+                                                            <asp:BoundField DataField="FHAlta" ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="FECHA ALTA" />             
+                                                            <asp:BoundField DataField="FHBaja" ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="FECHA BAJA" />
 
 
                                                             <%--Boton para editar vant de la BD --%>
-                                                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" ControlStyle-Width="140px" HeaderText="Acciones">  
+                                                            <asp:TemplateField  ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="ACCIONES">  
+                                                                
                                                                 <ItemTemplate>  
                                                                     <asp:LinkButton ID="btnModificarVant" runat="server" OnClick="btnModificarVant_Click"
                                                                     CommandArgument='<%# Eval("IdVant") %>' >
-                                                                        <i class="fa fa-pencil" aria-hidden="true"></i> <br />Modificar
-                                                                    </asp:LinkButton>                                                                 
-                                                                </ItemTemplate>  
+                                                                        <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i>
+                                                                    </asp:LinkButton> 
+                                                                    <asp:LinkButton ID="btnEliminarVant" runat="server" OnClick="btnEliminarVant_Click"
+                                                                    CommandArgument='<%# Eval("IdVant") %>' OnClientClick="return confirm('¿Seguro que desea eliminar este VANT?')">
+                                                                        <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; margin-left: 25px; color:#525252' ></i> 
+                                                                    </asp:LinkButton>
+                                                                </ItemTemplate>
                                                             </asp:TemplateField> 
 
-                                                            <%--Boton para eliminar archivo de la BD --%>
-                                                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" ControlStyle-Width="75px">
+                                                       <%--Boton para eliminar archivo de la BD --%>
+<%--                                                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" ControlStyle-Width="80px">
                                                                 <ItemTemplate>
                                                                     <asp:LinkButton ID="btnEliminarVant" runat="server" OnClick="btnEliminarVant_Click"
                                                                     CommandArgument='<%# Eval("IdVant") %>' OnClientClick="return confirm('¿Seguro que desea eliminar este VANT?')">
                                                                         <i class="fa fa-trash" aria-hidden="true" style='font-size:24px;'></i> Eliminar
                                                                     </asp:LinkButton>
                                                                 </ItemTemplate>
-                                                            </asp:TemplateField>  
+                                                            </asp:TemplateField> --%>
 
                                                         </Columns>  
                                            </asp:GridView>

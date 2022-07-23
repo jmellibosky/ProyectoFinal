@@ -35,6 +35,7 @@ namespace REApp.Forms
                 gvVants.DataSource = null;
             }
             gvVants.DataBind();
+            
 
         }
 
@@ -119,6 +120,10 @@ namespace REApp.Forms
             LimpiarModal();
             CargarComboMarcaVant();
             CargarComboTipoVant();
+            CargarComboSolicitante();
+            //ddlSolicitante.Text = Vant.IdUsuario.ToString();
+            //ddlSolicitante.Enabled = false;
+            //ddlMarcaVant.SelectedValue = Vant.IdMarcaVant.ToString();
             MostrarABM();
 
         }
