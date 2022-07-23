@@ -130,6 +130,7 @@
     <Content Include="Forms\GestionSolicitudes.aspx" />
     <Content Include="Forms\GestionUsuarios.aspx" />
     <Content Include="Forms\GestionVants.aspx" />
+    <Content Include="Forms\UserCorrectRegister.aspx" />
     <Content Include="Forms\UserForgotPassword.aspx" />
     <Content Include="Forms\UserLogin.aspx" />
     <Content Include="Forms\UserRegister.aspx" />
@@ -300,6 +301,13 @@
     </Compile>
     <Compile Include="Forms\GestionVants.aspx.designer.cs">
       <DependentUpon>GestionVants.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserCorrectRegister.aspx.cs">
+      <DependentUpon>UserCorrectRegister.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\UserCorrectRegister.aspx.designer.cs">
+      <DependentUpon>UserCorrectRegister.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\UserForgotPassword.aspx.cs">
       <DependentUpon>UserForgotPassword.aspx</DependentUpon>
