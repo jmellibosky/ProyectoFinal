@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MagicSQL;
+using System;
+using System.Security.Cryptography;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,15 +19,51 @@ namespace REApp.Forms
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (txt_email.Value == "testing@hotmail.com" && txt_password.Value == "1234")
+            string correo = txt_email.Value;
+            string password = txt_password.Value;
+            string saltkey;
+            DataTable dt = new DataTable();
+            int flagLogin;
+
+            //Podriamos implementar SweetAlerts para dejarlo mas bonito
+            using (SP sp = new SP("bd_reapp"))
+            {
+                dt = sp.Execute("usp_CorreoSaltCheck", P.Add("correo", correo));
+                saltkey = dt.Rows[0][0].ToString();
+            }
+
+            string hashedpass = SecurityHelper.HashPassword(password, saltkey, 10101, 70);
+
+            using (SP sp2 = new SP("bd_reapp"))
+            {
+                flagLogin = sp2.Execute("usp_CorreoPassCheck", P.Add("correo", correo), P.Add("pass", hashedpass)).Rows.Count;
+            }
+
+            if (flagLogin == 1)
             {
                 Response.Redirect("/Default.aspx");
             }
             else
             {
-                return;
+                txt_password.Value = "";
+                txt_email.Focus();
             }
+
         }
 
+        //Inicio la funcion general
+        public class SecurityHelper
+        {
+            //Creamos el hash con el salt
+            public static string HashPassword(string password, string salt, int nIterations, int nHash)
+            {
+                var saltBytes = Convert.FromBase64String(salt);
+
+                using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, saltBytes, nIterations))
+                {
+                    return Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(nHash));
+                }
+            }
+        }
     }
 }

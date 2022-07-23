@@ -6,7 +6,7 @@
 <head runat="server">
     <link href="/Content/bootstrap.css" rel="stylesheet" />
     <link href="/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="/Content/Site.css" rel="stylesheet" />
+    <%--<link href="/Content/Site.css" rel="stylesheet" />--%>
     <script src="https://kit.fontawesome.com/8e4807e881.js" crossorigin="anonymous"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>REA EANA 2022</title>
@@ -43,6 +43,14 @@
                     <div class="form-outline mb-3">
                         <input type="email" id="txt_email" runat="server" class="form-control form-control-lg" required="required" placeholder="Correo Electronico"/>
                     </div>
+
+                    <div class="form-outline mb-3">
+                        <input type="password" id="txt_password" runat="server" class="form-control form-control-lg" required="required" placeholder="Contraseña"/>
+                    </div>
+
+                    <div class="form-outline mb-3">
+                        <input type="password" id="txt_passwordCheck" runat="server" class="form-control form-control-lg" required="required" placeholder="Repita su contraseña"/>
+                    </div>
                      
                     <div class="form-outline mb-3">
                         <input type="number" id="txt_dni" runat="server" class="form-control form-control-lg" required="required" placeholder="DNI"/>
@@ -54,7 +62,7 @@
                     </div>
 
                     <div class="pt-1">                    
-                        <asp:Button ID="login" runat="server" CssClass="btn btn-primary btn-lg btn-block" Text="Registrarse"/>
+                        <asp:Button ID="login" runat="server" CssClass="btn btn-primary btn-lg btn-block" OnClick="btnRegister_Click" Text="Registrarse"/>
                     </div>
 
                     
