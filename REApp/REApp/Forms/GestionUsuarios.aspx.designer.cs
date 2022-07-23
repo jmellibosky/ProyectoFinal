@@ -11,17 +11,8 @@ namespace REApp.Forms
 {
 
 
-    public partial class GestionUsuarios
+    public partial class GestionUsuarios2
     {
-
-        /// <summary>
-        /// Control Label1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
         /// Control btnNuevo.
@@ -51,13 +42,13 @@ namespace REApp.Forms
         protected global::System.Web.UI.UpdatePanel upForm;
 
         /// <summary>
-        /// Control pnlGvUsuarios.
+        /// Control pnlListado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlGvUsuarios;
+        protected global::System.Web.UI.WebControls.Panel pnlListado;
 
         /// <summary>
         /// Control upUsuarios.
@@ -96,130 +87,112 @@ namespace REApp.Forms
         protected global::System.Web.UI.UpdatePanel upModalABM;
 
         /// <summary>
-        /// Control hdnIdUsuario.
+        /// Control pnlModalNombreUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnIdUsuario;
+        protected global::System.Web.UI.WebControls.Panel pnlModalNombreUsuario;
 
         /// <summary>
-        /// Control hdnIdRol.
+        /// Control txtModalNombreUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnIdRol;
+        protected global::System.Web.UI.WebControls.TextBox txtModalNombreUsuario;
 
         /// <summary>
-        /// Control pnlNombre.
+        /// Control pnlModalApellidoUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlNombre;
+        protected global::System.Web.UI.WebControls.Panel pnlModalApellidoUsuario;
 
         /// <summary>
-        /// Control txtNombre.
+        /// Control txtModalApellidoUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombre;
+        protected global::System.Web.UI.WebControls.TextBox txtModalApellidoUsuario;
 
         /// <summary>
-        /// Control pnlApellido.
+        /// Control pnlModalRol.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlApellido;
+        protected global::System.Web.UI.WebControls.Panel pnlModalRol;
 
         /// <summary>
-        /// Control txtApellido.
+        /// Control ddlModalRol.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtApellido;
+        protected global::System.Web.UI.WebControls.DropDownList ddlModalRol;
 
         /// <summary>
-        /// Control pnlRol.
+        /// Control pnlModalDni.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlRol;
+        protected global::System.Web.UI.WebControls.Panel pnlModalDni;
 
         /// <summary>
-        /// Control ddlRol.
+        /// Control txtModalDni.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRol;
+        protected global::System.Web.UI.WebControls.TextBox txtModalDni;
 
         /// <summary>
-        /// Control pnlDNI.
+        /// Control pnlModalTipoDni.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlDNI;
+        protected global::System.Web.UI.WebControls.Panel pnlModalTipoDni;
 
         /// <summary>
-        /// Control txtDNI.
+        /// Control txtModalTipoDni.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDNI;
+        protected global::System.Web.UI.WebControls.TextBox txtModalTipoDni;
 
         /// <summary>
-        /// Control pnlTipoDni.
+        /// Control pnlModalFechaNacimiento.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlTipoDni;
+        protected global::System.Web.UI.WebControls.Panel pnlModalFechaNacimiento;
 
         /// <summary>
-        /// Control txtTipoDni.
+        /// Control txtModalFechaNac.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTipoDni;
-
-        /// <summary>
-        /// Control pnlFechaNacimiento.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlFechaNacimiento;
-
-        /// <summary>
-        /// Control txtFechaNacimiento.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaNacimiento;
+        protected global::System.Web.UI.WebControls.TextBox txtModalFechaNac;
 
         /// <summary>
         /// Control pnlCorreo.
@@ -231,13 +204,13 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Panel pnlCorreo;
 
         /// <summary>
-        /// Control txtCorreo.
+        /// Control txtModalCorreo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCorreo;
+        protected global::System.Web.UI.WebControls.TextBox txtModalCorreo;
 
         /// <summary>
         /// Control pnlTelefono.
@@ -249,13 +222,22 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Panel pnlTelefono;
 
         /// <summary>
-        /// Control txtTelefono.
+        /// Control txtModalTelefono.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTelefono;
+        protected global::System.Web.UI.WebControls.TextBox txtModalTelefono;
+
+        /// <summary>
+        /// Control hdnIdUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnIdUsuario;
 
         /// <summary>
         /// Control btnGuardar.
