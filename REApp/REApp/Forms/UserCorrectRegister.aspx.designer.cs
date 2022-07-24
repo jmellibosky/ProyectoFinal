@@ -15,13 +15,13 @@ namespace REApp.Forms
     {
 
         /// <summary>
-        /// Control FormForgotPass.
+        /// Control FormCorrectRegister.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm FormForgotPass;
+        protected global::System.Web.UI.HtmlControls.HtmlForm FormCorrectRegister;
 
         /// <summary>
         /// Control login.

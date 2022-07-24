@@ -41,9 +41,9 @@
         .navbar-brand {
             padding: 5px !important;
         }
-
+        /*Antes #7777ff*/
         .navbar-header {
-            background: #7777ff;
+            background: #79aaf7; 
             text-align: end;
         }
 
@@ -71,7 +71,7 @@
         }
 
         .dropbtn {
-            background-color: #000099;
+            background-color: #79aaf7;
             color: white;
             padding: 16px;
             font-size: 16px;
@@ -147,6 +147,7 @@
 <body>
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
         <div class="wrapper">
             <nav id="navbar" class="navbar navbar-default navbar-static-top" role="navigation">
                 <div class="navbar-header">
