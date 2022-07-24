@@ -78,31 +78,31 @@ namespace REApp
         protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkGestionVehiculos;
 
         /// <summary>
-        /// Control lnkGestionAerodromos.
+        /// Control li1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkGestionAerodromos;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li1;
 
         /// <summary>
-        /// Control lnkGestionZonasEspeciales.
+        /// Control A1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkGestionZonasEspeciales;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor A1;
 
         /// <summary>
-        /// Control lnkParametrizacion.
+        /// Control A2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkParametrizacion;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor A2;
 
         /// <summary>
         /// Control iframePage.

@@ -10,6 +10,15 @@
 <asp:Content ID="cHead" ContentPlaceHolderID="cphHead" runat="server">
     <%-- CSS --%>
     <style>
+        .btn
+        {
+            margin-left: 5px;
+        }
+
+        .btn-linkbutton
+        {
+            width:45px;
+        }
     </style>
 
     <%-- JS --%>
@@ -62,6 +71,29 @@
                             </div>
                             <br />
                             <div class="row">
+                                <asp:Panel ID="pnlAlertaEliminar" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" runat="server" Visible="false">
+                                    <div class="alert alert-info" role="alert">
+                                        <h5>
+                                            <asp:Label runat="server" Text="Confirmar Eliminación" />
+                                        </h5>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                                <asp:HiddenField ID="hdnEliminar" runat="server" />
+                                                <asp:Label ID="lblMensajeEliminacion" runat="server" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                                <asp:Button ID="btnCancelarEliminacion" CssClass="btn btn-warning" runat="server" Text="Cancelar" OnClick="btnCancelarEliminacion_Click" />
+                                                <asp:Button ID="btnConfirmarEliminacion" CssClass="btn btn-danger" runat="server" Text="Confirmar" OnClick="btnConfirmarEliminacion_Click" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </asp:Panel>
+                            </div>
+                            <div class="row">
                                 <asp:UpdatePanel ID="upTripulantes" Style="width: 100%;" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                                     <ContentTemplate>
                                         <asp:GridView
@@ -78,15 +110,15 @@
                                                 <asp:BoundField HeaderText="Teléfono" DataField="Telefono" />
                                                 <asp:TemplateField HeaderText="Ver Detalles">
                                                     <ItemTemplate>
-                                                        <asp:LinkButton ID="btnVerDetalle" CommandName="Detalle" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
-                                                            <i class="fa fa-info-circle" aria-hidden="true" />    
+                                                        <asp:LinkButton ID="btnVerDetalle" CssClass="btn btn-primary btn-linkbutton" CommandName="Detalle" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
+                                                            <i class="fa fa-info-circle" aria-hidden="true"></i>    
                                                         </asp:LinkButton>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Eliminar">
                                                     <ItemTemplate>
-                                                        <asp:LinkButton ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
-                                                            <i class="fa fa-times" aria-hidden="true" />    
+                                                        <asp:LinkButton ID="btnEliminar" CssClass="btn btn-danger btn-linkbutton" CommandName="Eliminar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
+                                                            <i class="fa fa-times" aria-hidden="true"></i>
                                                         </asp:LinkButton>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
@@ -157,7 +189,18 @@
                                         </div>
                                         <hr />
                                         <div class="row">
-                                            <div style="justify-content:center;">
+                                            <asp:Panel ID="pnlError" Visible="false" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" runat="server">
+                                                <div class="alert alert-danger" role="alert">
+                                                    <h5>
+                                                        <asp:Label ID="txtErrorHeader" runat="server" /></h5>
+                                                    <hr />
+                                                    <asp:Label ID="txtErrorBody" runat="server" />
+                                                </div>
+                                                <hr />
+                                            </asp:Panel>
+                                        </div>
+                                        <div class="row">
+                                            <div style="justify-content: center;">
                                                 <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" OnClick="btnGuardar_Click" />
                                             </div>
                                         </div>

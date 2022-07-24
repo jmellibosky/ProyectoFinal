@@ -27,5 +27,7 @@ namespace REApp.Models
         public DateTime FHAlta { get; set; }
 
         public DateTime? FHBaja { get; set; }
+
+        public string Correo { get; set; }
     }
 }

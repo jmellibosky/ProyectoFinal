@@ -129,6 +129,10 @@
             padding: 4px;
             width: -webkit-fill-available;
         }
+
+        .icon-li {
+            width:20px;
+        }
     </style>
 
     <%-- jQuery --%>
@@ -174,43 +178,37 @@
                                             </strong>
                                         </a>
                                         <ul class="nav nav-second-level">
-<%--                                            <li>
-                                                <a href="Forms/__Ejemplos.aspx" class="item-menu" target="iframePage" runat="server">
-                                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                                    <asp:Label Text="__Ejemplos" runat="server" />
-                                                </a>
-                                            </li>--%>
                                             <li>
                                                 <a runat="server" id="lnkHomeAdministrador">
-                                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                                    <i class="fa fa-home icon-li" aria-hidden="true"></i>
                                                     <asp:Label Text="Home" runat="server" />
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="Forms/GestionSolicitudes" class="item-menu" target="iframePage" runat="server">
-                                                    <i class="fas fa-list" aria-hidden="true"></i>
+                                                    <i class="fas fa-list icon-li" aria-hidden="true"></i>
                                                     <asp:Label Text="Gestión de Solicitudes" runat="server" />
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="Forms/GestionTripulantes.aspx" class="item-menu" target="iframePage" runat="server">
-                                                    <i class="fas fa-users" aria-hidden="true"></i>
+                                                    <i class="fas fa-users icon-li" aria-hidden="true"></i>
                                                     <asp:Label Text="Gestión de Tripulación" runat="server" />
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="Forms/GestionUsuarios.aspx" class="item-menu" runat="server" target="iframePage">
-                                                    <i class="fas fa-user" aria-hidden="true"></i>
+                                                    <i class="fas fa-user icon-li" aria-hidden="true"></i>
                                                     <asp:Label Text="Gestión de Usuarios" runat="server" />
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="Forms/GestionVants.aspx" class="item-menu"  runat="server" id="lnkGestionVehiculos" target="iframePage">
-                                                    <i class="fas fa-plane" aria-hidden="true"></i>
+                                                    <i class="fas fa-plane icon-li" aria-hidden="true"></i>
                                                     <asp:Label Text="Gestión de Vants" runat="server" />
                                                 </a>
                                             </li>
-                                            <li>
+                                            <%--<li>
                                                 <a runat="server" id="lnkGestionAerodromos">
                                                     <i class="fas fa-plane-departure" aria-hidden="true"></i>
                                                     <asp:Label Text="Gestión de Aeródromos" runat="server" />
@@ -221,19 +219,71 @@
                                                     <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                                                     <asp:Label Text="Gestión de Zonas Especiales" runat="server" />
                                                 </a>
-                                            </li>
+                                            </li>--%>
                                             <li>
                                                 <a href="Forms/FileUpload.aspx" class="item-menu" target="iframePage" runat="server">
-                                                    <i class="fas fa-file-archive"></i>
+                                                    <i class="fas fa-file-archive icon-li"></i>
                                                     <asp:Label Text="Gestion de Documentación" runat="server" />
                                                 </a>
                                             </li>
-                                            <li>
+                                            <%--<li>
                                                 <a runat="server" id="lnkParametrizacion">
                                                     <i class="fa fa-cog" aria-hidden="true"></i>
                                                     <asp:Label Text="Parametrización" runat="server" />
                                                 </a>
+                                            </li>--%>
+                                        </ul>
+                                    </li>
+                                    <%-- Solicitante --%>
+                                    <li id="li1" runat="server">
+                                        <a href="#">
+                                            <strong>
+                                                <asp:Label Text="Solicitante" runat="server" />
+                                            </strong>
+                                        </a>
+                                        <ul class="nav nav-second-level">
+                                            <li>
+                                                <a runat="server" id="A1">
+                                                    <i class="fa fa-home icon-li" aria-hidden="true"></i>
+                                                    <asp:Label Text="Home" runat="server" />
+                                                </a>
                                             </li>
+                                            <li>
+                                                <a href="Forms/GestionSolicitudes" class="item-menu" target="iframePage" runat="server">
+                                                    <i class="fas fa-list icon-li" aria-hidden="true"></i>
+                                                    <asp:Label Text="Mis Solicitudes" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="Forms/GestionTripulantes.aspx" class="item-menu" target="iframePage" runat="server">
+                                                    <i class="fas fa-users icon-li" aria-hidden="true"></i>
+                                                    <asp:Label Text="Mi Tripulación" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="Forms/GestionUsuarios.aspx" class="item-menu" runat="server" target="iframePage">
+                                                    <i class="fas fa-user icon-li" aria-hidden="true"></i>
+                                                    <asp:Label Text="Mis Datos Personales" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="Forms/GestionVants.aspx" class="item-menu"  runat="server" id="A2" target="iframePage">
+                                                    <i class="fas fa-plane icon-li" aria-hidden="true"></i>
+                                                    <asp:Label Text="Mis Vants" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="Forms/FileUpload.aspx" class="item-menu" target="iframePage" runat="server">
+                                                    <i class="fas fa-file-archive icon-li"></i>
+                                                    <asp:Label Text="Mi Documentación" runat="server" />
+                                                </a>
+                                            </li>
+                                            <%--<li>
+                                                <a runat="server" id="lnkParametrizacion">
+                                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                                    <asp:Label Text="Parametrización" runat="server" />
+                                                </a>
+                                            </li>--%>
                                         </ul>
                                     </li>
                                 </ul>
