@@ -21,7 +21,7 @@
     <div style="text-align: end;">
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
-                <asp:Button ID="btnNuevo" Text="Nueva Solicitud" CssClass="btn btn-primary" runat="server" OnClick="btnNuevo_Click" />
+                <asp:Button ID="btnNuevo111" Text="Nueva Solicitud" CssClass="btn btn-primary" runat="server" OnClick="btnNuevo_Click" />
                 <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info" runat="server" OnClick="btnVolver_Click" />
             </ContentTemplate>
         </asp:UpdatePanel>
