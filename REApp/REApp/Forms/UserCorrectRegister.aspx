@@ -20,7 +20,7 @@
             <div class="card" style="border-radius: 1rem;">
                 <div class="card-body p-4 p-lg-5 text-black">
 
-                <form id="FormForgotPass" runat="server">
+                <form id="FormCorrectRegister" runat="server">
 
                     <div class="d-flex align-items-center">
                         <i class="fas fa-thumbs-up fa-3x me-3 mr-4 mt-4" style="color: #79aaf7; position:relative; left:50%; transform:translate(-50%,-50%);" ></i>

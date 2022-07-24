@@ -41,6 +41,18 @@
                     </div>
 
                     <div class="form-outline mb-3">
+                        <input type="text" id="txt_telefono" runat="server" class="form-control form-control-lg" required="required" placeholder="Numero de Telefono (con 0 y 15)"/>
+                    </div>
+
+                    <%--Dos textbox por si lo necesitamos para caracteristica y numero por separado--%>
+                    <%--<div class="input-group form-outline mb-3" >
+                        <span class="input-group-addon">Between</span>
+                        <input type="text" class="form-control form-control-lg" placeholder="Type something..." />
+                        <span class="input-group-addon" style="border-left: 0; border-right: 0;">and</span>
+                        <input type="text" class="form-control form-control-lg" placeholder="Type something..." />
+                    </div>--%>
+
+                    <div class="form-outline mb-3">
                         <input type="email" id="txt_email" runat="server" class="form-control form-control-lg" required="required" placeholder="Correo Electronico"/>
                     </div>
 
@@ -51,10 +63,57 @@
                     <div class="form-outline mb-3">
                         <input type="password" id="txt_passwordCheck" runat="server" class="form-control form-control-lg" required="required" placeholder="Repita su contraseña"/>
                     </div>
-                     
-                    <div class="form-outline mb-3">
-                        <input type="number" id="txt_dni" runat="server" class="form-control form-control-lg" required="required" placeholder="DNI"/>
+                    
+                    <div class="container p-0">
+                        <div class="row">
+                            <div class="col-sm">
+                                <span class="form-label font-weight-bold ml-2">Numero DNI</span>
+                            </div>
+                            <div class="col-sm">
+                                <span class="form-label font-weight-bold ml-2" style="border-left: 0; border-right: 0;">Tipo DNI</span>
+                            </div>
+                        </div>
+                        <div class="row p-1">
+                            <div class="col-sm">
+                                <input type="number" id="txt_dni" runat="server" class="form-control form-control-lg" required="required" placeholder="DNI"/>
+                            </div>
+                            <div class="col-sm">
+                                <select class="form-control form-control-lg" id="txt_tipoDni" runat="server" required="required">
+                                 <option>A</option>
+                                 <option>B</option>
+                                 <option>C</option>
+                                 <option>D</option>
+                                 <option>E</option>
+                         </select> 
+                            </div>
+                        </div>
                     </div>
+
+                    <%--<div class="input-group form-outline">
+                        <span class="mr-3 mt-2">Numero DNI</span>
+                        <span class="ml-3 mt-2" style="border-left: 0; border-right: 0;">Tipo DNI</span>
+                    </div>--%>
+
+                    <%--<div class="input-group form-outline mb-3">                  
+                        <input type="number" id="txt_dni" runat="server" class="form-control form-control-lg mr-3" required="required" placeholder="DNI"/>                        
+                        <select class="form-control form-control-lg" id="txt_tipoDni" runat="server" required="required">
+                             <option>A</option>
+                             <option>B</option>
+                             <option>C</option>
+                             <option>D</option>
+                             <option>E</option>
+                         </select> 
+                    </div>--%>
+
+                     <%--<div class="form-outline mb-3">
+                         <select class="form-control form-control-lg" id="txt_tipoDni" runat="server" required="required">
+                             <option>A</option>
+                             <option>B</option>
+                             <option>C</option>
+                             <option>D</option>
+                             <option>E</option>
+                         </select> 
+                    </div>--%>
 
                     <div class="form-outline mb-3">
                         <label class="form-label font-weight-bold ml-2" for="txt_fec_nac">Fecha de Nacimiento</label>

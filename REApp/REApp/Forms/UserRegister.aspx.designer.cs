@@ -42,6 +42,15 @@ namespace REApp.Forms
         protected global::System.Web.UI.HtmlControls.HtmlInputText txt_apellido;
 
         /// <summary>
+        /// Control txt_telefono.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txt_telefono;
+
+        /// <summary>
         /// Control txt_email.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace REApp.Forms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txt_dni;
+
+        /// <summary>
+        /// Control txt_tipoDni.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect txt_tipoDni;
 
         /// <summary>
         /// Control txt_fec_nac.

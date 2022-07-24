@@ -1,4 +1,18 @@
-﻿.page-header {
+﻿#lateral-menu {
+    background: #f0f0ff;
+}
+
+#navbar {
+    padding: 0px;
+    margin-bottom: 0;
+    border-bottom-color: #e7e7e7;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+
+
+.page-header {
     margin-top: 10px;
     margin-bottom: 5px;
 }
