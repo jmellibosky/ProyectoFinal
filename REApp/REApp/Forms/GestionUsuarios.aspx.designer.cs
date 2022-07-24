@@ -15,13 +15,21 @@ namespace REApp.Forms
     {
 
         /// <summary>
+<<<<<<< Updated upstream
         /// Control btnNuevo111.
+=======
+        /// Control btnNew.
+>>>>>>> Stashed changes
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
+<<<<<<< Updated upstream
         protected global::System.Web.UI.WebControls.Button btnNuevo111;
+=======
+        protected global::System.Web.UI.WebControls.Button btnNew;
+>>>>>>> Stashed changes
 
         /// <summary>
         /// Control btnVolver.

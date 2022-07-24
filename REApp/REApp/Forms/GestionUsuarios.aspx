@@ -20,8 +20,13 @@
     </div>
     <div style="text-align: end;">
         <asp:UpdatePanel runat="server">
+<<<<<<< Updated upstream
             <ContentTemplate>
                 <asp:Button ID="btnNuevo111" Text="Nueva Solicitud" CssClass="btn btn-primary" runat="server" OnClick="btnNuevo_Click" />
+=======
+            <ContentTemplate> <%-- Cambio nombre--%>
+                <asp:Button ID="btnNew" Text="Nueva Solicitud" CssClass="btn btn-primary" runat="server" OnClick="btnNuevo_Click" />
+>>>>>>> Stashed changes
                 <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info" runat="server" OnClick="btnVolver_Click" />
             </ContentTemplate>
         </asp:UpdatePanel>
