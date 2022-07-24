@@ -15,7 +15,7 @@
             
 		body {
 		color: #566787;
-		background: #e8f4fa;
+		background: #fff;
 		font-family: sans-serif;
 		font-size: 15px;
 		}
@@ -44,7 +44,7 @@
             width: 100%;
             background-color: #525252;
             margin: 5px 0 10px 0;
-            border: solid 2px #525252;
+            border: solid 3px #525252;
             border-collapse: collapse;
             border-radius: 1rem 0 0 1rem;
              
@@ -60,8 +60,6 @@
                 padding: 2px;
                 border: solid 1px #c1c1c1;
                 color: #525252;
-                
-                
             }
 
             .mGrid th {
@@ -71,7 +69,8 @@
                 border-left: solid 1px #525252;
                 font-size: 0.9em;
                 text-align: center;
-                font-size:15px
+                font-size:15px;
+                position:absolute sticky;
             }
 
             .mGrid .alt {
@@ -143,8 +142,8 @@
                     <div style="text-align: end;">
                         <asp:UpdatePanel runat="server">
                             <ContentTemplate>
-                                <asp:Button ID="btnNuevo" Text="Nuevo" CssClass="btn btn-primary" runat="server" OnClick="btnNuevoVant_Click"/>
-                                <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info" runat="server" OnClick="btnVolver_Click" />
+                                <asp:Button ID="btnNuevo" Text="Nuevo" CssClass="btn btn-primary btn-dark" runat="server" OnClick="btnNuevoVant_Click"/>
+                                <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVolver_Click" />
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
@@ -159,18 +158,15 @@
                 <div class="row">
                     <div class="col-12">
                         <br />
-                        <div class="panel-body">
-                            <div class="row" style="overflow-y: scroll;height: 500px; width: 1000px;">
+                        <div class="panel-body" style="display: flex; justify-content: center; align-items:center">
+                            <div class="row" style="overflow: auto;height: 500px; width: 1400px; " >
                                 <asp:UpdatePanel ID="upVants" Style="width: 100%;" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                                     <ContentTemplate>
                                          <asp:GridView 
                                              ID="gvVants" 
                                              runat="server" 
                                              AutoGenerateColumns="false" 
-                                             CssClass="mGrid" PagerStyle-CssClass="pgr"
-                                                     Height="500px" Width="800px">  
-
-                                             
+                                             CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
                                                     <AlternatingRowStyle BackColor="white" />
                                                     <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
                                                     <RowStyle BackColor="#e1dddd" />
@@ -178,13 +174,13 @@
 
                                                         <Columns>  
                                                             <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                            <asp:BoundField DataField="IdVant" ItemStyle-Width="10%" ItemStyle-Wrap="false" ItemStyle-HorizontalAlign="Center" HeaderText="ID" />
-                                                            <asp:BoundField DataField="Marca" ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="MARCA" /> <%--Vant.IdMarcaVant=MarcaVant.IdMarcaVant--%>
-                                                            <asp:BoundField DataField="Tipo" ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="TIPO" /> <%--Vant.IdTipoVant=TipoVant.IdTipoVant--%>
-                                                            <asp:BoundField DataField="Modelo" ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="MODELO" />
-                                                            <asp:BoundField DataField="Nombre" ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="SOLICITANTE" />
-                                                            <asp:BoundField DataField="FHAlta" ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="FECHA ALTA" />             
-                                                            <asp:BoundField DataField="FHBaja" ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="FECHA BAJA" />
+                                                            <asp:BoundField DataField="IdVant" ItemStyle-Width="10%"  ItemStyle-HorizontalAlign="Center" HeaderText="ID" />
+                                                            <asp:BoundField DataField="Marca" ItemStyle-Width="20%"  HeaderText="MARCA" /> <%--Vant.IdMarcaVant=MarcaVant.IdMarcaVant--%>
+                                                            <asp:BoundField DataField="Tipo" ItemStyle-Width="20%" HeaderText="TIPO" /> <%--Vant.IdTipoVant=TipoVant.IdTipoVant--%>
+                                                            <asp:BoundField DataField="Modelo" ItemStyle-Width="20%"  HeaderText="MODELO" />
+                                                            <asp:BoundField DataField="Nombre" ItemStyle-Width="20%" HeaderText="SOLICITANTE" />
+                                                            <asp:BoundField DataField="FHAlta" ItemStyle-Width="20%" HeaderText="FECHA ALTA" />             
+                                                            <asp:BoundField DataField="FHBaja" ItemStyle-Width="20%" HeaderText="FECHA BAJA" />
 
 
                                                             <%--Boton para editar vant de la BD --%>
