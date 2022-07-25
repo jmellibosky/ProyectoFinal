@@ -43,11 +43,13 @@ namespace REApp.Forms
 
             if (flagLogin == 1)
             {
+                string idUsuario = dt2.Rows[0][0].ToString();
                 string nombreuser = dt2.Rows[0][1].ToString();
                 string apellidouser = dt2.Rows[0][2].ToString();
                 string nombrecompleto = nombreuser + " " + apellidouser;
                 Session["Username"] = nombrecompleto;
                 Session["UsuarioCompleto"] = dt2;
+                Session["IdUsuario"] = idUsuario;
                 Response.Redirect("/Default.aspx");
             }
             else
