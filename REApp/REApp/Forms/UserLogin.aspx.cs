@@ -23,6 +23,7 @@ namespace REApp.Forms
             string password = txt_password.Value;
             string saltkey;
             DataTable dt = new DataTable();
+            DataTable dt2 = new DataTable();
             int flagLogin;
 
             //Podriamos implementar SweetAlerts para dejarlo mas bonito
@@ -36,11 +37,17 @@ namespace REApp.Forms
 
             using (SP sp2 = new SP("bd_reapp"))
             {
-                flagLogin = sp2.Execute("usp_CorreoPassCheck", P.Add("correo", correo), P.Add("pass", hashedpass)).Rows.Count;
+                dt2 = sp2.Execute("usp_CorreoPassCheck", P.Add("correo", correo), P.Add("pass", hashedpass));
+                flagLogin = dt2.Rows.Count;
             }
 
             if (flagLogin == 1)
             {
+                string nombreuser = dt2.Rows[0][1].ToString();
+                string apellidouser = dt2.Rows[0][2].ToString();
+                string nombrecompleto = nombreuser + " " + apellidouser;
+                Session["Username"] = nombrecompleto;
+                Session["UsuarioCompleto"] = dt2;
                 Response.Redirect("/Default.aspx");
             }
             else

@@ -155,6 +155,7 @@
         <div class="wrapper">
             <nav id="navbar" class="navbar navbar-default navbar-static-top" role="navigation">
                 <div class="navbar-header">
+                    <label id="lblUsername" runat="server" class="form-label font-weight-bolder" style="font-size:20px; color:#ffffff">Username</label>
                     <div class="dropdown nav navbar-top-links navbar-right">
                         <button id="btnLogout" class="dropbtn" style="margin-right: 0px;" runat="server">
                             <i class="fas fa-power-off"></i>
