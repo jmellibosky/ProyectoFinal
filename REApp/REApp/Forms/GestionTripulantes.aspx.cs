@@ -21,19 +21,21 @@ namespace REApp.Forms
             int idRolInt = idRol.ToInt();
             int id = idUsuario.ToInt();
 
-            if(idRolInt == 1)
+            if (!IsPostBack)
             {
-                CargarComboSolicitante();
-            }
+                if (idRolInt == 1)
+                {
+                    CargarComboSolicitante();
+                }
 
-            if (idRolInt == 3)
-            {
-                CargarComboSolicitante();
-                ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
-                ddlSolicitante.Enabled = false;
-            }
-
-            
+                if (idRolInt == 3)
+                {
+                    CargarComboSolicitante();
+                    ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
+                    ddlSolicitante.Enabled = false;
+                    filtrarTripulantesXSolicitante();
+                }
+            }           
         }
 
         protected void CargarComboSolicitante()
@@ -63,6 +65,11 @@ namespace REApp.Forms
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
+        filtrarTripulantesXSolicitante();
+        }
+
+        protected void filtrarTripulantesXSolicitante()
+        {
             DataTable dt = null;
             using (SP sp = new SP("bd_reapp"))
             {
@@ -81,6 +88,8 @@ namespace REApp.Forms
             }
             gvTripulantes.DataBind();
         }
+
+
 
         protected void gvTripulantes_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -270,5 +279,7 @@ namespace REApp.Forms
 
             btnFiltrar_Click(null, null);
         }
+
+
     }
 }
