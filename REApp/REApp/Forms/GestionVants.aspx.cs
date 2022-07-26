@@ -16,7 +16,15 @@ namespace REApp.Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            cargarGvVants();
+            if (IsPostBack)
+            {
+                cargarGvVants();
+            }
+            if (!IsPostBack)
+            {
+                CargarComboSolicitante();
+                cargarGvVants();
+            }
         }
 
         protected void cargarGvVants()
@@ -24,7 +32,7 @@ namespace REApp.Forms
             DataTable dt = null;
             using (SP sp = new SP("bd_reapp"))
             {
-                dt = sp.Execute("usp_VantConsultar");
+                dt = sp.Execute("usp_VantConsultar", P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID())); ;
             }
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -44,9 +52,12 @@ namespace REApp.Forms
             hdnIdVant.Value = "";
             LimpiarModal();
             CargarComboMarcaVant();
-            CargarComboTipoVant();
-            CargarComboSolicitante();
+            CargarComboModalSolicitante();
+            CargarComboClaseVant();
+            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+            ddlModalSolicitante.Enabled = false;
             MostrarABM();
+
         }
 
         protected void CargarComboMarcaVant()
@@ -62,15 +73,15 @@ namespace REApp.Forms
             }
         }
 
-        protected void CargarComboTipoVant()
+        protected void CargarComboClaseVant()
         {
-            ddlTipoVant.Items.Clear();
+            ddlClaseVant.Items.Clear();
             using (SP sp = new SP("bd_reapp"))
             {
                 DataTable dt = new UsuarioController().GetComboTipoVant();
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    ddlTipoVant.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdTipoVant"].ToString().ToInt().ToCryptoID()));
+                    ddlClaseVant.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdTipoVant"].ToString().ToInt().ToCryptoID()));
                 }
             }
         }
@@ -87,6 +98,19 @@ namespace REApp.Forms
                 }
             }
         }
+        protected void CargarComboModalSolicitante()
+        {
+            ddlModalSolicitante.Items.Clear();
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = new UsuarioController().GetComboSolicitante();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ddlModalSolicitante.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdUsuario"].ToString().ToInt().ToCryptoID()));
+                }
+            }
+        }
+
 
         protected void btnEliminarVant_Click(object sender, EventArgs e)
         {
@@ -119,53 +143,87 @@ namespace REApp.Forms
             hdnIdVant.Value = id.ToString();
             LimpiarModal();
             CargarComboMarcaVant();
-            CargarComboTipoVant();
-            CargarComboSolicitante();
-            //ddlSolicitante.Text = Vant.IdUsuario.ToString();
-            //ddlSolicitante.Enabled = false;
-            //ddlMarcaVant.SelectedValue = Vant.IdMarcaVant.ToString();
+            CargarComboClaseVant();
+            CargarComboModalSolicitante();
+
+            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+            ddlModalSolicitante.Enabled = false;
+
+            
+            txtFabricante.Text = Vant.Fabricante;
+            txtAñoFabricacion.Text = Vant.AñoFabricacion.ToString();
+            txtLugarFabricacion.Text = Vant.LugarFabricacion;
+            txtLugarGuardado.Text = Vant.LugarGuardado;
+            txtNumeroSerie.Text = Vant.NumeroSerie;
+
+
             MostrarABM();
 
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            Models.Vant Vant = null;
-            if (hdnIdVant.Value.Equals(""))
-            { // Insert
-                using (Tn tn = new Tn("bd_reapp"))
-                {
-                    Vant = new Models.Vant();
+            if(ValidarCampos())
+            {
+                Models.Vant Vant = null;
+                if (hdnIdVant.Value.Equals(""))
+                { // Insert
+                    using (Tn tn = new Tn("bd_reapp"))
+                    {
+                        Vant = new Models.Vant();
+                        Vant.IdMarcaVant = ddlMarcaVant.SelectedValue.ToIntID();
+                        Vant.IdTipoVant = ddlClaseVant.SelectedValue.ToIntID();
+                        Vant.Modelo = txtModelo.Text;
+                        Vant.FHAlta = DateTime.Now;
+                        Vant.IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+                        Vant.Fabricante = txtFabricante.Text;
+                        Vant.AñoFabricacion = txtAñoFabricacion.Text.ToDateTime();
+                        Vant.LugarFabricacion = txtLugarFabricacion.Text;
+                        Vant.LugarGuardado = txtLugarGuardado.Text;
+                        Vant.NumeroSerie = txtNumeroSerie.Text;
+                        Vant.Insert();
+
+                    }
+                }
+                else
+                { // Update
+
+                    Vant = new Models.Vant().Select(hdnIdVant.Value.ToInt());
+
+
                     Vant.IdMarcaVant = ddlMarcaVant.SelectedValue.ToIntID();
-                    Vant.IdTipoVant = ddlTipoVant.SelectedValue.ToIntID();
+                    Vant.IdTipoVant = ddlClaseVant.SelectedValue.ToIntID();
                     Vant.Modelo = txtModelo.Text;
-                    Vant.FHAlta = DateTime.Now;
-                    Vant.IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
-                    Vant.Insert();
+                    Vant.Fabricante = txtFabricante.Text;
+                    Vant.AñoFabricacion = txtAñoFabricacion.Text.ToDateTime();
+                    Vant.LugarFabricacion = txtLugarFabricacion.Text;
+                    Vant.LugarGuardado = txtLugarGuardado.Text;
+                    Vant.NumeroSerie = txtNumeroSerie.Text;
+                    Vant.Update();
 
                 }
-            }
-            else
-            { // Update
 
-                Vant = new Models.Vant().Select(hdnIdVant.Value.ToInt());
 
-                
-                Vant.IdMarcaVant = ddlMarcaVant.SelectedValue.ToIntID();
-                Vant.IdTipoVant = ddlTipoVant.SelectedValue.ToIntID();
-                Vant.Modelo = txtModelo.Text;
-                Vant.Update();
+                MostrarListado();
+                cargarGvVants();
             }
 
-            MostrarListado();
-            cargarGvVants();
+
         }
 
         protected void LimpiarModal()
         {
+            ddlModalSolicitante.Items.Clear();
             ddlMarcaVant.Items.Clear();
-            ddlTipoVant.Items.Clear();
+            ddlClaseVant.Items.Clear();
             txtModelo.Text = "";
+            txtAñoFabricacion.Text = "";
+            txtLugarFabricacion.Text = "";
+            txtLugarGuardado.Text = "";
+            txtNumeroSerie.Text = "";
+            txtFabricante.Text = "";
+
+            pnlError.Visible = false;
         }
 
 
@@ -188,6 +246,76 @@ namespace REApp.Forms
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             MostrarListado();
+        }
+
+        protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected bool ValidarCampos()
+        {
+            if (txtFabricante.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese el nombre del Fabricante del VANT.";
+                pnlError.Visible = true;
+                return false;
+            }
+            if (ddlMarcaVant.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, seleccione la Marca del VANT.";
+                pnlError.Visible = true;
+                return false;
+            }
+            if (txtModelo.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese el modelo del VANT.";
+                pnlError.Visible = true;
+                return false;
+            }
+            if (txtNumeroSerie.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese el Número de Serie del VANT.";
+                pnlError.Visible = true;
+                return false;
+
+            }
+            if (txtAñoFabricacion.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese el Año de Fabricación del VANT.";
+                pnlError.Visible = true;
+                return false;
+            }
+            if (txtLugarFabricacion.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese el Lugar de Fabricación del VANT.";
+                pnlError.Visible = true;
+                return false;
+            }
+
+            if (txtLugarGuardado.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese el Lugar de Guardado del VANT.";
+                pnlError.Visible = true;
+                return false;
+            }
+            if (ddlClaseVant.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, seleccione la Clase del VANT.";
+                pnlError.Visible = true;
+                return false;
+            }
+
+            pnlError.Visible = false;
+            return true;
         }
 
     }

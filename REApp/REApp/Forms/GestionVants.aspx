@@ -158,6 +158,11 @@
                 <div class="row">
                     <div class="col-12">
                         <br />
+                        <div class="col align-self-start">
+                                <h6>SOLICITANTES<h6>
+                                <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" AutoPostBack="true" Width="300px"/>
+                        </div>
+                        <br />
                         <div class="panel-body" style="display: flex; justify-content: center; align-items:center">
                             <div class="row" style="overflow: auto;height: 500px; width: 1400px; " >
                                 <asp:UpdatePanel ID="upVants" Style="width: 100%;" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
@@ -175,12 +180,11 @@
                                                         <Columns>  
                                                             <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
                                                             <asp:BoundField DataField="IdVant" ItemStyle-Width="10%"  ItemStyle-HorizontalAlign="Center" HeaderText="ID" />
-                                                            <asp:BoundField DataField="Marca" ItemStyle-Width="20%"  HeaderText="MARCA" /> <%--Vant.IdMarcaVant=MarcaVant.IdMarcaVant--%>
-                                                            <asp:BoundField DataField="Tipo" ItemStyle-Width="20%" HeaderText="TIPO" /> <%--Vant.IdTipoVant=TipoVant.IdTipoVant--%>
+                                                            <asp:BoundField DataField="Fabricante" ItemStyle-Width="20%" HeaderText="FABRICANTE" /> 
+                                                            <asp:BoundField DataField="Marca" ItemStyle-Width="20%"  HeaderText="MARCA" />
                                                             <asp:BoundField DataField="Modelo" ItemStyle-Width="20%"  HeaderText="MODELO" />
-                                                            <asp:BoundField DataField="Nombre" ItemStyle-Width="20%" HeaderText="SOLICITANTE" />
-                                                            <asp:BoundField DataField="FHAlta" ItemStyle-Width="20%" HeaderText="FECHA ALTA" />             
-                                                            <asp:BoundField DataField="FHBaja" ItemStyle-Width="20%" HeaderText="FECHA BAJA" />
+                                                            <asp:BoundField DataField="Clase" ItemStyle-Width="20%" HeaderText="CLASE" />             
+                                                            <asp:BoundField DataField="NumeroSerie" ItemStyle-Width="20%" HeaderText="NUMERO DE SERIE" />
 
 
                                                             <%--Boton para editar vant de la BD --%>
@@ -226,34 +230,77 @@
                             <asp:UpdatePanel ID="upModalABM" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                 <ContentTemplate>
                                     <div class="col-12">
+                                        <div class="row">
+                                            <asp:Panel ID="pnlModalSolicitante" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <h6>SOLICITANTE</h6>
+                                                <asp:DropDownList runat="server" ID="ddlModalSolicitante" CssClass="form-control select-single" />
+                                            </asp:Panel>
+                                        </div>
+                                        <br />
                                         <div class="row"> 
-                                            <h6>Datos Vant</h6>   
+                                            <h6>DATOS VANT</h6>   
                                         </div>
                                         <asp:HiddenField ID="hdnIdVant" runat="server"/>
                                         </br>
                                         <div class="row">
+                                            <asp:Panel ID="pnlModalFabricante" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Fabricante" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtFabricante" CssClass="form-control" />
+                                            </asp:Panel>
+
                                             <asp:Panel ID="pnlModalMarcaVant" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Marca" runat="server" />
                                                 <asp:DropDownList runat="server" ID="ddlMarcaVant" CssClass="form-control select-single" />
                                             </asp:Panel>
 
-                                            <asp:Panel ID="pnlModalTipo" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
-                                                <asp:Label Text="Tipo" runat="server" />
-                                                <asp:DropDownList runat="server" ID="ddlTipoVant" CssClass="form-control select-single" />
-                                            </asp:Panel>
                                         </div>
                                         <div class="row">
                                             <asp:Panel ID="pnlModalModelo" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Modelo" runat="server" />
                                                 <asp:TextBox runat="server" ID="txtModelo" CssClass="form-control" />
                                             </asp:Panel>
+
+                                            <asp:Panel ID="pnlModalNumeroSerie" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Numero de Serie" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtNumeroSerie" CssClass="form-control" />
+                                            </asp:Panel>
                                            
-                                            <asp:Panel ID="PanelModalSolicitante" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
-                                                <asp:Label Text="Solicitante" runat="server" />
-                                                <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" />
+                                        </div>
+                                        <div class="row">
+                                            <asp:Panel ID="pnlModalAñoFabricacion" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Año de Fabricacion" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtAñoFabricacion" CssClass="form-control" />
+                                            </asp:Panel>
+
+                                            <asp:Panel ID="pnlModalLugarFabricacion" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Lugar de Fabricacion" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtLugarFabricacion" CssClass="form-control" />
+                                            </asp:Panel>
+
+                                        </div>
+                                        <div class="row">
+                                            <asp:Panel ID="pnlModalLugarGuardado" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Lugar de Guardado" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtLugarGuardado" CssClass="form-control" />
+                                            </asp:Panel>
+
+                                            <asp:Panel ID="pnlModalClase" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Clase" runat="server" />
+                                                <asp:DropDownList runat="server" ID="ddlClaseVant" CssClass="form-control select-single" />
                                             </asp:Panel>
                                         </div>
                                         <hr />
+                                        <div class="row">
+                                            <asp:Panel ID="pnlError" Visible="false" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" runat="server">
+                                                <div class="alert alert-danger" role="alert">
+                                                    <h5>
+                                                        <asp:Label ID="txtErrorHeader" runat="server" /></h5>
+                                                    <hr />
+                                                    <asp:Label ID="txtErrorBody" runat="server" />
+                                                </div>
+                                                <hr />
+                                            </asp:Panel>
+                                        </div>
                                         <div class="row">
                                             <div style="justify-content:center;">
                                                 <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" OnClick="btnGuardar_Click" />
