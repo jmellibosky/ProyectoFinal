@@ -145,8 +145,6 @@ namespace REApp.Forms
             ddlModalSolicitante.Items.Clear();
             ddlModalModalidad.Items.Clear();
             ddlModalActividad.Items.Clear();
-            txtModalNombreUsuario.Text =
-            txtModalApellidoUsuario.Text =
             txtModalNombreSolicitud.Text =
             txtModalEstadoSolicitud.Text =
             txtModalObservaciones.Text = "";
@@ -257,8 +255,6 @@ namespace REApp.Forms
             pnlModalEstadoSolicitud.Visible = valor;
             pnlModalFechaSolicitud.Visible = valor;
             pnlModalFechaUltimaActualizacion.Visible = valor;
-            pnlModalApellidoUsuario.Visible = valor;
-            pnlModalNombreUsuario.Visible = valor;
             ddlModalSolicitante.Visible = !valor;
         }
 
@@ -311,8 +307,6 @@ namespace REApp.Forms
                 hdnIdSolicitud.Value = IdSolicitud.ToString();
                 txtModalNombreSolicitud.Text = Solicitud.Nombre;
 
-                txtModalNombreUsuario.Text = Usuario.Nombre;
-                txtModalApellidoUsuario.Text = Usuario.Apellido;
                 txtModalObservaciones.Text = Solicitud.Observaciones;
                 txtModalEstadoSolicitud.Text = Estado.Nombre;
 
@@ -349,8 +343,6 @@ namespace REApp.Forms
                 hdnIdSolicitud.Value = IdSolicitud.ToString();
                 txtModalNombreSolicitud.Text = Solicitud.Nombre;
 
-                txtModalNombreUsuario.Text = Usuario.Nombre;
-                txtModalApellidoUsuario.Text = Usuario.Apellido;
                 txtModalObservaciones.Text = Solicitud.Observaciones;
                 txtModalEstadoSolicitud.Text = Estado.Nombre;
 
