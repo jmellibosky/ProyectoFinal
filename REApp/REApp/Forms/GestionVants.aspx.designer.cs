@@ -240,6 +240,24 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.TextBox txtLugarFabricacion;
 
         /// <summary>
+        /// Control pnlModalClase.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlModalClase;
+
+        /// <summary>
+        /// Control ddlClaseVant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlClaseVant;
+
+        /// <summary>
         /// Control pnlModalLugarGuardado.
         /// </summary>
         /// <remarks>
@@ -258,22 +276,40 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.TextBox txtLugarGuardado;
 
         /// <summary>
-        /// Control pnlModalClase.
+        /// Control pnlModalLocalidadPartido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlModalClase;
+        protected global::System.Web.UI.WebControls.Panel pnlModalLocalidadPartido;
 
         /// <summary>
-        /// Control ddlClaseVant.
+        /// Control txtLocalidadPartido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlClaseVant;
+        protected global::System.Web.UI.WebControls.TextBox txtLocalidadPartido;
+
+        /// <summary>
+        /// Control pnlModalProvincia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlModalProvincia;
+
+        /// <summary>
+        /// Control txtProvincia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtProvincia;
 
         /// <summary>
         /// Control pnlError.

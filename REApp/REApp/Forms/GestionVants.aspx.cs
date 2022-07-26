@@ -152,10 +152,12 @@ namespace REApp.Forms
             
             txtFabricante.Text = Vant.Fabricante;
             txtAñoFabricacion.Text = Vant.AñoFabricacion.ToString();
+            txtModelo.Text = Vant.Modelo;
             txtLugarFabricacion.Text = Vant.LugarFabricacion;
             txtLugarGuardado.Text = Vant.LugarGuardado;
             txtNumeroSerie.Text = Vant.NumeroSerie;
-
+            txtLocalidadPartido.Text = Vant.LocalidadPartido;
+            txtProvincia.Text = Vant.Provincia;
 
             MostrarABM();
 
@@ -181,6 +183,8 @@ namespace REApp.Forms
                         Vant.LugarFabricacion = txtLugarFabricacion.Text;
                         Vant.LugarGuardado = txtLugarGuardado.Text;
                         Vant.NumeroSerie = txtNumeroSerie.Text;
+                        Vant.LocalidadPartido = txtLocalidadPartido.Text;
+                        Vant.Provincia = txtProvincia.Text;
                         Vant.Insert();
 
                     }
@@ -199,6 +203,8 @@ namespace REApp.Forms
                     Vant.LugarFabricacion = txtLugarFabricacion.Text;
                     Vant.LugarGuardado = txtLugarGuardado.Text;
                     Vant.NumeroSerie = txtNumeroSerie.Text;
+                    Vant.LocalidadPartido = txtLocalidadPartido.Text;
+                    Vant.Provincia = txtProvincia.Text;
                     Vant.Update();
 
                 }
@@ -222,6 +228,8 @@ namespace REApp.Forms
             txtLugarGuardado.Text = "";
             txtNumeroSerie.Text = "";
             txtFabricante.Text = "";
+            txtLocalidadPartido.Text = "";
+            txtProvincia.Text = "";
 
             pnlError.Visible = false;
         }
@@ -310,6 +318,20 @@ namespace REApp.Forms
             {
                 txtErrorHeader.Text = "Error";
                 txtErrorBody.Text = "Por favor, seleccione la Clase del VANT.";
+                pnlError.Visible = true;
+                return false;
+            }
+            if (txtLocalidadPartido.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese la Localidad/Partido.";
+                pnlError.Visible = true;
+                return false;
+            }
+            if (txtProvincia.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese la Provincia.";
                 pnlError.Visible = true;
                 return false;
             }

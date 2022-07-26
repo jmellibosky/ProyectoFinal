@@ -279,15 +279,28 @@
 
                                         </div>
                                         <div class="row">
-                                            <asp:Panel ID="pnlModalLugarGuardado" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
-                                                <asp:Label Text="Lugar de Guardado" runat="server" />
-                                                <asp:TextBox runat="server" ID="txtLugarGuardado" CssClass="form-control" />
-                                            </asp:Panel>
-
                                             <asp:Panel ID="pnlModalClase" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Clase" runat="server" />
                                                 <asp:DropDownList runat="server" ID="ddlClaseVant" CssClass="form-control select-single" />
                                             </asp:Panel>
+
+
+                                            <asp:Panel ID="pnlModalLugarGuardado" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Lugar de Guardado" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtLugarGuardado" CssClass="form-control" />
+                                            </asp:Panel>
+                                        </div>
+                                        <div class="row">
+                                            <asp:Panel ID="pnlModalLocalidadPartido" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Localidad/Partido" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtLocalidadPartido" CssClass="form-control" />
+                                            </asp:Panel>
+
+                                            <asp:Panel ID="pnlModalProvincia" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Provincia" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtProvincia" CssClass="form-control" />
+                                            </asp:Panel>
+
                                         </div>
                                         <hr />
                                         <div class="row">
