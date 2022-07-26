@@ -245,7 +245,7 @@
                                         </a>
                                         <ul class="nav nav-second-level">
                                             <li>
-                                                <a runat="server" id="A1">
+                                                <a href="Forms/Home" class="item-menu" target="iframePage" runat="server">
                                                     <i class="fa fa-home icon-li" aria-hidden="true"></i>
                                                     <asp:Label Text="Home" runat="server" />
                                                 </a>
