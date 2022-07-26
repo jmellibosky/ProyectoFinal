@@ -181,7 +181,7 @@
                                         </a>
                                         <ul class="nav nav-second-level">
                                             <li>
-                                                <a runat="server" id="lnkHomeAdministrador">
+                                                <a href="Forms/Home" class="item-menu" target="iframePage" runat="server">
                                                     <i class="fa fa-home icon-li" aria-hidden="true"></i>
                                                     <asp:Label Text="Home" runat="server" />
                                                 </a>
@@ -294,7 +294,7 @@
             </nav>
             <div id="content-page" class="container-fluid">
                 <%-- Paginas --%>
-                <iframe id="iframePage" style="height: 1000px; background-color: white;" name="iframePage" src="Forms\GestionTripulantes.aspx" frameborder="0" width="100%" runat="server"></iframe>
+                <iframe id="iframePage" style="height: 1000px; background-color: white;" name="iframePage" src="Forms\Home.aspx" frameborder="0" width="100%" runat="server"></iframe>
             </div>
         </div>
     </form>

@@ -16,14 +16,33 @@ namespace REApp.Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            //Aca hacemos el get que si o si es un string porque de object a int no deja
+            string idUsuario = Session["IdUsuario"].ToString();
+            string idRol = Session["IdRol"].ToString();
+
+            //Estos se usan de esta forma porque son ints, ver si hay mejor forma de hacer el set
+            int idRolInt = idRol.ToInt();
+            int id = idUsuario.ToInt();
+
             if (IsPostBack)
             {
                 cargarGvVants();
             }
             if (!IsPostBack)
             {
-                CargarComboSolicitante();
-                cargarGvVants();
+                if (idRolInt == 1)
+                {
+                    CargarComboSolicitante();
+                    cargarGvVants();
+                }
+                if (idRolInt == 3)
+                {
+                    CargarComboSolicitante();
+                    ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
+                    ddlSolicitante.Enabled = false;
+                    cargarGvVants();
+                }
             }
         }
 
