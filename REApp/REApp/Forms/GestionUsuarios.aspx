@@ -127,7 +127,30 @@
 
 
 <asp:Content ID="cBody" ContentPlaceHolderID="cphBody" runat="server">
-
+    <%-- Eliminar --%>
+    <div class="row">
+        <asp:Panel ID="pnlAlertaEliminar" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" visible="false" runat="server">
+            <div class="alert alert-info" role="alert">
+                <h5>
+                    <asp:Label runat="server" Text="Confirmar Eliminación" />
+                </h5>
+                <hr />
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                        <asp:HiddenField ID="hdnEliminar" runat="server" />
+                        <asp:Label ID="lblMensajeEliminacion" runat="server" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                        <asp:Button ID="btnCancelarEliminacion" CssClass="btn btn-warning" runat="server" Text="Cancelar" OnClick="btnCancelarEliminacion_Click" />
+                        <asp:Button ID="btnConfirmarEliminacion" CssClass="btn btn-danger" runat="server" Text="Confirmar" OnClick="btnConfirmarEliminacion_Click" />
+                    </div>
+                </div>
+            </div>
+            <hr />
+        </asp:Panel>
+    </div>
     <%-- Encabezado --%>
         <div class="row">
             <div class="col-12">
@@ -154,7 +177,6 @@
             <div class="col-12">
                 <div class="panel-body" style="display: flex; justify-content: center; align-items:center">
                     <div class="row" style="overflow: auto;height: 500px; width: 1400px; " >
-
                 <asp:UpdatePanel ID="upUsuarios" Style="width: 100%;" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                 <ContentTemplate>
 
@@ -185,8 +207,7 @@
                                     <asp:LinkButton ID="btnUpdate" CommandName="UpdateUser" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
                                         <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i>
                                     </asp:LinkButton> 
-                                    <asp:LinkButton ID="btnDelete" CommandName="Delete" CommandArgument='<%# Eval("IdUsuario") %>' runat="server"
-                                        OnClientClick="return confirm('¿Seguro que desea eliminar este VANT?')">
+                                    <asp:LinkButton ID="btnDelete" CommandName="Delete" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
                                         <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; margin-left: 25px; color:#525252' ></i> 
                                     </asp:LinkButton>
                                 </ItemTemplate>
@@ -244,8 +265,8 @@
                                             </div>
                                             <div class="row">
                                                 <asp:Panel ID="pnlCuil" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
-                                                    <asp:Label Text="CUIL" runat="server" />
-                                                    <asp:TextBox runat="server" ID="txtCuil" CssClass="form-control" />
+                                                    <asp:Label Text="CUIT" runat="server" />
+                                                    <asp:TextBox runat="server" ID="txtModalCuit" CssClass="form-control" />
                                                 </asp:Panel>
                                             </div>
                                             <div class="row">
@@ -280,5 +301,7 @@
 </asp:Panel>
 </ContentTemplate>
 </asp:UpdatePanel>
+
+
 </asp:Content>
 

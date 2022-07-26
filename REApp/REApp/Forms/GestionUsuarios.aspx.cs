@@ -130,6 +130,7 @@ namespace REApp.Forms
             btnNuevo.Visible = true;
             pnlABM.Visible = false;
             btnVolver.Visible = false;
+            pnlAlertaEliminar.Visible = false;
         }
 
         protected void MostrarABM()
@@ -139,6 +140,15 @@ namespace REApp.Forms
             pnlABM.Visible = true;
             btnVolver.Visible = true;
             btnGuardar.Visible = true;
+        }
+        protected void MostrarMsgEliminar()
+        {
+            pnlListado.Visible = false;
+            btnNuevo.Visible = false;
+            pnlABM.Visible = false;
+            btnVolver.Visible = false;
+            btnGuardar.Visible = false;
+            pnlAlertaEliminar.Visible = true;
         }
 
 
@@ -200,9 +210,9 @@ namespace REApp.Forms
             }
             else
             {
-                //lblMensajeEliminacion.Text = "¿Desea confirmar la eliminación del tripulante " + Tripulacion.Nombre + " " + Tripulacion.Apellido + "?";
-                //hdnEliminar.Value = Tripulacion.IdTripulacion.ToString();
-                //pnlAlertaEliminar.Visible = true;
+                MostrarMsgEliminar();
+                lblMensajeEliminacion.Text = "¿Desea confirmar la eliminación del usuario " + Usuario.Nombre + " " + Usuario.Apellido + "?";
+                hdnEliminar.Value = Usuario.IdUsuario.ToString();
             }
         }
 
@@ -221,6 +231,7 @@ namespace REApp.Forms
             UsuarioViejo.FechaNacimiento = txtModalFechaNac.Text.ToDateTime();
             UsuarioViejo.Telefono = txtModalTelefono.Text;
             UsuarioViejo.Email = txtModalCorreo.Text;
+            UsuarioViejo.Cuit = txtModalCuit.ToString().ToInt();
             UsuarioViejo.Password = UsuarioViejo.Password;
             UsuarioViejo.SaltKey = UsuarioViejo.SaltKey;
 
@@ -229,6 +240,19 @@ namespace REApp.Forms
             hdnIdUsuario.Value = "";
             MostrarListado();
             BindGrid();
+        }
+
+        protected void btnCancelarEliminacion_Click(object sender, EventArgs e)
+        {
+            MostrarListado();
+        }
+
+        protected void btnConfirmarEliminacion_Click(object sender, EventArgs e)
+        {
+            Models.Usuario UsuarioAEliminar = new Models.Usuario().Select(hdnEliminar.Value.ToInt());
+            UsuarioAEliminar.Delete();
+
+            MostrarListado();
         }
     }
 }
