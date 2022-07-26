@@ -127,30 +127,9 @@
 
 
 <asp:Content ID="cBody" ContentPlaceHolderID="cphBody" runat="server">
-    <%-- Eliminar --%>
-    <div class="row">
-        <asp:Panel ID="pnlAlertaEliminar" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" visible="false" runat="server">
-            <div class="alert alert-info" role="alert">
-                <h5>
-                    <asp:Label runat="server" Text="Confirmar Eliminación" />
-                </h5>
-                <hr />
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-                        <asp:HiddenField ID="hdnEliminar" runat="server" />
-                        <asp:Label ID="lblMensajeEliminacion" runat="server" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-                        <asp:Button ID="btnCancelarEliminacion" CssClass="btn btn-warning" runat="server" Text="Cancelar" OnClick="btnCancelarEliminacion_Click" />
-                        <asp:Button ID="btnConfirmarEliminacion" CssClass="btn btn-danger" runat="server" Text="Confirmar" OnClick="btnConfirmarEliminacion_Click" />
-                    </div>
-                </div>
-            </div>
-            <hr />
-        </asp:Panel>
-    </div>
+
+    
+
     <%-- Encabezado --%>
         <div class="row">
             <div class="col-12">
@@ -171,6 +150,31 @@
 
 <asp:UpdatePanel ID="upForm" runat="server">
 <ContentTemplate>
+
+    <%-- DeleteAlert --%>
+    <div class="row">
+        <asp:Panel ID=pnlAlertDeleteUser CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" visible="false" runat="server">
+            <div class="alert alert-info" role="alert">
+                <h5>
+                    <asp:Label Text="Confirme la Eliminación" runat="server" />
+                </h5>
+                <hr />
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                        <asp:HiddenField ID="hdnDeleteUserId" runat="server"/>
+                        <asp:Label ID="lblDeleteMessage" Text="" runat="server" />
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <div>
+                        <asp:Button ID="btnDeleteConfirm" CssClass="btn btn-danger" Text="Confirmar" OnClick="btnDeleteConfirm_Click" runat="server" />
+                        <asp:Button ID="btnDeleteCancel" CssClass="btn btn-warning" Text="Cancelar" OnClick="btnDeleteCancel_Click" runat="server" />
+                    </div>
+                </div>
+            </div>
+        </asp:Panel>
+    </div>
+
 <asp:Panel ID="pnlListado" runat="server" Visible="true">
         <%-- Contenido --%>
         <div class="row">
@@ -192,14 +196,14 @@
 
                         <Columns>  
                             <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                            <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO"   ItemStyle-Width="10%"/>
-                            <asp:BoundField DataField="Nombre" HeaderText="NOMBRE"          ItemStyle-Width="20%"/>
-                            <asp:BoundField DataField="Apellido" HeaderText="APELLIDO"      ItemStyle-Width="20%"/>
+                            <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO"   ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="Nombre" HeaderText="NOMBRE"          ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="Apellido" HeaderText="APELLIDO"      ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center"/>
                             <asp:BoundField DataField="Email" HeaderText="EMAIL"            ItemStyle-Width="20%"/>
-                            <asp:BoundField DataField="NombreRol" HeaderText="ROL"          ItemStyle-Width="15%"/>
-                            <asp:BoundField DataField="Dni" HeaderText="DNI"                ItemStyle-Width="15%"/>
+                            <asp:BoundField DataField="NombreRol" HeaderText="ROL"          ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="Dni" HeaderText="DNI"                ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center"/>
                             <asp:BoundField DataField="Telefono" HeaderText="TELEFONO"      ItemStyle-Width="15%"/>
-                            <asp:BoundField DataField="Cuit" HeaderText="CUIT"              ItemStyle-Width="15%"/>
+                            <asp:BoundField DataField="Cuit" HeaderText="CUIT"              ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center"/>
 
                             <%-- Boton con link para ver detalles solicitud--%>
                             <asp:TemplateField  ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="ACCIONES">                
@@ -207,8 +211,8 @@
                                     <asp:LinkButton ID="btnUpdate" CommandName="UpdateUser" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
                                         <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i>
                                     </asp:LinkButton> 
-                                    <asp:LinkButton ID="btnDelete" CommandName="Delete" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
-                                        <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; margin-left: 25px; color:#525252' ></i> 
+                                    <asp:LinkButton ID="btnEliminarUsuario" CommandName="DeleteUser" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
+                                        <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i> 
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField> 
@@ -287,6 +291,17 @@
                                             </div>
                                         </div>
                                         <br />
+                                            <div class="row">
+                                                <asp:Panel ID="pnlError" Visible="false" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" runat="server">
+                                                    <div class="alert alert-danger" role="alert">
+                                                        <h5>
+                                                            <asp:Label ID="txtErrorHeader" runat="server" /></h5>
+                                                        <hr />
+                                                        <asp:Label ID="txtErrorBody" runat="server" />
+                                                    </div>
+                                                    <hr />
+                                                </asp:Panel>
+                                            </div>
                                         <div class="row">
                                             <div style="justify-content:center;">
                                                 <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" OnClick="btnGuardar_Click1" />

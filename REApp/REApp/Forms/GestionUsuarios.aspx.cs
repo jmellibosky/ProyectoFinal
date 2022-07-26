@@ -71,6 +71,7 @@ namespace REApp.Forms
             txtModalFechaNac.Text =
             txtModalCorreo.Text =
             txtModalTelefono.Text =
+            txtModalCuit.Text =
             txtModalTipoDni.Text = "";
         }
 
@@ -130,7 +131,8 @@ namespace REApp.Forms
             btnNuevo.Visible = true;
             pnlABM.Visible = false;
             btnVolver.Visible = false;
-            pnlAlertaEliminar.Visible = false;
+            pnlAlertDeleteUser.Visible = false;
+            pnlError.Visible = false;
         }
 
         protected void MostrarABM()
@@ -148,7 +150,7 @@ namespace REApp.Forms
             pnlABM.Visible = false;
             btnVolver.Visible = false;
             btnGuardar.Visible = false;
-            pnlAlertaEliminar.Visible = true;
+            pnlAlertDeleteUser.Visible = true;
         }
 
 
@@ -203,6 +205,7 @@ namespace REApp.Forms
                 ddlModalRol.SelectedValue = Usuario.IdRol.ToCryptoID().ToString();
                 txtModalDni.Text = Usuario.Dni.ToString();
                 txtModalTipoDni.Text = Usuario.TipoDni;
+                txtModalCuit.Text = Usuario.Cuit.ToString();
                 txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString();
                 txtModalCorreo.Text = Usuario.Email;
                 txtModalTelefono.Text = Usuario.Telefono;
@@ -211,45 +214,98 @@ namespace REApp.Forms
             else
             {
                 MostrarMsgEliminar();
-                lblMensajeEliminacion.Text = "¿Desea confirmar la eliminación del usuario " + Usuario.Nombre + " " + Usuario.Apellido + "?";
-                hdnEliminar.Value = Usuario.IdUsuario.ToString();
+                lblDeleteMessage.Text = "¿Desea confirmar la eliminación del usuario " + Usuario.Nombre + " " + Usuario.Apellido + "?";
+                hdnDeleteUserId.Value = Usuario.IdUsuario.ToString();
             }
         }
 
         
         protected void btnGuardar_Click1(object sender, EventArgs e)
         {
-            Models.Usuario UsuarioViejo = null;
-            UsuarioViejo = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
+            if (ValidarCampos())
+            {
+                Models.Usuario UsuarioViejo = null;
+                UsuarioViejo = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
 
-            // Update
-            UsuarioViejo.Nombre = txtModalNombreUsuario.Text;
-            UsuarioViejo.Apellido = txtModalApellidoUsuario.Text;
-            UsuarioViejo.IdRol = ddlModalRol.SelectedIndex.ToString().ToInt();
-            UsuarioViejo.Dni = txtModalDni.Text.ToInt();
-            UsuarioViejo.TipoDni = txtModalTipoDni.Text;
-            UsuarioViejo.FechaNacimiento = txtModalFechaNac.Text.ToDateTime();
-            UsuarioViejo.Telefono = txtModalTelefono.Text;
-            UsuarioViejo.Email = txtModalCorreo.Text;
-            UsuarioViejo.Cuit = txtModalCuit.ToString().ToInt();
-            UsuarioViejo.Password = UsuarioViejo.Password;
-            UsuarioViejo.SaltKey = UsuarioViejo.SaltKey;
+                // Update
+                UsuarioViejo.Nombre = txtModalNombreUsuario.Text;
+                UsuarioViejo.Apellido = txtModalApellidoUsuario.Text;
+                UsuarioViejo.IdRol = ddlModalRol.SelectedValue.ToString().ToIntID();
+                UsuarioViejo.Dni = txtModalDni.Text.ToInt();
+                UsuarioViejo.TipoDni = txtModalTipoDni.Text;
+                UsuarioViejo.FechaNacimiento = txtModalFechaNac.Text.ToDateTime();
+                UsuarioViejo.Telefono = txtModalTelefono.Text;
+                UsuarioViejo.Email = txtModalCorreo.Text;
+                UsuarioViejo.Cuit = txtModalCuit.Text.ToInt();
+                UsuarioViejo.Password = UsuarioViejo.Password;
+                UsuarioViejo.SaltKey = UsuarioViejo.SaltKey;
 
-            UsuarioViejo.Update();
+                UsuarioViejo.Update();
 
-            hdnIdUsuario.Value = "";
-            MostrarListado();
-            BindGrid();
+                hdnIdUsuario.Value = "";
+                MostrarListado();
+                BindGrid();
+            }
+           
         }
 
-        protected void btnCancelarEliminacion_Click(object sender, EventArgs e)
+        protected bool ValidarCampos()
+        {
+            if (txtModalNombreUsuario.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese el nombre del usuario.";
+                pnlError.Visible = true;
+                return false;
+            }
+            if (txtModalApellidoUsuario.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese el apellido del usuario.";
+                pnlError.Visible = true;
+                return false;
+            }
+            if (txtModalDni.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese el DNI del usuario.";
+                pnlError.Visible = true;
+                return false;
+            }
+            if (txtModalFechaNac.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese la fecha de nacimiento del usuario.";
+                pnlError.Visible = true;
+                return false;
+            }
+            if (txtModalFechaNac.Text.ToDateTimeNull() == null)
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese una fecha de nacimiento válida.";
+                pnlError.Visible = true;
+                return false;
+            }
+            if (txtModalTelefono.Text.Equals("") && txtModalCorreo.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese al menos un dato de contacto del usuario.";
+                pnlError.Visible = true;
+                return false;
+            }
+
+            pnlError.Visible = false;
+            return true;
+        }
+
+        protected void btnDeleteCancel_Click(object sender, EventArgs e)
         {
             MostrarListado();
         }
 
-        protected void btnConfirmarEliminacion_Click(object sender, EventArgs e)
+        protected void btnDeleteConfirm_Click(object sender, EventArgs e)
         {
-            Models.Usuario UsuarioAEliminar = new Models.Usuario().Select(hdnEliminar.Value.ToInt());
+            Models.Usuario UsuarioAEliminar = new Models.Usuario().Select(hdnDeleteUserId.Value.ToInt());
             UsuarioAEliminar.Delete();
 
             MostrarListado();
