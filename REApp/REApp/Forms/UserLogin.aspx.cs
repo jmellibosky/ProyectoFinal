@@ -43,13 +43,18 @@ namespace REApp.Forms
 
             if (flagLogin == 1)
             {
+                //Ver si esto es completamente seguro
                 string idUsuario = dt2.Rows[0][0].ToString();
                 string nombreuser = dt2.Rows[0][1].ToString();
                 string apellidouser = dt2.Rows[0][2].ToString();
+                string idRol = dt2.Rows[0][6].ToString();
                 string nombrecompleto = nombreuser + " " + apellidouser;
+
                 Session["Username"] = nombrecompleto;
                 Session["UsuarioCompleto"] = dt2;
                 Session["IdUsuario"] = idUsuario;
+                Session["IdRol"] = idRol;
+
                 Response.Redirect("/Default.aspx");
             }
             else
