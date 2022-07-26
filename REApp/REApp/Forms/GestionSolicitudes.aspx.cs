@@ -130,8 +130,11 @@ namespace REApp.Forms
             txtModalFechaUltimaActualizacion.Enabled = false;
             txtModalFechaSolicitud.Enabled = false;
             txtModalEstadoSolicitud.Enabled = false;
-            txtModalNombreUsuario.Enabled = false;
-            txtModalApellidoUsuario.Enabled = false;
+            pnlAgregarCircunferencia.Visible = true;
+            pnlAgregarPoligono.Visible = false;
+            pnlAgregarUbicacion.Visible = false;
+            pnlAgregarPuntoGeografico.Visible = false;
+            rptUbicaciones.DataSource = null;
         }
 
 
@@ -195,6 +198,9 @@ namespace REApp.Forms
             ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
             ddlModalSolicitante.Enabled = false;
             btnGuardar.Visible = true;
+
+            chkVant.Checked = false;
+            chkVant_CheckedChanged(null, null);
 
             MostrarABM();
         }
@@ -291,6 +297,7 @@ namespace REApp.Forms
 
                 string FHActualiz = Solicitud.FHUltimaActualizacionEstado;
                 if(FHActualiz != null)
+                if (FHActualiz != null)
                 {
                     txtModalFechaUltimaActualizacion.Text = FHActualiz;
                 }
@@ -343,6 +350,123 @@ namespace REApp.Forms
         protected void lnkEditar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        protected void chkVant_CheckedChanged(object sender, EventArgs e)
+        {
+            pnlSeleccionVants.Visible = !chkVant.Checked;
+
+            if (!chkVant.Checked)
+            {
+                using (SP sp = new SP("bd_reapp"))
+                {
+                    DataTable dt = sp.Execute("usp_VantConsultar", P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID()));
+                    if (dt.Rows.Count > 0)
+                    {
+                        gvVANTs.DataSource = dt;
+                    }
+                    else
+                    {
+                        gvVANTs.DataSource = null;
+                    }
+                    gvVANTs.DataBind();
+                }
+            }
+        }
+
+        protected void btnAgregarUbicacion_Click(object sender, EventArgs e)
+        {
+            pnlAgregarUbicacion.Visible = true;
+        }
+
+        protected void btnGuardarUbicacion_Click(object sender, EventArgs e)
+        {
+            pnlAgregarUbicacion.Visible = false;
+            AgregarUbicacionRepeater();
+        }
+
+        protected void btnAgregarPuntoGeografico_Click(object sender, EventArgs e)
+        {
+            pnlAgregarPuntoGeografico.Visible = true;
+        }
+
+        protected void btnGuardarPuntoGeografico_Click(object sender, EventArgs e)
+        {
+            AgregarPuntoGeograficoGridview();
+            txtPoligonoLatitud.Text =
+            txtPoligonoLongitud.Text =
+            txtPoligonoAltura.Text = "";
+        }
+
+        protected void chkEsPoligono_CheckedChanged(object sender, EventArgs e)
+        {
+            pnlAgregarPoligono.Visible = chkEsPoligono.Checked;
+            pnlAgregarCircunferencia.Visible = !chkEsPoligono.Checked;
+        }
+
+        protected void AgregarPuntoGeograficoGridview()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Latitud");
+            dt.Columns.Add("Longitud");
+            dt.Columns.Add("Altura");
+
+            for (int i = 0; i < gvPuntosGeograficos.Rows.Count; i++)
+            {
+                string Latitud = gvPuntosGeograficos.Rows[i].Cells[0].Text;
+                string Longitud = gvPuntosGeograficos.Rows[i].Cells[1].Text;
+                string Altura = gvPuntosGeograficos.Rows[i].Cells[2].Text;
+                dt.Rows.Add(Latitud, Longitud, Altura);
+            }
+
+            string NuevaLatitud = txtPoligonoLatitud.Text;
+            string NuevaLongitud = txtPoligonoLongitud.Text;
+            string NuevaAltura = txtPoligonoAltura.Text;
+            dt.Rows.Add(NuevaLatitud, NuevaLongitud, NuevaAltura);
+
+            gvPuntosGeograficos.DataSource = dt;
+            gvPuntosGeograficos.DataBind();
+        }
+
+        protected void AgregarUbicacionRepeater()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("TipoUbicacion");
+            dt.Columns.Add("Datos");
+
+            for (int i = 0; i < rptUbicaciones.Items.Count; i++)
+            {
+                string TipoUbicacion = ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text;
+                string Datos = ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text;
+                dt.Rows.Add(TipoUbicacion, Datos);
+            }
+
+            string NuevaTipoUbicacion = (chkEsPoligono.Checked) ? "Polígono" : "Circunferencia";
+            string NuevaDatos = "";
+            if (chkEsPoligono.Checked)
+            {
+                for (int i = 0; i < gvPuntosGeograficos.Rows.Count; i++)
+                {
+                    string Latitud = gvPuntosGeograficos.Rows[i].Cells[0].Text;
+                    string Longitud = gvPuntosGeograficos.Rows[i].Cells[1].Text;
+                    string Altura = gvPuntosGeograficos.Rows[i].Cells[2].Text;
+
+                    NuevaDatos += "Latitud: " + Latitud + " - Longitud: " + Longitud + " - Altura: " + Altura + " | ";
+                }
+            }
+            else
+            {
+                NuevaDatos = "Latitud: " + txtCircunferenciaLatitud.Text + " - Longitud: " + txtCircunferenciaLongitud.Text + " - Altura: " + txtCircunferenciaAltura.Text + " - Radio: " + txtCircunferenciaRadio.Text;
+            }
+            dt.Rows.Add(NuevaTipoUbicacion, NuevaDatos);
+
+            rptUbicaciones.DataSource = dt;
+            rptUbicaciones.DataBind();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text = dt.Rows[i][0].ToString();
+                ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text = dt.Rows[i][1].ToString();
+            }
         }
     }
 }
