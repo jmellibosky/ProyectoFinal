@@ -31,5 +31,7 @@ namespace REApp.Models
         public DateTime FHAlta { get; set; }
 
         public DateTime? FHBaja { get; set; }
+
+        public DateTime? FHVencimiento { get; set; }
     }
 }
