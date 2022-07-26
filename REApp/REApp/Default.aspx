@@ -173,7 +173,7 @@
                             <div class="sidebar-nav navbar-collapse">
                                 <ul id="side-menu" class="nav">
                                     <%-- Administrador --%>
-                                    <li id="liAdministrador" runat="server">
+                                    <li id="liAdministrador" style="" runat="server">
                                         <a href="#">
                                             <strong>
                                                 <asp:Label Text="Administrador" runat="server" />
@@ -181,7 +181,7 @@
                                         </a>
                                         <ul class="nav nav-second-level">
                                             <li>
-                                                <a runat="server" id="lnkHomeAdministrador">
+                                                <a href="Forms/Home" class="item-menu" target="iframePage" runat="server">
                                                     <i class="fa fa-home icon-li" aria-hidden="true"></i>
                                                     <asp:Label Text="Home" runat="server" />
                                                 </a>
@@ -237,7 +237,7 @@
                                         </ul>
                                     </li>
                                     <%-- Solicitante --%>
-                                    <li id="li1" runat="server">
+                                    <li id="liSolicitante" runat="server">
                                         <a href="#">
                                             <strong>
                                                 <asp:Label Text="Solicitante" runat="server" />
@@ -262,12 +262,12 @@
                                                     <asp:Label Text="Mi Tripulación" runat="server" />
                                                 </a>
                                             </li>
-                                            <li>
+                                            <%--<li>
                                                 <a href="Forms/GestionUsuarios.aspx" class="item-menu" runat="server" target="iframePage">
                                                     <i class="fas fa-user icon-li" aria-hidden="true"></i>
                                                     <asp:Label Text="Mis Datos Personales" runat="server" />
                                                 </a>
-                                            </li>
+                                            </li>--%>
                                             <li>
                                                 <a href="Forms/GestionVants.aspx" class="item-menu"  runat="server" id="A2" target="iframePage">
                                                     <i class="fas fa-plane icon-li" aria-hidden="true"></i>
@@ -294,7 +294,7 @@
             </nav>
             <div id="content-page" class="container-fluid">
                 <%-- Paginas --%>
-                <iframe id="iframePage" style="height: 1000px; background-color: white;" name="iframePage" src="Forms\GestionTripulantes.aspx" frameborder="0" width="100%" runat="server"></iframe>
+                <iframe id="iframePage" style="height: 1000px; background-color: white;" name="iframePage" src="Forms\Home.aspx" frameborder="0" width="100%" runat="server"></iframe>
             </div>
         </div>
     </form>

@@ -25,5 +25,20 @@ namespace REApp.Models
         public string Modelo { get; set; }
 
         public int IdUsuario { get; set; }
+
+        public string Fabricante { get; set; }
+
+        public string NumeroSerie { get; set; }
+
+        public DateTime AñoFabricacion { get; set; }
+
+        public string LugarFabricacion { get; set; }
+
+        public string LugarGuardado { get; set; }
+
+        public string LocalidadPartido { get; set; }
+
+        public string Provincia { get; set; }
+
     }
 }

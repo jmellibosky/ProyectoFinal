@@ -16,15 +16,40 @@ namespace REApp.Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Aca hacemos el get que si o si es un string porque de object a int no deja
+            string idUsuario = Session["IdUsuario"].ToString();
+            string idRol = Session["IdRol"].ToString();
+
+            //Estos se usan de esta forma porque son ints, ver si hay mejor forma de hacer el set
+            int idRolInt = idRol.ToInt();
+            int id = idUsuario.ToInt();
+
 
             if (IsPostBack)
             {
-                BindGrid();
+                 BindGrid();
+                 LbArchivo.Text = "";
+
+                //BindGrid();
+                //LbArchivo.Text = "";
             }
             if (!IsPostBack)
             {
-                CargarComboSolicitante();
-                BindGrid();
+                if (idRolInt == 1)
+                {
+                    CargarComboSolicitante();
+                    BindGrid();
+                }
+                if (idRolInt == 3)
+                {
+                    CargarComboSolicitante();
+                    ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
+                    ddlSolicitante.Enabled = false;
+                    BindGrid();
+                }
+                //CargarComboSolicitante();
+                //BindGrid();
+                
             }
         }
 
@@ -48,7 +73,7 @@ namespace REApp.Forms
             {
                 if (!ddlSolicitante.SelectedItem.Value.Equals("#"))
                 {
-                    dt = sp.Execute("usp_GetArchivos", P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()));
+                    dt = sp.Execute("usp_GetDocumentosSolicitante", P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()));
                 }
             }
             if (dt != null && dt.Rows.Count > 0)
@@ -86,7 +111,7 @@ namespace REApp.Forms
                 if (extension == ".pdf")
                 {
                     //Tamaño de archivo menor a 1Mb
-                    if (tam <= 1000000)
+                    if (tam <= 5000000)
                     {
                         //Insert MagicSQL
                         Models.Documento Documento = null;
@@ -103,16 +128,20 @@ namespace REApp.Forms
                             Documento.FHAlta = DateTime.Today;
                             Documento.TipoMIME = contentType;
                             //Documento.FHBaja = null;
-
+                            if(txtFechaVencimiento.Value != "")
+                            {
+                                Documento.FHVencimiento = txtFechaVencimiento.Value.ToDateTime();
+                            }
                             Documento.Insert();
                         }
                         BindGrid();
+                        txtFechaVencimiento.Value = "";
                         LbArchivo.Text = "El archivo se subió con éxito.";
-                        LbArchivo.CssClass = "hljs-string";
+                        LbArchivo.CssClass = "hljs-string border";
                     }
                     else
                     {
-                        LbArchivo.Text = "El tamaño del archivo debe ser menor a 1Mb";
+                        LbArchivo.Text = "El tamaño del archivo debe ser menor a 5Mb";
                     }
                 }
                 else

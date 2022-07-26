@@ -126,7 +126,7 @@
 
         
         <%-- Mostrar Archivos--%>
-        <div class="container justify-content-center" style="margin-left:1px;">
+        <div class="container justify-content-center">
 
             <%--DDL y Carga de Archivos--%>
             <div class="row">
@@ -134,59 +134,74 @@
                     <asp:Label runat="server">Solicitantes</asp:Label>
                     <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" AutoPostBack="true" Width="300px"/>
                 </div>
-                <div class="col align-self-end">
+                <div class="col align-self-end border">
                     <asp:FileUpload ID="FileUpload1" runat="server" />
-
-                        <asp:Button ID="Upload" runat="server" Text="Subir Archivo" OnClick="Upload_Click" CssClass="btn btn-dark"/>
-                    <div class="row">
                         <br />
-                        <asp:Label ID="LbArchivo" runat="server" Text="" CssClass="alert-danger"></asp:Label>  
+                    <hr />
+                    <br />
+                    <div class="row">
+                        <%--<label class="form-label font-weight-bold ml-2" for="txtFechaVencimiento">Fecha de Vencimiento</label>--%>
+                        <asp:Label CssClass="width: 50%; text-align: right; text-md-center font-weight-bold" runat="server" >Fecha de Vencimiento:&nbsp &nbsp</asp:Label>
+                        <input type="date" id="txtFechaVencimiento" runat="server"/>  
+                        <hr />
                     </div>
-                                      
+                    <hr />
+                    <br />
+                        <div class="row" >
+                            <hr />
+                            <br />
+                            <asp:Button ID="Upload" runat="server" Text="Subir Archivo" OnClick="Upload_Click" CssClass="btn btn-dark"/>
+                            <asp:Label ID="LbArchivo" runat="server" Text="" CssClass="alert-danger"></asp:Label>
+                        </div>       
+                        <br />        
                 </div>
             </div>
-
-            <br /><br /><br/>
+        </div>
 
             <%--Generacion de GridView--%>
 
             <div class="panel-body" style="display: flex; justify-content: center; align-items:center">
-                    <asp:GridView ID="gvArchivos" 
-                                             runat="server" 
-                                             AutoGenerateColumns="false" 
-                                             CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
-                                                    <AlternatingRowStyle BackColor="white" />
-                                                    <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
-                                                    <RowStyle BackColor="#e1dddd" />
-                                                    <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+                <div class="row" style="overflow: auto;height: 400px; width: 1600px; " >
+                    <asp:Panel ID="upDoc" Style="width: 100%;" runat="server" >
+                        <asp:GridView ID="gvArchivos" 
+                         runat="server" 
+                         AutoGenerateColumns="false" 
+                         CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                         <AlternatingRowStyle BackColor="white" />
+                         <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                         <RowStyle BackColor="#e1dddd" />
+                         <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
 
-                        <Columns>  
-                            <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                            <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="100px" ItemStyle-Wrap="false"/>
-                            <asp:BoundField DataField="NombreUsuario" HeaderText="PROPIETARIO" ItemStyle-Width="150px" ItemStyle-Wrap="false"/>
-                            <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="250px" ItemStyle-Wrap="false"/>
-                            <asp:BoundField DataField="Extension" HeaderText="EXTENSION" ItemStyle-Width="150px" ItemStyle-Wrap="false"/>
-                            <asp:BoundField DataField="TipoMIME" HeaderText="TIPO MIME" ItemStyle-Width="150px" ItemStyle-Wrap="false"/>
-                            <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="150px" ItemStyle-Wrap="false"/>
+                            <Columns>  
+                                <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center"/>
+                                <asp:BoundField DataField="NombreUsuario" HeaderText="PROPIETARIO" ItemStyle-Width="10%"/>
+                                <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
+                                <asp:BoundField DataField="Extension" HeaderText="EXTENSION" ItemStyle-Width="10%" />
+                                <asp:BoundField DataField="TipoMIME" HeaderText="TIPO MIME" ItemStyle-Width="10%" />
+                                <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center"/>
+                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center"/>
 
-                            <%-- Boton con link para descargar archivo--%>
-                            <asp:TemplateField  ItemStyle-Width="10%" ItemStyle-Wrap="false" HeaderText="ACCIONES" >  
-                                <ItemTemplate>  
-                                    <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click1"
-                                    CommandArgument='<%# Eval("IdDocumento") %>'>
-                                        <i class="fas fa-file-pdf" aria-hidden="true" style='font-size:15px; margin-left: 30px; color:#525252'></i> 
-                                    </asp:LinkButton>      
-                            <%--Boton para eliminar archivo de la BD--%>
-                                    <asp:LinkButton ID="lnkEliminarArchivo" runat="server" OnClick="lnkEliminarArchivo_Click"
-                                    CommandArgument='<%# Eval("IdDocumento") %>'>
-                                        <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; margin-left: 25px; color:#525252' ></i>
-                                    </asp:LinkButton>  
-                                </ItemTemplate>  
-                            </asp:TemplateField>  
+                                <%-- Boton con link para descargar archivo--%>
+                                <asp:TemplateField  ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">  
+                                    <ItemTemplate>  
+                                        <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click1"
+                                        CommandArgument='<%# Eval("IdDocumento") %>'>
+                                            <i class="fas fa-file-pdf" aria-hidden="true" style='font-size:15px;  color:#525252'></i> 
+                                        </asp:LinkButton>      
+                                <%--Boton para eliminar archivo de la BD--%>
+                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" OnClick="lnkEliminarArchivo_Click"
+                                        CommandArgument='<%# Eval("IdDocumento") %>'>
+                                            <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; color:#525252' ></i>
+                                        </asp:LinkButton>  
+                                    </ItemTemplate>  
+                                </asp:TemplateField>  
 
-                        </Columns>  
-                    </asp:GridView>
+                            </Columns>  
 
+                        </asp:GridView>
+                    </asp:Panel>
+                </div>
             </div>
     
 </asp:Content>

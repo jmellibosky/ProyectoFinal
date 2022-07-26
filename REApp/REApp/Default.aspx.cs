@@ -15,14 +15,31 @@ namespace REApp
             try
             {
                 lblUsername.InnerText = Session["Username"].ToString();
+
+                //Aca hacemos el get que si o si es un string porque de object a int no deja
                 string idUsuario = Session["IdUsuario"].ToString();
+                string idRol = Session["IdRol"].ToString();
+
+                //Estos se usan de esta forma porque son ints, ver si hay mejor forma de hacer el set
+                int idRolInt = idRol.ToInt();
                 int id = idUsuario.ToInt();
-                
+             
+                if (idRolInt == 3)
+                {
+                    liAdministrador.Style["display"] = "none";
+                }
+                else if (idRolInt == 1)
+                {
+                    liSolicitante.Style["display"] = "none";
+                }
+
             }
             catch
             {
                 lblUsername.InnerText = "INGRESO POR EL DEFAULT";
             }
+
+
             
         }
     }
