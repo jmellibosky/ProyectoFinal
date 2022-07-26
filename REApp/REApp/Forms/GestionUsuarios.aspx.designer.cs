@@ -11,8 +11,17 @@ namespace REApp.Forms
 {
 
 
-    public partial class GestionUsuarios2
+    public partial class GestionUsuarios
     {
+
+        /// <summary>
+        /// Control lblTitulo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTitulo;
 
         /// <summary>
         /// Control btnNuevo.
@@ -193,6 +202,24 @@ namespace REApp.Forms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtModalFechaNac;
+
+        /// <summary>
+        /// Control pnlCuil.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCuil;
+
+        /// <summary>
+        /// Control txtCuil.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCuil;
 
         /// <summary>
         /// Control pnlCorreo.

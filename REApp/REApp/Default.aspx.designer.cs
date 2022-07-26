@@ -87,13 +87,13 @@ namespace REApp
         protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkGestionVehiculos;
 
         /// <summary>
-        /// Control li1.
+        /// Control liSolicitante.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSolicitante;
 
         /// <summary>
         /// Control A1.

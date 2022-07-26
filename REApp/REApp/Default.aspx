@@ -173,7 +173,7 @@
                             <div class="sidebar-nav navbar-collapse">
                                 <ul id="side-menu" class="nav">
                                     <%-- Administrador --%>
-                                    <li id="liAdministrador" runat="server">
+                                    <li id="liAdministrador" style="" runat="server">
                                         <a href="#">
                                             <strong>
                                                 <asp:Label Text="Administrador" runat="server" />
@@ -237,7 +237,7 @@
                                         </ul>
                                     </li>
                                     <%-- Solicitante --%>
-                                    <li id="li1" runat="server">
+                                    <li id="liSolicitante" runat="server">
                                         <a href="#">
                                             <strong>
                                                 <asp:Label Text="Solicitante" runat="server" />
@@ -262,12 +262,12 @@
                                                     <asp:Label Text="Mi Tripulación" runat="server" />
                                                 </a>
                                             </li>
-                                            <li>
+                                            <%--<li>
                                                 <a href="Forms/GestionUsuarios.aspx" class="item-menu" runat="server" target="iframePage">
                                                     <i class="fas fa-user icon-li" aria-hidden="true"></i>
                                                     <asp:Label Text="Mis Datos Personales" runat="server" />
                                                 </a>
-                                            </li>
+                                            </li>--%>
                                             <li>
                                                 <a href="Forms/GestionVants.aspx" class="item-menu"  runat="server" id="A2" target="iframePage">
                                                     <i class="fas fa-plane icon-li" aria-hidden="true"></i>

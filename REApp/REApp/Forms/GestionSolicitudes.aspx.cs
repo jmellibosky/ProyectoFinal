@@ -185,6 +185,7 @@ namespace REApp.Forms
         {
             LimpiarModal();
             OcultarMostrarPanelesABM(false);
+            HabilitarDeshabilitarTxts(true);
 
             CargarComboModalSolicitante();
             CargarComboModalActividades();
@@ -193,6 +194,7 @@ namespace REApp.Forms
 
             ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
             ddlModalSolicitante.Enabled = false;
+            btnGuardar.Visible = true;
 
             MostrarABM();
         }
@@ -219,6 +221,7 @@ namespace REApp.Forms
             btnVolver.Visible = true;
         }
 
+        //True p/visible, False p/ invisible
         protected void OcultarMostrarPanelesABM(bool valor)
         {
             pnlModalEstadoSolicitud.Visible = valor;
@@ -229,6 +232,16 @@ namespace REApp.Forms
             ddlModalSolicitante.Visible = !valor;
         }
 
+        //True para Habilitar, False p/ Deshabilitar
+        protected void HabilitarDeshabilitarTxts(bool valor)
+        {
+            //Ocultar en detalle y Mostrar en nuevo
+            ddlModalActividad.Enabled = valor;
+            ddlModalModalidad.Enabled = valor;
+            txtModalNombreSolicitud.Enabled = valor;
+            txtModalObservaciones.Enabled = valor;
+            btnGuardar.Visible = valor;
+        }
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
@@ -253,6 +266,7 @@ namespace REApp.Forms
             { // Detalle
                 LimpiarModal();
                 OcultarMostrarPanelesABM(true);
+                HabilitarDeshabilitarTxts(false);
 
                 CargarComboModalSolicitante();
                 ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
@@ -272,9 +286,45 @@ namespace REApp.Forms
                 txtModalObservaciones.Text = Solicitud.Observaciones;
                 txtModalEstadoSolicitud.Text = Estado.Nombre;
 
+                //Se deshabilita los txts q faltan
+
 
                 string FHActualiz = Solicitud.FHUltimaActualizacionEstado;
                 if(FHActualiz != null)
+                {
+                    txtModalFechaUltimaActualizacion.Text = FHActualiz;
+                }
+                txtModalFechaSolicitud.Text = Solicitud.FHSolicitud.ToString();
+
+                MostrarABM();
+            }
+            if (e.CommandName.Equals("Editar"))
+            {
+                btnGuardar.Visible = true;
+                LimpiarModal();
+                OcultarMostrarPanelesABM(true);
+                HabilitarDeshabilitarTxts(true);
+
+                CargarComboModalSolicitante();
+                ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+                ddlModalSolicitante.Enabled = false;
+
+                CargarComboModalActividades();
+                CargarComboModalSoloModalidades();
+
+                ddlModalActividad.SelectedValue = Modalidad.IdActividad.ToCryptoID().ToString();
+                ddlModalModalidad.SelectedValue = Solicitud.IdModalidad.ToCryptoID().ToString();
+
+                hdnIdSolicitud.Value = IdSolicitud.ToString();
+                txtModalNombreSolicitud.Text = Solicitud.Nombre;
+
+                txtModalNombreUsuario.Text = Usuario.Nombre;
+                txtModalApellidoUsuario.Text = Usuario.Apellido;
+                txtModalObservaciones.Text = Solicitud.Observaciones;
+                txtModalEstadoSolicitud.Text = Estado.Nombre;
+
+                string FHActualiz = Solicitud.FHUltimaActualizacionEstado;
+                if (FHActualiz != null)
                 {
                     txtModalFechaUltimaActualizacion.Text = FHActualiz;
                 }
@@ -288,6 +338,11 @@ namespace REApp.Forms
         {
             int idActividad = ddlModalActividad.SelectedItem.Value.ToIntID();
             CargarComboModalModalidades(idActividad);
+        }
+
+        protected void lnkEditar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
