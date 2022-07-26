@@ -158,8 +158,6 @@
             </div>
         </div>
 
-            <br /><br /><br/>
-
             <%--Generacion de GridView--%>
 
             <div class="panel-body" style="display: flex; justify-content: center; align-items:center">
