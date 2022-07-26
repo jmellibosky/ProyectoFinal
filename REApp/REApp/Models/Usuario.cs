@@ -25,7 +25,7 @@ namespace REApp.Models
 
         public int IdRol { get; set; }
 
-        public DateTime? CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public int? CreatedBy { get; set; }
 
@@ -33,8 +33,14 @@ namespace REApp.Models
 
         public int? DeletedBy { get; set; }
 
-        public DateTime? FechaNacimiento { get; set; }
+        public DateTime FechaNacimiento { get; set; }
 
         public string Telefono { get; set; }
+
+        public string Password { get; set; }
+
+        public string SaltKey { get; set; }
+
+        public int? Cuit { get; set; }
     }
 }

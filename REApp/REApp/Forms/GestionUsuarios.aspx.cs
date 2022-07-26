@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace REApp.Forms
 {
-    public partial class GestionUsuarios2 : System.Web.UI.Page
+    public partial class GestionUsuarios : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -74,42 +74,42 @@ namespace REApp.Forms
             txtModalTipoDni.Text = "";
         }
 
-        protected void btnGuardar_Click(object sender, EventArgs e)
-        {
-            Models.Usuario Usuario = null;
-            if (hdnIdUsuario.Value.Equals(""))
-            { // Insert
-                using (Tn tn = new Tn("bd_reapp"))
-                {
-                    Usuario = new Models.Usuario();
-                    Usuario.Nombre = txtModalNombreUsuario.Text;
-                    Usuario.Email = txtModalCorreo.Text;
-                    Usuario.IdRol = ddlModalRol.SelectedValue.ToIntID();
-                    Usuario.FechaNacimiento = txtModalFechaNac.ToString().ToDateTime();
-                    Usuario.Telefono = txtModalTelefono.Text;
-                    Usuario.Dni = txtModalDni.Text.ToInt();
-                    Usuario.Apellido = txtModalApellidoUsuario.Text;
-                    Usuario.CreatedOn = DateTime.Now;
-                    Usuario.CreatedBy = null; // -----------------------------> Modificar
-                    Usuario.Insert();
-                }
-            }
-            else
-            { // Update
-                Usuario = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
-                Usuario.Nombre = txtModalNombreUsuario.Text;
-                Usuario.Email = txtModalCorreo.Text;
-                Usuario.IdRol = ddlModalRol.SelectedValue.ToIntID();
-                Usuario.FechaNacimiento = txtModalFechaNac.ToString().ToDateTime();
-                Usuario.Telefono = txtModalTelefono.Text;
-                Usuario.Dni = txtModalDni.Text.ToInt();
-                Usuario.Apellido = txtModalApellidoUsuario.Text;
-                Usuario.Update();
-            }
+        //protected void btnGuardar_Click(object sender, EventArgs e)
+        //{
+        //    Models.Usuario Usuario = null;
+        //    if (hdnIdUsuario.Value.Equals(""))
+        //    { // Insert
+        //        using (Tn tn = new Tn("bd_reapp"))
+        //        {
+        //            Usuario = new Models.Usuario();
+        //            Usuario.Nombre = txtModalNombreUsuario.Text;
+        //            Usuario.Email = txtModalCorreo.Text;
+        //            Usuario.IdRol = ddlModalRol.SelectedValue.ToIntID();
+        //            Usuario.FechaNacimiento = txtModalFechaNac.ToString().ToDateTime();
+        //            Usuario.Telefono = txtModalTelefono.Text;
+        //            Usuario.Dni = txtModalDni.Text.ToInt();
+        //            Usuario.Apellido = txtModalApellidoUsuario.Text;
+        //            Usuario.CreatedOn = DateTime.Now;
+        //            Usuario.CreatedBy = null; // -----------------------------> Modificar
+        //            Usuario.Insert();
+        //        }
+        //    }
+        //    else
+        //    { // Update
+        //        Usuario = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
+        //        Usuario.Nombre = txtModalNombreUsuario.Text;
+        //        Usuario.Email = txtModalCorreo.Text;
+        //        Usuario.IdRol = ddlModalRol.SelectedValue.ToIntID();
+        //        Usuario.FechaNacimiento = txtModalFechaNac.ToString().ToDateTime();
+        //        Usuario.Telefono = txtModalTelefono.Text;
+        //        Usuario.Dni = txtModalDni.Text.ToInt();
+        //        Usuario.Apellido = txtModalApellidoUsuario.Text;
+        //        Usuario.Update();
+        //    }
 
-            MostrarListado();
-            btnFiltrar_Click(null, null);
-        }
+        //    MostrarListado();
+        //    btnFiltrar_Click(null, null);
+        //}
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
@@ -154,26 +154,26 @@ namespace REApp.Forms
 
             if (e.CommandName.Equals("DisplayUser"))
             { // Detalle
-                LimpiarModal();
-                CargarComboRol();
+                //LimpiarModal();
+                //CargarComboRol();
 
-                MostrarABM();
+                //MostrarABM();
 
-                ddlModalRol.SelectedValue = ddlModalRol.SelectedValue;
-                ddlModalRol.Enabled = false;
+                //ddlModalRol.SelectedValue = ddlModalRol.SelectedValue;
+                //ddlModalRol.Enabled = false;
 
-                hdnIdUsuario.Value = IdUsuario.ToString();
+                //hdnIdUsuario.Value = IdUsuario.ToString();
 
-                txtModalNombreUsuario.Text = Usuario.Nombre;
-                txtModalApellidoUsuario.Text = Usuario.Apellido;
-                ddlModalRol.SelectedValue = Usuario.IdRol.ToCryptoID().ToString();
-                txtModalDni.Text = Usuario.Dni.ToString();
-                txtModalTipoDni.Text = Usuario.TipoDni;
-                txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString();
-                txtModalCorreo.Text = Usuario.Email;
-                txtModalTelefono.Text = Usuario.Telefono;
+                //txtModalNombreUsuario.Text = Usuario.Nombre;
+                //txtModalApellidoUsuario.Text = Usuario.Apellido;
+                //ddlModalRol.SelectedValue = Usuario.IdRol.ToCryptoID().ToString();
+                //txtModalDni.Text = Usuario.Dni.ToString();
+                //txtModalTipoDni.Text = Usuario.TipoDni;
+                //txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString();
+                //txtModalCorreo.Text = Usuario.Email;
+                //txtModalTelefono.Text = Usuario.Telefono;
 
-                MostrarABM();
+                //MostrarABM();
             }
             else if (e.CommandName.Equals("UpdateUser"))
             {
@@ -200,28 +200,35 @@ namespace REApp.Forms
             }
             else
             {
-
+                //lblMensajeEliminacion.Text = "¿Desea confirmar la eliminación del tripulante " + Tripulacion.Nombre + " " + Tripulacion.Apellido + "?";
+                //hdnEliminar.Value = Tripulacion.IdTripulacion.ToString();
+                //pnlAlertaEliminar.Visible = true;
             }
         }
 
+        
         protected void btnGuardar_Click1(object sender, EventArgs e)
         {
-            Models.Usuario Usuario = null;
+            Models.Usuario UsuarioViejo = null;
+            UsuarioViejo = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
+
             // Update
-            Usuario = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
-            Usuario.Nombre = txtModalNombreUsuario.Text;
-            Usuario.Apellido = txtModalApellidoUsuario.Text;
-            Usuario.IdRol = ddlModalRol.SelectedIndex.ToString().ToInt();
-            Usuario.Dni = txtModalDni.Text.ToInt();
-            Usuario.TipoDni = txtModalTipoDni.Text;
-            Usuario.FechaNacimiento = txtModalFechaNac.Text.ToDateTime();
-            Usuario.Telefono = txtModalTelefono.Text;
-            Usuario.Email = txtModalCorreo.Text;
-            Usuario.Update();
+            UsuarioViejo.Nombre = txtModalNombreUsuario.Text;
+            UsuarioViejo.Apellido = txtModalApellidoUsuario.Text;
+            UsuarioViejo.IdRol = ddlModalRol.SelectedIndex.ToString().ToInt();
+            UsuarioViejo.Dni = txtModalDni.Text.ToInt();
+            UsuarioViejo.TipoDni = txtModalTipoDni.Text;
+            UsuarioViejo.FechaNacimiento = txtModalFechaNac.Text.ToDateTime();
+            UsuarioViejo.Telefono = txtModalTelefono.Text;
+            UsuarioViejo.Email = txtModalCorreo.Text;
+            UsuarioViejo.Password = UsuarioViejo.Password;
+            UsuarioViejo.SaltKey = UsuarioViejo.SaltKey;
+
+            UsuarioViejo.Update();
 
             hdnIdUsuario.Value = "";
             MostrarListado();
-            //cargarGvUsuarios();
+            BindGrid();
         }
     }
 }
