@@ -66,19 +66,7 @@ namespace REApp.Forms
 
         }
 
-        protected void btnNuevoVant_Click(object sender, EventArgs e)
-        {
-            hdnIdVant.Value = "";
-            LimpiarModal();
-            CargarComboMarcaVant();
-            CargarComboModalSolicitante();
-            CargarComboClaseVant();
-            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
-            ddlModalSolicitante.Enabled = false;
-            MostrarABM();
-
-        }
-
+        //CARGA DE COMBOS
         protected void CargarComboMarcaVant()
         {
             ddlMarcaVant.Items.Clear();
@@ -130,6 +118,85 @@ namespace REApp.Forms
             }
         }
 
+        protected void CargarComboProvincia()
+        {
+            ddlProvincia.Items.Clear();
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = new UsuarioController().GetComboProvincias();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ddlProvincia.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdProvincia"].ToString().ToInt().ToCryptoID()));
+                }
+            }
+        }
+
+        protected void CargarComboLocalidadPartido(int IdProvincia)
+        {
+            ddlLocalidadPartido.Items.Clear();
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = new UsuarioController().GetComboLocalidadPartido(IdProvincia);
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ddlLocalidadPartido.Items.Add(new ListItem(dt.Rows[i]["NombreLocalidad"].ToString(), dt.Rows[i]["IdLocalidad"].ToString().ToInt().ToCryptoID()));
+                }
+            }
+        }
+
+
+        protected void ddlProvincia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idProvincia = ddlProvincia.SelectedItem.Value.ToIntID();
+            CargarComboLocalidadPartido(idProvincia);
+        }
+
+        //BOTONES NUEVO; MODIFICAR Y ELIMINAR
+
+        protected void btnNuevoVant_Click(object sender, EventArgs e)
+        {
+            hdnIdVant.Value = "";
+            LimpiarModal();
+            CargarComboMarcaVant();
+            CargarComboModalSolicitante();
+            CargarComboClaseVant();
+            CargarComboProvincia();
+            int idProvincia = ddlProvincia.SelectedItem.Value.ToIntID();
+            CargarComboLocalidadPartido(idProvincia);
+            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+            ddlModalSolicitante.Enabled = false;
+            MostrarABM();
+
+        }
+
+        protected void btnModificarVant_Click(object sender, EventArgs e)
+        {
+
+            int id = int.Parse((sender as LinkButton).CommandArgument);
+            Models.Vant Vant = new Models.Vant().Select(id);
+            hdnIdVant.Value = id.ToString();
+            LimpiarModal();
+            CargarComboMarcaVant();
+            CargarComboClaseVant();
+            CargarComboModalSolicitante();
+            CargarComboProvincia();
+
+            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+            ddlModalSolicitante.Enabled = false;
+
+
+            txtFabricante.Text = Vant.Fabricante;
+            txtAñoFabricacion.Text = Vant.AñoFabricacion.ToString();
+            txtModelo.Text = Vant.Modelo;
+            txtLugarFabricacion.Text = Vant.LugarFabricacion;
+            txtLugarGuardado.Text = Vant.LugarGuardado;
+            txtNumeroSerie.Text = Vant.NumeroSerie;
+            ddlLocalidadPartido.Text = Vant.LocalidadPartido.ToString();
+            ddlProvincia.Text = Vant.Provincia.ToString();
+
+            MostrarABM();
+
+        }
 
         protected void btnEliminarVant_Click(object sender, EventArgs e)
         {
@@ -154,34 +221,15 @@ namespace REApp.Forms
 
         }
 
-        protected void btnModificarVant_Click(object sender, EventArgs e)
-        {
 
-            int id = int.Parse((sender as LinkButton).CommandArgument);
-            Models.Vant Vant = new Models.Vant().Select(id);
-            hdnIdVant.Value = id.ToString();
-            LimpiarModal();
-            CargarComboMarcaVant();
-            CargarComboClaseVant();
-            CargarComboModalSolicitante();
 
-            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
-            ddlModalSolicitante.Enabled = false;
+        //protected DropDownList GetDdlLocalidadPartido()
+        //{
+        //    return ddlLocalidadPartido;
+        //}
 
-            
-            txtFabricante.Text = Vant.Fabricante;
-            txtAñoFabricacion.Text = Vant.AñoFabricacion.ToString();
-            txtModelo.Text = Vant.Modelo;
-            txtLugarFabricacion.Text = Vant.LugarFabricacion;
-            txtLugarGuardado.Text = Vant.LugarGuardado;
-            txtNumeroSerie.Text = Vant.NumeroSerie;
-            txtLocalidadPartido.Text = Vant.LocalidadPartido;
-            txtProvincia.Text = Vant.Provincia;
 
-            MostrarABM();
-
-        }
-
+        //BOTON GUARDAR
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             if(ValidarCampos())
@@ -202,8 +250,8 @@ namespace REApp.Forms
                         Vant.LugarFabricacion = txtLugarFabricacion.Text;
                         Vant.LugarGuardado = txtLugarGuardado.Text;
                         Vant.NumeroSerie = txtNumeroSerie.Text;
-                        Vant.LocalidadPartido = txtLocalidadPartido.Text;
-                        Vant.Provincia = txtProvincia.Text;
+                        Vant.LocalidadPartido = ddlLocalidadPartido.SelectedValue.ToIntID();
+                        Vant.Provincia = ddlProvincia.SelectedValue.ToIntID();
                         Vant.Insert();
 
                     }
@@ -222,8 +270,8 @@ namespace REApp.Forms
                     Vant.LugarFabricacion = txtLugarFabricacion.Text;
                     Vant.LugarGuardado = txtLugarGuardado.Text;
                     Vant.NumeroSerie = txtNumeroSerie.Text;
-                    Vant.LocalidadPartido = txtLocalidadPartido.Text;
-                    Vant.Provincia = txtProvincia.Text;
+                    Vant.LocalidadPartido = ddlLocalidadPartido.SelectedValue.ToIntID();
+                    Vant.Provincia = ddlProvincia.SelectedValue.ToIntID();
                     Vant.Update();
 
                 }
@@ -247,8 +295,8 @@ namespace REApp.Forms
             txtLugarGuardado.Text = "";
             txtNumeroSerie.Text = "";
             txtFabricante.Text = "";
-            txtLocalidadPartido.Text = "";
-            txtProvincia.Text = "";
+            ddlLocalidadPartido.Items.Clear();
+            ddlProvincia.Items.Clear();
 
             pnlError.Visible = false;
         }
@@ -279,6 +327,7 @@ namespace REApp.Forms
         {
 
         }
+
 
         protected bool ValidarCampos()
         {
@@ -340,17 +389,17 @@ namespace REApp.Forms
                 pnlError.Visible = true;
                 return false;
             }
-            if (txtLocalidadPartido.Text.Equals(""))
+            if (ddlLocalidadPartido.Text.Equals(""))
             {
                 txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese la Localidad/Partido.";
+                txtErrorBody.Text = "Por favor, seleccione la Localidad/Partido.";
                 pnlError.Visible = true;
                 return false;
             }
-            if (txtProvincia.Text.Equals(""))
+            if (ddlProvincia.Text.Equals(""))
             {
                 txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese la Provincia.";
+                txtErrorBody.Text = "Por favor, seleccione la Provincia.";
                 pnlError.Visible = true;
                 return false;
             }

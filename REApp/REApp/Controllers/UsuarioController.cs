@@ -68,6 +68,28 @@ namespace REApp
             return dt;
         }
 
+        public DataTable GetComboProvincias()
+        {
+            DataTable dt = null;
+            using (SP sp = new SP("bd_reapp"))
+            {
+                dt = sp.Execute("usp_GetComboProvincias");
+            }
+            return dt;
+        }
+
+        public DataTable GetComboLocalidadPartido(int IdProvincia)
+        {
+            DataTable dt = null;
+            using (SP sp = new SP("bd_reapp"))
+            {
+                dt = sp.Execute("usp_GetComboLocalidadPartido",
+                    P.Add("IdProvincia", IdProvincia)
+                    );
+            }
+            return dt;
+        }
+
         public class SecurityHelper
         {
 
