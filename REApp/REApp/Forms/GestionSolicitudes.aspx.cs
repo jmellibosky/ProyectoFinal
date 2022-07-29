@@ -255,7 +255,7 @@ namespace REApp.Forms
             pnlModalEstadoSolicitud.Visible = valor;
             pnlModalFechaSolicitud.Visible = valor;
             pnlModalFechaUltimaActualizacion.Visible = valor;
-            ddlModalSolicitante.Visible = !valor;
+            ddlModalSolicitante.Visible = valor; //Aca cambie el !valor
         }
 
         //True para Habilitar, False p/ Deshabilitar

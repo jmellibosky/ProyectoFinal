@@ -157,9 +157,10 @@
                 <div class="navbar-header">
                     <label id="lblUsername" runat="server" class="form-label font-weight-bolder" style="font-size:20px; color:#ffffff">Username</label>
                     <div class="dropdown nav navbar-top-links navbar-right">
-                        <button id="btnLogout" class="dropbtn" style="margin-right: 0px;" runat="server">
+                        <button id="btnLogout" class="dropbtn" onserverclick="btnCerrarSesion_Click" style="margin-right: 0px;" runat="server">
                             <i class="fas fa-power-off"></i>
                         </button>
+
                     </div>
                     <div class="dropdown nav navbar-top-links navbar-right">
                         <button id="btnPerfilUsuario" class="dropbtn" runat="server">
@@ -286,6 +287,39 @@
                                                     <asp:Label Text="Parametrización" runat="server" />
                                                 </a>
                                             </li>--%>
+                                        </ul>
+                                    </li>
+                                    <li id="liOperador" runat="server">
+                                        <a href="#">
+                                            <strong>
+                                                <asp:Label Text="Operador" runat="server" />
+                                            </strong>
+                                        </a>
+                                        <ul class="nav nav-second-level">
+                                            <li>
+                                                <a href="Forms/Home" class="item-menu" target="iframePage" runat="server">
+                                                    <i class="fa fa-home icon-li" aria-hidden="true"></i>
+                                                    <asp:Label Text="Home" runat="server" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="Forms/GestionSolicitudes" class="item-menu" target="iframePage" runat="server">
+                                                    <i class="fas fa-list icon-li" aria-hidden="true"></i>
+                                                    <asp:Label Text="Mis Solicitudes" runat="server" />
+                                                </a>
+                                            </li>
+                                            <%--<li>
+                                                <a runat="server" id="lnkParametrizacion">
+                                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                                    <asp:Label Text="Parametrización" runat="server" />
+                                                </a>
+                                            </li>--%>
+                                            <li>
+                                                <a href="Forms/GestionUsuarios.aspx" class="item-menu" runat="server" target="iframePage">
+                                                    <i class="fas fa-user icon-li" aria-hidden="true"></i>
+                                                    <asp:Label Text="Gestión de Usuarios" runat="server" />
+                                                </a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>

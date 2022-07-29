@@ -96,6 +96,15 @@ namespace REApp
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A2;
 
         /// <summary>
+        /// Control liOperador.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liOperador;
+
+        /// <summary>
         /// Control iframePage.
         /// </summary>
         /// <remarks>

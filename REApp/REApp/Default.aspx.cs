@@ -24,13 +24,20 @@ namespace REApp
                 int idRolInt = idRol.ToInt();
                 int id = idUsuario.ToInt();
              
-                if (idRolInt == 3)
+                if (idRolInt == 3) //Solicitante
                 {
                     liAdministrador.Style["display"] = "none";
+                    liOperador.Style["display"] = "none";
                 }
-                else if (idRolInt == 1)
+                else if (idRolInt == 1) //Administrador
                 {
                     liSolicitante.Style["display"] = "none";
+                    liOperador.Style["display"] = "none";
+                }
+                else if (idRolInt == 2) //Operador
+                {
+                    liSolicitante.Style["display"] = "none";
+                    liAdministrador.Style["display"] = "none";
                 }
 
             }
@@ -38,9 +45,15 @@ namespace REApp
             {
                 lblUsername.InnerText = "INGRESO POR EL DEFAULT";
             }
-
-
             
         }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("/Forms/UserLogin.aspx");
+        }
     }
+
 }
