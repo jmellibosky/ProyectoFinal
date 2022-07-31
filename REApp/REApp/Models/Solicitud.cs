@@ -1,10 +1,9 @@
-﻿using MagicSQL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿// Created for MagicSQL using MagicMaker [v.3.77.125.7055]
 
-namespace REApp.Models
+using System;
+using MagicSQL;
+
+namespace bd_reapp
 {
     public partial class Solicitud : ISUD<Solicitud>
     {
@@ -28,10 +27,16 @@ namespace REApp.Models
 
         public string FHUltimaActualizacionEstado { get; set; }
 
-        public DateTime FHSolicitud { get; set; }
+        public DateTime FHAlta { get; set; }
 
         public string Observaciones { get; set; }
 
         public string Nombre { get; set; }
+
+        public DateTime? FHBaja { get; set; }
+
+        public DateTime FHDesde { get; set; }
+
+        public DateTime FHHasta { get; set; }
     }
 }

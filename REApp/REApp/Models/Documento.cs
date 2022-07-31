@@ -1,10 +1,9 @@
-﻿using MagicSQL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿// Created for MagicSQL using MagicMaker [v.3.77.125.7055]
 
-namespace REApp.Models
+using System;
+using MagicSQL;
+
+namespace bd_reapp
 {
     public partial class Documento : ISUD<Documento>
     {
@@ -26,12 +25,18 @@ namespace REApp.Models
 
         public string TipoMIME { get; set; }
 
-        public byte[] Datos { get; set; }
-
         public DateTime FHAlta { get; set; }
 
         public DateTime? FHBaja { get; set; }
 
+        public byte[] Datos { get; set; }
+
         public DateTime? FHVencimiento { get; set; }
+
+        public int? IdVant { get; set; }
+
+        public int? IdTripulacion { get; set; }
+
+        public int? IdTipoDocumento { get; set; }
     }
 }

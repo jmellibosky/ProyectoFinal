@@ -3,7 +3,7 @@
 using System;
 using MagicSQL;
 
-namespace REApp.Models
+namespace bd_reapp
 {
     public partial class Usuario : ISUD<Usuario>
     {
@@ -19,7 +19,7 @@ namespace REApp.Models
 
         public string Email { get; set; }
 
-        public int Dni { get; set; }
+        public string Dni { get; set; }
 
         public string TipoDni { get; set; }
 
@@ -41,6 +41,6 @@ namespace REApp.Models
 
         public string SaltKey { get; set; }
 
-        public int? Cuit { get; set; }
+        public string Cuit { get; set; }
     }
 }
