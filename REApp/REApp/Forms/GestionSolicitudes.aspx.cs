@@ -183,7 +183,7 @@ namespace REApp.Forms
                     //Ver si funciona:
                     Solicitud.IdModalidad = ddlModalModalidad.SelectedValue.ToIntID();
                     Solicitud.IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
-                    Solicitud.FHSolicitud = DateTime.Now;
+                    Solicitud.FHAlta = DateTime.Now;
                     Solicitud.IdEstadoSolicitud = 1;
                     Solicitud.Observaciones = txtModalObservaciones.Text;
                     Solicitud.Insert();
@@ -319,7 +319,7 @@ namespace REApp.Forms
                 {
                     txtModalFechaUltimaActualizacion.Text = FHActualiz;
                 }
-                txtModalFechaSolicitud.Text = Solicitud.FHSolicitud.ToString();
+                txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
 
                 MostrarABM();
             }
@@ -351,7 +351,7 @@ namespace REApp.Forms
                 {
                     txtModalFechaUltimaActualizacion.Text = FHActualiz;
                 }
-                txtModalFechaSolicitud.Text = Solicitud.FHSolicitud.ToString();
+                txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
 
                 MostrarABM();
             }
