@@ -3,7 +3,7 @@
 using System;
 using MagicSQL;
 
-namespace bd_reapp
+namespace REApp.Models
 {
     public partial class Documento : ISUD<Documento>
     {
