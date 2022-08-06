@@ -231,12 +231,12 @@ namespace REApp.Forms
                 UsuarioViejo.Nombre = txtModalNombreUsuario.Text;
                 UsuarioViejo.Apellido = txtModalApellidoUsuario.Text;
                 UsuarioViejo.IdRol = ddlModalRol.SelectedValue.ToString().ToIntID();
-                UsuarioViejo.Dni = txtModalDni.Text.ToInt();
+                UsuarioViejo.Dni = txtModalDni.Text;
                 UsuarioViejo.TipoDni = txtModalTipoDni.Text;
                 UsuarioViejo.FechaNacimiento = txtModalFechaNac.Text.ToDateTime();
                 UsuarioViejo.Telefono = txtModalTelefono.Text;
                 UsuarioViejo.Email = txtModalCorreo.Text;
-                UsuarioViejo.Cuit = txtModalCuit.Text.ToInt();
+                UsuarioViejo.Cuit = txtModalCuit.Text;
                 UsuarioViejo.Password = UsuarioViejo.Password;
                 UsuarioViejo.SaltKey = UsuarioViejo.SaltKey;
 
