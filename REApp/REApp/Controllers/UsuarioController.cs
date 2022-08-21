@@ -61,7 +61,7 @@ namespace REApp
             DataTable dt = null;
             using (SP sp = new SP("bd_reapp"))
             {
-                dt = sp.Execute("usp_GetComboModalidadDeActividad", 
+                dt = sp.Execute("usp_GetComboModalidadDeActividad",
                     P.Add("IdActividad", IdActividad)
                     );
             }
@@ -117,6 +117,17 @@ namespace REApp
             }
 
         }
+
+        public void LogicDeleteUser(int IdDeletedUser, int idUserDeleting)
+        {
+            Models.Usuario usuario = new Models.Usuario().Select(IdDeletedUser); ;
+
+            usuario.DeletedOn = DateTime.Now;
+            usuario.DeletedBy = idUserDeleting;
+
+            usuario.Update();
+        }
+
 
     }
 }
