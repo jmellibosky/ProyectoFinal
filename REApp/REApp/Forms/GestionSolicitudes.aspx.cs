@@ -25,7 +25,6 @@ namespace REApp.Forms
             if (IsPostBack)
             {
                 BindGrid();
-                //BindGrid();
                 //LbArchivo.Text = "";
             }
             if (!IsPostBack)
@@ -147,6 +146,8 @@ namespace REApp.Forms
             ddlModalActividad.Items.Clear();
             txtModalNombreSolicitud.Text =
             txtModalEstadoSolicitud.Text =
+            txtModalFechaDesde.Text =
+            txtModalFechaHasta.Text =
             txtModalObservaciones.Text = "";
             txtModalFechaUltimaActualizacion.Text = "-";
             txtModalFechaUltimaActualizacion.Enabled = false;
@@ -156,6 +157,8 @@ namespace REApp.Forms
             pnlAgregarPoligono.Visible = false;
             pnlAgregarUbicacion.Visible = false;
             pnlAgregarPuntoGeografico.Visible = false;
+            btnAgregarUbicacion.Visible = true;
+            btnAgregarPuntoGeografico.Visible = true;
             rptUbicaciones.DataSource = null;
         }
 
@@ -184,6 +187,8 @@ namespace REApp.Forms
                     Solicitud.IdModalidad = ddlModalModalidad.SelectedValue.ToIntID();
                     Solicitud.IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
                     Solicitud.FHAlta = DateTime.Now;
+                    Solicitud.FHDesde = txtModalFechaDesde.Text.ToDateTime();
+                    Solicitud.FHHasta = txtModalFechaHasta.Text.ToDateTime();
                     Solicitud.IdEstadoSolicitud = 1;
                     Solicitud.Observaciones = txtModalObservaciones.Text;
                     Solicitud.Insert();
@@ -218,6 +223,7 @@ namespace REApp.Forms
             CargarComboModalModalidades(idActividad);
 
             ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+            ddlModalSolicitante.Visible = true;
             ddlModalSolicitante.Enabled = false;
             btnGuardar.Visible = true;
 
@@ -393,25 +399,37 @@ namespace REApp.Forms
         protected void btnAgregarUbicacion_Click(object sender, EventArgs e)
         {
             pnlAgregarUbicacion.Visible = true;
+            btnAgregarUbicacion.Visible = false;
+
+            txtCircunferenciaAltura.Text =
+            txtCircunferenciaLatitud.Text =
+            txtCircunferenciaLongitud.Text =
+            txtCircunferenciaRadio.Text = "";
+            gvPuntosGeograficos.DataSource = null;
         }
 
         protected void btnGuardarUbicacion_Click(object sender, EventArgs e)
         {
             pnlAgregarUbicacion.Visible = false;
+            btnAgregarUbicacion.Visible = true;
             AgregarUbicacionRepeater();
         }
 
         protected void btnAgregarPuntoGeografico_Click(object sender, EventArgs e)
         {
             pnlAgregarPuntoGeografico.Visible = true;
+            btnAgregarPuntoGeografico.Visible = false;
+
+            txtPoligonoLatitud.Text =
+            txtPoligonoLongitud.Text =
+            txtPoligonoAltura.Text = "";
         }
 
         protected void btnGuardarPuntoGeografico_Click(object sender, EventArgs e)
         {
             AgregarPuntoGeograficoGridview();
-            txtPoligonoLatitud.Text =
-            txtPoligonoLongitud.Text =
-            txtPoligonoAltura.Text = "";
+            pnlAgregarPuntoGeografico.Visible = false;
+            btnAgregarPuntoGeografico.Visible = true;
         }
 
         protected void chkEsPoligono_CheckedChanged(object sender, EventArgs e)
@@ -483,6 +501,61 @@ namespace REApp.Forms
                 ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text = dt.Rows[i][0].ToString();
                 ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text = dt.Rows[i][1].ToString();
             }
+        }
+
+        protected bool ValidarGuardarPuntoGeografico()
+        {
+            if (txtPoligonoLatitud.Text.Equals(""))
+            {
+                return false;
+            }
+            if (txtPoligonoLongitud.Text.Equals(""))
+            {
+                return false;
+            }
+            if (txtPoligonoAltura.Text.Equals(""))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        protected bool ValidarGuardarUbicacion()
+        {
+            if (txtCircunferenciaAltura.Text.Equals(""))
+            {
+                return false;
+            }
+            if (txtCircunferenciaLatitud.Text.Equals(""))
+            {
+                return false;
+            }
+            if (txtCircunferenciaLongitud.Text.Equals(""))
+            {
+                return false;
+            }
+            if (txtCircunferenciaRadio.Text.Equals(""))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        protected bool ValidarGuardar()
+        {
+            if (txtModalNombreSolicitud.Text.Equals(""))
+            {
+                return false;
+            }
+            if (txtModalFechaDesde.Text.Equals(""))
+            {
+                return false;
+            }
+            if (txtModalFechaHasta.Text.Equals(""))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

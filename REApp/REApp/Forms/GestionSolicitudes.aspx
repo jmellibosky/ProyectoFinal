@@ -145,7 +145,9 @@
                             <asp:Label runat="server">Solicitantes</asp:Label>
                             <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" Width="300px" />
                             <br />
-                            <asp:Button ID="btnFiltrar" Text="Filtrar" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnFiltrar_Click" />
+                            <div class="text-center">
+                                <asp:Button ID="btnFiltrar" Text="Filtrar" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnFiltrar_Click" />
+                            </div>
 
                             <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
                                 <div class="row" style="overflow: auto; height: 500px; width: 1400px;">
@@ -215,10 +217,6 @@
                                                 <asp:Label Text="Nombre de la Solicitud" runat="server" />
                                                 <asp:TextBox runat="server" ID="txtModalNombreSolicitud" CssClass="form-control font-weight-bold" />
                                             </asp:Panel>
-                                        </div>
-
-                                        <%--ACTIVIDAD MODALIDAD Y FECHA--%>
-                                        <div class="row">
                                             <asp:Panel ID="pnlModalActividad" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Actividad" runat="server" />
                                                 <asp:DropDownList runat="server" ID="ddlModalActividad" CssClass="form-control select-single" AutoPostBack="true" OnSelectedIndexChanged="ddlModalActividad_SelectedIndexChanged" />
@@ -226,6 +224,18 @@
                                             <asp:Panel ID="pnlModalModalidad" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Modalidad" runat="server" />
                                                 <asp:DropDownList runat="server" ID="ddlModalModalidad" CssClass="form-control select-single" />
+                                            </asp:Panel>
+                                        </div>
+
+                                        <%--ACTIVIDAD MODALIDAD Y FECHA--%>
+                                        <div class="row">
+                                            <asp:Panel CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Fecha Desde" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtModalFechaDesde" CssClass="form-control" />
+                                            </asp:Panel>
+                                            <asp:Panel CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Fecha Hasta" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtModalFechaHasta" CssClass="form-control" />
                                             </asp:Panel>
                                             <asp:Panel ID="pnlModalFechaSolicitud" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Fecha de Solicitud" runat="server" />
@@ -271,7 +281,7 @@
 
                                                     <%--VANTS--%>
                                                     <div class="col-12">
-                                                        <div class="conteiner">
+                                                        <div class="container">
                                                             <div class="row">
                                                                 <div class="col">
                                                                     <div class="row">
@@ -320,15 +330,20 @@
                                             <%--AGREGAR UBICACIONES--%>
                                             <div class="col-6">
                                                 <div class="row">
-                                                    <div class="col-12 text-center">
-                                                        <asp:Button ID="btnAgregarUbicacion" Text="Agregar Ubicación" runat="server" CssClass="btn btn-success" OnClick="btnAgregarUbicacion_Click" />
-                                                    </div>
+                                                    <asp:UpdatePanel runat="server">
+                                                        <ContentTemplate>
+                                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                                                                <asp:Button ID="btnAgregarUbicacion" Text="Agregar Ubicación" runat="server" CssClass="btn btn-success" OnClick="btnAgregarUbicacion_Click" />
+                                                            </div>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                                    <br />
                                                 </div>
 
                                                 <%--NUEVA UBICACIÓN--%>
                                                 <asp:Panel ID="pnlAgregarUbicacion" runat="server" Visible="false">
                                                     <div class="row">
-                                                        <div class="col-12">
+                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                             <asp:Label Text="Circunferencia" runat="server" />
                                                             <asp:CheckBox ID="chkEsPoligono" runat="server" AutoPostBack="true" OnCheckedChanged="chkEsPoligono_CheckedChanged" />
                                                             <asp:Label Text="Polígono" runat="server" />
@@ -336,56 +351,55 @@
                                                             <%--NUEVA CIRCUNFERENCIA--%>
                                                             <asp:Panel ID="pnlAgregarCircunferencia" runat="server" Visible="false">
                                                                 <div class="row">
-                                                                    <asp:Panel runat="server" CssClass="col-6 form-group">
-                                                                        <asp:Label Text="Latitud" runat="server" />
-                                                                        <asp:TextBox ID="txtCircunferenciaLatitud" runat="server" CssClass="form-control" />
-                                                                    </asp:Panel>
-                                                                    <asp:Panel runat="server" CssClass="col-6 form-group">
-                                                                        <asp:Label Text="Longitud" runat="server" />
-                                                                        <asp:TextBox ID="txtCircunferenciaLongitud" runat="server" CssClass="form-control" />
-                                                                    </asp:Panel>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <asp:Panel runat="server" CssClass="col-6 form-group">
-                                                                        <asp:Label Text="Altura" runat="server" />
-                                                                        <asp:TextBox ID="txtCircunferenciaAltura" runat="server" CssClass="form-control" />
-                                                                    </asp:Panel>
-                                                                    <asp:Panel runat="server" CssClass="col-6 form-group">
-                                                                        <asp:Label Text="Radio" runat="server" />
-                                                                        <asp:TextBox ID="txtCircunferenciaRadio" runat="server" CssClass="form-control" />
-                                                                    </asp:Panel>
+                                                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                        <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
+                                                                            <asp:Label Text="Latitud" runat="server" />
+                                                                            <asp:TextBox ID="txtCircunferenciaLatitud" runat="server" CssClass="form-control" />
+                                                                        </asp:Panel>
+                                                                        <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
+                                                                            <asp:Label Text="Longitud" runat="server" />
+                                                                            <asp:TextBox ID="txtCircunferenciaLongitud" runat="server" CssClass="form-control" />
+                                                                        </asp:Panel>
+                                                                        <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
+                                                                            <asp:Label Text="Altura" runat="server" />
+                                                                            <asp:TextBox ID="txtCircunferenciaAltura" runat="server" CssClass="form-control" />
+                                                                        </asp:Panel>
+                                                                        <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
+                                                                            <asp:Label Text="Radio" runat="server" />
+                                                                            <asp:TextBox ID="txtCircunferenciaRadio" runat="server" CssClass="form-control" />
+                                                                        </asp:Panel>
+                                                                    </div>
                                                                 </div>
                                                             </asp:Panel>
 
                                                             <%--NUEVO POLIGONO--%>
                                                             <asp:Panel ID="pnlAgregarPoligono" runat="server" Visible="false">
                                                                 <div class="row">
-                                                                    <asp:Panel runat="server" CssClass="col-12 text-center">
-                                                                        <asp:Button Text="Agregar Punto Geográfico" ID="btnAgregarPuntoGeografico" runat="server" CssClass="btn btn-success" OnClick="btnAgregarPuntoGeografico_Click" />
-                                                                    </asp:Panel>
+                                                                    <asp:UpdatePanel runat="server">
+                                                                        <ContentTemplate>
+                                                                            <asp:Panel runat="server" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                                                                                <asp:Button Text="Agregar Punto Geográfico" ID="btnAgregarPuntoGeografico" runat="server" CssClass="btn btn-success" OnClick="btnAgregarPuntoGeografico_Click" />
+                                                                            </asp:Panel>
+                                                                        </ContentTemplate>
+                                                                    </asp:UpdatePanel>
+                                                                    <br />
                                                                 </div>
 
                                                                 <asp:Panel ID="pnlAgregarPuntoGeografico" runat="server" Visible="false">
                                                                     <div class="row">
-                                                                        <div class="col-4">
-                                                                            <div class="row">
-                                                                                <asp:Panel runat="server" CssClass="col-12 form-group">
-                                                                                    <asp:Label Text="Latitud" runat="server" />
-                                                                                    <asp:TextBox ID="txtPoligonoLatitud" runat="server" CssClass="form-control" />
-                                                                                </asp:Panel>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <asp:Panel runat="server" CssClass="col-12 form-group">
-                                                                                    <asp:Label Text="Longitud" runat="server" />
-                                                                                    <asp:TextBox ID="txtPoligonoLongitud" runat="server" CssClass="form-control" />
-                                                                                </asp:Panel>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <asp:Panel runat="server" CssClass="col-12 form-group">
-                                                                                    <asp:Label Text="Altura" runat="server" />
-                                                                                    <asp:TextBox ID="txtPoligonoAltura" runat="server" CssClass="form-control" />
-                                                                                </asp:Panel>
-                                                                            </div>
+                                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                            <asp:Panel runat="server" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
+                                                                                <asp:Label Text="Latitud" runat="server" />
+                                                                                <asp:TextBox ID="txtPoligonoLatitud" runat="server" CssClass="form-control" />
+                                                                            </asp:Panel>
+                                                                            <asp:Panel runat="server" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
+                                                                                <asp:Label Text="Longitud" runat="server" />
+                                                                                <asp:TextBox ID="txtPoligonoLongitud" runat="server" CssClass="form-control" />
+                                                                            </asp:Panel>
+                                                                            <asp:Panel runat="server" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 form-group">
+                                                                                <asp:Label Text="Altura" runat="server" />
+                                                                                <asp:TextBox ID="txtPoligonoAltura" runat="server" CssClass="form-control" />
+                                                                            </asp:Panel>
                                                                         </div>
                                                                         <div class="col-8">
                                                                             <asp:GridView
@@ -410,7 +424,7 @@
 
                                                                     <hr />
                                                                     <div class="row">
-                                                                        <div class="col-12 text-center">
+                                                                        <div class="col-12 text-right">
                                                                             <asp:Button Text="Guardar Punto Geográfico" ID="btnGuardarPuntoGeografico" runat="server" CssClass="btn btn-success" OnClick="btnGuardarPuntoGeografico_Click" />
                                                                         </div>
                                                                     </div>
@@ -419,7 +433,7 @@
 
                                                             <hr />
                                                             <div class="row">
-                                                                <div class="col-12 text-center">
+                                                                <div class="col-12 text-right">
                                                                     <asp:Button Text="Guardar Ubicación" ID="btnGuardarUbicacion" runat="server" CssClass="btn btn-success" OnClick="btnGuardarUbicacion_Click" />
                                                                 </div>
                                                             </div>
@@ -446,9 +460,9 @@
                                             </div>
                                         </div>
 
-                                        <br />
+                                        <hr />
                                         <div class="row">
-                                            <div class="col-12 text-center">
+                                            <div class="col-12 text-right">
                                                 <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" OnClick="btnGuardar_Click" />
                                             </div>
                                         </div>

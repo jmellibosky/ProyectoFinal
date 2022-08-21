@@ -246,7 +246,7 @@ namespace REApp.Forms
                         Vant.FHAlta = DateTime.Now;
                         Vant.IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
                         Vant.Fabricante = txtFabricante.Text;
-                        Vant.AñoFabricacion = txtAñoFabricacion.Text.ToDateTime();
+                        Vant.AñoFabricacion = new DateTime(txtAñoFabricacion.Text.ToInt(), 1, 1);
                         Vant.LugarFabricacion = txtLugarFabricacion.Text;
                         Vant.LugarGuardado = txtLugarGuardado.Text;
                         Vant.NumeroSerie = txtNumeroSerie.Text;
