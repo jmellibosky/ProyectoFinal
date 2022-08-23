@@ -280,7 +280,7 @@
                                                 <asp:Panel ID="pnlSeleccionVants" Visible="true" runat="server">
 
                                                     <%--VANTS--%>
-                                                    <div class="col-12">
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="container">
                                                             <div class="row">
                                                                 <div class="col">
@@ -304,10 +304,10 @@
                                                                                 <asp:BoundField DataField="NumeroSerie" HeaderText="NRO. SERIE" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
 
                                                                                 <%-- Boton con link para ver detalles solicitud--%>
-                                                                                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="ACCIONES" ItemStyle-Width="10%">
+                                                                                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
                                                                                     <ItemTemplate>
                                                                                         <asp:HiddenField Value='<%# Eval("IdVant") %>' runat="server" ID="hdnIdVant" />
-                                                                                        <asp:CheckBox runat="server" ID="chkVinculado" />
+                                                                                        <asp:CheckBox runat="server" ID="chkVANTVinculado" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                             </Columns>
@@ -328,7 +328,7 @@
                                         </div>
                                         <div class="row">
                                             <%--AGREGAR UBICACIONES--%>
-                                            <div class="col-6">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="row">
                                                     <asp:UpdatePanel runat="server">
                                                         <ContentTemplate>
@@ -457,6 +457,43 @@
                                                         </div>
                                                     </ItemTemplate>
                                                 </asp:Repeater>
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                        <%--TRIPULANTES--%>
+                                        <div class="row">
+                                            <h5>Tripulantes</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <asp:GridView
+                                                    ID="gvTripulacion"
+                                                    runat="server"
+                                                    AutoGenerateColumns="false"
+                                                    CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                                                    <AlternatingRowStyle BackColor="white" />
+                                                    <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                    <RowStyle BackColor="#e1dddd" />
+                                                    <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+
+                                                    <Columns>
+                                                        <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                                        <asp:BoundField DataField="IdTripulacion" HeaderText="ID" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
+                                                        <asp:BoundField DataField="Apellido" HeaderText="APELLIDO" ItemStyle-Width="20%" />
+                                                        <asp:BoundField DataField="DNI" HeaderText="DNI" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="Teléfono" HeaderText="TELEFONO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+
+                                                        <%-- Boton con link para ver detalles solicitud--%>
+                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
+                                                            <ItemTemplate>
+                                                                <asp:HiddenField Value='<%# Eval("IdTripulacion") %>' runat="server" ID="hdnIdTripulacion" />
+                                                                <asp:CheckBox runat="server" ID="chkTripulacionVinculado" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
                                             </div>
                                         </div>
 
