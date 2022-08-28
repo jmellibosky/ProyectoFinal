@@ -288,6 +288,7 @@
                                             </div>
                                             <div class="row">
                                                 <asp:HiddenField ID="hdnIdUsuario" runat="server" />
+                                                <asp:HiddenField ID="hdnIdCurrentUser" runat="server" />
                                             </div>
                                         </div>
                                         <br />

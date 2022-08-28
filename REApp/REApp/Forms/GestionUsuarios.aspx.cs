@@ -24,7 +24,7 @@ namespace REApp.Forms
                 BindGrid();
             }
 
-
+            hdnIdCurrentUser.Value = "1"; // <----------- Modificar con el ID de Usuario Logueado (Por ahora le asigno uno de la BD)
         }
 
         private void BindGrid()
@@ -205,7 +205,7 @@ namespace REApp.Forms
                 ddlModalRol.SelectedValue = Usuario.IdRol.ToCryptoID().ToString();
                 txtModalDni.Text = Usuario.Dni.ToString();
                 txtModalTipoDni.Text = Usuario.TipoDni;
-                txtModalCuit.Text = Usuario.Cuit.ToString();
+                txtModalCuit.Text = Usuario.Cuit;
                 txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString();
                 txtModalCorreo.Text = Usuario.Email;
                 txtModalTelefono.Text = Usuario.Telefono;
@@ -305,8 +305,12 @@ namespace REApp.Forms
 
         protected void btnDeleteConfirm_Click(object sender, EventArgs e)
         {
-            Models.Usuario UsuarioAEliminar = new Models.Usuario().Select(hdnDeleteUserId.Value.ToInt());
-            UsuarioAEliminar.Delete();
+            //Models.Usuario UsuarioAEliminar = new Models.Usuario().Select(hdnDeleteUserId.Value.ToInt());
+
+            UsuarioController userController = new UsuarioController();
+            userController.LogicDeleteUser(hdnDeleteUserId.Value.ToInt(), hdnIdCurrentUser.Value.ToInt());
+            
+            //UsuarioAEliminar.Delete();
 
             MostrarListado();
         }
