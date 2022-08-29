@@ -131,6 +131,10 @@
     <Content Include="Forms\GestionUsuarios.aspx" />
     <Content Include="Forms\GestionVants.aspx" />
     <Content Include="Forms\Home.aspx" />
+    <Content Include="Forms\HomeDash\assets\favicon.ico" />
+    <Content Include="Forms\HomeDash\css\styles.css" />
+    <Content Include="Forms\HomeDash\HomeDash.aspx" />
+    <Content Include="Forms\HomeDash\js\scripts.js" />
     <Content Include="Forms\UserCorrectRegister.aspx" />
     <Content Include="Forms\UserForgotPassword.aspx" />
     <Content Include="Forms\UserLogin.aspx" />
@@ -310,6 +314,13 @@
     <Compile Include="Forms\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Forms\HomeDash\HomeDash.aspx.cs">
+      <DependentUpon>HomeDash.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\HomeDash\HomeDash.aspx.designer.cs">
+      <DependentUpon>HomeDash.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UserCorrectRegister.aspx.cs">
       <DependentUpon>UserCorrectRegister.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -374,9 +385,11 @@
     <Compile Include="Models\Solicitud.cs" />
     <Compile Include="Models\Subregional.cs" />
     <Compile Include="Models\TipoAeronave.cs" />
+    <Compile Include="Models\TipoDocumento.cs" />
     <Compile Include="Models\TipoVant.cs" />
     <Compile Include="Models\TipoZonaEspecial.cs" />
     <Compile Include="Models\Tripulacion.cs" />
+    <Compile Include="Models\TripulacionSolicitud.cs" />
     <Compile Include="Models\TripulacionUsuario.cs" />
     <Compile Include="Models\Ubicacion.cs" />
     <Compile Include="Models\Usuario.cs" />

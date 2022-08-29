@@ -1,12 +1,7 @@
 ﻿using MagicSQL;
 using System;
-using System.Security.Cryptography;
 using System.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Security.Cryptography;
 
 namespace REApp.Forms
 {
@@ -55,7 +50,10 @@ namespace REApp.Forms
                 Session["IdUsuario"] = idUsuario;
                 Session["IdRol"] = idRol;
 
-                Response.Redirect("/Default.aspx");
+                //Saco esta linea para ir probando el Dashboard
+                //Response.Redirect("/Default.aspx");
+
+                Response.Redirect("/Forms/HomeDash/HomeDash.aspx");
             }
             else
             {

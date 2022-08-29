@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace REApp.Forms
 {
@@ -14,7 +9,7 @@ namespace REApp.Forms
             //string nombre = Session["Nombre"].ToString();
             //string apellido = Session["Apellido"].ToString();
 
-            string user = Session["Username"].ToString(); ;
+            string user = Session["Username"].ToString();
 
             txtUser.Text = user;
         }
