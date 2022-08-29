@@ -180,6 +180,13 @@ namespace REApp.Forms
                         Documento.TipoMIME = contentType;
                         Documento.IdTipoDocumento = idTipoDoc;
                         //Documento.FHBaja = null;
+                        if (idTipoDoc == 1)
+                        {
+                            if (txtFechaVencimientoAdmin.Value != "")
+                            {
+                                Documento.FHVencimiento = txtFechaVencimientoAdmin.Value.ToDateTime();
+                            }
+                        }
 
                         //Certificado Medico
                         if (idTipoDoc == 2)
@@ -209,7 +216,7 @@ namespace REApp.Forms
                         Documento.Insert();
                     }
                     BindGrid();
-                    txtFechaVencimiento.Value = "";
+                    txtFechaVencimientoAdmin.Value = "";
                     LbArchivo.Text = "El archivo se subió con éxito.";
                     LbArchivo.CssClass = "hljs-string border";
                 }
@@ -311,6 +318,7 @@ namespace REApp.Forms
                 panelBtnSubirArchivo.Visible = false;
 
             }
+            
         }
 
 

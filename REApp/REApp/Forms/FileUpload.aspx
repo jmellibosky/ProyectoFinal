@@ -141,7 +141,7 @@
                     <div class="row">
                         <%--<label class="form-label font-weight-bold ml-2" for="txtFechaVencimiento">Fecha de Vencimiento</label>--%>
                         <asp:Label CssClass="width: 50%; text-align: right; text-md-center font-weight-bold" runat="server">Fecha de Vencimiento:&nbsp &nbsp</asp:Label>
-                        <input type="date" id="txtFechaVencimiento" runat="server" />
+                        <input type="date" id="txtFechaVencimientoAdmin" runat="server" />
                         <hr />
                     </div>
                     <hr />
@@ -266,7 +266,7 @@
                             <div class="row">
                                 <asp:LinkButton ID="lnkUpload2" runat="server" OnClick="Upload_Click"
                                     CommandArgument="2">
-                                    <asp:Button ID="Button1" runat="server" Text="Subir Archivo2" OnClick="Upload_Click" CssClass="btn btn-dark" />
+                                    <asp:Button ID="Button1" runat="server" Text="Subir Archivo" OnClick="Upload_Click" CssClass="btn btn-dark" />
                                 </asp:LinkButton>
                             </div>
                         </asp:Panel>
