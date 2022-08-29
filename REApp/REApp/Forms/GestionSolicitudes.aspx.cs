@@ -54,12 +54,14 @@ namespace REApp.Forms
                 //LbArchivo.Text = "";
             }
             if (!IsPostBack)
-            {
-                if (idRolInt == 1)
+            { 
+                //Rol Admin o Operador
+                if (idRolInt == 1 || idRolInt==2)
                 {
                     CargarComboSolicitante();
                     BindGrid();
                 }
+                //Rol Solicitante
                 if (idRolInt == 3)
                 {
                     CargarComboSolicitante();

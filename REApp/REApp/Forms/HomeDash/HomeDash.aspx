@@ -84,8 +84,14 @@
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">Gestión de Solicitudes
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionUsuarios.aspx">Gestión de Usuarios
-                                <i class="fas fa-user"></i>
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">Gestión de Tripulación
+                                <i class="fas fa-users"></i>
+                            </a>
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">Gestión de Vants
+                                <i class="fas fa-plane"></i>
+                            </a>
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">Gestion de Documentación
+                                <i class="fas fa-list"></i>
                             </a>
                         </li>
                     </ul>
