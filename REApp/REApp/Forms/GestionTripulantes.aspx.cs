@@ -23,11 +23,12 @@ namespace REApp.Forms
 
             if (!IsPostBack)
             {
-                if (idRolInt == 1)
+                //Si tiene rol Admin o Operador
+                if (idRolInt == 1 || idRolInt == 2)
                 {
                     CargarComboSolicitante();
                 }
-
+                //Si tiene rol Solicitante
                 if (idRolInt == 3)
                 {
                     CargarComboSolicitante();

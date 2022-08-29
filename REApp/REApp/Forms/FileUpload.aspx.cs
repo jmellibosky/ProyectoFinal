@@ -16,6 +16,8 @@ namespace REApp.Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //**COMENTAR desde ACA**
+
             //Aca hacemos el get que si o si es un string porque de object a int no deja
             string idUsuario = Session["IdUsuario"].ToString();
             string idRol = Session["IdRol"].ToString();
@@ -23,34 +25,56 @@ namespace REApp.Forms
             //Estos se usan de esta forma porque son ints, ver si hay mejor forma de hacer el set
             int idRolInt = idRol.ToInt();
             int id = idUsuario.ToInt();
-
+            //**HASTA ACA**
 
             if (IsPostBack)
             {
-                 BindGrid();
-                 LbArchivo.Text = "";
-
-                //BindGrid();
-                //LbArchivo.Text = "";
-            }
-            if (!IsPostBack)
-            {
-                if (idRolInt == 1)
+                LbArchivo.Text = "";
+                if (idRolInt == 1 || idRolInt == 2)
                 {
-                    CargarComboSolicitante();
                     BindGrid();
+                    MostrarPanelAdmin();
                 }
                 if (idRolInt == 3)
                 {
                     CargarComboSolicitante();
                     ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
                     ddlSolicitante.Enabled = false;
-                    BindGrid();
+                    MostrarPanelSolicitante();
+                    CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM);
+                    CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia);
+                    CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant);
                 }
-                //CargarComboSolicitante();
-                //BindGrid();
-                
             }
+            if (!IsPostBack)
+            {
+                if (idRolInt == 1 || idRolInt == 2)
+                {
+                    CargarComboSolicitante();
+                    BindGrid();
+                    MostrarPanelAdmin();
+                }
+                if (idRolInt == 3)
+                {
+                    CargarComboSolicitante();
+                    ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
+                    ddlSolicitante.Enabled = false;
+                    MostrarPanelSolicitante();
+                    CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM);
+                    CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia);
+                    CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant);
+                }
+            }
+        }
+
+        private void MostrarPanelSolicitante()
+        {
+            PanelSolicitante.Visible = true;
+        }
+
+        private void MostrarPanelAdmin()
+        {
+            PanelAdmin.Visible = true;
         }
 
         protected void CargarComboSolicitante()
@@ -87,76 +111,118 @@ namespace REApp.Forms
             gvArchivos.DataBind();
 
         }
-
-
+        
         protected void Upload_Click(object sender, EventArgs e)
         {
             if (FileUpload1.HasFile)
             {
-                //Se obtienen los datos del documento
-                string filename = Path.GetFileName(FileUpload1.PostedFile.FileName);
-                string extension = System.IO.Path.GetExtension(FileUpload1.FileName);
-                extension = extension.ToLower();
-                string contentType = FileUpload1.PostedFile.ContentType;
-                //(Tamaño del archivo en bytes)
-                int tam = FileUpload1.PostedFile.ContentLength;
-                byte[] bytes;
-                using (Stream fs = FileUpload1.PostedFile.InputStream)
-                {
-                    using (BinaryReader br = new BinaryReader(fs))
-                    {
-                        bytes = br.ReadBytes((Int32)fs.Length);
-                    }
-                }
-                if (extension == ".pdf")
-                {
-                    //Tamaño de archivo menor a 1Mb
-                    if (tam <= 5000000)
-                    {
-                        //Insert MagicSQL
-                        Models.Documento Documento = null;
-                        using (Tn tn = new Tn("bd_reapp"))
-                        {
-                            //Se crea y guardan los campos de documento
-                            Documento = new Models.Documento();
-
-                            Documento.Nombre = filename;
-                            Documento.IdSolicitud = null;
-                            Documento.Datos = bytes;
-                            Documento.Extension = extension;
-                            Documento.IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
-                            Documento.FHAlta = DateTime.Today;
-                            Documento.TipoMIME = contentType;
-                            //Documento.FHBaja = null;
-                            if(txtFechaVencimiento.Value != "")
-                            {
-                                Documento.FHVencimiento = txtFechaVencimiento.Value.ToDateTime();
-                            }
-                            Documento.Insert();
-                        }
-                        BindGrid();
-                        txtFechaVencimiento.Value = "";
-                        LbArchivo.Text = "El archivo se subió con éxito.";
-                        LbArchivo.CssClass = "hljs-string border";
-                    }
-                    else
-                    {
-                        LbArchivo.Text = "El tamaño del archivo debe ser menor a 5Mb";
-                    }
-                }
-                else
-                {
-                    LbArchivo.Text = "Selecciona solo archivos con extensión .PDF";
-                }
+                //En panel admin se hardcodea con tipoDoc 1 hasta q se haga el codigo
+                //int idTipoDoc = lnkUpload1.CommandArgument.ToInt();
+                uploadMethod(FileUpload1, 1);
             }
+            if (FileUpload2.HasFile)
+            {
+                int idTipoDoc = lnkUpload2.CommandArgument.ToInt();
+                uploadMethod(FileUpload2, idTipoDoc);
+            }
+            if (FileUpload3.HasFile)
+            {
+                int idTipoDoc = lnkUpload3.CommandArgument.ToInt();
+                uploadMethod(FileUpload3, idTipoDoc);
+            }
+            if (FileUpload4.HasFile)
+            {
+                int idTipoDoc = lnkUpload4.CommandArgument.ToInt();
+                uploadMethod(FileUpload4, idTipoDoc);
+            }
+            //
             else
             {
                 LbArchivo.Text = "No se seleccionó un archivo.";
             }
-
-
         }
 
+        protected void uploadMethod(System.Web.UI.WebControls.FileUpload FileUpload,int idTipoDoc)
+        {
+            //Se obtienen los datos del documento
+            string filename = Path.GetFileName(FileUpload.PostedFile.FileName);
+            string extension = System.IO.Path.GetExtension(FileUpload.FileName);
+            extension = extension.ToLower();
+            string contentType = FileUpload.PostedFile.ContentType;
+            //(Tamaño del archivo en bytes)
+            int tam = FileUpload.PostedFile.ContentLength;
+            byte[] bytes;
+            using (Stream fs = FileUpload.PostedFile.InputStream)
+            {
+                using (BinaryReader br = new BinaryReader(fs))
+                {
+                    bytes = br.ReadBytes((Int32)fs.Length);
+                }
+            }
+            if (extension == ".pdf")
+            {
+                //Tamaño de archivo menor a 1Mb
+                if (tam <= 5000000)
+                {
+                    //Insert MagicSQL
+                    Models.Documento Documento = null;
+                    using (Tn tn = new Tn("bd_reapp"))
+                    {
+                        //Se crea y guardan los campos de documento
+                        Documento = new Models.Documento();
+
+                        Documento.Nombre = filename;
+                        Documento.IdSolicitud = null;
+                        Documento.Datos = bytes;
+                        Documento.Extension = extension;
+                        Documento.IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+                        Documento.FHAlta = DateTime.Today;
+                        Documento.TipoMIME = contentType;
+                        Documento.IdTipoDocumento = idTipoDoc;
+                        //Documento.FHBaja = null;
+
+                        //Certificado Medico
+                        if (idTipoDoc == 2)
+                        {
+                            if (txtFechaVencimientoCertMedico.Value != "")
+                            {
+                                Documento.FHVencimiento = txtFechaVencimientoCertMedico.Value.ToDateTime();
+                            }
+                        }
+                        //Poliza Seguro VANT
+                        if (idTipoDoc == 3)
+                        {
+                            if (txtFechaVencimientoCertCompetencia.Value != "")
+                            {
+                                Documento.FHVencimiento = txtFechaVencimientoCertCompetencia.Value.ToDateTime();
+                            }
+                        }
+                        if (idTipoDoc == 4)
+                        {
+                            if (txtFechaVencimientoCevant.Value != "")
+                            {
+                                Documento.FHVencimiento = txtFechaVencimientoCevant.Value.ToDateTime();
+                            }
+                        }
+
+
+                        Documento.Insert();
+                    }
+                    BindGrid();
+                    txtFechaVencimiento.Value = "";
+                    LbArchivo.Text = "El archivo se subió con éxito.";
+                    LbArchivo.CssClass = "hljs-string border";
+                }
+                else
+                {
+                    LbArchivo.Text = "El tamaño del archivo debe ser menor a 5Mb";
+                }
+            }
+            else
+            {
+                LbArchivo.Text = "Selecciona solo archivos con extensión .PDF";
+            }
+        }
 
         protected void lnkDownload_Click1(object sender, EventArgs e)
         {
@@ -206,6 +272,47 @@ namespace REApp.Forms
         {
 
         }
+
+        private void CargarDoc(int idDoc, GridView gv, Panel panelFileUpload, Panel panelFechaVencimiento, Panel panelBtnSubirArchivo)
+        {
+            DataTable dt = null;
+            //int idUsuario = 6;
+            using (SP sp = new SP("bd_reapp"))
+            {
+                if (!ddlSolicitante.SelectedItem.Value.Equals("#"))
+                {
+                    dt = sp.Execute("usp_GetDocumentacionPorTipo", 
+                        P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()), 
+                        P.Add("IdTipoDocumento", idDoc));
+                }
+            }
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                gv.DataSource = dt;
+            }
+            else
+            {
+                gv.DataSource = null;
+            }
+            gv.DataBind();
+
+            if (gv.Rows.Count == 0)
+            {
+                gv.Visible = false;
+                panelFileUpload.Visible = true;
+                panelFechaVencimiento.Visible = true;
+                panelBtnSubirArchivo.Visible = true;
+            }
+            else
+            {
+                gv.Visible = true;
+                panelFileUpload.Visible = false;
+                panelFechaVencimiento.Visible = false;
+                panelBtnSubirArchivo.Visible = false;
+
+            }
+        }
+
 
         //protected void btnFiltrar_Click(object sender, EventArgs e)
         //{
