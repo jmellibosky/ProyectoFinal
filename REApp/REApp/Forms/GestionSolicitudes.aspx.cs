@@ -437,6 +437,10 @@ namespace REApp.Forms
                 txtModalObservaciones.Text = Solicitud.Observaciones;
                 txtModalEstadoSolicitud.Text = Estado.Nombre;
 
+                txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
+                txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
+                txtModalFechaHasta.Enabled = false;
+                txtModalFechaDesde.Enabled = false;
                 //Se deshabilita los txts q faltan
 
 
@@ -473,6 +477,12 @@ namespace REApp.Forms
 
                 txtModalObservaciones.Text = Solicitud.Observaciones;
                 txtModalEstadoSolicitud.Text = Estado.Nombre;
+
+                txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
+                txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
+                txtModalFechaHasta.Enabled = true;
+                txtModalFechaDesde.Enabled = true;
+
 
                 string FHActualiz = Solicitud.FHUltimaActualizacionEstado;
                 if (FHActualiz != null)
