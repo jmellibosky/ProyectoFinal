@@ -33,7 +33,7 @@
                     <ul id="side-menu" class="nav">
                          <%-- Administrador --%>
                         <li id="liAdministrador" style="" runat="server">
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/Home.aspx">Home
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="HomeForm.aspx">Home
                                 <i class="fa fa-home"></i>
                             </a>
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">Gestión de Solicitudes
@@ -103,7 +103,9 @@
                 <!-- Top navigation-->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <div class="container-fluid">
-                        <button class="btn btn-proyecto" id="sidebarToggle">Opciones</button>
+                        <button class="btn btn-proyecto" id="sidebarToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
@@ -125,7 +127,7 @@
                 <!-- Page content-->
                 <div id="content-page" class="container-fluid">
                     <%-- Paginas --%>
-                    <iframe id="iframePage" style="height: 91vh; background-color: white;" name="iframePage" src="..\Home.aspx" frameborder="0" width="100%" runat="server"></iframe>
+                    <iframe id="iframePage" style="height: 91vh; background-color: white;" name="iframePage" src="HomeForm.aspx" frameborder="0" width="100%" runat="server"></iframe>
                 </div>
             </div>
         </div>

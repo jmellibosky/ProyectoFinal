@@ -4,6 +4,7 @@
     CodeBehind="GestionSolicitudes.aspx.cs"
     Inherits="REApp.Forms.GestionSolicitudes" %>
 
+
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 
 
@@ -116,7 +117,6 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
-
     <div class="container">
         <h1 class="row justify-content-center">
             <label class="fw-normal mb-3 pb-2">Gestión de Solicitudes</label>
