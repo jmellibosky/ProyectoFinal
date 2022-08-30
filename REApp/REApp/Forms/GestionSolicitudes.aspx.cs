@@ -452,6 +452,7 @@ namespace REApp.Forms
             }
             if (e.CommandName.Equals("Editar"))
             {
+                btnGenerarKMZ.Visible = true;
                 btnGuardar.Visible = true;
                 LimpiarModal();
                 OcultarMostrarPanelesABM(true);
@@ -546,19 +547,34 @@ namespace REApp.Forms
                     // index 0: Latitud: <latitud>
                     // index 1: Longitud: <longitud>
                     // index 2: Altura: <altura>
-                    string[] SplitPuntosGeograficos = ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text.Split('-');
-                    string Latitud = SplitPuntosGeograficos[0].Split(' ')[1];
-                    string Longitud = SplitPuntosGeograficos[1].Split(' ')[1];
-                    string Altura = SplitPuntosGeograficos[2].Split(' ')[1];
+                    string[] SplitPuntosGeograficos = ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text.Trim().Split('|');
 
-                    Ubicacion.Altura = Altura.ToDouble();
+                    for (int j = 0; j < SplitPuntosGeograficos.Length; j++)
+                    {
+                        string TipoUbicacion = ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text;
+                        if (TipoUbicacion.Equals("Polígono"))
+                        {
+                            if (!SplitPuntosGeograficos[j].Equals(""))
+                            {
+                                string[] SplitMagnitudes = SplitPuntosGeograficos[j].Split('/');
+                                string Latitud = SplitMagnitudes[0].Trim().Split(' ')[1];
+                                string Longitud = SplitMagnitudes[1].Trim().Split(' ')[1];
+                                string Altura = SplitMagnitudes[2].Trim().Split(' ')[1];
 
-                    Models.PuntoGeografico PuntoGeografico = new Models.PuntoGeografico();
-                    PuntoGeografico.EsPoligono = true;
-                    PuntoGeografico.Latitud = Latitud.ToDouble();
-                    PuntoGeografico.Longitud = Longitud.ToDouble();
+                                if (!Latitud.Equals("") && !Longitud.Equals(""))
+                                {
+                                    Ubicacion.Altura = Altura.ToDouble();
 
-                    PuntosGeograficos.Add(PuntoGeografico);
+                                    Models.PuntoGeografico PuntoGeografico = new Models.PuntoGeografico();
+                                    PuntoGeografico.EsPoligono = true;
+                                    PuntoGeografico.Latitud = Latitud.ToDouble();
+                                    PuntoGeografico.Longitud = Longitud.ToDouble();
+
+                                    PuntosGeograficos.Add(PuntoGeografico);
+                                }
+                            }
+                        }
+                    }
                 }
 
                 Ubicacion.PuntosGeograficos = PuntosGeograficos;
@@ -655,12 +671,12 @@ namespace REApp.Forms
                     string Longitud = Server.HtmlDecode(gvPuntosGeograficos.Rows[i].Cells[1].Text);
                     string Altura = Server.HtmlDecode(gvPuntosGeograficos.Rows[i].Cells[2].Text);
 
-                    NuevaDatos += "Latitud: " + Latitud + " - Longitud: " + Longitud + " - Altura: " + Altura + " | ";
+                    NuevaDatos += "Latitud: " + Latitud + " / Longitud: " + Longitud + " / Altura: " + Altura + " | ";
                 }
             }
             else
             {
-                NuevaDatos = "Latitud: " + txtCircunferenciaLatitud.Text + " - Longitud: " + txtCircunferenciaLongitud.Text + " - Altura: " + txtCircunferenciaAltura.Text + " - Radio: " + txtCircunferenciaRadio.Text;
+                NuevaDatos = "Latitud: " + txtCircunferenciaLatitud.Text + " / Longitud: " + txtCircunferenciaLongitud.Text + " / Altura: " + txtCircunferenciaAltura.Text + " / Radio: " + txtCircunferenciaRadio.Text;
             }
             dt.Rows.Add(NuevaTipoUbicacion, NuevaDatos);
 
@@ -726,6 +742,11 @@ namespace REApp.Forms
                 return false;
             }
             return true;
+        }
+
+        protected void btnGenerarKMZ_Click(object sender, EventArgs e)
+        {
+            string kml = new KMLController().GenerarKML(hdnIdSolicitud.Value.ToInt());
         }
     }
 

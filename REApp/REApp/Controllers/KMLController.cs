@@ -28,13 +28,16 @@ namespace REApp
                 {
                     List<Models.PuntoGeografico> PuntosGeograficos = sp.Execute("usp_GetPuntosGeograficosDeUbicacion", P.Add("IdUbicacion", ubicacion.IdUbicacion)).ToList<Models.PuntoGeografico>();
 
-                    if (PuntosGeograficos[0].EsPoligono.Value)
+                    if (PuntosGeograficos.Count > 0)
                     {
-                        AgregarPoligono(ubicacion.IdUbicacion, ubicacion.Altura, PuntosGeograficos);
-                    }
-                    else
-                    {
-                        AgregarCircunferencia(ubicacion.IdUbicacion, ubicacion.Altura, PuntosGeograficos);
+                        if (PuntosGeograficos[0].EsPoligono.Value)
+                        {
+                            kml += AgregarPoligono(ubicacion.IdUbicacion, ubicacion.Altura, PuntosGeograficos);
+                        }
+                        else
+                        {
+                            kml += AgregarCircunferencia(ubicacion.IdUbicacion, ubicacion.Altura, PuntosGeograficos);
+                        }
                     }
                 }
             }
@@ -42,7 +45,7 @@ namespace REApp
             // FOOTER
             kml += "</Folder></Document></kml>";
 
-            return "";
+            return kml;
         }
 
         public string AgregarEncabezadoKML()
@@ -72,9 +75,12 @@ namespace REApp
                 double latitudN = GetLatitud(latitudInicial, radio, g);
                 double longitudN = GetLongitud(longitudInicial, latitudN, radio, g);
                 
-                kml += longitudN.ToString() + "," + latitudN.ToString() + "," + altura.ToString() + " ";
+                kml += longitudN.ToString().Replace(',', '.') + "," + latitudN.ToString().Replace(',', '.') + "," + altura.ToString().Replace(',', '.') + " ";
             }
-            kml = kml.Substring(0, kml.Length - 1); // ELIMINA EL ÚLTIMO ESPACIO AGREGADO
+            double latitudF = GetLatitud(latitudInicial, radio, 0);
+            double longitudF = GetLongitud(longitudInicial, latitudF, radio, 0);
+
+            kml += longitudF.ToString().Replace(',', '.') + "," + latitudF.ToString().Replace(',', '.') + "," + altura.ToString().Replace(',', '.');
 
             kml += "</coordinates></LineString></Placemark>";
             return kml;
@@ -102,10 +108,10 @@ namespace REApp
 
             foreach (Models.PuntoGeografico punto in puntos)
             {
-                kml += punto.Longitud.ToString() + "," + punto.Latitud.ToString() + "," + altura.ToString() + " ";
+                kml += punto.Longitud.ToString().Replace(',', '.') + "," + punto.Latitud.ToString().Replace(',', '.') + "," + altura.ToString().Replace(',', '.') + " ";
             }
             // AGREGAR PUNTO INICIAL
-            kml += puntos[0].Longitud.ToString() + "," + puntos[0].Latitud.ToString() + "," + altura.ToString();
+            kml += puntos[0].Longitud.ToString().Replace(',', '.') + "," + puntos[0].Latitud.ToString().Replace(',', '.') + "," + altura.ToString().Replace(',', '.');
 
             kml += "</coordinates></LinearRing></outerBoundaryIs></Polygon></Placemark>";
             return kml;
