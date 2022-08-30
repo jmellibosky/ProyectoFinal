@@ -37,13 +37,7 @@ namespace REApp.Forms
                     CargarComboSolicitante();
                     cargarGvVants();
                 }
-<<<<<<< Updated upstream
-                //Si tiene rol Solicitante
-                if (idRolInt == 3)
-=======
                 if(idRolInt == 3)
-                //Si tiene rol Solicitante
->>>>>>> Stashed changes
                 {
                     CargarComboSolicitante();
                     ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
