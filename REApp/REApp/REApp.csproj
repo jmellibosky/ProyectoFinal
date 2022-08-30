@@ -134,6 +134,7 @@
     <Content Include="Forms\HomeDash\assets\favicon.ico" />
     <Content Include="Forms\HomeDash\css\styles.css" />
     <Content Include="Forms\HomeDash\HomeDash.aspx" />
+    <Content Include="Forms\HomeDash\HomeForm.aspx" />
     <Content Include="Forms\HomeDash\js\scripts.js" />
     <Content Include="Forms\UserCorrectRegister.aspx" />
     <Content Include="Forms\UserForgotPassword.aspx" />
@@ -271,6 +272,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Code\Navegacion.cs" />
+    <Compile Include="Controllers\KMLController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -320,6 +322,13 @@
     </Compile>
     <Compile Include="Forms\HomeDash\HomeDash.aspx.designer.cs">
       <DependentUpon>HomeDash.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\HomeDash\HomeForm.aspx.cs">
+      <DependentUpon>HomeForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\HomeDash\HomeForm.aspx.designer.cs">
+      <DependentUpon>HomeForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\UserCorrectRegister.aspx.cs">
       <DependentUpon>UserCorrectRegister.aspx</DependentUpon>
