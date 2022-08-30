@@ -312,6 +312,24 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.TextBox txtLugarGuardado;
 
         /// <summary>
+        /// Control pnlMotivoBaja.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlMotivoBaja;
+
+        /// <summary>
+        /// Control txtMotivoBaja.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMotivoBaja;
+
+        /// <summary>
         /// Control pnlError.
         /// </summary>
         /// <remarks>

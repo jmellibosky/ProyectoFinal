@@ -37,8 +37,13 @@ namespace REApp.Forms
                     CargarComboSolicitante();
                     cargarGvVants();
                 }
+<<<<<<< Updated upstream
                 //Si tiene rol Solicitante
                 if (idRolInt == 3)
+=======
+                if(idRolInt == 3)
+                //Si tiene rol Solicitante
+>>>>>>> Stashed changes
                 {
                     CargarComboSolicitante();
                     ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
@@ -176,12 +181,19 @@ namespace REApp.Forms
 
             int id = int.Parse((sender as LinkButton).CommandArgument);
             Models.Vant Vant = new Models.Vant().Select(id);
+
+            int idLocalidad = Vant.IdLocalidadPartido;
+            Models.Localidad Localidad = new Models.Localidad().Select(idLocalidad);
+
+
+
             hdnIdVant.Value = id.ToString();
             LimpiarModal();
             CargarComboMarcaVant();
             CargarComboClaseVant();
             CargarComboModalSolicitante();
             CargarComboProvincia();
+            CargarComboLocalidadPartido(Localidad.IdProvincia);
 
             ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
             ddlModalSolicitante.Enabled = false;
@@ -193,10 +205,34 @@ namespace REApp.Forms
             txtLugarFabricacion.Text = Vant.LugarFabricacion;
             txtLugarGuardado.Text = Vant.LugarGuardado;
             txtNumeroSerie.Text = Vant.NumeroSerie;
-            ddlLocalidadPartido.Text = Vant.LocalidadPartido.ToString();
-            ddlProvincia.Text = Vant.Provincia.ToString();
+
+            
+            ddlProvincia.SelectedValue = Localidad.IdProvincia.ToCryptoID().ToString(); 
+            ddlLocalidadPartido.SelectedValue = Localidad.IdLocalidad.ToCryptoID().ToString();
+
+
 
             MostrarABM();
+
+            if(Vant.MotivoBaja != null)
+            {
+                txtFabricante.Enabled = false;
+                txtAñoFabricacion.Enabled = false;
+                txtModelo.Enabled = false;
+                txtLugarFabricacion.Enabled = false;
+                txtLugarGuardado.Enabled = false;
+                txtNumeroSerie.Enabled = false;
+                ddlLocalidadPartido.Enabled = false;
+                ddlProvincia.Enabled = false;
+                ddlMarcaVant.Enabled = false;
+                ddlClaseVant.Enabled = false;
+
+                pnlMotivoBaja.Visible = true;
+                txtMotivoBaja.Text = Vant.MotivoBaja;
+
+                btnGuardar.Visible = false;
+            }
+
 
         }
 
@@ -206,19 +242,55 @@ namespace REApp.Forms
 
             Models.Vant Vant = new Models.Vant().Select(id);
 
-            if(Vant.FHBaja is null)
+
+
+            if (Vant.FHBaja == null)
             {
-                using (SP sp = new SP("bd_reapp"))
-                {
-                    sp.Execute("usp_DarDeBajaVant",
-                        P.Add("IdVant", Vant.IdVant)
-                    );
-                }
-                cargarGvVants();
+                int idLocalidad = Vant.IdLocalidadPartido;
+                Models.Localidad Localidad = new Models.Localidad().Select(idLocalidad);
+
+                hdnIdVant.Value = id.ToString();
+                LimpiarModal();
+                CargarComboMarcaVant();
+                CargarComboClaseVant();
+                CargarComboModalSolicitante();
+                CargarComboProvincia();
+                CargarComboLocalidadPartido(Localidad.IdProvincia);
+
+                ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+                ddlModalSolicitante.Enabled = false;
+
+
+                txtFabricante.Text = Vant.Fabricante;
+                txtAñoFabricacion.Text = Vant.AñoFabricacion.ToString();
+                txtModelo.Text = Vant.Modelo;
+                txtLugarFabricacion.Text = Vant.LugarFabricacion;
+                txtLugarGuardado.Text = Vant.LugarGuardado;
+                txtNumeroSerie.Text = Vant.NumeroSerie;
+                ddlProvincia.SelectedValue = Localidad.IdProvincia.ToCryptoID().ToString();
+                ddlLocalidadPartido.SelectedValue = Localidad.IdLocalidad.ToCryptoID().ToString();
+
+
+                txtFabricante.Enabled = false;
+                txtAñoFabricacion.Enabled = false;
+                txtModelo.Enabled = false;
+                txtLugarFabricacion.Enabled = false;
+                txtLugarGuardado.Enabled = false;
+                txtNumeroSerie.Enabled = false;
+                ddlLocalidadPartido.Enabled = false;
+                ddlProvincia.Enabled = false;
+                ddlMarcaVant.Enabled = false;
+                ddlClaseVant.Enabled = false;
+
+
+                MostrarABM();
+                pnlMotivoBaja.Visible = true;
+                txtMotivoBaja.Enabled = true;
+
             }
             else
             {
-                
+                System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AlertBox", "alert('Vant ya dado de baja');", true);
             }
 
         }
@@ -252,13 +324,13 @@ namespace REApp.Forms
                         Vant.LugarFabricacion = txtLugarFabricacion.Text;
                         Vant.LugarGuardado = txtLugarGuardado.Text;
                         Vant.NumeroSerie = txtNumeroSerie.Text;
-                        Vant.LocalidadPartido = ddlLocalidadPartido.SelectedValue.ToIntID();
-                        Vant.Provincia = ddlProvincia.SelectedValue.ToIntID();
+                        Vant.IdLocalidadPartido = ddlLocalidadPartido.SelectedValue.ToIntID();
+                        //Vant.MotivoBaja = "";
                         Vant.Insert();
 
                     }
                 }
-                else
+                else if (pnlMotivoBaja.Visible == false)
                 { // Update
 
                     Vant = new Models.Vant().Select(hdnIdVant.Value.ToInt());
@@ -272,10 +344,22 @@ namespace REApp.Forms
                     Vant.LugarFabricacion = txtLugarFabricacion.Text;
                     Vant.LugarGuardado = txtLugarGuardado.Text;
                     Vant.NumeroSerie = txtNumeroSerie.Text;
-                    Vant.LocalidadPartido = ddlLocalidadPartido.SelectedValue.ToIntID();
-                    Vant.Provincia = ddlProvincia.SelectedValue.ToIntID();
+                    Vant.IdLocalidadPartido = ddlLocalidadPartido.SelectedValue.ToIntID();
                     Vant.Update();
 
+                }
+                else
+                {
+                    Vant = new Models.Vant().Select(hdnIdVant.Value.ToInt());
+                    Vant.MotivoBaja = txtMotivoBaja.Text;
+                    Vant.Update();
+
+                    using (SP sp = new SP("bd_reapp"))
+                    {
+                        sp.Execute("usp_DarDeBajaVant",
+                            P.Add("IdVant", Vant.IdVant)
+                        );
+                    }
                 }
 
 
@@ -299,6 +383,7 @@ namespace REApp.Forms
             txtFabricante.Text = "";
             ddlLocalidadPartido.Items.Clear();
             ddlProvincia.Items.Clear();
+            txtMotivoBaja.Text = "";
 
             pnlError.Visible = false;
         }
@@ -318,6 +403,9 @@ namespace REApp.Forms
             btnNuevo.Visible = false;
             pnlABM.Visible = true;
             btnVolver.Visible = true;
+
+            pnlMotivoBaja.Visible = false;
+            txtMotivoBaja.Enabled = false;
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
@@ -402,6 +490,13 @@ namespace REApp.Forms
             {
                 txtErrorHeader.Text = "Error";
                 txtErrorBody.Text = "Por favor, seleccione la Provincia.";
+                pnlError.Visible = true;
+                return false;
+            }
+            if(pnlMotivoBaja.Visible & txtMotivoBaja.Text.Equals(""))
+            {
+                txtErrorHeader.Text = "Error";
+                txtErrorBody.Text = "Por favor, ingrese el Motivo de Baja.";
                 pnlError.Visible = true;
                 return false;
             }

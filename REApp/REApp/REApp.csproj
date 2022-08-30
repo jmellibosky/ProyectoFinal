@@ -372,6 +372,7 @@
     <Compile Include="Models\Documento.cs" />
     <Compile Include="Models\EstadoSolicitud.cs" />
     <Compile Include="Models\FIR.cs" />
+    <Compile Include="Models\Localidad.cs" />
     <Compile Include="Models\MarcaAeronave.cs" />
     <Compile Include="Models\MarcaVant.cs" />
     <Compile Include="Models\Mensaje.cs" />

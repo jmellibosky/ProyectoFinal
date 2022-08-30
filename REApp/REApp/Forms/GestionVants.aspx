@@ -196,7 +196,7 @@
                                                                         <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i>
                                                                     </asp:LinkButton> 
                                                                     <asp:LinkButton ID="btnEliminarVant" runat="server" OnClick="btnEliminarVant_Click"
-                                                                    CommandArgument='<%# Eval("IdVant") %>' OnClientClick="return confirm('¿Seguro que desea eliminar este VANT?')">
+                                                                    CommandArgument='<%# Eval("IdVant") %>'>
                                                                         <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; margin-left: 25px; color:#525252' ></i> 
                                                                     </asp:LinkButton>
                                                                 </ItemTemplate>
@@ -308,7 +308,16 @@
 
                                         </div>
                                         <hr />
+
+
                                         <div class="row">
+                                            <asp:Panel ID="pnlMotivoBaja" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
+                                                <asp:Label Text="Motivo de Baja" runat="server" />
+                                                <asp:TextBox runat="server" ID="txtMotivoBaja" CssClass="form-control" mode="multiline"/>
+                                            </asp:Panel>
+                                        </div>
+
+                                       <div class="row">
                                             <asp:Panel ID="pnlError" Visible="false" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" runat="server">
                                                 <div class="alert alert-danger" role="alert">
                                                     <h5>
@@ -319,6 +328,7 @@
                                                 <hr />
                                             </asp:Panel>
                                         </div>
+
                                         <div class="row">
                                             <div style="justify-content:center;">
                                                 <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" OnClick="btnGuardar_Click" />

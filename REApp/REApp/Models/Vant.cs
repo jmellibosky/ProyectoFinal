@@ -36,9 +36,9 @@ namespace REApp.Models
 
         public string LugarGuardado { get; set; }
 
-        public int LocalidadPartido { get; set; }
+        public int IdLocalidadPartido { get; set; }
 
-        public int Provincia { get; set; }
+        public string MotivoBaja { get; set; }
 
     }
 }
