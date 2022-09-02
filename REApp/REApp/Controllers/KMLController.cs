@@ -93,7 +93,7 @@ namespace REApp
 
         public double GetLongitud(double longitudInicial, double latitud, double radio, double grados)
         {
-            return longitudInicial + Math.Cos(GetRadianes(grados)) * radio / (110.574 * Math.Cos(latitud));
+            return longitudInicial + Math.Cos(GetRadianes(grados)) * radio / (110.32 * Math.Cos(GetRadianes(latitud)));
         }
 
         public double GetRadianes(double grados)
