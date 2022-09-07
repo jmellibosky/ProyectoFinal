@@ -54,10 +54,16 @@ namespace REApp.Forms
             if (!IsPostBack)
             {
                 //Rol Admin o Operador
-                if (idRolInt == 1 || idRolInt == 2)
+                if (idRolInt == 1)
                 {
                     CargarComboSolicitante();
                     BindGrid();
+                }
+                if (idRolInt == 2)
+                {
+                    CargarComboSolicitante();
+                    BindGrid();
+                    btnNuevo.Visible = false;
                 }
                 //Rol Solicitante
                 if (idRolInt == 3)
@@ -68,6 +74,7 @@ namespace REApp.Forms
                     BindGrid();
 
                     CargarGrillaTripulantes(id);
+                    btnNuevo.Visible = true;
                 }
             }
         }
@@ -356,6 +363,10 @@ namespace REApp.Forms
         {
             MostrarListado();
             hdnIdSolicitud.Value = "";
+            if (Session["IdRol"].ToString().ToInt() == 2)
+            {//Buscar otra forma de hacer
+                btnNuevo.Visible = false;
+            }
         }
 
         protected void MostrarListado()
@@ -752,6 +763,19 @@ namespace REApp.Forms
             return true;
         }
 
+        protected void gvSolicitud_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (Session["idRol"].ToString() == "2")
+                {
+                    LinkButton lnkBtn = (LinkButton)e.Row.FindControl("lnkEditar");
+                    lnkBtn.Visible = false;
+
+                }
+            }
+        }
+
         protected void btnGenerarKMZ_Click(object sender, EventArgs e)
         {
             string kml = new KMLController().GenerarKML(hdnIdSolicitud.Value.ToInt());
@@ -774,8 +798,9 @@ namespace REApp.Forms
             }
 
 
-
         }
+
+
     }
 
     public class UbicacionRedux

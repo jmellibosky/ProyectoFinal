@@ -160,7 +160,7 @@
                                                 runat="server"
                                                 OnRowCommand="gvSolicitud_RowCommand"
                                                 AutoGenerateColumns="false"
-                                                CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                                                CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvSolicitud_RowDataBound">
                                                 <AlternatingRowStyle BackColor="white" />
                                                 <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
                                                 <RowStyle BackColor="#e1dddd" />
@@ -200,6 +200,11 @@
             </asp:Panel>
 
             <asp:Panel ID="pnlABM" runat="server" Visible="false">
+                <div class="row">
+                    <asp:Button runat="server" Text="Cambiar Estado a 'Siendo Analizada'" CssClass="btn btn-info btn-dark" />
+                    
+                </div>
+                <br />
                 <div class="row">
                     <div class="col-12">
                         <br />

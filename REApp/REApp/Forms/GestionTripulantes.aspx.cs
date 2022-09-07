@@ -429,6 +429,11 @@ namespace REApp.Forms
             LimpiarGv(gvCertCompetenciaTripulante, pnlFUCertCompetenciaTripulante, pnlFechaVencimientoCertCompetenciaTripulante);
             txtFechaDeVencimientoCertCompetenciaTripulante.Value = "";
             txtFechaVencimientoCertMedicoTripulante.Value = "";
+            
+            if (Session["IdRol"].ToString().ToInt() == 2)
+            {//Buscar otra forma de hacer
+                btnNuevo.Visible = false;
+            }
         }
 
         protected void btnCancelarEliminacion_Click(object sender, EventArgs e)
