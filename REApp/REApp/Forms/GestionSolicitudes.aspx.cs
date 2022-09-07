@@ -64,6 +64,7 @@ namespace REApp.Forms
                     CargarComboSolicitante();
                     BindGrid();
                     btnNuevo.Visible = false;
+                    btnEstadoOperador.Visible = true;
                 }
                 //Rol Solicitante
                 if (idRolInt == 3)

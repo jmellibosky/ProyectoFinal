@@ -172,6 +172,11 @@ namespace REApp.Forms
             btnVolver.Visible = false;
             pnlAlertDeleteUser.Visible = false;
             pnlError.Visible = false;
+
+            if (Session["IdRol"].ToString().ToInt() == 2)
+            {//Buscar otra forma de hacer
+                btnNuevo.Visible = false;
+            }
         }
 
         protected void MostrarABM()
