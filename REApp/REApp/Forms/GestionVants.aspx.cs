@@ -292,9 +292,6 @@ namespace REApp.Forms
             ddlProvincia.Enabled = Bool;
             ddlMarcaVant.Enabled = Bool;
             ddlClaseVant.Enabled = Bool;
-
-            pnlMotivoBaja.Visible = Bool;
-            btnGuardar.Visible = Bool;
         }
 
         protected void btnEliminarVant_Click(object sender, EventArgs e)
