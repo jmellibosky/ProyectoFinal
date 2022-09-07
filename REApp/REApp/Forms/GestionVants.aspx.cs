@@ -28,16 +28,28 @@ namespace REApp.Forms
             if (IsPostBack)
             {
                 cargarGvVants();
+                if (idRolInt == 2)
+                {
+                    cargarGvVants();
+                    btnNuevo.Visible = false;
+                }
+
             }
             if (!IsPostBack)
             {
                 //Si tiene rol Admin o Operador
-                if (idRolInt == 1 || idRolInt == 2)
+                if (idRolInt == 1)
                 {
                     CargarComboSolicitante();
                     cargarGvVants();
                 }
-                if(idRolInt == 3)
+                if ( idRolInt == 2)
+                {
+                    CargarComboSolicitante();
+                    cargarGvVants();
+                    btnNuevo.Visible = false;
+                }
+                if (idRolInt == 3)
                 {
                     CargarComboSolicitante();
                     ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
@@ -167,7 +179,7 @@ namespace REApp.Forms
             ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
             ddlModalSolicitante.Enabled = false;
             MostrarABM();
-
+            habilitarDeshabilitarInputs(true);
         }
 
         protected void btnModificarVant_Click(object sender, EventArgs e)
@@ -203,7 +215,7 @@ namespace REApp.Forms
             
             ddlProvincia.SelectedValue = Localidad.IdProvincia.ToCryptoID().ToString(); 
             ddlLocalidadPartido.SelectedValue = Localidad.IdLocalidad.ToCryptoID().ToString();
-
+            habilitarDeshabilitarInputs(true);
 
 
             MostrarABM();
@@ -228,6 +240,61 @@ namespace REApp.Forms
             }
 
 
+        }
+        protected void btnDetalleVant_Click(object sender, EventArgs e)
+        {
+
+            int id = int.Parse((sender as LinkButton).CommandArgument);
+            Models.Vant Vant = new Models.Vant().Select(id);
+
+            int idLocalidad = Vant.IdLocalidadPartido;
+            Models.Localidad Localidad = new Models.Localidad().Select(idLocalidad);
+
+            hdnIdVant.Value = id.ToString();
+            LimpiarModal();
+            CargarComboMarcaVant();
+            CargarComboClaseVant();
+            CargarComboModalSolicitante();
+            CargarComboProvincia();
+            CargarComboLocalidadPartido(Localidad.IdProvincia);
+
+            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+            ddlModalSolicitante.Enabled = false;
+
+
+            txtFabricante.Text = Vant.Fabricante;
+            txtAñoFabricacion.Text = Vant.AñoFabricacion.ToString();
+            txtModelo.Text = Vant.Modelo;
+            txtLugarFabricacion.Text = Vant.LugarFabricacion;
+            txtLugarGuardado.Text = Vant.LugarGuardado;
+            txtNumeroSerie.Text = Vant.NumeroSerie;
+
+
+            ddlProvincia.SelectedValue = Localidad.IdProvincia.ToCryptoID().ToString();
+            ddlLocalidadPartido.SelectedValue = Localidad.IdLocalidad.ToCryptoID().ToString();
+
+            MostrarABM();
+
+            //Deshabilitar inputs
+            habilitarDeshabilitarInputs(false);
+
+        }
+
+        protected void habilitarDeshabilitarInputs(bool Bool)
+        {
+            txtFabricante.Enabled = Bool;
+            txtAñoFabricacion.Enabled = Bool;
+            txtModelo.Enabled = Bool;
+            txtLugarFabricacion.Enabled = Bool;
+            txtLugarGuardado.Enabled = Bool;
+            txtNumeroSerie.Enabled = Bool;
+            ddlLocalidadPartido.Enabled = Bool;
+            ddlProvincia.Enabled = Bool;
+            ddlMarcaVant.Enabled = Bool;
+            ddlClaseVant.Enabled = Bool;
+
+            pnlMotivoBaja.Visible = Bool;
+            btnGuardar.Visible = Bool;
         }
 
         protected void btnEliminarVant_Click(object sender, EventArgs e)
@@ -387,6 +454,11 @@ namespace REApp.Forms
         {
             pnlListado.Visible = true;
             btnNuevo.Visible = true;
+            if (Session["IdRol"].ToString().ToInt() == 2)
+            {
+                btnNuevo.Visible = false;
+            }
+
             pnlABM.Visible = false;
             btnVolver.Visible = false;
         }
@@ -499,5 +571,23 @@ namespace REApp.Forms
             return true;
         }
 
+        protected void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            cargarGvVants();
+        }
+
+        protected void gvVants_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (Session["idRol"].ToString() == "2")
+                {
+                    LinkButton lnkBtn = (LinkButton)e.Row.FindControl("btnModificarVant");
+                    lnkBtn.Visible = false;
+                    LinkButton lnkBtn2 = (LinkButton)e.Row.FindControl("btnEliminarVant");
+                    lnkBtn2.Visible = false;
+                }
+            }
+        }
     }
 }

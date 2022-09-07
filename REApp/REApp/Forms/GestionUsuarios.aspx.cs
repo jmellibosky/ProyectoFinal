@@ -13,21 +13,61 @@ namespace REApp.Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Aca hacemos el get que si o si es un string porque de object a int no deja
+            string idUsuario = Session["IdUsuario"].ToString();
+            string idRol = Session["IdRol"].ToString();
+
+            //Estos se usan de esta forma porque son ints, ver si hay mejor forma de hacer el set
+            int idRolInt = idRol.ToInt();
+            int id = idUsuario.ToInt();
+
 
             if (IsPostBack)
             {
-                BindGrid();
+                
             }
             if (!IsPostBack)
             {
-                CargarComboRol();
-                BindGrid();
+                if (idRolInt == 1)
+                {
+                    CargarComboRol();
+                    BindGridAdmin();
+                    btnNuevo.Visible = true;
+                }
+                if (idRolInt == 2)
+                {
+                    CargarComboRol();
+                    BindGridOperador();
+                    btnNuevo.Visible = false;
+                }
+
             }
 
-            hdnIdCurrentUser.Value = "1"; // <----------- Modificar con el ID de Usuario Logueado (Por ahora le asigno uno de la BD)
+            hdnIdCurrentUser.Value = idUsuario; // <----------- Modificar con el ID de Usuario Logueado (Por ahora le asigno uno de la BD)
         }
 
-        private void BindGrid()
+        private void BindGridOperador()
+        {
+            DataTable dt = null;
+            using (SP sp = new SP("bd_reapp"))
+            {
+                if (!ddlModalRol.SelectedItem.Value.Equals("#"))
+                {
+                    dt = sp.Execute("usp_GetUsuariosRolExplotador");
+                }
+            }
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                gvUsuarios.DataSource = dt;
+            }
+            else
+            {
+                gvUsuarios.DataSource = null;
+            }
+            gvUsuarios.DataBind();
+        }
+
+        private void BindGridAdmin()
         {
             DataTable dt = null;
             using (SP sp = new SP("bd_reapp"))
@@ -46,7 +86,6 @@ namespace REApp.Forms
                 gvUsuarios.DataSource = null;
             }
             gvUsuarios.DataBind();
-
         }
 
         protected void CargarComboRol()
@@ -156,7 +195,18 @@ namespace REApp.Forms
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
-            BindGrid();
+            if (Session["IdRol"].ToString().ToInt() == 1)
+            {
+                CargarComboRol();
+                BindGridAdmin();
+                btnNuevo.Visible = true;
+            }
+            if (Session["IdRol"].ToString().ToInt() == 2)
+            {
+                CargarComboRol();
+                BindGridOperador();
+                btnNuevo.Visible = false;
+            }
         }
 
         protected void gvUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -166,26 +216,29 @@ namespace REApp.Forms
 
             if (e.CommandName.Equals("DisplayUser"))
             { // Detalle
-                //LimpiarModal();
-                //CargarComboRol();
+                LimpiarModal();
+                CargarComboRol();
 
-                //MostrarABM();
+                ddlModalRol.SelectedValue = ddlModalRol.SelectedValue;
+                ddlModalRol.Enabled = false;
 
-                //ddlModalRol.SelectedValue = ddlModalRol.SelectedValue;
-                //ddlModalRol.Enabled = false;
+                hdnIdUsuario.Value = IdUsuario.ToString();
+                ddlModalRol.Enabled = true;
 
-                //hdnIdUsuario.Value = IdUsuario.ToString();
+                txtModalNombreUsuario.Text = Usuario.Nombre;
+                txtModalApellidoUsuario.Text = Usuario.Apellido;
+                ddlModalRol.SelectedValue = Usuario.IdRol.ToCryptoID().ToString();
+                txtModalDni.Text = Usuario.Dni.ToString();
+                txtModalTipoDni.Text = Usuario.TipoDni;
+                txtModalCuit.Text = Usuario.Cuit;
+                txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString();
+                txtModalCorreo.Text = Usuario.Email;
+                txtModalTelefono.Text = Usuario.Telefono;
 
-                //txtModalNombreUsuario.Text = Usuario.Nombre;
-                //txtModalApellidoUsuario.Text = Usuario.Apellido;
-                //ddlModalRol.SelectedValue = Usuario.IdRol.ToCryptoID().ToString();
-                //txtModalDni.Text = Usuario.Dni.ToString();
-                //txtModalTipoDni.Text = Usuario.TipoDni;
-                //txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString();
-                //txtModalCorreo.Text = Usuario.Email;
-                //txtModalTelefono.Text = Usuario.Telefono;
+                MostrarABM();
+                habilitarDeshabilitarInputs(false);
 
-                //MostrarABM();
+
             }
             else if (e.CommandName.Equals("UpdateUser"))
             {
@@ -210,8 +263,10 @@ namespace REApp.Forms
                 txtModalCorreo.Text = Usuario.Email;
                 txtModalTelefono.Text = Usuario.Telefono;
 
+                habilitarDeshabilitarInputs(true);
+
             }
-            else
+            if (e.CommandName.Equals("DeleteUser"))
             {
                 MostrarMsgEliminar();
                 lblDeleteMessage.Text = "¿Desea confirmar la eliminación del usuario " + Usuario.Nombre + " " + Usuario.Apellido + "?";
@@ -219,7 +274,20 @@ namespace REApp.Forms
             }
         }
 
-        
+        private void habilitarDeshabilitarInputs(Boolean Bool)
+        {
+            ddlModalRol.Enabled = Bool;
+            txtModalNombreUsuario.Enabled = Bool;
+            txtModalApellidoUsuario.Enabled = Bool;
+            txtModalDni.Enabled = Bool;
+            txtModalTipoDni.Enabled = Bool;
+            txtModalCuit.Enabled = Bool;
+            txtModalFechaNac.Enabled = Bool;
+            txtModalCorreo.Enabled = Bool;
+            txtModalTelefono.Enabled = Bool;
+            btnGuardar.Visible = Bool;
+        }
+
         protected void btnGuardar_Click1(object sender, EventArgs e)
         {
             if (ValidarCampos())
@@ -244,7 +312,7 @@ namespace REApp.Forms
 
                 hdnIdUsuario.Value = "";
                 MostrarListado();
-                BindGrid();
+                //BindGrid();
             }
            
         }
@@ -313,6 +381,20 @@ namespace REApp.Forms
             //UsuarioAEliminar.Delete();
 
             MostrarListado();
+        }
+
+        protected void gvUsuarios_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (Session["idRol"].ToString() == "2")
+                {
+                    LinkButton lnkBtn = (LinkButton)e.Row.FindControl("btnUpdate");
+                    lnkBtn.Visible = false;
+                    LinkButton lnkBtn2 = (LinkButton)e.Row.FindControl("btnEliminarUsuario");
+                    lnkBtn2.Visible = false;
+                }
+            }
         }
     }
 }

@@ -161,6 +161,9 @@
                         <div class="col align-self-start">
                                 <h6>SOLICITANTES<h6>
                                 <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" AutoPostBack="true" Width="300px"/>
+                            <div class="col-12 text-center" id="divFiltrar" runat="server">
+                                <asp:Button ID="btnFiltrar" Text="Filtrar" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnFiltrar_Click" />
+                            </div>
                         </div>
                         <br />
                         <div class="panel-body" style="display: flex; justify-content: center; align-items:center">
@@ -171,7 +174,7 @@
                                              ID="gvVants" 
                                              runat="server" 
                                              AutoGenerateColumns="false" 
-                                             CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                                             CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvVants_RowDataBound">
                                                     <AlternatingRowStyle BackColor="white" />
                                                     <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
                                                     <RowStyle BackColor="#e1dddd" />
@@ -198,6 +201,10 @@
                                                                     <asp:LinkButton ID="btnEliminarVant" runat="server" OnClick="btnEliminarVant_Click"
                                                                     CommandArgument='<%# Eval("IdVant") %>'>
                                                                         <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; margin-left: 25px; color:#525252' ></i> 
+                                                                    </asp:LinkButton>
+                                                                    <asp:LinkButton ID="btnDetalleVant" runat="server" OnClick="btnDetalleVant_Click"
+                                                                    CommandArgument='<%# Eval("IdVant") %>'>
+                                                                        <i class="fa fa-eye" aria-hidden="true" style='font-size:15px; margin-left: 25px; color:#525252' ></i> 
                                                                     </asp:LinkButton>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField> 

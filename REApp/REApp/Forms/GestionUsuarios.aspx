@@ -188,7 +188,7 @@
                         ID="gvUsuarios" 
                         runat="server" OnRowCommand="gvUsuarios_RowCommand"
                         AutoGenerateColumns="false" 
-                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">  
+                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvUsuarios_RowDataBound">  
                         <AlternatingRowStyle BackColor="white" />
                         <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
                         <RowStyle BackColor="#e1dddd" />
@@ -213,6 +213,9 @@
                                     </asp:LinkButton> 
                                     <asp:LinkButton ID="btnEliminarUsuario" CommandName="DeleteUser" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
                                         <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i> 
+                                    </asp:LinkButton>
+                                    <asp:LinkButton ID="btnDetalle" CommandName="DisplayUser" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
+                                        <i class="fa fa-eye" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i> 
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField> 

@@ -14,6 +14,7 @@ namespace REApp.Forms
 {
     public partial class FileUpload : System.Web.UI.Page
     {
+        [Obsolete]
         protected void Page_Load(object sender, EventArgs e)
         {
             //**COMENTAR desde ACA**
@@ -30,10 +31,16 @@ namespace REApp.Forms
             if (IsPostBack)
             {
                 LbArchivo.Text = "";
-                if (idRolInt == 1 || idRolInt == 2)
+                if (idRolInt == 1)
                 {
                     BindGrid();
                     MostrarPanelAdmin();
+                }
+                if (idRolInt == 2)
+                {
+                    BindGrid();
+                    MostrarPanelAdmin();
+                    pnlFuAdmin.Visible = false;
                 }
                 if (idRolInt == 3)
                 {
@@ -45,14 +52,22 @@ namespace REApp.Forms
                     CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia);
                     CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant);
                 }
+                
             }
             if (!IsPostBack)
             {
-                if (idRolInt == 1 || idRolInt == 2)
+                if (idRolInt == 1)
                 {
                     CargarComboSolicitante();
                     BindGrid();
                     MostrarPanelAdmin();
+                }
+                if (idRolInt == 2)
+                {
+                    CargarComboSolicitante();
+                    BindGrid();
+                    MostrarPanelAdmin();
+                    pnlFuAdmin.Visible = false;
                 }
                 if (idRolInt == 3)
                 {
@@ -109,7 +124,6 @@ namespace REApp.Forms
                 gvArchivos.DataSource = null;
             }
             gvArchivos.DataBind();
-
         }
         
         protected void Upload_Click(object sender, EventArgs e)
@@ -125,7 +139,7 @@ namespace REApp.Forms
                 int idTipoDoc = lnkUpload2.CommandArgument.ToInt();
                 uploadMethod(FileUpload2, idTipoDoc);
             }
-            if (FileUpload3.HasFile)
+            if (FileUpload3.HasFile) 
             {
                 int idTipoDoc = lnkUpload3.CommandArgument.ToInt();
                 uploadMethod(FileUpload3, idTipoDoc);
@@ -134,11 +148,6 @@ namespace REApp.Forms
             {
                 int idTipoDoc = lnkUpload4.CommandArgument.ToInt();
                 uploadMethod(FileUpload4, idTipoDoc);
-            }
-            //
-            else
-            {
-                LbArchivo.Text = "No se seleccionó un archivo.";
             }
         }
 
@@ -196,7 +205,7 @@ namespace REApp.Forms
                                 Documento.FHVencimiento = txtFechaVencimientoCertMedico.Value.ToDateTime();
                             }
                         }
-                        //Poliza Seguro VANT
+                        //Certificado Competencia
                         if (idTipoDoc == 3)
                         {
                             if (txtFechaVencimientoCertCompetencia.Value != "")
@@ -204,6 +213,7 @@ namespace REApp.Forms
                                 Documento.FHVencimiento = txtFechaVencimientoCertCompetencia.Value.ToDateTime();
                             }
                         }
+                        //Cevant
                         if (idTipoDoc == 4)
                         {
                             if (txtFechaVencimientoCevant.Value != "")
@@ -256,9 +266,7 @@ namespace REApp.Forms
             Response.BinaryWrite(bytes);
             Response.Flush();
             Response.End();
-
         }
-
 
         protected void lnkEliminarArchivo_Click(object sender, EventArgs e)
         {
@@ -316,16 +324,19 @@ namespace REApp.Forms
                 panelFileUpload.Visible = false;
                 panelFechaVencimiento.Visible = false;
                 panelBtnSubirArchivo.Visible = false;
-
             }
-            
         }
 
-
-        //protected void btnFiltrar_Click(object sender, EventArgs e)
-        //{
-        //    BindGrid();
-        //}
-
+        protected void gvArchivos_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (Session["idRol"].ToString() == "2")
+                {
+                    LinkButton lnkBtn = (LinkButton)e.Row.FindControl("lnkEliminarArchivo");
+                    lnkBtn.Visible = false;
+                }
+            }
+        }
     }
 }
