@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
+using System.IO;
 using System.Web.UI.WebControls;
 
 namespace REApp.Forms
@@ -54,9 +52,9 @@ namespace REApp.Forms
                 //LbArchivo.Text = "";
             }
             if (!IsPostBack)
-            { 
+            {
                 //Rol Admin o Operador
-                if (idRolInt == 1 || idRolInt==2)
+                if (idRolInt == 1 || idRolInt == 2)
                 {
                     CargarComboSolicitante();
                     BindGrid();
@@ -445,11 +443,11 @@ namespace REApp.Forms
 
 
                 string FHActualiz = Solicitud.FHUltimaActualizacionEstado;
-                if(FHActualiz != null)
                 if (FHActualiz != null)
-                {
-                    txtModalFechaUltimaActualizacion.Text = FHActualiz;
-                }
+                    if (FHActualiz != null)
+                    {
+                        txtModalFechaUltimaActualizacion.Text = FHActualiz;
+                    }
                 txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
 
                 MostrarABM();
@@ -757,6 +755,26 @@ namespace REApp.Forms
         protected void btnGenerarKMZ_Click(object sender, EventArgs e)
         {
             string kml = new KMLController().GenerarKML(hdnIdSolicitud.Value.ToInt());
+
+            //Aca meto codigo temporal para generar un archivo en el disco C en mi escritorio, cambien porque no les van a andar
+            string path = @"C:\Users\benja\Desktop\kmls\Testing.kml";
+            try
+            {
+                using (FileStream fileSystemTest = File.Create(path))
+                {
+                    //Uso todo el System porque no me lo deja usar en el comienzo del archivo ???
+                    byte[] info = System.Text.Encoding.ASCII.GetBytes(kml);
+                    fileSystemTest.Write(info, 0, info.Length);
+
+                }
+            }
+            catch
+            {
+
+            }
+
+
+
         }
     }
 
