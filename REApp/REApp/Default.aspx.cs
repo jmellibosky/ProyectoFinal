@@ -14,7 +14,14 @@ namespace REApp
         {
             try
             {
-                lblUsername.InnerText = Session["Username"].ToString();
+                if (Session["Username"] != null)
+                {
+                    lblUsername.InnerText = Session["Username"].ToString();
+                }
+                else
+                {
+                    Response.Redirect("/Forms/UserLogin.aspx");
+                }
 
                 //Aca hacemos el get que si o si es un string porque de object a int no deja
                 string idUsuario = Session["IdUsuario"].ToString();

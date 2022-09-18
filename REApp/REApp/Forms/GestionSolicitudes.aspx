@@ -313,7 +313,7 @@
                                                                                 <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
                                                                                     <ItemTemplate>
                                                                                         <asp:HiddenField Value='<%# Eval("IdVant") %>' runat="server" ID="hdnIdVant" />
-                                                                                        <asp:CheckBox runat="server" ID="chkVANTVinculado" />
+                                                                                        <asp:CheckBox runat="server" ID="chkVANTVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                             </Columns>
@@ -495,7 +495,7 @@
                                                         <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
                                                             <ItemTemplate>
                                                                 <asp:HiddenField Value='<%# Eval("IdTripulacion") %>' runat="server" ID="hdnIdTripulacion" />
-                                                                <asp:CheckBox runat="server" ID="chkTripulacionVinculado" />
+                                                                <asp:CheckBox runat="server" ID="chkTripulacionVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                     </Columns>

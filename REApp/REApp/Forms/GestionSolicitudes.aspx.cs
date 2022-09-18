@@ -37,7 +37,6 @@ namespace REApp.Forms
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             //Aca hacemos el get que si o si es un string porque de object a int no deja
             string idUsuario = Session["IdUsuario"].ToString();
             string idRol = Session["IdRol"].ToString();
@@ -74,17 +73,40 @@ namespace REApp.Forms
                     ddlSolicitante.Enabled = false;
                     BindGrid();
 
-                    CargarGrillaTripulantes(id);
+                    GetTripulantesDeUsuario(id);
                     btnNuevo.Visible = true;
                 }
             }
         }
 
-        protected void CargarGrillaTripulantes(int IdUsuario)
+        protected void GetTripulantesDeUsuario(int IdUsuario)
         {
             using (SP sp = new SP("bd_reapp"))
             {
                 DataTable dt = sp.Execute("usp_GetTripulacionDeUsuario", P.Add("IdUsuario", IdUsuario));
+
+                if (dt.Rows.Count > 0)
+                {
+                    gvTripulacion.DataSource = dt;
+                }
+                else
+                {
+                    gvTripulacion.DataSource = null;
+                }
+                gvTripulacion.DataBind();
+            }
+        }
+
+        protected void GetTripulantesDeSolicitud(int IdSolicitud)
+        {
+            using (SP sp = new SP("bd_reapp"))
+            {
+                int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+
+                DataTable dt = sp.Execute("usp_GetTripulacionDeSolicitud",
+                    P.Add("IdSolicitud", IdSolicitud),
+                    P.Add("IdUsuario", IdUsuario)
+                );
 
                 if (dt.Rows.Count > 0)
                 {
@@ -376,6 +398,7 @@ namespace REApp.Forms
             btnNuevo.Visible = true;
             pnlABM.Visible = false;
             btnVolver.Visible = false;
+            btnGenerarKMZ.Visible = false;
         }
 
         protected void MostrarABM()
@@ -425,83 +448,71 @@ namespace REApp.Forms
             int IdModalidad = Solicitud.IdModalidad;
             Models.Modalidad Modalidad = new Models.Modalidad().Select(IdModalidad);
 
+            LimpiarModal();
+            OcultarMostrarPanelesABM(true);
+
+            CargarComboModalSolicitante();
+            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+            ddlModalSolicitante.Enabled = false;
+
+            CargarComboModalActividades();
+            CargarComboModalSoloModalidades();
+
+            ddlModalActividad.SelectedValue = Modalidad.IdActividad.ToCryptoID().ToString();
+            ddlModalModalidad.SelectedValue = Solicitud.IdModalidad.ToCryptoID().ToString();
+
+            hdnIdSolicitud.Value = IdSolicitud.ToString();
+            txtModalNombreSolicitud.Text = Solicitud.Nombre;
+
+            txtModalObservaciones.Text = Solicitud.Observaciones;
+            txtModalEstadoSolicitud.Text = Estado.Nombre;
+
+            txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
+            txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
+            txtModalFechaHasta.Enabled = false;
+            txtModalFechaDesde.Enabled = false;
+
+            string FHActualiz = Solicitud.FHUltimaActualizacionEstado;
+            if (FHActualiz != null)
+            {
+                txtModalFechaUltimaActualizacion.Text = FHActualiz;
+            }
+            txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
+
+            chkVant.Checked = Solicitud.IdAeronave.HasValue;
+            chkVant_CheckedChanged(null, null);
+
+            GetTripulantesDeSolicitud(IdSolicitud);
+            GetUbicacionesDeSolicitud(IdSolicitud);
+
+            MostrarABM();
+
             if (e.CommandName.Equals("Detalle"))
             { // Detalle
-                LimpiarModal();
-                OcultarMostrarPanelesABM(true);
                 HabilitarDeshabilitarTxts(false);
-
-                CargarComboModalSolicitante();
-                ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
-                ddlModalSolicitante.Enabled = false;
-
-                CargarComboModalActividades();
-                CargarComboModalSoloModalidades();
-
-                ddlModalActividad.SelectedValue = Modalidad.IdActividad.ToCryptoID().ToString();
-                ddlModalModalidad.SelectedValue = Solicitud.IdModalidad.ToCryptoID().ToString();
-
-                hdnIdSolicitud.Value = IdSolicitud.ToString();
-                txtModalNombreSolicitud.Text = Solicitud.Nombre;
-
-                txtModalObservaciones.Text = Solicitud.Observaciones;
-                txtModalEstadoSolicitud.Text = Estado.Nombre;
-
-                txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
-                txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
-                txtModalFechaHasta.Enabled = false;
-                txtModalFechaDesde.Enabled = false;
-                //Se deshabilita los txts q faltan
-
-
-                string FHActualiz = Solicitud.FHUltimaActualizacionEstado;
-                if (FHActualiz != null)
-                    if (FHActualiz != null)
-                    {
-                        txtModalFechaUltimaActualizacion.Text = FHActualiz;
-                    }
-                txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
-
-                MostrarABM();
             }
             if (e.CommandName.Equals("Editar"))
             {
                 btnGenerarKMZ.Visible = true;
                 btnGuardar.Visible = true;
-                LimpiarModal();
-                OcultarMostrarPanelesABM(true);
                 HabilitarDeshabilitarTxts(true);
+            }
+        }
 
-                CargarComboModalSolicitante();
-                ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
-                ddlModalSolicitante.Enabled = false;
+        protected void GetUbicacionesDeSolicitud(int IdSolicitud)
+        {
+            DataTable dt = new SP("bd_reapp").Execute("usp_GetPuntosGeograficosDeSolicitud", P.Add("IdSolicitud", IdSolicitud));
 
-                CargarComboModalActividades();
-                CargarComboModalSoloModalidades();
+            if (dt.Rows.Count > 0)
+            {
+                rptUbicaciones.DataSource = dt;
+                rptUbicaciones.DataBind();
 
-                ddlModalActividad.SelectedValue = Modalidad.IdActividad.ToCryptoID().ToString();
-                ddlModalModalidad.SelectedValue = Solicitud.IdModalidad.ToCryptoID().ToString();
-
-                hdnIdSolicitud.Value = IdSolicitud.ToString();
-                txtModalNombreSolicitud.Text = Solicitud.Nombre;
-
-                txtModalObservaciones.Text = Solicitud.Observaciones;
-                txtModalEstadoSolicitud.Text = Estado.Nombre;
-
-                txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
-                txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
-                txtModalFechaHasta.Enabled = true;
-                txtModalFechaDesde.Enabled = true;
-
-
-                string FHActualiz = Solicitud.FHUltimaActualizacionEstado;
-                if (FHActualiz != null)
+                for (int i = 0; i < rptUbicaciones.Items.Count; i++)
                 {
-                    txtModalFechaUltimaActualizacion.Text = FHActualiz;
+                    ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text = dt.Rows[i]["TipoUbicacion"].ToString();
+                    ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text = dt.Rows[i]["Datos"].ToString();
                 }
-                txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
-
-                MostrarABM();
             }
         }
 
@@ -520,21 +531,33 @@ namespace REApp.Forms
         {
             pnlSeleccionVants.Visible = !chkVant.Checked;
 
+            DataTable dt = null;
             if (!chkVant.Checked)
             {
-                using (SP sp = new SP("bd_reapp"))
-                {
-                    DataTable dt = sp.Execute("usp_VantConsultar", P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID()));
-                    if (dt.Rows.Count > 0)
-                    {
-                        gvVANTs.DataSource = dt;
-                    }
-                    else
-                    {
-                        gvVANTs.DataSource = null;
-                    }
-                    gvVANTs.DataBind();
+                if (!txtModalFechaSolicitud.Visible)
+                { // Si el txtModalFechaSolicitud no está visible, entonces estamos creando Solicitud
+                    // Por ende, recupero los Vants del Usuario
+                    dt = new SP("bd_reapp").Execute("usp_VantConsultar", P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID()));
                 }
+                else
+                { // Si el txtModalFechaSolicitud está visible, entonces la Solicitud ya está creada
+                    // Por ende, recupero los Vants de la Solicitud + los del Usuario
+
+                    dt = new SP("bd_reapp").Execute("usp_GetVantsDeSolicitud",
+                        P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt()),
+                        P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID())
+                    );
+                }
+
+                if (dt.Rows.Count > 0)
+                {
+                    gvVANTs.DataSource = dt;
+                }
+                else
+                {
+                    gvVANTs.DataSource = null;
+                }
+                gvVANTs.DataBind();
             }
         }
 
@@ -797,11 +820,7 @@ namespace REApp.Forms
             {
 
             }
-
-
         }
-
-
     }
 
     public class UbicacionRedux
