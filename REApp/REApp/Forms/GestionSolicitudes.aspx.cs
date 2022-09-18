@@ -534,7 +534,7 @@ namespace REApp.Forms
             DataTable dt = null;
             if (!chkVant.Checked)
             {
-                if (!txtModalFechaSolicitud.Visible)
+                if (hdnIdSolicitud.Value.Equals(""))
                 { // Si el txtModalFechaSolicitud no está visible, entonces estamos creando Solicitud
                     // Por ende, recupero los Vants del Usuario
                     dt = new SP("bd_reapp").Execute("usp_VantConsultar", P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID()));
@@ -820,6 +820,11 @@ namespace REApp.Forms
             {
 
             }
+        }
+
+        protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnFiltrar_Click(null, null);
         }
     }
 

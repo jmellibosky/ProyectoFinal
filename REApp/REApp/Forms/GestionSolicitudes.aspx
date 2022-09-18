@@ -144,7 +144,7 @@
                     <div class="row">
                         <div class="col">
                             <asp:Label runat="server">Solicitantes</asp:Label>
-                            <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" Width="300px" />
+                            <asp:DropDownList runat="server" ID="ddlSolicitante" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" CssClass="form-control select-single" Width="300px" />
                             <br />
                             <div class="text-center">
                                 <asp:Button ID="btnFiltrar" Text="Filtrar" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnFiltrar_Click" />
