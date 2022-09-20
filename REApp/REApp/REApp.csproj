@@ -47,13 +47,22 @@
     <Reference Include="AspNet.ScriptManager.bootstrap, Version=4.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AspNet.ScriptManager.bootstrap.4.6.0\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\MagicSQL.3.501.00.005\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MagicSQL, Version=3.501.0.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MagicSQL.3.501.00.005\lib\MagicSQL.dll</HintPath>
     </Reference>
+    <Reference Include="MailKit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
+      <HintPath>..\packages\MailKit.3.4.1\lib\net47\MailKit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MimeKit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.3.4.1\lib\net47\MimeKit.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\PlusUltra.1.55.41.105\lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -63,11 +72,29 @@
     <Reference Include="SwissKnife, Version=1.0.0.36, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SwissKnife.1.0.0.36\lib\SwissKnife.dll</HintPath>
     </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -273,6 +300,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Code\Navegacion.cs" />
     <Compile Include="Controllers\KMLController.cs" />
+    <Compile Include="Controllers\MailController.cs" />
+    <Compile Include="Controllers\Soporte\Destinatario.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -378,9 +407,12 @@
     <Compile Include="Models\Actividad.cs" />
     <Compile Include="Models\Aerodromo.cs" />
     <Compile Include="Models\Aeronave.cs" />
+    <Compile Include="Models\Coordinacion.cs" />
     <Compile Include="Models\Documento.cs" />
     <Compile Include="Models\EstadoSolicitud.cs" />
     <Compile Include="Models\FIR.cs" />
+    <Compile Include="Models\Interesado.cs" />
+    <Compile Include="Models\InteresadoSolicitud.cs" />
     <Compile Include="Models\Localidad.cs" />
     <Compile Include="Models\MarcaAeronave.cs" />
     <Compile Include="Models\MarcaVant.cs" />
@@ -393,6 +425,7 @@
     <Compile Include="Models\Respuesta.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Solicitud.cs" />
+    <Compile Include="Models\SolicitudEstadoHistorial.cs" />
     <Compile Include="Models\Subregional.cs" />
     <Compile Include="Models\TipoAeronave.cs" />
     <Compile Include="Models\TipoDocumento.cs" />

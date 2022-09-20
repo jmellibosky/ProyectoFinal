@@ -1,4 +1,5 @@
 ﻿using MagicSQL;
+using REApp;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -825,6 +826,18 @@ namespace REApp.Forms
         protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnFiltrar_Click(null, null);
+        }
+
+        protected void btnPrueba_Click(object sender, EventArgs e)
+        {
+            MailController mail = new MailController("SOLICITUD DE REA ACEPTADA", "SE HA ACEPTADO SU SOLICITUD DE REA", false);
+
+            mail.Add("Solicitante 1", "elwachoiaccultrararo@gmail.com");
+            mail.Add("Solicitante 2", "joaxqlmelli@gmail.com");
+
+            mail.Add(new Models.Documento().Select(108));
+
+            bool Exito = mail.Enviar();
         }
     }
 

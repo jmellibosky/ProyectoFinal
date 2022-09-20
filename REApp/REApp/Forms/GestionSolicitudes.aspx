@@ -149,6 +149,9 @@
                             <div class="text-center">
                                 <asp:Button ID="btnFiltrar" Text="Filtrar" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnFiltrar_Click" />
                             </div>
+                            <div class="text-center">
+                                <asp:Button ID="btnPrueba" Text="Test Mail" CssClass="btn btn-dark" runat="server" OnClick="btnPrueba_Click" />
+                            </div>
 
                             <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
                                 <div class="row" style="overflow: auto; height: 500px; width: 1400px;">
