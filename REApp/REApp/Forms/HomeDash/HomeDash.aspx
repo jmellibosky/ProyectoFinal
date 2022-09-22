@@ -2,36 +2,36 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Home Dashboard</title>
-        <!-- Favicon y FontAwesome-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <script src="https://kit.fontawesome.com/8e4807e881.js" crossorigin="anonymous"></script>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body>
-        <form id="HomeDashForm" runat="server">
-            <%-- Ver bien porque se usa esto --%>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Home Dashboard</title>
+    <!-- Favicon y FontAwesome-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <script src="https://kit.fontawesome.com/8e4807e881.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <form id="HomeDashForm" runat="server">
+        <%-- Ver bien porque se usa esto --%>
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
-            <div class="border-end" style="background-color:#484c64" id="sidebar-wrapper">
+            <div class="border-end" style="background-color: #484c64" id="sidebar-wrapper">
                 <%-- Aca es donde depende si es Admin o no lo que se muestra --%>
-                <image src="/Assets/EANA3.png" alt="LogoEANA" class="sidebar-heading border-bottom" style="width:300px;height:fit-content;"></image>
+                <image src="/Assets/EANA3.png" alt="LogoEANA" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;"></image>
                 <%--<div runat="server" id="lblRol" class="sidebar-heading border-bottom bg-light">Rol Sistema</div>--%>
                 <div class="list-group list-group-flush">
                     <ul id="side-menu" class="nav">
-                         <%-- Administrador --%>
+                        <%-- Administrador --%>
                         <li id="liAdministrador" style="" runat="server">
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="HomeForm.aspx">Home
                                 <i class="fa fa-home"></i>
@@ -55,7 +55,7 @@
                     </ul>
 
                     <ul id="side-menu2" class="nav">
-                         <%-- Solicitante --%>
+                        <%-- Solicitante --%>
                         <li id="liSolicitante" style="" runat="server">
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/Home.aspx">Home
                                 <i class="fa fa-home"></i>
@@ -76,12 +76,15 @@
                     </ul>
 
                     <ul id="side-menu3" class="nav">
-                         <%-- Operador --%>
+                        <%-- Operador --%>
                         <li id="liOperador" style="" runat="server">
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/Home.aspx">Home
                                 <i class="fa fa-home"></i>
                             </a>
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">Gestión de Solicitudes
+                                <i class="fas fa-plane-departure"></i>
+                            </a>
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRecepcion">Gestión de Solicitudes Recepción
                                 <i class="fas fa-plane-departure"></i>
                             </a>
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">Gestión de Tripulación
@@ -98,7 +101,7 @@
                             </a>
                         </li>
                     </ul>
-                    
+
                 </div>
             </div>
             <!-- Page content wrapper-->
@@ -134,8 +137,8 @@
                 </div>
             </div>
         </div>
-        </form>
-        
-    </body>
+    </form>
+
+</body>
 </html>
 
