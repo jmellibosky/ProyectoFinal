@@ -164,6 +164,7 @@
     <Content Include="Forms\HomeDash\HomeDash.aspx" />
     <Content Include="Forms\HomeDash\HomeForm.aspx" />
     <Content Include="Forms\HomeDash\js\scripts.js" />
+    <Content Include="Forms\SolicitudesRecepcion.aspx" />
     <Content Include="Forms\UserCorrectRegister.aspx" />
     <Content Include="Forms\UserForgotPassword.aspx" />
     <Content Include="Forms\UserLogin.aspx" />
@@ -366,6 +367,13 @@
     </Compile>
     <Compile Include="Forms\HomeDash\HomeForm.aspx.designer.cs">
       <DependentUpon>HomeForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SolicitudesRecepcion.aspx.cs">
+      <DependentUpon>SolicitudesRecepcion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\SolicitudesRecepcion.aspx.designer.cs">
+      <DependentUpon>SolicitudesRecepcion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\UserCorrectRegister.aspx.cs">
       <DependentUpon>UserCorrectRegister.aspx</DependentUpon>
