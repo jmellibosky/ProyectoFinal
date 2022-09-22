@@ -8,6 +8,25 @@ using System.IO;
 
 namespace REApp
 {
+    /* Clase MailController Documentacion
+     * 
+     * Constructor: recibe tres parámetros
+     * * * Asunto: Título del Mail como cadena
+     * * * Cuerpo: Cuerpo del Mail como cadena
+     * * * HTML: Valor booleano que indica si el Cuerpo del Mail es contenido HTML o texto plano. Por defecto true.
+     * 
+     * Método Add(Documento): Agrega un documento al listado de documentos a adjuntar al mail.
+     * Método Add(Destinatario): Agrega un destinatario al listado de destinatarios a enviar el mail.
+     * Método Add(Nombre, Correo): Crea un destinatario y lo agrega al listado de destinatarios a enviar el mail.
+     * Método Enviar(): Establece la conexión con el servidor SMTP, crea el mensaje con los atributos y documentos
+     *      especificados y envía el mail a cada uno de los destinatarios.
+     *      
+     * Secuencia de uso de la clase:
+     * * * Construir un objeto MailController
+     * * * Añadir los destinatarios con el método Add
+     * * * Adjuntar los documentos con el método Add
+     * * * Enviar mail con el método Enviar
+     */
     public class MailController
     {
         // PARAMETROS DE ENVÍO MAIL
@@ -69,7 +88,7 @@ namespace REApp
                         mailMessage.From.Add(new MailboxAddress(NombreOrigen, CorreoOrigen));
                         mailMessage.To.Add(new MailboxAddress(dest.Nombre, dest.Correo));
                         mailMessage.Subject = Asunto;
-                        
+
                         if (Documentos.Count > 0)
                         {
                             Multipart multipart = new Multipart("mixed");
@@ -105,7 +124,7 @@ namespace REApp
 
                         smtpClient.Send(mailMessage);
                     }
-                    
+
                     smtpClient.Disconnect(true);
                 }
             }

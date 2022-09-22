@@ -490,6 +490,7 @@ namespace REApp.Forms
 
             if (e.CommandName.Equals("Detalle"))
             { // Detalle
+                btnGenerarKMZ.Visible = true;
                 HabilitarDeshabilitarTxts(false);
             }
             if (e.CommandName.Equals("Editar"))
@@ -803,24 +804,26 @@ namespace REApp.Forms
 
         protected void btnGenerarKMZ_Click(object sender, EventArgs e)
         {
-            string kml = new KMLController().GenerarKML(hdnIdSolicitud.Value.ToInt());
+            KMLController KMLController = new KMLController(new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt()));
 
-            //Aca meto codigo temporal para generar un archivo en el disco C en mi escritorio, cambien porque no les van a andar
-            string path = @"C:\Users\benja\Desktop\kmls\Testing.kml";
-            try
-            {
-                using (FileStream fileSystemTest = File.Create(path))
-                {
-                    //Uso todo el System porque no me lo deja usar en el comienzo del archivo ???
-                    byte[] info = System.Text.Encoding.ASCII.GetBytes(kml);
-                    fileSystemTest.Write(info, 0, info.Length);
+            string kml = KMLController.GenerarKML();
 
-                }
-            }
-            catch
-            {
+            ////Aca meto codigo temporal para generar un archivo en el disco C en mi escritorio, cambien porque no les van a andar
+            //string path = @"C:\Users\benja\Desktop\kmls\Testing.kml";
+            //try
+            //{
+            //    using (FileStream fileSystemTest = File.Create(path))
+            //    {
+            //        //Uso todo el System porque no me lo deja usar en el comienzo del archivo ???
+            //        byte[] info = System.Text.Encoding.ASCII.GetBytes(kml);
+            //        fileSystemTest.Write(info, 0, info.Length);
 
-            }
+            //    }
+            //}
+            //catch
+            //{
+
+            //}
         }
 
         protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
