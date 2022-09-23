@@ -1,7 +1,6 @@
 
 *.cache
 *.cache
-*.dll
 REApp/.vs/REApp/config/applicationhost.config
 REApp/.vs/REApp/FileContentIndex/1c62ab27-51d0-4fc7-a665-39357e87665a.vsidx
 REApp/.vs/REApp/FileContentIndex/b7eeb766-b442-4379-89ce-6791bdea1b73.vsidx
