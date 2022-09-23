@@ -125,7 +125,16 @@ namespace REApp.Forms
             {
                 if (!ddlSolicitante.SelectedItem.Value.Equals("#"))
                 {
-                    dt = sp.Execute("usp_GetSolicitudes", P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()));
+                    int s = ddlSolicitante.SelectedItem.Value.ToIntID();
+                    dt = sp.Execute("usp_GetSolicitudesPorEstado", 
+                        P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()),
+                        P.Add("IdEstadoSolicitud1", 1),
+                        P.Add("IdEstadoSolicitud2", 11),
+                        P.Add("IdEstadoSolicitud3", null),
+                        P.Add("IdEstadoSolicitud4", null),
+                        P.Add("IdEstadoSolicitud5", null),
+                        P.Add("IdEstadoSolicitud6", null)
+                        );
                 }
             }
             if (dt != null && dt.Rows.Count > 0)
@@ -332,7 +341,7 @@ namespace REApp.Forms
                     Solicitud.FHDesde = txtModalFechaDesde.Text.ToDateTime();
                     Solicitud.FHHasta = txtModalFechaHasta.Text.ToDateTime();
                     Solicitud.Observaciones = txtModalObservaciones.Text;
-                    Solicitud.FHUltimaActualizacionEstado = DateTime.Now.ToString();
+                    Solicitud.FHUltimaActualizacionEstado = DateTime.Now;
                     Solicitud.Update(tn);
                 }
             }
@@ -426,10 +435,10 @@ namespace REApp.Forms
             txtModalFechaHasta.Enabled = false;
             txtModalFechaDesde.Enabled = false;
 
-            string FHActualiz = Solicitud.FHUltimaActualizacionEstado;
+            DateTime FHActualiz = (DateTime)Solicitud.FHUltimaActualizacionEstado;
             if (FHActualiz != null)
             {
-                txtModalFechaUltimaActualizacion.Text = FHActualiz;
+                txtModalFechaUltimaActualizacion.Text = FHActualiz.ToString();
             }
             txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
 

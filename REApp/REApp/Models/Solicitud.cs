@@ -25,7 +25,7 @@ namespace REApp.Models
 
         public int? IdEstadoSolicitud { get; set; }
 
-        public string FHUltimaActualizacionEstado { get; set; }
+        public DateTime? FHUltimaActualizacionEstado { get; set; }
 
         public DateTime FHAlta { get; set; }
 

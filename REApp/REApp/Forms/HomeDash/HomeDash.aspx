@@ -87,6 +87,9 @@
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRecepcion">Gestión de Solicitudes Recepción
                                 <i class="fas fa-plane-departure"></i>
                             </a>
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesAnalisis">Gestión de Solicitudes Analisis
+                                <i class="fas fa-plane-departure"></i>
+                            </a>
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">Gestión de Tripulación
                                 <i class="fas fa-users"></i>
                             </a>

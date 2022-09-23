@@ -1,8 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SolicitudesRecepcion.aspx.cs" Inherits="REApp.Forms.SolicitudesRecepcion" %>
-
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SolicitudesAnalisis.aspx.cs" Inherits="REApp.Forms.SolicitudesAnalisis" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
-
 
     <style>
         body {
@@ -115,7 +112,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
     <div class="container">
         <h1 class="row justify-content-center">
-            <label class="fw-normal mb-3 pb-2">Gestión de Solicitudes Recepción</label>
+            <label class="fw-normal mb-3 pb-2">Gestión de Solicitudes Analisis</label>
         </h1>
         <%--Se borra el AutoPostBack porq hay q cargar el dgv de otra forma.--%>
         <br />
@@ -166,8 +163,11 @@
                                                     <asp:BoundField DataField="NombreModalidad" HeaderText="MODALIDAD" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="NombreActividad" HeaderText="ACTIVIDAD" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="NombreEstado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                                    <asp:BoundField DataField="NombreUsuarioModificacion" HeaderText="MODIFICADO POR" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                                    <asp:BoundField DataField="FHUltimaActualizacionEstado" HeaderText="ULTIMA MODIFICACION" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="NombreProvincia" HeaderText="PROVINCIA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="FHDesde" HeaderText="FECHA INICIO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                                    <asp:BoundField DataField="DuracionDias" HeaderText="DURACION DIAS" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
 
                                                     <%-- Boton con link para ver detalles solicitud--%>
                                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="ACCIONES" ItemStyle-Width="10%">
