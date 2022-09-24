@@ -113,7 +113,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
     <div class="container">
         <h1 class="row justify-content-center">
-            <label class="fw-normal mb-3 pb-2">Gestión de Solicitudes Analisis</label>
+            <label class="fw-normal mb-3 pb-2">Gestión de Solicitudes en Coordinacion</label>
         </h1>
         <%--Se borra el AutoPostBack porq hay q cargar el dgv de otra forma.--%>
         <br />
@@ -176,6 +176,14 @@
                                                             <asp:LinkButton ID="lnkVerDetalles" runat="server" CommandName="Detalle"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
+                                                            </asp:LinkButton>
+                                                             <asp:LinkButton ID="lnkPasarARespuesta" runat="server" CommandName="PasarARespuesta"
+                                                                CommandArgument='<%# Eval("IdSolicitud") %>'>
+                                                <i class="fa-solid fa-thumbs-up" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
+                                                            </asp:LinkButton>
+                                                            <asp:LinkButton ID="lnkRechazarREA" runat="server" CommandName="RechazarREA"
+                                                                CommandArgument='<%# Eval("IdSolicitud") %>'>
+                                                <i class="fa-solid fa-thumbs-down" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
