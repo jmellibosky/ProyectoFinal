@@ -87,13 +87,22 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Panel pnlABM;
 
         /// <summary>
-        /// Control btnEstadoOperador.
+        /// Control btnHabilitarModificacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEstadoOperador;
+        protected global::System.Web.UI.WebControls.Button btnHabilitarModificacion;
+
+        /// <summary>
+        /// Control btnDevolver.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDevolver;
 
         /// <summary>
         /// Control upModalABM.
@@ -276,40 +285,31 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.TextBox txtModalFechaUltimaActualizacion;
 
         /// <summary>
-        /// Control chkVant.
+        /// Control pnlBtnVerHistorialSolicitud.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkVant;
+        protected global::System.Web.UI.WebControls.Panel pnlBtnVerHistorialSolicitud;
 
         /// <summary>
-        /// Control pnlSeleccionVants.
+        /// Control btnVerHistorialSolicitud.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSeleccionVants;
+        protected global::System.Web.UI.WebControls.Button btnVerHistorialSolicitud;
 
         /// <summary>
-        /// Control gvVANTs.
+        /// Control pnlHistorialSolicitud.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvVANTs;
-
-        /// <summary>
-        /// Control rptUbicaciones.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptUbicaciones;
+        protected global::System.Web.UI.WebControls.Panel pnlHistorialSolicitud;
 
         /// <summary>
         /// Control gvTripulacion.
@@ -319,5 +319,32 @@ namespace REApp.Forms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvTripulacion;
+
+        /// <summary>
+        /// Control gvAfectados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvAfectados;
+
+        /// <summary>
+        /// Control rptMensajes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptMensajes;
+
+        /// <summary>
+        /// Control btnAprobar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAprobar;
     }
 }

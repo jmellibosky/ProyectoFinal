@@ -238,7 +238,7 @@ namespace REApp.Forms
             gvVANTs.DataBind();
             gvTripulacion.DataSource = null;
             gvTripulacion.DataBind();
-            fupKMZ.Attributes.Clear();
+            //fupKMZ.Attributes.Clear();
         }
 
 
@@ -866,23 +866,6 @@ namespace REApp.Forms
             Models.Documento KML = GetKML();
 
             DescargarKML(Encoding.ASCII.GetString(KML.Datos));
-
-            ////Aca meto codigo temporal para generar un archivo en el disco C en mi escritorio, cambien porque no les van a andar
-            //string path = @"C:\Users\benja\Desktop\kmls\Testing.kml";
-            //try
-            //{
-            //    using (FileStream fileSystemTest = File.Create(path))
-            //    {
-            //        //Uso todo el System porque no me lo deja usar en el comienzo del archivo ???
-            //        byte[] info = System.Text.Encoding.ASCII.GetBytes(kml);
-            //        fileSystemTest.Write(info, 0, info.Length);
-
-            //    }
-            //}
-            //catch
-            //{
-
-            //}
         }
 
         protected Models.Documento GetKML()

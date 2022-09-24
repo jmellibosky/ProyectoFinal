@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Text;
 using System.Web.UI.WebControls;
 
 namespace REApp.Forms
@@ -61,36 +62,7 @@ namespace REApp.Forms
                 {
                     CargarComboSolicitante();
                     BindGrid();
-                    btnEstadoOperador.Visible = true;
                 }
-                //Rol Solicitante
-                if (idRolInt == 3)
-                {
-                    CargarComboSolicitante();
-                    ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
-                    ddlSolicitante.Enabled = false;
-                    BindGrid();
-
-                    GetTripulantesDeUsuario(id);
-                }
-            }
-        }
-
-        protected void GetTripulantesDeUsuario(int IdUsuario)
-        {
-            using (SP sp = new SP("bd_reapp"))
-            {
-                DataTable dt = sp.Execute("usp_GetTripulacionDeUsuario", P.Add("IdUsuario", IdUsuario));
-
-                if (dt.Rows.Count > 0)
-                {
-                    gvTripulacion.DataSource = dt;
-                }
-                else
-                {
-                    gvTripulacion.DataSource = null;
-                }
-                gvTripulacion.DataBind();
             }
         }
 
@@ -101,8 +73,7 @@ namespace REApp.Forms
                 int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
 
                 DataTable dt = sp.Execute("usp_GetTripulacionDeSolicitud",
-                    P.Add("IdSolicitud", IdSolicitud),
-                    P.Add("IdUsuario", IdUsuario)
+                    P.Add("IdSolicitud", IdSolicitud)
                 );
 
                 if (dt.Rows.Count > 0)
@@ -213,7 +184,6 @@ namespace REApp.Forms
             }
         }
 
-
         protected void LimpiarModal()
         {
             ddlModalSolicitante.Items.Clear();
@@ -228,128 +198,7 @@ namespace REApp.Forms
             txtModalFechaUltimaActualizacion.Enabled = false;
             txtModalFechaSolicitud.Enabled = false;
             txtModalEstadoSolicitud.Enabled = false;
-            rptUbicaciones.DataSource = null;
         }
-
-
-        protected void btnGuardar_Click(object sender, EventArgs e)
-        {
-            Models.Solicitud Solicitud = null;
-            if (hdnIdSolicitud.Value.Equals(""))
-            { // Insert
-                using (Tn tn = new Tn("bd_reapp"))
-                {
-                    try
-                    {
-                        // CREO OBJETO SOLICITUD
-                        Solicitud = new Models.Solicitud();
-
-                        // SETEO LOS CAMPOS DEL OBJETO
-                        Solicitud.Nombre = txtModalNombreSolicitud.Text;
-                        Solicitud.IdModalidad = ddlModalModalidad.SelectedValue.ToIntID();
-                        Solicitud.IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
-                        Solicitud.FHAlta = DateTime.Now;
-                        Solicitud.FHDesde = txtModalFechaDesde.Text.ToDateTime();
-                        Solicitud.FHHasta = txtModalFechaHasta.Text.ToDateTime();
-                        Solicitud.IdEstadoSolicitud = 1;
-                        Solicitud.Observaciones = txtModalObservaciones.Text;
-
-                        // INSERT EN TABLA SOLICITUD
-                        Solicitud.Insert(tn);
-
-                        // RECORRO LA GRILLA DE VANTS
-                        for (int i = 0; i < gvVANTs.Rows.Count; i++)
-                        {
-                            if (((CheckBox)gvVANTs.Rows[i].FindControl("chkVANTVinculado")).Checked)
-                            { // SI ESTÁ CHEQUEADO
-                              // CREO OBJETO VANTSOLICITUD
-                                Models.VantSolicitud VantSolicitud = new Models.VantSolicitud();
-
-                                // SETEO LOS CAMPOS DEL OBJETO
-                                VantSolicitud.IdVant = ((HiddenField)gvVANTs.Rows[i].FindControl("hdnIdVant")).Value.ToInt();
-                                VantSolicitud.IdSolicitud = Solicitud.IdSolicitud;
-
-                                // INSERT EN TABLA VANTSOLICITUD
-                                VantSolicitud.Insert(tn);
-                            }
-                        }
-
-                        // RECORRO LAS UBICACIONES DEL VIEWSTATE
-                        List<UbicacionRedux> AuxUbicaciones = Ubicaciones;
-                        for (int i = 0; i < AuxUbicaciones.Count; i++)
-                        {
-                            // CREO OBJETO UBICACION
-                            Models.Ubicacion Ubicacion = new Models.Ubicacion();
-
-                            // SETEO LOS CAMPOS DEL OBJETO
-                            Ubicacion.IdSolicitud = Solicitud.IdSolicitud;
-                            Ubicacion.Altura = AuxUbicaciones[i].Altura;
-                            Ubicacion.IdProvincia = 1; //------------------HARDCODEADO-NI IDEA DE POR QUÉ ESTÁ ESTE CAMPO ACÁ
-
-                            // INSERT EN TABLA UBICACION
-                            Ubicacion.Insert(tn);
-
-                            // RECORRO LOS PUNTOS GEOGRÁFICOS DE LA UBICACIÓN
-                            for (int j = 0; j < AuxUbicaciones[i].PuntosGeograficos.Count; j++)
-                            {
-                                // CREO OBJETO PUNTOGEOGRAFICO
-                                Models.PuntoGeografico PuntoGeografico = AuxUbicaciones[i].PuntosGeograficos[j];
-
-                                // SETEO LOS CAMPOS EL OBJETO
-                                PuntoGeografico.IdUbicacion = Ubicacion.IdUbicacion;
-
-                                // INSERT EN TABLA PUNTOGEOGRAFICO
-                                PuntoGeografico.Insert(tn);
-                            }
-                        }
-
-                        // RECORRO LA GRILLA DE TRIPULANTES
-                        for (int i = 0; i < gvTripulacion.Rows.Count; i++)
-                        {
-                            if (((CheckBox)gvTripulacion.Rows[i].FindControl("chkTripulacionVinculado")).Checked)
-                            { // SI ESTÁ CHEQUEADO
-                              // CREO OBJETO VANTSOLICITUD
-                                Models.TripulacionSolicitud TripulacionSolicitud = new Models.TripulacionSolicitud();
-
-                                // SETEO LOS CAMPOS DEL OBJETO
-                                TripulacionSolicitud.FHVinculacion = DateTime.Now;
-                                TripulacionSolicitud.IdSolicitud = Solicitud.IdSolicitud;
-                                TripulacionSolicitud.IdTripulacion = ((HiddenField)gvTripulacion.Rows[i].FindControl("hdnIdTripulacion")).Value.ToInt();
-
-                                // INSERT EN TABLA VANTSOLICITUD
-                                TripulacionSolicitud.Insert(tn);
-                            }
-                        }
-
-                        tn.Commit();
-                    }
-                    catch (Exception)
-                    {
-                        tn.RollBack();
-                    }
-                }
-            }
-            else
-            { // Update
-                using (Tn tn = new Tn("bd_reapp"))
-                {
-                    Solicitud = new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt());
-                    Solicitud.Nombre = txtModalNombreSolicitud.Text;
-                    Solicitud.IdModalidad = ddlModalModalidad.SelectedValue.ToIntID();
-                    Solicitud.IdEstadoSolicitud = 1;
-                    Solicitud.FHDesde = txtModalFechaDesde.Text.ToDateTime();
-                    Solicitud.FHHasta = txtModalFechaHasta.Text.ToDateTime();
-                    Solicitud.Observaciones = txtModalObservaciones.Text;
-                    Solicitud.FHUltimaActualizacionEstado = DateTime.Now;
-                    Solicitud.Update(tn);
-                }
-            }
-
-            MostrarListado();
-            btnFiltrar_Click(null, null);
-        }
-
-
 
         protected void btnVolver_Click(object sender, EventArgs e)
         {
@@ -441,11 +290,11 @@ namespace REApp.Forms
             }
             txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
 
-            chkVant.Checked = Solicitud.IdAeronave.HasValue;
-            chkVant_CheckedChanged(null, null);
-
             GetTripulantesDeSolicitud(IdSolicitud);
-            GetUbicacionesDeSolicitud(IdSolicitud);
+
+            GetAfectadosDeSolicitud(IdSolicitud);
+
+            GetMensajesDeSolicitud(IdSolicitud);
 
             MostrarABM();
 
@@ -456,21 +305,34 @@ namespace REApp.Forms
             }
         }
 
-        protected void GetUbicacionesDeSolicitud(int IdSolicitud)
+        protected void GetAfectadosDeSolicitud(int IdSolicitud)
         {
-            DataTable dt = new SP("bd_reapp").Execute("usp_GetPuntosGeograficosDeSolicitud", P.Add("IdSolicitud", IdSolicitud));
+            DataTable dt = new SP("bd_reapp").Execute("usp_GetInteresadosDeSolicitud", P.Add("IdSolicitud", IdSolicitud));
 
             if (dt.Rows.Count > 0)
             {
-                rptUbicaciones.DataSource = dt;
-                rptUbicaciones.DataBind();
-
-                for (int i = 0; i < rptUbicaciones.Items.Count; i++)
-                {
-                    ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text = dt.Rows[i]["TipoUbicacion"].ToString();
-                    ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text = dt.Rows[i]["Datos"].ToString();
-                }
+                gvAfectados.DataSource = dt;
             }
+            else
+            {
+                gvAfectados.DataSource = null;
+            }
+            gvAfectados.DataBind();
+        }
+
+        protected void GetMensajesDeSolicitud(int IdSolicitud)
+        {
+            DataTable dt = new SP("bd_reapp").Execute("usp_GetMensajesDeAfectadosDeSolicitud", P.Add("IdSolicitud", IdSolicitud));
+
+            if (dt.Rows.Count > 0)
+            {
+                rptMensajes.DataSource = dt;
+            }
+            else
+            {
+                rptMensajes.DataSource = null;
+            }
+            rptMensajes.DataBind();
         }
 
         protected void ddlModalActividad_SelectedIndexChanged(object sender, EventArgs e)
@@ -479,60 +341,82 @@ namespace REApp.Forms
             CargarComboModalModalidades(idActividad);
         }
 
-
-        protected void chkVant_CheckedChanged(object sender, EventArgs e)
-        {
-            pnlSeleccionVants.Visible = !chkVant.Checked;
-
-            DataTable dt = null;
-            if (!chkVant.Checked)
-            {
-                //La Solicitud ya está creada
-                //Por ende, recupero los Vants de la Solicitud + los del Usuario
-                dt = new SP("bd_reapp").Execute("usp_GetVantsDeSolicitud",
-                    P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt()),
-                    P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID())
-                );
-
-                if (dt.Rows.Count > 0)
-                {
-                    gvVANTs.DataSource = dt;
-                }
-                else
-                {
-                    gvVANTs.DataSource = null;
-                }
-                gvVANTs.DataBind();
-            }
-        }
-
         protected void btnGenerarKMZ_Click(object sender, EventArgs e)
         {
-            KMLController KMLController = new KMLController(new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt()));
+            Models.Documento KML = GetKML();
 
-            string kml = KMLController.GenerarKML();
+            DescargarKML(Encoding.ASCII.GetString(KML.Datos));
+        }
 
-            ////Aca meto codigo temporal para generar un archivo en el disco C en mi escritorio, cambien porque no les van a andar
-            //string path = @"C:\Users\benja\Desktop\kmls\Testing.kml";
-            //try
-            //{
-            //    using (FileStream fileSystemTest = File.Create(path))
-            //    {
-            //        //Uso todo el System porque no me lo deja usar en el comienzo del archivo ???
-            //        byte[] info = System.Text.Encoding.ASCII.GetBytes(kml);
-            //        fileSystemTest.Write(info, 0, info.Length);
+        protected Models.Documento GetKML()
+        {
+            Models.Documento Documento;
+            List<Models.Documento> Documentos = new SP("bd_reapp").Execute("usp_GetKMLDeSolicitud",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt())
+            ).ToList<Models.Documento>();
 
-            //    }
-            //}
-            //catch
-            //{
+            if (Documentos.Count > 0)
+            {
+                // SI EXISTE, SE RECUPERA DE BD
+                Documento = Documentos[0];
+            }
+            else
+            {
+                // SI NO EXISTE, SE GENERA y REGISTRA EN BD
+                KMLController KMLController = new KMLController(new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt()));
 
-            //}
+                string kml = KMLController.GenerarKML();
+
+                Documento = new Models.Documento()
+                {
+                    IdSolicitud = hdnIdSolicitud.Value.ToInt(),
+                    IdTipoDocumento = 5,
+                    Extension = ".kml",
+                    FHAlta = DateTime.Now,
+                    TipoMIME = "text/plain",
+                    Datos = Encoding.ASCII.GetBytes(kml),
+                    Nombre = "Ubicaciones_Solicitud_N" + hdnIdSolicitud.Value + ".kml"
+                };
+                Documento.Insert();
+            }
+
+            return Documento;
+        }
+
+        protected void DescargarKML(string kml)
+        {
+            Response.Clear();
+            Response.ClearHeaders();
+            Response.AppendHeader("Content-Length", kml.Length.ToString());
+            Response.AppendHeader("Content-Disposition", "attachment;filename=\"Ubicaciones_Solicitud_N" + hdnIdSolicitud.Value + ".kml\"");
+            Response.ContentType = "text/plain";
+            Response.Write(kml);
+            Response.End();
         }
 
         protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnFiltrar_Click(null, null);
+        }
+
+        protected void btnVerHistorialSolicitud_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnAprobar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnHabilitarModificacion_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnDevolver_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
