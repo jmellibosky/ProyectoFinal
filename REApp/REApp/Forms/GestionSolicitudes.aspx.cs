@@ -238,7 +238,7 @@ namespace REApp.Forms
             gvVANTs.DataBind();
             gvTripulacion.DataSource = null;
             gvTripulacion.DataBind();
-            fupKMZ.Attributes.Clear();
+            //fupKMZ.Attributes.Clear();
         }
 
 

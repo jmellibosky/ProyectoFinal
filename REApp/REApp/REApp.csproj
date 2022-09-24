@@ -167,6 +167,7 @@
     <Content Include="Forms\SolicitudesCoordinacion.aspx" />
     <Content Include="Forms\SolicitudesAnalisis.aspx" />
     <Content Include="Forms\SolicitudesRecepcion.aspx" />
+    <Content Include="Forms\SolicitudesRespuesta.aspx" />
     <Content Include="Forms\UserCorrectRegister.aspx" />
     <Content Include="Forms\UserForgotPassword.aspx" />
     <Content Include="Forms\UserLogin.aspx" />
@@ -390,6 +391,13 @@
     </Compile>
     <Compile Include="Forms\SolicitudesRecepcion.aspx.designer.cs">
       <DependentUpon>SolicitudesRecepcion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SolicitudesRespuesta.aspx.cs">
+      <DependentUpon>SolicitudesRespuesta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\SolicitudesRespuesta.aspx.designer.cs">
+      <DependentUpon>SolicitudesRespuesta.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\UserCorrectRegister.aspx.cs">
       <DependentUpon>UserCorrectRegister.aspx</DependentUpon>

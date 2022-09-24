@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SolicitudesAnalisis.aspx.cs" Inherits="REApp.Forms.SolicitudesAnalisis" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SolicitudesRespuesta.aspx.cs" Inherits="REApp.Forms.SolicitudesRespuesta" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 
     <style>
@@ -112,7 +113,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
     <div class="container">
         <h1 class="row justify-content-center">
-            <label class="fw-normal mb-3 pb-2">Gestión de Solicitudes Analisis</label>
+            <label class="fw-normal mb-3 pb-2">Gestión de Solicitudes en Respuesta</label>
         </h1>
         <%--Se borra el AutoPostBack porq hay q cargar el dgv de otra forma.--%>
         <br />
@@ -168,6 +169,8 @@
                                                     <asp:BoundField DataField="NombreProvincia" HeaderText="PROVINCIA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="FHDesde" HeaderText="FECHA INICIO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="DuracionDias" HeaderText="DURACION DIAS" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                                    <%--Falta verificar si tiene o no el NOTAM--%> 
+                                                    <asp:BoundField HeaderText="NOTAM" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
 
                                                     <%-- Boton con link para ver detalles solicitud--%>
                                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="ACCIONES" ItemStyle-Width="20%">
@@ -176,17 +179,17 @@
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
-                                                            <asp:LinkButton ID="lnkPasarACoordinacion" runat="server" CommandName="PasarACoordinacion"
+                                                            <asp:LinkButton ID="lnkMailRespuesta" runat="server" CommandName="EnviarMailRespuesta"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
-                                                <i class="fa-solid fa-thumbs-up" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
+                                                <i class="fa-solid fa-envelope" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
                                                             <asp:LinkButton ID="lnkRechazarREA" runat="server" CommandName="RechazarREA"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
-                                                <i class="fa-solid fa-thumbs-down" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
+                                                <i class="fa-solid fa-circle-xmark" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
-                                                            <asp:LinkButton ID="lnkVincularInteresados" runat="server" CommandName="VincularInteresados"
+                                                            <asp:LinkButton ID="lnkEliminarREA" runat="server" CommandName="EliminarREA"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
-                                                <i class="fa-solid fa-user-group" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
+                                                <i class="fa-solid fa-trash-can" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
