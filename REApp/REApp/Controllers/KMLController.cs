@@ -53,6 +53,10 @@ namespace REApp
 
                 if (VerReservasEnPeriodo)
                 {
+                    // Cierro carpeta de la Solicitud en foco y abro carpeta de otras solicitudes
+                    KML += "</Folder>";
+                    KML += "<Folder><name>Otras Solicitudes en el Período</name><open>0</open>";
+
                     // Ubicaciones Solicitudes en Período
                     Ubicaciones = sp.Execute("usp_GetUbicacionesDeSolicitudesEnPeriodo",
                         P.Add("FechaDesde", Solicitud.FHDesde),
@@ -192,7 +196,7 @@ namespace REApp
             double radio = puntos[0].Radio.Value;
 
             string kml = "";
-            kml += "<Placemark><name>Solicitud N°" + ubicacion.IdSolicitud + " Circunferencia N°" + ubicacion.IdUbicacion + " </name><styleUrl>#" + Estilo + "</styleUrl><Polygon><tessellate>1</tessellate><outerBoundaryIs><LinearRing><coordinates>";
+            kml += "<Placemark><name>Solicitud N" + ubicacion.IdSolicitud + " Circunferencia N" + ubicacion.IdUbicacion + " </name><styleUrl>#" + Estilo + "</styleUrl><Polygon><tessellate>1</tessellate><outerBoundaryIs><LinearRing><coordinates>";
             
             // ITERA GENERANDO UN PUNTO CADA 6° (PUEDE GENERARSE CON MAYOR O MENOR PRECISIÓN PERO SIMEPRE UTILIZANDO DIVISORES DE 360)
             for (int g = 0; g > -360; g -= 6)
@@ -229,7 +233,7 @@ namespace REApp
         public string AgregarPoligono(Ubicacion ubicacion, List<PuntoGeografico> puntos, string Estilo)
         {
             string kml = "";
-            kml += "<Placemark><name>Solicitud N°" + ubicacion.IdSolicitud + " Polígono N°" + ubicacion.IdUbicacion + "</name><styleUrl>#" + Estilo + "</styleUrl><Polygon><tessellate>1</tessellate><outerBoundaryIs><LinearRing><coordinates>";
+            kml += "<Placemark><name>Solicitud N" + ubicacion.IdSolicitud + " Polígono N" + ubicacion.IdUbicacion + "</name><styleUrl>#" + Estilo + "</styleUrl><Polygon><tessellate>1</tessellate><outerBoundaryIs><LinearRing><coordinates>";
 
             foreach (PuntoGeografico punto in puntos)
             {

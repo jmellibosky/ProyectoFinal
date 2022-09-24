@@ -185,7 +185,7 @@ namespace REApp.Forms
                         Documento.Datos = bytes;
                         Documento.Extension = extension;
                         Documento.IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
-                        Documento.FHAlta = DateTime.Today;
+                        Documento.FHAlta = DateTime.Now;
                         Documento.TipoMIME = contentType;
                         Documento.IdTipoDocumento = idTipoDoc;
                         //Documento.FHBaja = null;

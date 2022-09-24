@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace REApp.Forms
@@ -74,10 +76,11 @@ namespace REApp.Forms
                     ddlSolicitante.Enabled = false;
                     BindGrid();
 
-                    GetTripulantesDeUsuario(id);
                     btnNuevo.Visible = true;
                 }
             }
+
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(btnGenerarKMZ);
         }
 
         protected void GetTripulantesDeUsuario(int IdUsuario)
@@ -230,6 +233,12 @@ namespace REApp.Forms
             btnAgregarUbicacion.Visible = true;
             btnAgregarPuntoGeografico.Visible = true;
             rptUbicaciones.DataSource = null;
+            rptUbicaciones.DataBind();
+            gvVANTs.DataSource = null;
+            gvVANTs.DataBind();
+            gvTripulacion.DataSource = null;
+            gvTripulacion.DataBind();
+            fupKMZ.Attributes.Clear();
         }
 
 
@@ -246,121 +255,150 @@ namespace REApp.Forms
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            Models.Solicitud Solicitud = null;
-            if (hdnIdSolicitud.Value.Equals(""))
-            { // Insert
-                using (Tn tn = new Tn("bd_reapp"))
-                {
-                    try
+            if (ValidarGuardar())
+            {
+                Models.Solicitud Solicitud = null;
+                if (hdnIdSolicitud.Value.Equals(""))
+                { // Insert
+                    using (Tn tn = new Tn("bd_reapp"))
                     {
-                        // CREO OBJETO SOLICITUD
-                        Solicitud = new Models.Solicitud();
-
-                        // SETEO LOS CAMPOS DEL OBJETO
-                        Solicitud.Nombre = txtModalNombreSolicitud.Text;
-                        Solicitud.IdModalidad = ddlModalModalidad.SelectedValue.ToIntID();
-                        Solicitud.IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
-                        Solicitud.FHAlta = DateTime.Now;
-                        Solicitud.FHDesde = txtModalFechaDesde.Text.ToDateTime();
-                        Solicitud.FHHasta = txtModalFechaHasta.Text.ToDateTime();
-                        Solicitud.IdEstadoSolicitud = 1;
-                        Solicitud.Observaciones = txtModalObservaciones.Text;
-                        Solicitud.FHUltimaActualizacionEstado = DateTime.Now;
-
-
-                        // INSERT EN TABLA SOLICITUD
-                        Solicitud.Insert(tn);
-
-                        // RECORRO LA GRILLA DE VANTS
-                        for (int i = 0; i < gvVANTs.Rows.Count; i++)
+                        try
                         {
-                            if (((CheckBox)gvVANTs.Rows[i].FindControl("chkVANTVinculado")).Checked)
-                            { // SI ESTÁ CHEQUEADO
-                              // CREO OBJETO VANTSOLICITUD
-                                Models.VantSolicitud VantSolicitud = new Models.VantSolicitud();
-
-                                // SETEO LOS CAMPOS DEL OBJETO
-                                VantSolicitud.IdVant = ((HiddenField)gvVANTs.Rows[i].FindControl("hdnIdVant")).Value.ToInt();
-                                VantSolicitud.IdSolicitud = Solicitud.IdSolicitud;
-
-                                // INSERT EN TABLA VANTSOLICITUD
-                                VantSolicitud.Insert(tn);
-                            }
-                        }
-
-                        // RECORRO LAS UBICACIONES DEL VIEWSTATE
-                        List<UbicacionRedux> AuxUbicaciones = Ubicaciones;
-                        for (int i = 0; i < AuxUbicaciones.Count; i++)
-                        {
-                            // CREO OBJETO UBICACION
-                            Models.Ubicacion Ubicacion = new Models.Ubicacion();
+                            // CREO OBJETO SOLICITUD
+                            Solicitud = new Models.Solicitud();
 
                             // SETEO LOS CAMPOS DEL OBJETO
-                            Ubicacion.IdSolicitud = Solicitud.IdSolicitud;
-                            Ubicacion.Altura = AuxUbicaciones[i].Altura;
-                            Ubicacion.IdProvincia = 1; //------------------HARDCODEADO-NI IDEA DE POR QUÉ ESTÁ ESTE CAMPO ACÁ
+                            Solicitud.Nombre = txtModalNombreSolicitud.Text;
+                            Solicitud.IdModalidad = ddlModalModalidad.SelectedValue.ToIntID();
+                            Solicitud.IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
+                            Solicitud.FHAlta = DateTime.Now;
+                            Solicitud.FHDesde = txtModalFechaDesde.Text.ToDateTime();
+                            Solicitud.FHHasta = txtModalFechaHasta.Text.ToDateTime();
+                            Solicitud.IdEstadoSolicitud = 1;
+                            Solicitud.Observaciones = txtModalObservaciones.Text;
+                            Solicitud.FHUltimaActualizacionEstado = DateTime.Now;
 
-                            // INSERT EN TABLA UBICACION
-                            Ubicacion.Insert(tn);
+                            // INSERT EN TABLA SOLICITUD
+                            Solicitud.Insert(tn);
 
-                            // RECORRO LOS PUNTOS GEOGRÁFICOS DE LA UBICACIÓN
-                            for (int j = 0; j < AuxUbicaciones[i].PuntosGeograficos.Count; j++)
+                            // RECORRO LA GRILLA DE VANTS
+                            for (int i = 0; i < gvVANTs.Rows.Count; i++)
                             {
-                                // CREO OBJETO PUNTOGEOGRAFICO
-                                Models.PuntoGeografico PuntoGeografico = AuxUbicaciones[i].PuntosGeograficos[j];
+                                if (((CheckBox)gvVANTs.Rows[i].FindControl("chkVANTVinculado")).Checked)
+                                { // SI ESTÁ CHEQUEADO
+                                  // CREO OBJETO VANTSOLICITUD
+                                    Models.VantSolicitud VantSolicitud = new Models.VantSolicitud();
 
-                                // SETEO LOS CAMPOS EL OBJETO
-                                PuntoGeografico.IdUbicacion = Ubicacion.IdUbicacion;
+                                    // SETEO LOS CAMPOS DEL OBJETO
+                                    VantSolicitud.IdVant = ((HiddenField)gvVANTs.Rows[i].FindControl("hdnIdVant")).Value.ToInt();
+                                    VantSolicitud.IdSolicitud = Solicitud.IdSolicitud;
 
-                                // INSERT EN TABLA PUNTOGEOGRAFICO
-                                PuntoGeografico.Insert(tn);
+                                    // INSERT EN TABLA VANTSOLICITUD
+                                    VantSolicitud.Insert(tn);
+                                }
                             }
-                        }
 
-                        // RECORRO LA GRILLA DE TRIPULANTES
-                        for (int i = 0; i < gvTripulacion.Rows.Count; i++)
-                        {
-                            if (((CheckBox)gvTripulacion.Rows[i].FindControl("chkTripulacionVinculado")).Checked)
-                            { // SI ESTÁ CHEQUEADO
-                              // CREO OBJETO VANTSOLICITUD
-                                Models.TripulacionSolicitud TripulacionSolicitud = new Models.TripulacionSolicitud();
+                            //if (fupKMZ.HasFile)
+                            //{
+                            //    string filename = Path.GetFileName(fupKMZ.PostedFile.FileName);
+                            //    string extension = Path.GetExtension(fupKMZ.FileName);
+                            //    extension = extension.ToLower();
+                            //    string contentType = fupKMZ.PostedFile.ContentType;
+                            //    int tam = fupKMZ.PostedFile.ContentLength;
+                            //    byte[] bytes;
+                            //    using (Stream fs = fupKMZ.PostedFile.InputStream)
+                            //    {
+                            //        using (BinaryReader br = new BinaryReader(fs))
+                            //        {
+                            //            bytes = br.ReadBytes((Int32)fs.Length);
+                            //        }
+                            //    }
+
+                            //    Models.Documento Documento = new Models.Documento();
+                            //    Documento.Nombre = filename;
+                            //    Documento.IdSolicitud = Solicitud.IdSolicitud;
+                            //    Documento.Datos = bytes;
+                            //    Documento.Extension = extension;
+                            //    Documento.FHAlta = DateTime.Now;
+                            //    Documento.TipoMIME = contentType;
+                            //    Documento.IdTipoDocumento = 5;
+                            //    Documento.Insert(tn);
+                            //}
+
+                            // RECORRO LAS UBICACIONES DEL VIEWSTATE
+                            List<UbicacionRedux> AuxUbicaciones = Ubicaciones;
+                            for (int i = 0; i < AuxUbicaciones.Count; i++)
+                            {
+                                // CREO OBJETO UBICACION
+                                Models.Ubicacion Ubicacion = new Models.Ubicacion();
 
                                 // SETEO LOS CAMPOS DEL OBJETO
-                                TripulacionSolicitud.FHVinculacion = DateTime.Now;
-                                TripulacionSolicitud.IdSolicitud = Solicitud.IdSolicitud;
-                                TripulacionSolicitud.IdTripulacion = ((HiddenField)gvTripulacion.Rows[i].FindControl("hdnIdTripulacion")).Value.ToInt();
+                                Ubicacion.IdSolicitud = Solicitud.IdSolicitud;
+                                Ubicacion.Altura = AuxUbicaciones[i].Altura;
+                                Ubicacion.IdProvincia = 1; //------------------HARDCODEADO-NI IDEA DE POR QUÉ ESTÁ ESTE CAMPO ACÁ
 
-                                // INSERT EN TABLA VANTSOLICITUD
-                                TripulacionSolicitud.Insert(tn);
+                                // INSERT EN TABLA UBICACION
+                                Ubicacion.Insert(tn);
+
+                                // RECORRO LOS PUNTOS GEOGRÁFICOS DE LA UBICACIÓN
+                                for (int j = 0; j < AuxUbicaciones[i].PuntosGeograficos.Count; j++)
+                                {
+                                    // CREO OBJETO PUNTOGEOGRAFICO
+                                    Models.PuntoGeografico PuntoGeografico = AuxUbicaciones[i].PuntosGeograficos[j];
+
+                                    // SETEO LOS CAMPOS EL OBJETO
+                                    PuntoGeografico.IdUbicacion = Ubicacion.IdUbicacion;
+
+                                    // INSERT EN TABLA PUNTOGEOGRAFICO
+                                    PuntoGeografico.Insert(tn);
+                                }
                             }
+
+                            // RECORRO LA GRILLA DE TRIPULANTES
+                            for (int i = 0; i < gvTripulacion.Rows.Count; i++)
+                            {
+                                if (((CheckBox)gvTripulacion.Rows[i].FindControl("chkTripulacionVinculado")).Checked)
+                                { // SI ESTÁ CHEQUEADO
+                                  // CREO OBJETO VANTSOLICITUD
+                                    Models.TripulacionSolicitud TripulacionSolicitud = new Models.TripulacionSolicitud();
+
+                                    // SETEO LOS CAMPOS DEL OBJETO
+                                    TripulacionSolicitud.FHVinculacion = DateTime.Now;
+                                    TripulacionSolicitud.IdSolicitud = Solicitud.IdSolicitud;
+                                    TripulacionSolicitud.IdTripulacion = ((HiddenField)gvTripulacion.Rows[i].FindControl("hdnIdTripulacion")).Value.ToInt();
+
+                                    // INSERT EN TABLA VANTSOLICITUD
+                                    TripulacionSolicitud.Insert(tn);
+                                }
+                            }
+
+                            tn.Commit();
                         }
-
-                        tn.Commit();
+                        catch (Exception)
+                        {
+                            tn.RollBack();
+                        }
                     }
-                    catch (Exception)
+                }
+                else
+                { // Update
+                    using (Tn tn = new Tn("bd_reapp"))
                     {
-                        tn.RollBack();
+                        Solicitud = new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt());
+                        Solicitud.Nombre = txtModalNombreSolicitud.Text;
+                        Solicitud.IdModalidad = ddlModalModalidad.SelectedValue.ToIntID();
+                        Solicitud.IdEstadoSolicitud = 1;
+                        Solicitud.FHDesde = txtModalFechaDesde.Text.ToDateTime();
+                        Solicitud.FHHasta = txtModalFechaHasta.Text.ToDateTime();
+                        Solicitud.Observaciones = txtModalObservaciones.Text;
+                        Solicitud.FHUltimaActualizacionEstado = DateTime.Now;
+                        Solicitud.Update(tn);
                     }
                 }
-            }
-            else
-            { // Update
-                using (Tn tn = new Tn("bd_reapp"))
-                {
-                    Solicitud = new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt());
-                    Solicitud.Nombre = txtModalNombreSolicitud.Text;
-                    Solicitud.IdModalidad = ddlModalModalidad.SelectedValue.ToIntID();
-                    Solicitud.IdEstadoSolicitud = 1;
-                    Solicitud.FHDesde = txtModalFechaDesde.Text.ToDateTime();
-                    Solicitud.FHHasta = txtModalFechaHasta.Text.ToDateTime();
-                    Solicitud.Observaciones = txtModalObservaciones.Text;
-                    Solicitud.FHUltimaActualizacionEstado = DateTime.Now;
-                    Solicitud.Update(tn);
-                }
-            }
 
-            MostrarListado();
-            btnFiltrar_Click(null, null);
+                MostrarListado();
+                btnFiltrar_Click(null, null);
+            }
         }
 
         protected void btnNuevo_Click(object sender, EventArgs e)
@@ -410,6 +448,8 @@ namespace REApp.Forms
             btnNuevo.Visible = false;
             pnlABM.Visible = true;
             btnVolver.Visible = true;
+
+            GetTripulantesDeUsuario(Session["IdUsuario"].ToString().ToInt());
         }
 
         //True p/visible, False p/ invisible
@@ -427,6 +467,8 @@ namespace REApp.Forms
             //Ocultar en detalle y Mostrar en nuevo
             ddlModalActividad.Enabled = valor;
             ddlModalModalidad.Enabled = valor;
+            txtModalFechaDesde.Enabled = valor;
+            txtModalFechaHasta.Enabled = valor;
             txtModalNombreSolicitud.Enabled = valor;
             txtModalObservaciones.Enabled = valor;
             btnGuardar.Visible = valor;
@@ -579,78 +621,87 @@ namespace REApp.Forms
 
         protected void btnGuardarUbicacion_Click(object sender, EventArgs e)
         {
-            pnlAgregarUbicacion.Visible = false;
-            btnAgregarUbicacion.Visible = true;
-            AgregarUbicacionRepeater();
-
-            UbicacionRedux Ubicacion = new UbicacionRedux();
-
-            if (chkEsPoligono.Checked)
+            if (ValidarGuardarUbicacion())
             {
-                List<Models.PuntoGeografico> PuntosGeograficos = new List<Models.PuntoGeografico>();
+                pnlAgregarUbicacion.Visible = false;
+                pnlAgregarPuntoGeograficoYGrilla.Visible = false;
+                btnAgregarUbicacion.Visible = true;
+                AgregarUbicacionRepeater();
 
-                for (int i = 0; i < rptUbicaciones.Items.Count; i++)
+                UbicacionRedux Ubicacion = new UbicacionRedux();
+
+                if (chkEsPoligono.Checked)
                 {
-                    // index 0: Latitud: <latitud>
-                    // index 1: Longitud: <longitud>
-                    // index 2: Altura: <altura>
-                    string[] SplitPuntosGeograficos = ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text.Trim().Split('|');
+                    List<Models.PuntoGeografico> PuntosGeograficos = new List<Models.PuntoGeografico>();
 
-                    for (int j = 0; j < SplitPuntosGeograficos.Length; j++)
+                    for (int i = 0; i < rptUbicaciones.Items.Count; i++)
                     {
-                        string TipoUbicacion = ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text;
-                        if (TipoUbicacion.Equals("Polígono"))
+                        // index 0: Latitud: <latitud>
+                        // index 1: Longitud: <longitud>
+                        // index 2: Altura: <altura>
+                        string[] SplitPuntosGeograficos = ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text.Trim().Split('|');
+                        PuntosGeograficos = new List<Models.PuntoGeografico>();
+
+                        for (int j = 0; j < SplitPuntosGeograficos.Length; j++)
                         {
-                            if (!SplitPuntosGeograficos[j].Equals(""))
+                            string TipoUbicacion = ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text;
+                            if (TipoUbicacion.Equals("Polígono"))
                             {
-                                string[] SplitMagnitudes = SplitPuntosGeograficos[j].Split('/');
-                                string Latitud = SplitMagnitudes[0].Trim().Split(' ')[1];
-                                string Longitud = SplitMagnitudes[1].Trim().Split(' ')[1];
-                                string Altura = SplitMagnitudes[2].Trim().Split(' ')[1];
-
-                                if (!Latitud.Equals("") && !Longitud.Equals(""))
+                                if (!SplitPuntosGeograficos[j].Equals(""))
                                 {
-                                    Ubicacion.Altura = Altura.ToDouble();
+                                    string[] SplitMagnitudes = SplitPuntosGeograficos[j].Split('/');
+                                    string Latitud = SplitMagnitudes[0].Trim().Split(' ')[1];
+                                    string Longitud = SplitMagnitudes[1].Trim().Split(' ')[1];
+                                    string Altura = SplitMagnitudes[2].Trim().Split(' ')[1];
 
-                                    Models.PuntoGeografico PuntoGeografico = new Models.PuntoGeografico();
-                                    PuntoGeografico.EsPoligono = true;
-                                    PuntoGeografico.Latitud = Latitud.ToDouble();
-                                    PuntoGeografico.Longitud = Longitud.ToDouble();
+                                    if (!Latitud.Equals("") && !Longitud.Equals(""))
+                                    {
+                                        Ubicacion.Altura = Altura.ToDouble();
 
-                                    PuntosGeograficos.Add(PuntoGeografico);
+                                        Models.PuntoGeografico PuntoGeografico = new Models.PuntoGeografico();
+                                        PuntoGeografico.EsPoligono = true;
+                                        PuntoGeografico.Latitud = Latitud.ToDouble();
+                                        PuntoGeografico.Longitud = Longitud.ToDouble();
+
+                                        PuntosGeograficos.Add(PuntoGeografico);
+                                    }
                                 }
                             }
                         }
                     }
+
+                    Ubicacion.PuntosGeograficos = PuntosGeograficos;
+                }
+                else
+                {
+                    Ubicacion.Altura = txtCircunferenciaAltura.Text.ToDouble();
+
+                    List<Models.PuntoGeografico> PuntosGeograficos = new List<Models.PuntoGeografico>();
+
+                    Models.PuntoGeografico PuntoGeografico = new Models.PuntoGeografico();
+                    PuntoGeografico.EsPoligono = false;
+                    PuntoGeografico.Latitud = txtCircunferenciaLatitud.Text.ToDouble();
+                    PuntoGeografico.Longitud = txtCircunferenciaLongitud.Text.ToDouble();
+                    PuntoGeografico.Radio = txtCircunferenciaRadio.Text.ToDouble();
+
+                    PuntosGeograficos.Add(PuntoGeografico);
+
+                    Ubicacion.PuntosGeograficos = PuntosGeograficos;
                 }
 
-                Ubicacion.PuntosGeograficos = PuntosGeograficos;
+                List<UbicacionRedux> AuxUbicaciones = Ubicaciones;
+                AuxUbicaciones.Add(Ubicacion);
+                Ubicaciones = AuxUbicaciones;
+
+                gvPuntosGeograficos.DataSource = null;
+                gvPuntosGeograficos.DataBind();
             }
-            else
-            {
-                Ubicacion.Altura = txtCircunferenciaAltura.Text.ToDouble();
-
-                List<Models.PuntoGeografico> PuntosGeograficos = new List<Models.PuntoGeografico>();
-
-                Models.PuntoGeografico PuntoGeografico = new Models.PuntoGeografico();
-                PuntoGeografico.EsPoligono = false;
-                PuntoGeografico.Latitud = txtCircunferenciaLatitud.Text.ToDouble();
-                PuntoGeografico.Longitud = txtCircunferenciaLongitud.Text.ToDouble();
-                PuntoGeografico.Radio = txtCircunferenciaRadio.Text.ToDouble();
-
-                PuntosGeograficos.Add(PuntoGeografico);
-
-                Ubicacion.PuntosGeograficos = PuntosGeograficos;
-            }
-
-            List<UbicacionRedux> AuxUbicaciones = Ubicaciones;
-            AuxUbicaciones.Add(Ubicacion);
-            Ubicaciones = AuxUbicaciones;
         }
 
         protected void btnAgregarPuntoGeografico_Click(object sender, EventArgs e)
         {
             pnlAgregarPuntoGeografico.Visible = true;
+            pnlAgregarPuntoGeograficoYGrilla.Visible = true;
             btnAgregarPuntoGeografico.Visible = false;
 
             txtPoligonoLatitud.Text =
@@ -660,9 +711,12 @@ namespace REApp.Forms
 
         protected void btnGuardarPuntoGeografico_Click(object sender, EventArgs e)
         {
-            pnlAgregarPuntoGeografico.Visible = false;
-            btnAgregarPuntoGeografico.Visible = true;
-            AgregarPuntoGeograficoGridview();
+            if (ValidarGuardarPuntoGeografico())
+            {
+                pnlAgregarPuntoGeografico.Visible = false;
+                btnAgregarPuntoGeografico.Visible = true;
+                AgregarPuntoGeograficoGridview();
+            }
         }
 
         protected void chkEsPoligono_CheckedChanged(object sender, EventArgs e)
@@ -755,21 +809,24 @@ namespace REApp.Forms
 
         protected bool ValidarGuardarUbicacion()
         {
-            if (txtCircunferenciaAltura.Text.Equals(""))
+            if (!chkEsPoligono.Checked)
             {
-                return false;
-            }
-            if (txtCircunferenciaLatitud.Text.Equals(""))
-            {
-                return false;
-            }
-            if (txtCircunferenciaLongitud.Text.Equals(""))
-            {
-                return false;
-            }
-            if (txtCircunferenciaRadio.Text.Equals(""))
-            {
-                return false;
+                if (txtCircunferenciaAltura.Text.Equals(""))
+                {
+                    return false;
+                }
+                if (txtCircunferenciaLatitud.Text.Equals(""))
+                {
+                    return false;
+                }
+                if (txtCircunferenciaLongitud.Text.Equals(""))
+                {
+                    return false;
+                }
+                if (txtCircunferenciaRadio.Text.Equals(""))
+                {
+                    return false;
+                }
             }
             return true;
         }
@@ -806,9 +863,9 @@ namespace REApp.Forms
 
         protected void btnGenerarKMZ_Click(object sender, EventArgs e)
         {
-            KMLController KMLController = new KMLController(new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt()));
+            Models.Documento KML = GetKML();
 
-            string kml = KMLController.GenerarKML();
+            DescargarKML(Encoding.ASCII.GetString(KML.Datos));
 
             ////Aca meto codigo temporal para generar un archivo en el disco C en mi escritorio, cambien porque no les van a andar
             //string path = @"C:\Users\benja\Desktop\kmls\Testing.kml";
@@ -826,6 +883,52 @@ namespace REApp.Forms
             //{
 
             //}
+        }
+
+        protected Models.Documento GetKML()
+        {
+            Models.Documento Documento;
+            List<Models.Documento> Documentos = new SP("bd_reapp").Execute("usp_GetKMLDeSolicitud",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt())
+            ).ToList<Models.Documento>();
+
+            if (Documentos.Count > 0)
+            {
+                // SI EXISTE, SE RECUPERA DE BD
+                Documento = Documentos[0];
+            }
+            else
+            {
+                // SI NO EXISTE, SE GENERA y REGISTRA EN BD
+                KMLController KMLController = new KMLController(new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt()));
+
+                string kml = KMLController.GenerarKML();
+
+                Documento = new Models.Documento()
+                {
+                    IdSolicitud = hdnIdSolicitud.Value.ToInt(),
+                    IdTipoDocumento = 5,
+                    Extension = ".kml",
+                    FHAlta = DateTime.Now,
+                    TipoMIME = "text/plain",
+                    Datos = Encoding.ASCII.GetBytes(kml),
+                    Nombre = "Ubicaciones_Solicitud_N" + hdnIdSolicitud.Value + ".kml"
+                };
+                Documento.Insert();
+            }
+
+            return Documento;
+        }
+
+        protected void DescargarKML(string kml)
+        {
+            Response.Clear();
+            Response.ClearHeaders();
+            Response.AppendHeader("Content-Length", kml.Length.ToString());
+            Response.AppendHeader("Content-Disposition", "attachment;filename=\"Ubicaciones_Solicitud_N" + hdnIdSolicitud.Value + ".kml\"");
+            Response.ContentType = "text/plain";
+            Response.Write(kml);
+            Response.End();
         }
 
         protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
