@@ -3,11 +3,11 @@
 using System;
 using MagicSQL;
 
-namespace REApp.Models
+namespace bd_reapp
 {
     public partial class Solicitud : ISUD<Solicitud>
     {
-        public Solicitud() : base(1) { } // base(SPs_Version)
+        public Solicitud() : base(2) { } // base(SPs_Version)
 
         // Properties
 
@@ -38,5 +38,7 @@ namespace REApp.Models
         public DateTime FHDesde { get; set; }
 
         public DateTime FHHasta { get; set; }
+
+        public int? IdLocalidad { get; set; }
     }
 }

@@ -3,11 +3,11 @@
 using System;
 using MagicSQL;
 
-namespace REApp.Models
+namespace bd_reapp
 {
     public partial class Coordinacion : ISUD<Coordinacion>
     {
-        public Coordinacion() : base(1) { } // base(SPs_Version)
+        public Coordinacion() : base(2) { } // base(SPs_Version)
 
         // Properties
 
@@ -20,5 +20,7 @@ namespace REApp.Models
         public DateTime FHCoordinacion { get; set; }
 
         public int IdInteresadoSolicitud { get; set; }
+
+        public DateTime? FHCancelacion { get; set; }
     }
 }
