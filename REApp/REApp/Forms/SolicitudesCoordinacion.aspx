@@ -177,7 +177,7 @@
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
-                                                             <asp:LinkButton ID="lnkPasarARespuesta" runat="server" CommandName="PasarARespuesta"
+                                                            <asp:LinkButton ID="lnkPasarARespuesta" runat="server" CommandName="PasarARespuesta"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa-solid fa-thumbs-up" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
@@ -200,8 +200,11 @@
 
             <asp:Panel ID="pnlABM" runat="server" Visible="false">
                 <div class="row">
-                    <asp:Button runat="server" Text="Habilitar Modificación" CssClass="btn btn-info btn-dark" ID="btnHabilitarModificacion" OnClick="btnHabilitarModificacion_Click" />
-                    <asp:Button runat="server" Text="Devolver Solicitud" CssClass="btn btn-info btn-dark" ID="btnDevolver" OnClick="btnDevolver_Click" />
+                    <div class="col-12 text-right">
+                        <asp:Button runat="server" Text="Habilitar Modificación" CssClass="btn btn-info btn-dark" ID="btnHabilitarModificacion" OnClick="btnHabilitarModificacion_Click" />
+                        &nbsp;
+                        <asp:Button runat="server" Text="Devolver Solicitud" CssClass="btn btn-info btn-dark" ID="btnDevolver" OnClick="btnDevolver_Click" />
+                    </div>
                 </div>
                 <br />
                 <div class="row">
@@ -258,7 +261,7 @@
 
                                         <%--INFO ADICIONAL (SÓLO PARA MODO DETALLES)--%>
                                         <div class="row">
-                                            <asp:Panel ID="pnlModalEstadoSolicitud" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group" runat="server">
+                                            <asp:Panel ID="pnlModalEstadoSolicitud" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12 form-group" runat="server">
                                                 <asp:Label Text="Estado de Solicitud" runat="server" />
                                                 <asp:TextBox runat="server" ID="txtModalEstadoSolicitud" CssClass="form-control" />
                                             </asp:Panel>
@@ -266,7 +269,7 @@
                                                 <asp:Label Text="Fecha de Última Actualización" runat="server" />
                                                 <asp:TextBox runat="server" ID="txtModalFechaUltimaActualizacion" CssClass="form-control" />
                                             </asp:Panel>
-                                            <asp:Panel ID="pnlBtnVerHistorialSolicitud" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12" runat="server">
+                                            <asp:Panel ID="pnlBtnVerHistorialSolicitud" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right" runat="server">
                                                 <asp:Button Text="Ver Historial" ID="btnVerHistorialSolicitud" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVerHistorialSolicitud_Click" />
                                             </asp:Panel>
                                         </div>
@@ -282,8 +285,8 @@
                                                     <%--GRILLA CON HISTORIAL DE CAMBIOS--%>
                                                 </div>
                                             </div>
+                                            <hr />
                                         </asp:Panel>
-                                        <hr />
 
                                         <%--TRIPULANTES--%>
                                         <div class="row">
@@ -323,6 +326,7 @@
                                                     ID="gvAfectados"
                                                     runat="server"
                                                     AutoGenerateColumns="false"
+                                                    OnRowCommand="gvAfectados_RowCommand"
                                                     CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
                                                     <AlternatingRowStyle BackColor="white" />
                                                     <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
@@ -380,7 +384,9 @@
                                         <hr />
 
                                         <div class="row">
-                                            <asp:Button ID="btnAprobar" Text="Aprobar Solicitud" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnAprobar_Click" />
+                                            <div class="col-12 text-right">
+                                                <asp:Button ID="btnAprobar" Text="Aprobar Solicitud" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnAprobar_Click" />
+                                            </div>
                                         </div>
                                     </div>
                                 </ContentTemplate>
@@ -388,6 +394,7 @@
                         </div>
                     </div>
                 </div>
+                <br />
             </asp:Panel>
         </ContentTemplate>
     </asp:UpdatePanel>

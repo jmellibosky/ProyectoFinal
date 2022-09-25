@@ -9,6 +9,9 @@ namespace REApp.Forms
 {
     public partial class SolicitudesCoordinacion : System.Web.UI.Page
     {
+        private string Asunto = "";
+        private string Cuerpo = "";
+
         public List<UbicacionRedux> Ubicaciones
         {
             get
@@ -401,22 +404,79 @@ namespace REApp.Forms
 
         protected void btnVerHistorialSolicitud_Click(object sender, EventArgs e)
         {
+            // ACCESO A DATOS
 
+            pnlBtnVerHistorialSolicitud.Visible = true;
         }
 
         protected void btnAprobar_Click(object sender, EventArgs e)
         {
+            // MODAL DE CONFIRMACIÓN
 
+            // VALIDAR QUE TODOS LOS INTERESADOS HAYAN APROBADO
+
+            new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value),
+                P.Add("IdEstadoSolicitud", 5),
+                P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
+            );
         }
 
         protected void btnHabilitarModificacion_Click(object sender, EventArgs e)
         {
+            // MODAL DE CONFIRMACIÓN
 
+            new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value),
+                P.Add("IdEstadoSolicitud", 9),
+                P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
+            );
         }
 
         protected void btnDevolver_Click(object sender, EventArgs e)
         {
+            // MODAL DE CONFIRMACIÓN
 
+            new SP("bd_reapp").Execute("usp_DevolverEstadoAnterior",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value),
+                P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
+            );
+        }
+
+        protected void gvAfectados_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int CommandArgument = e.CommandArgument.ToString().ToInt();
+
+            if (e.CommandName.Equals("Aprobar"))
+            {
+                int IdInteresadoSolicitud = CommandArgument;
+
+                Models.Coordinacion Coordinacion = new Models.Coordinacion()
+                {
+                    Aprobada = true,
+                    FHCoordinacion = DateTime.Now,
+                    IdInteresadoSolicitud = IdInteresadoSolicitud,
+                    Recomendaciones = "Aprobada por Operador."
+                };
+
+                Coordinacion.Insert();
+
+            }
+            else if (e.CommandName.Equals("Reenviar"))
+            {
+                int IdInteresado = CommandArgument;
+
+                Models.Interesado Interesado = new Models.Interesado().Select(IdInteresado);
+
+                MailController MailController = new MailController(Asunto, Cuerpo, false);
+                MailController.Add(Interesado.Nombre, Interesado.Email);
+            }
+            else if (e.CommandName.Equals("Limpiar"))
+            {
+                int IdCoordinacion = CommandArgument;
+
+                // DAR DE BAJA COORDINACIÓN - FALTA CAMPO EN BD
+            }
         }
     }
 }
