@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SolicitudesAnalisis.aspx.cs" Inherits="REApp.Forms.SolicitudesAnalisis" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 
     <style>
@@ -136,14 +137,13 @@
                     <div class="row">
                         <div class="col">
                             <asp:Label runat="server">Solicitantes</asp:Label>
-                            <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" Width="300px" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged"  />
+                            <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" Width="300px" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" />
                             <br />
 
                             <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
                                 <div class="row" style="overflow: auto; height: 500px; width: 1400px;">
                                     <asp:UpdatePanel ID="upSolicitudes" Style="width: 100%;" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                                         <ContentTemplate>
-
                                             <asp:GridView
                                                 ID="gvSolicitud"
                                                 runat="server"
@@ -203,8 +203,8 @@
 
             <asp:Panel ID="pnlABM" runat="server" Visible="false">
                 <div class="row">
-                    <asp:Button runat="server" Text="Cambiar Estado a 'Siendo Analizada'" CssClass="btn btn-info btn-dark" ID="btnEstadoOperador" Visible="false"/>
-                    
+                    <asp:Button runat="server" Text="Cambiar Estado a 'Siendo Analizada'" CssClass="btn btn-info btn-dark" ID="btnEstadoOperador" Visible="false" />
+
                 </div>
                 <br />
                 <div class="row">
@@ -394,6 +394,90 @@
                                     </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
+                        </div>
+                    </div>
+                </div>
+            </asp:Panel>
+
+            <%--Interesados--%>
+            <asp:Panel runat="server" ID="pnlInteresados">
+                <div class="col">
+                    <div class="row">
+                        <asp:Label runat="server">Intersadoss</asp:Label>
+                    </div>
+                    <div class="row" style="overflow: auto; height: 400px; width: 1100px;">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <asp:HiddenField ID="hdnIdSolicitudInteresado" runat="server" />
+                            <asp:GridView
+                                ID="gvInteresados"
+                                runat="server"
+                                AutoGenerateColumns="false"
+                                CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                                <AlternatingRowStyle BackColor="white" />
+                                <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                <RowStyle BackColor="#e1dddd" />
+                                <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+
+                                <Columns>
+                                    <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                    <asp:BoundField DataField="IdInteresado" HeaderText="ID INTERESADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                    <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
+                                    <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO" ItemStyle-Width="20%" />
+                                    <asp:BoundField DataField="Email" HeaderText="EMAIL" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+
+                                    <%-- Boton con link para ver detalles solicitud--%>
+                                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
+                                        <ItemTemplate>
+                                            <asp:HiddenField Value='<%# Eval("IdInteresado") %>' runat="server" ID="hdnIdInteresado" />
+                                            <asp:CheckBox runat="server" ID="chkInteresadoVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                    <asp:Button ID="btnGuardarInteresados" Text="Guardar Interesados" runat="server" CssClass="btn btn-dark" OnClick="btnGuardarInteresados_Click" />
+                        </div>
+                </div>
+            </asp:Panel>
+
+            <%--InteresadosVinculados--%>
+            <asp:Panel runat="server" ID="pnlInteresadosVinculados">
+
+                <div class="row" style="overflow: auto; height: 400px; width: 1100px;">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <asp:HiddenField ID="hdnIdSolicitudInteresadosVinculados" runat="server" />
+                        <asp:GridView
+                            ID="gvSoloInteresadosVinculados"
+                            runat="server"
+                            AutoGenerateColumns="false"
+                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                            <AlternatingRowStyle BackColor="white" />
+                            <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                            <RowStyle BackColor="#e1dddd" />
+                            <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+
+                            <Columns>
+                                <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                <asp:BoundField DataField="IdInteresado" HeaderText="ID INTERESADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
+                                <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO" ItemStyle-Width="20%" />
+                                <asp:BoundField DataField="Email" HeaderText="EMAIL" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+
+                                <%-- Boton con link para ver detalles solicitud--%>
+                                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
+                                    <ItemTemplate>
+                                        <asp:HiddenField Value='<%# Eval("IdInteresado") %>' runat="server" ID="hdnIdInteresadoVinculado" />
+                                        <asp:HiddenField Value='<%# Eval("Email") %>' runat="server" ID="hdnEmail" />
+                                        <asp:HiddenField Value='<%# Eval("Nombre") %>' runat="server" ID="hdnNombre" />
+                                        <asp:CheckBox Enabled="false" runat="server" ID="chkInteresadoVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
+                        <div style="text-align: center;">
+                            <asp:Button runat="server" ID="btnPasarACoordinacion" Text="Enviar Mails y Pasar a Coordinacion" CssClass="btn btn-dark" OnClick="btnPasarACoordinacion_Click" />
                         </div>
                     </div>
                 </div>

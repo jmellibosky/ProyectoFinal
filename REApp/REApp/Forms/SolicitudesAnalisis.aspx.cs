@@ -52,28 +52,96 @@ namespace REApp.Forms
             }
             if (!IsPostBack)
             {
-                //Rol Admin o Operador
-                if (idRolInt == 1)
-                {
-                    CargarComboSolicitante();
-                    BindGrid();
-                }
+
                 if (idRolInt == 2)
                 {
                     CargarComboSolicitante();
                     BindGrid();
                     btnEstadoOperador.Visible = true;
+                    MostrarListado();
                 }
-                //Rol Solicitante
-                if (idRolInt == 3)
-                {
-                    CargarComboSolicitante();
-                    ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
-                    ddlSolicitante.Enabled = false;
-                    BindGrid();
 
-                    GetTripulantesDeUsuario(id);
+            }
+        }
+
+        protected void GetInteresadosSoloVinculadosSolicitud(int idSolicitud)
+        {//OBTIENE SOLO LOS INTERESADOS VINCULADOS A UNA SOLICITUD
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = sp.Execute("usp_GetInteresadosSoloVinculadosSolicitud",
+                    P.Add("IdSolicitud", idSolicitud));
+
+                if (dt.Rows.Count > 0)
+                {
+                    gvSoloInteresadosVinculados.DataSource = dt;
                 }
+                else
+                {
+                    gvSoloInteresadosVinculados.DataSource = null;
+                }
+                gvSoloInteresadosVinculados.DataBind();
+            }
+        }
+
+        protected void GetInteresadosSoloVinculadosSolicitud1(int idSolicitud)
+        {//OBTIENE SOLO LOS INTERESADOS VINCULADOS A UNA SOLICITUD
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = sp.Execute("usp_GetInteresadosSoloVinculadosSolicitud",
+                    P.Add("IdSolicitud", idSolicitud));
+
+                if (dt.Rows.Count > 0)
+                {
+                    gvInteresados.DataSource = dt;
+                }
+                else
+                {
+                    gvInteresados.DataSource = null;
+                }
+                gvInteresados.DataBind();
+            }
+        }
+
+        protected void GetInteresados()
+        {//OBTIENE TODOS LOS INTERESADOS
+            using (SP sp = new SP("bd_reapp"))
+            {
+                int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+
+                DataTable dt = sp.Execute("usp_GetInteresados"
+                );
+
+                if (dt.Rows.Count > 0)
+                {
+                    gvInteresados.DataSource = dt;
+                }
+                else
+                {
+                    gvInteresados.DataSource = null;
+                }
+                gvInteresados.DataBind();
+            }
+        }
+
+        protected void GetInteresadosDeSolicitud(int IdSolicitud)
+        {//OBTIENE LOS INTERESADOS VINCULADOS A UNA SOLICITUD Y LOS NO VINCULADOS
+            using (SP sp = new SP("bd_reapp"))
+            {
+                int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+
+                DataTable dt = sp.Execute("usp_GetInteresadosVinculadosSolicitud",
+                    P.Add("IdSolicitud", IdSolicitud)
+                );
+
+                if (dt.Rows.Count > 0)
+                {
+                    gvInteresados.DataSource = dt;
+                }
+                else
+                {
+                    gvInteresados.DataSource = null;
+                }
+                gvInteresados.DataBind();
             }
         }
 
@@ -232,144 +300,48 @@ namespace REApp.Forms
             rptUbicaciones.DataSource = null;
         }
 
-
-        protected void btnGuardar_Click(object sender, EventArgs e)
-        {
-            Models.Solicitud Solicitud = null;
-            if (hdnIdSolicitud.Value.Equals(""))
-            { // Insert
-                using (Tn tn = new Tn("bd_reapp"))
-                {
-                    try
-                    {
-                        // CREO OBJETO SOLICITUD
-                        Solicitud = new Models.Solicitud();
-
-                        // SETEO LOS CAMPOS DEL OBJETO
-                        Solicitud.Nombre = txtModalNombreSolicitud.Text;
-                        Solicitud.IdModalidad = ddlModalModalidad.SelectedValue.ToIntID();
-                        Solicitud.IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
-                        Solicitud.FHAlta = DateTime.Now;
-                        Solicitud.FHDesde = txtModalFechaDesde.Text.ToDateTime();
-                        Solicitud.FHHasta = txtModalFechaHasta.Text.ToDateTime();
-                        Solicitud.IdEstadoSolicitud = 1;
-                        Solicitud.Observaciones = txtModalObservaciones.Text;
-
-                        // INSERT EN TABLA SOLICITUD
-                        Solicitud.Insert(tn);
-
-                        // RECORRO LA GRILLA DE VANTS
-                        for (int i = 0; i < gvVANTs.Rows.Count; i++)
-                        {
-                            if (((CheckBox)gvVANTs.Rows[i].FindControl("chkVANTVinculado")).Checked)
-                            { // SI ESTÁ CHEQUEADO
-                              // CREO OBJETO VANTSOLICITUD
-                                Models.VantSolicitud VantSolicitud = new Models.VantSolicitud();
-
-                                // SETEO LOS CAMPOS DEL OBJETO
-                                VantSolicitud.IdVant = ((HiddenField)gvVANTs.Rows[i].FindControl("hdnIdVant")).Value.ToInt();
-                                VantSolicitud.IdSolicitud = Solicitud.IdSolicitud;
-
-                                // INSERT EN TABLA VANTSOLICITUD
-                                VantSolicitud.Insert(tn);
-                            }
-                        }
-
-                        // RECORRO LAS UBICACIONES DEL VIEWSTATE
-                        List<UbicacionRedux> AuxUbicaciones = Ubicaciones;
-                        for (int i = 0; i < AuxUbicaciones.Count; i++)
-                        {
-                            // CREO OBJETO UBICACION
-                            Models.Ubicacion Ubicacion = new Models.Ubicacion();
-
-                            // SETEO LOS CAMPOS DEL OBJETO
-                            Ubicacion.IdSolicitud = Solicitud.IdSolicitud;
-                            Ubicacion.Altura = AuxUbicaciones[i].Altura;
-                            Ubicacion.IdProvincia = 1; //------------------HARDCODEADO-NI IDEA DE POR QUÉ ESTÁ ESTE CAMPO ACÁ
-
-                            // INSERT EN TABLA UBICACION
-                            Ubicacion.Insert(tn);
-
-                            // RECORRO LOS PUNTOS GEOGRÁFICOS DE LA UBICACIÓN
-                            for (int j = 0; j < AuxUbicaciones[i].PuntosGeograficos.Count; j++)
-                            {
-                                // CREO OBJETO PUNTOGEOGRAFICO
-                                Models.PuntoGeografico PuntoGeografico = AuxUbicaciones[i].PuntosGeograficos[j];
-
-                                // SETEO LOS CAMPOS EL OBJETO
-                                PuntoGeografico.IdUbicacion = Ubicacion.IdUbicacion;
-
-                                // INSERT EN TABLA PUNTOGEOGRAFICO
-                                PuntoGeografico.Insert(tn);
-                            }
-                        }
-
-                        // RECORRO LA GRILLA DE TRIPULANTES
-                        for (int i = 0; i < gvTripulacion.Rows.Count; i++)
-                        {
-                            if (((CheckBox)gvTripulacion.Rows[i].FindControl("chkTripulacionVinculado")).Checked)
-                            { // SI ESTÁ CHEQUEADO
-                              // CREO OBJETO VANTSOLICITUD
-                                Models.TripulacionSolicitud TripulacionSolicitud = new Models.TripulacionSolicitud();
-
-                                // SETEO LOS CAMPOS DEL OBJETO
-                                TripulacionSolicitud.FHVinculacion = DateTime.Now;
-                                TripulacionSolicitud.IdSolicitud = Solicitud.IdSolicitud;
-                                TripulacionSolicitud.IdTripulacion = ((HiddenField)gvTripulacion.Rows[i].FindControl("hdnIdTripulacion")).Value.ToInt();
-
-                                // INSERT EN TABLA VANTSOLICITUD
-                                TripulacionSolicitud.Insert(tn);
-                            }
-                        }
-
-                        tn.Commit();
-                    }
-                    catch (Exception)
-                    {
-                        tn.RollBack();
-                    }
-                }
-            }
-            else
-            { // Update
-                using (Tn tn = new Tn("bd_reapp"))
-                {
-                    Solicitud = new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt());
-                    Solicitud.Nombre = txtModalNombreSolicitud.Text;
-                    Solicitud.IdModalidad = ddlModalModalidad.SelectedValue.ToIntID();
-                    Solicitud.IdEstadoSolicitud = 1;
-                    Solicitud.FHDesde = txtModalFechaDesde.Text.ToDateTime();
-                    Solicitud.FHHasta = txtModalFechaHasta.Text.ToDateTime();
-                    Solicitud.Observaciones = txtModalObservaciones.Text;
-                    Solicitud.FHUltimaActualizacionEstado = DateTime.Now;
-                    Solicitud.Update(tn);
-                }
-            }
-
-            MostrarListado();
-            btnFiltrar_Click(null, null);
-        }
-
-
-
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             MostrarListado();
             hdnIdSolicitud.Value = "";
+            hdnIdSolicitudInteresado.Value = "";
+            hdnIdSolicitudInteresadosVinculados.Value = "";
         }
 
         protected void MostrarListado()
         {
+            pnlInteresadosVinculados.Visible = false;
             pnlListado.Visible = true;
             pnlABM.Visible = false;
             btnVolver.Visible = false;
             btnGenerarKMZ.Visible = false;
+            pnlInteresados.Visible = false;
         }
 
         protected void MostrarABM()
         {
+            pnlInteresadosVinculados.Visible = false;
             pnlListado.Visible = false;
             pnlABM.Visible = true;
+            btnVolver.Visible = true;
+            pnlInteresados.Visible = false;
+        }
+
+        protected void MostrarInteresados()
+        {
+            pnlInteresadosVinculados.Visible = false;
+            pnlInteresados.Visible = true;
+            pnlListado.Visible = false;
+            pnlABM.Visible = false;
+            btnVolver.Visible = true;
+        }
+
+        protected void MostrarInteresadosVinculados()
+        {
+            pnlInteresadosVinculados.Visible = true;
+            pnlInteresados.Visible = false;
+            pnlListado.Visible = false;
+            pnlABM.Visible = false;
             btnVolver.Visible = true;
         }
 
@@ -399,6 +371,8 @@ namespace REApp.Forms
 
         protected void gvSolicitud_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName.Equals("Detalle"))
+            { // Detalle
             int IdSolicitud = e.CommandArgument.ToString().ToInt();
             Models.Solicitud Solicitud = new Models.Solicitud().Select(IdSolicitud);
 
@@ -450,10 +424,24 @@ namespace REApp.Forms
 
             MostrarABM();
 
-            if (e.CommandName.Equals("Detalle"))
-            { // Detalle
-                btnGenerarKMZ.Visible = true;
-                HabilitarDeshabilitarTxts(false);
+
+            btnGenerarKMZ.Visible = true;
+            HabilitarDeshabilitarTxts(false);
+            }
+            //Para vinculacion de interesados
+            if (e.CommandName.Equals("VincularInteresados"))
+            {
+                hdnIdSolicitudInteresado.Value = e.CommandArgument.ToString();
+                GetInteresados();
+                //GetInteresadosSoloVinculadosSolicitud1(hdnIdSolicitudInteresado.Value.ToInt());
+                MostrarInteresados();
+                
+            }
+            if (e.CommandName.Equals("PasarACoordinacion"))
+            {
+                hdnIdSolicitudInteresadosVinculados.Value = e.CommandArgument.ToString();
+                GetInteresadosSoloVinculadosSolicitud(hdnIdSolicitudInteresadosVinculados.Value.ToInt());
+                MostrarInteresadosVinculados();
             }
         }
 
@@ -512,28 +500,66 @@ namespace REApp.Forms
             KMLController KMLController = new KMLController(new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt()));
 
             string kml = KMLController.GenerarKML();
-
-            ////Aca meto codigo temporal para generar un archivo en el disco C en mi escritorio, cambien porque no les van a andar
-            //string path = @"C:\Users\benja\Desktop\kmls\Testing.kml";
-            //try
-            //{
-            //    using (FileStream fileSystemTest = File.Create(path))
-            //    {
-            //        //Uso todo el System porque no me lo deja usar en el comienzo del archivo ???
-            //        byte[] info = System.Text.Encoding.ASCII.GetBytes(kml);
-            //        fileSystemTest.Write(info, 0, info.Length);
-
-            //    }
-            //}
-            //catch
-            //{
-
-            //}
         }
 
         protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnFiltrar_Click(null, null);
+        }
+
+        protected void btnGuardarInteresados_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < gvInteresados.Rows.Count; i++)
+            {
+               
+                if (((CheckBox)gvInteresados.Rows[i].FindControl("chkInteresadoVinculado")).Checked)
+                { // SI ESTÁ CHEQUEADO
+                  // CREO OBJETO INTERESADO SOLICITUD
+                    Models.InteresadoSolicitud InteresadoSolicitud = new Models.InteresadoSolicitud();
+
+                    // SETEO LOS CAMPOS DEL OBJETO
+                    InteresadoSolicitud.FHVinculacion = DateTime.Now;
+                    InteresadoSolicitud.IdSolicitud = hdnIdSolicitudInteresado.Value.ToInt();
+                    InteresadoSolicitud.IdInteresado = ((HiddenField)gvInteresados.Rows[i].FindControl("hdnIdInteresado")).Value.ToInt();
+
+                    // INSERT EN TABLA INTERESADOSOLICITUD
+                    InteresadoSolicitud.Insert();
+                }
+            }
+            MostrarListado();
+            btnFiltrar_Click(null, null);
+        }
+
+        protected void btnPasarACoordinacion_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < gvSoloInteresadosVinculados.Rows.Count; i++)
+            {
+
+                if (((CheckBox)gvSoloInteresadosVinculados.Rows[i].FindControl("chkInteresadoVinculado")).Checked)
+                { // SI ESTÁ CHEQUEADO
+                  //Logica Mails
+                    string email = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnEmail")).Value.ToString();
+                    string nombre= ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnNombre")).Value.ToString();
+                    int idSoli = hdnIdSolicitudInteresadosVinculados.Value.ToInt();
+                    int idInteresado = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnIdInteresadoVinculado")).Value.ToInt();
+                    EnviarMail(nombre, email, idInteresado, idSoli);
+                    
+                }
+            }
+        }
+
+        protected void EnviarMail(string nombre, string email, int idInteresado, int idSolicitud)
+        {
+
+            string url = "https://localhost:44355/Forms/HomeDash/HomeDash/Forms/ForoMensajes/ForoMensajes.aspx?idSolicitud=" + idSolicitud + "&idInteresado=" + idInteresado;
+
+            string cuerpo = "Por favor conteste la recomendacion de REA: " + url;
+
+            MailController mail = new MailController("RECOMENDACION REA", cuerpo, false);
+            
+            mail.Add(nombre, email);
+
+            bool Exito = mail.Enviar();
         }
     }
 }

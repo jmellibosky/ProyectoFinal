@@ -101,9 +101,9 @@ namespace REApp.Forms
                     int s = ddlSolicitante.SelectedItem.Value.ToIntID();
                     dt = sp.Execute("usp_GetSolicitudesPorEstado",
                         P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()),
-                        P.Add("IdEstadoSolicitud1", 2),
-                        P.Add("IdEstadoSolicitud2", 9),
-                        P.Add("IdEstadoSolicitud3", null),
+                        P.Add("IdEstadoSolicitud1", 3),
+                        P.Add("IdEstadoSolicitud2", 4),
+                        P.Add("IdEstadoSolicitud3", 9),
                         P.Add("IdEstadoSolicitud4", null),
                         P.Add("IdEstadoSolicitud5", null),
                         P.Add("IdEstadoSolicitud6", null)
