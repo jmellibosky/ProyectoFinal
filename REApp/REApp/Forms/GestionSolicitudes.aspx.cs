@@ -930,6 +930,23 @@ namespace REApp.Forms
 
             bool Exito = mail.Enviar();
         }
+
+        protected void btnVerForo_Click(object sender, EventArgs e)
+        {
+            //Se obtiene id de solicitud
+            int id = int.Parse((sender as LinkButton).CommandArgument);
+            //Se crea nuevo form ForoMensajes
+            ForoMensajes foroMensajes = new ForoMensajes();
+
+            //Creamos String con la direccion de este form para despues el boton volver nos regrese a este form
+            string formRedireccion = "/Forms/GestionSolicitudes/GestionSolicitudes.aspx";
+
+            //Se redirecciona a ForoMensajes pasando por parametro (?parametro=valor) el idSolicitud de la tabla y la direccion de este form
+            Response.Redirect("/Forms/ForoMensajes/ForoMensajes.aspx?idSolicitud="+id+"&formRedireccion="+formRedireccion) ;
+
+            
+
+        }
     }
 
     public class UbicacionRedux
@@ -938,4 +955,7 @@ namespace REApp.Forms
 
         public List<Models.PuntoGeografico> PuntosGeograficos { get; set; }
     }
+
+
+
 }

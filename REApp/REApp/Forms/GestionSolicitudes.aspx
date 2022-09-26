@@ -189,6 +189,19 @@
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px;  color:#525252' >  </i>
                                                             </asp:LinkButton>
+
+
+                                                
+                                                                
+                                                        <ItemTemplate>  
+                                                            <asp:LinkButton ID="btnModificarVant" runat="server" OnClick="btnVerForo_Click"
+                                                            CommandArgument='<%# Eval("IdSolicitud") %>' >
+                                                                <i class="fa fa-comments" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i>
+                                                            </asp:LinkButton>
+                                                                </ItemTemplate>
+                                                    
+
+
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                 </Columns>
@@ -319,6 +332,11 @@
                                                                                         <asp:CheckBox runat="server" ID="chkVANTVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
+
+
+
+
+
                                                                             </Columns>
                                                                         </asp:GridView>
                                                                     </div>
