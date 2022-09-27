@@ -454,6 +454,8 @@ namespace REApp.Forms
             { // Detalle
                 btnGenerarKMZ.Visible = true;
                 HabilitarDeshabilitarTxts(false);
+                GetInteresadosSoloVinculadosSolicitud(hdnIdSolicitud.Value.ToInt());
+                pnlInteresadosVinculados.Visible = true;
             }
         }
 
@@ -534,6 +536,92 @@ namespace REApp.Forms
         protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnFiltrar_Click(null, null);
+        }
+
+        protected void GetInteresadosSoloVinculadosSolicitud(int idSolicitud)
+        {//OBTIENE SOLO LOS INTERESADOS VINCULADOS A UNA SOLICITUD
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = sp.Execute("usp_GetInteresadosSoloVinculadosSolicitud",
+                    P.Add("IdSolicitud", idSolicitud));
+
+                if (dt.Rows.Count > 0)
+                {
+                    gvSoloInteresadosVinculados.DataSource = dt;
+                }
+                else
+                {
+                    gvSoloInteresadosVinculados.DataSource = null;
+                }
+                gvSoloInteresadosVinculados.DataBind();
+            }
+        }
+
+
+        protected void EnviarMail(string nombre, string email, int idInteresado, int idSolicitud) //List<String> listaEmails
+        {
+
+            string url = "https://localhost:44355/Forms/HomeDash/HomeDash/Forms/SolicitudesCoodinacion.aspx?idSolicitud=" + idSolicitud + "&idInteresado=" + idInteresado;
+
+            string cuerpo = "Se adjunta PDF con respuesta de REA  " + url;
+
+            MailController mail = new MailController("RESPUESTA REA", cuerpo, false);
+
+
+            mail.Add(nombre, email);
+
+            mail.Add(new Models.Documento().Select(108));
+
+
+            bool Exito = mail.Enviar();
+        }
+
+        protected void btnEstadoOperador_Click(object sender, EventArgs e)
+        {
+            int idSoli = hdnIdSolicitud.Value.ToInt();
+            //Envio de mail a cada tripulante
+            for (int i = 0; i < gvTripulacion.Rows.Count; i++)
+            {
+                if (((CheckBox)gvTripulacion.Rows[i].FindControl("chkTripulacionVinculado")).Checked)
+                { // SI ESTÁ CHEQUEADO
+                  //Logica Mails
+                    string nombre = ((HiddenField)gvTripulacion.Rows[i].FindControl("hdnNombre")).Value.ToString();
+                    string apellido = ((HiddenField)gvTripulacion.Rows[i].FindControl("hdnApellido")).Value.ToString();
+                    string nombreapellido = nombre + " " + apellido;
+                    int idTripulacion = ((HiddenField)gvTripulacion.Rows[i].FindControl("hdnIdTripulacion")).Value.ToInt();
+                    Models.Tripulacion Tripulacion = new Models.Tripulacion().Select(idTripulacion);
+                    string emailTripulante = Tripulacion.Correo.ToString();
+                    //EnviarMail(nombreapellido, emailTripulante, idTripulacion, idSoli);
+                }
+            }
+            for (int i = 0; i < gvSoloInteresadosVinculados.Rows.Count; i++)
+                {
+                    if (((CheckBox)gvSoloInteresadosVinculados.Rows[i].FindControl("chkInteresadoVinculado")).Checked)
+                    { // SI ESTÁ CHEQUEADO
+                      //Logica Mails
+                        string email = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnEmail")).Value.ToString();
+                        string nombre = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnNombre")).Value.ToString();
+                        int idInteresado = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnIdInteresadoVinculado")).Value.ToInt();
+                        EnviarMail(nombre, email, idInteresado, idSoli);
+                    }
+                }
+
+            Models.Solicitud Solicitud = new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt());
+            int idSolicitante = Solicitud.IdUsuario;
+            Models.Usuario Usuario = new Models.Usuario().Select(idSolicitante);
+            string emailSolicitante = Usuario.Email.ToString();
+            string nombreSolicitante = Usuario.Nombre + " " + Usuario.Apellido;
+            //EnviarMail(nombreSolicitante, emailSolicitante, idSolicitante, idSoli);
+
+            MostrarListado();
+
+            
+
+
+            new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
+            P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt()),
+            P.Add("IdEstadoSolicitud", 8),
+            P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt()));
         }
     }
 }

@@ -372,6 +372,13 @@ namespace REApp.Forms
                                 }
                             }
 
+                            Models.SolicitudEstadoHistorial SolicitudEstadoHistorial = new Models.SolicitudEstadoHistorial();
+                            SolicitudEstadoHistorial.FHDesde = DateTime.Now;
+                            SolicitudEstadoHistorial.IdEstadoSolicitud = 1;
+                            SolicitudEstadoHistorial.IdSolicitud = Solicitud.IdSolicitud;
+                            SolicitudEstadoHistorial.IdUsuarioCambioEstado = Session["IdUsuario"].ToString().ToInt();
+                            SolicitudEstadoHistorial.Insert(tn);
+
                             tn.Commit();
                         }
                         catch (Exception)

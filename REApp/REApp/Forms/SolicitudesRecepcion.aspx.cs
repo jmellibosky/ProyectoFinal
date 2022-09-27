@@ -535,5 +535,15 @@ namespace REApp.Forms
         {
             btnFiltrar_Click(null, null);
         }
+
+        protected void btnEstadoOperador_Click(object sender, EventArgs e)
+        {
+            new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
+            P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt()),
+            P.Add("IdEstadoSolicitud", 2),
+            P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
+            );
+            MostrarListado();
+        }
     }
 }

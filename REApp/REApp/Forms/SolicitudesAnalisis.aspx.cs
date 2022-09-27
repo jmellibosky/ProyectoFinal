@@ -57,7 +57,6 @@ namespace REApp.Forms
                 {
                     CargarComboSolicitante();
                     BindGrid();
-                    btnEstadoOperador.Visible = true;
                     MostrarListado();
                 }
 
@@ -542,16 +541,18 @@ namespace REApp.Forms
                     string nombre= ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnNombre")).Value.ToString();
                     int idSoli = hdnIdSolicitudInteresadosVinculados.Value.ToInt();
                     int idInteresado = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnIdInteresadoVinculado")).Value.ToInt();
-                    EnviarMail(nombre, email, idInteresado, idSoli);
-                    
+                    PasarSolicitudACoordinacion(idSoli);
+                    EnviarMail(nombre, email, idInteresado, idSoli);                   
                 }
             }
+            MostrarListado();
+
         }
 
         protected void EnviarMail(string nombre, string email, int idInteresado, int idSolicitud)
         {
 
-            string url = "https://localhost:44355/Forms/HomeDash/HomeDash/Forms/ForoMensajes/ForoMensajes.aspx?idSolicitud=" + idSolicitud + "&idInteresado=" + idInteresado;
+            string url = "https://localhost:44355/Forms/HomeDash/HomeDash/Forms/SolicitudesCoodinacion.aspx?idSolicitud=" + idSolicitud + "&idInteresado=" + idInteresado;
 
             string cuerpo = "Por favor conteste la recomendacion de REA: " + url;
 
@@ -560,6 +561,16 @@ namespace REApp.Forms
             mail.Add(nombre, email);
 
             bool Exito = mail.Enviar();
+        }
+
+
+        protected void PasarSolicitudACoordinacion(int idSolicitud)
+        {
+            new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
+                P.Add("IdSolicitud", idSolicitud),
+                P.Add("IdEstadoSolicitud", 3),
+                P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
+            );
         }
     }
 }

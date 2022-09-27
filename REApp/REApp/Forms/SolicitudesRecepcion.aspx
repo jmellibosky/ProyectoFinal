@@ -191,7 +191,7 @@
 
             <asp:Panel ID="pnlABM" runat="server" Visible="false">
                 <div class="row">
-                    <asp:Button runat="server" Text="Cambiar Estado a 'Siendo Analizada'" CssClass="btn btn-info btn-dark" ID="btnEstadoOperador" Visible="false"/>
+                    <asp:Button runat="server" Text="Cambiar Estado a 'Siendo Analizada'" CssClass="btn btn-info btn-dark" ID="btnEstadoOperador" OnClick="btnEstadoOperador_Click" Visible="false"/>
                     
                 </div>
                 <br />
