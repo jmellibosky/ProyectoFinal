@@ -84,16 +84,16 @@
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">Gestión de Solicitudes
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRecepcion">--Recepción de Solicitudes REA
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRecepcion">&nbsp; &nbsp; Recepción de Solicitudes REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesAnalisis">--Validación Análisis REA
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesAnalisis">&nbsp; &nbsp; Validación Análisis REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesCoordinacion">--Validación Coordinación REA
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesCoordinacion">&nbsp; &nbsp; Validación Coordinación REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRespuesta">--Respuesta REA
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRespuesta">&nbsp; &nbsp; Respuesta REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">Gestión de Tripulación

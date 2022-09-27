@@ -211,7 +211,7 @@
                     <div class="col-12">
                         <br />
                         <div class="panel-body">
-                            <asp:UpdatePanel ID="upModalABM" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                            <asp:UpdatePanel ID="upModalABM" runat="server">
                                 <ContentTemplate>
                                     <div class="col-12">
                                         <%--SOLICITANTE Y NOMBRE DE SOLICITUD--%>
@@ -269,20 +269,38 @@
                                                 <asp:Label Text="Fecha de Última Actualización" runat="server" />
                                                 <asp:TextBox runat="server" ID="txtModalFechaUltimaActualizacion" CssClass="form-control" />
                                             </asp:Panel>
-                                            <asp:Panel ID="pnlBtnVerHistorialSolicitud" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right" runat="server">
+                                            <%--<asp:Panel ID="pnlBtnVerHistorialSolicitud" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right" runat="server">
                                                 <asp:Button Text="Ver Historial" ID="btnVerHistorialSolicitud" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVerHistorialSolicitud_Click" />
-                                            </asp:Panel>
+                                            </asp:Panel>--%>
                                         </div>
                                         <hr />
 
                                         <%--HISTORIAL DE ESTADOS--%>
-                                        <asp:Panel ID="pnlHistorialSolicitud" runat="server" Visible="false">
+                                        <asp:Panel ID="pnlHistorialSolicitud" runat="server" Visible="true">
                                             <div class="row">
                                                 <h5>Historial de Estados</h5>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
                                                     <%--GRILLA CON HISTORIAL DE CAMBIOS--%>
+                                                    <asp:GridView
+                                                        ID="gvHistorial"
+                                                        runat="server"
+                                                        AutoGenerateColumns="false"
+                                                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                                                        <AlternatingRowStyle BackColor="white" />
+                                                        <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                        <RowStyle BackColor="#e1dddd" />
+                                                        <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+                                                        <Columns>
+                                                            <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                                            <asp:BoundField DataField="EstadoAnterior" HeaderText="ESTADO ANTERIOR" ItemStyle-Width="20%" />
+                                                            <asp:BoundField DataField="EstadoActual" HeaderText="ESTADO ACTUAL" ItemStyle-Width="20%" />
+                                                            <asp:BoundField DataField="FechaCambio" HeaderText="FECHA CAMBIO ESTADO" ItemStyle-Width="20%" />
+                                                            <asp:BoundField DataField="Usuario" HeaderText="USUARIO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                            <asp:BoundField DataField="Observaciones" HeaderText="OBSERVACIONES" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                        </Columns>
+                                                    </asp:GridView>
                                                 </div>
                                             </div>
                                             <hr />

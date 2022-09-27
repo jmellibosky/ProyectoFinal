@@ -299,6 +299,8 @@ namespace REApp.Forms
 
             GetMensajesDeSolicitud(IdSolicitud);
 
+            btnVerHistorialSolicitud_Click(null, null);
+
             MostrarABM();
 
             if (e.CommandName.Equals("Detalle"))
@@ -405,8 +407,21 @@ namespace REApp.Forms
         protected void btnVerHistorialSolicitud_Click(object sender, EventArgs e)
         {
             // ACCESO A DATOS
+            DataTable dt = new SP("bd_reapp").Execute("usp_GetHistorialEstadoDeSolicitud",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value)
+            );
 
-            pnlBtnVerHistorialSolicitud.Visible = true;
+            if (dt.Rows.Count > 0)
+            {
+                gvHistorial.DataSource = dt;
+            }
+            else
+            {
+                gvHistorial.DataSource = null;
+            }
+            gvHistorial.DataBind();
+
+            //pnlBtnVerHistorialSolicitud.Visible = true;
         }
 
         protected void btnAprobar_Click(object sender, EventArgs e)
@@ -420,6 +435,9 @@ namespace REApp.Forms
                 P.Add("IdEstadoSolicitud", 5),
                 P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
             );
+
+            btnFiltrar_Click(null, null);
+            MostrarListado();
         }
 
         protected void btnHabilitarModificacion_Click(object sender, EventArgs e)
@@ -431,6 +449,9 @@ namespace REApp.Forms
                 P.Add("IdEstadoSolicitud", 9),
                 P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
             );
+
+            btnFiltrar_Click(null, null);
+            MostrarListado();
         }
 
         protected void btnDevolver_Click(object sender, EventArgs e)
@@ -441,6 +462,9 @@ namespace REApp.Forms
                 P.Add("IdSolicitud", hdnIdSolicitud.Value),
                 P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
             );
+
+            btnFiltrar_Click(null, null);
+            MostrarListado();
         }
 
         protected void gvAfectados_RowCommand(object sender, GridViewCommandEventArgs e)
