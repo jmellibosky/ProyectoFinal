@@ -190,11 +190,7 @@
             </asp:Panel>
 
             <asp:Panel ID="pnlABM" runat="server" Visible="false">
-                <div class="row">
-                    <asp:Button runat="server" Text="Cambiar Estado a 'Siendo Analizada'" CssClass="btn btn-info btn-dark" ID="btnEstadoOperador" OnClick="btnEstadoOperador_Click" Visible="false"/>
-                    
-                </div>
-                <br />
+
                 <div class="row">
                     <div class="col-12">
                         <br />
@@ -379,12 +375,64 @@
                                             </div>
                                         </div>
                                         <hr />
+
+                                        <%--HISTORIAL DE ESTADOS--%>
+
+                                        
+                                        <asp:Panel ID="pnlHistorialSolicitud" runat="server" Visible="true">
+<%--                                            <div class="row">
+                                                <h5>Historial de Estados</h5>
+                                            </div>--%>
+                                            <div>
+                                                <asp:Button ID="btnMostrarHistorialSolicitud" Text="Ver Historial" Visible="true" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVerHistorialSolicitud_Click" />
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                                    <%--GRILLA CON HISTORIAL DE CAMBIOS--%>
+                                                    <asp:GridView
+                                                        ID="gvHistorial"
+                                                        runat="server"
+                                                        AutoGenerateColumns="false"
+                                                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" Visible="false">
+                                                        <AlternatingRowStyle BackColor="white" />
+                                                        <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                        <RowStyle BackColor="#e1dddd" />
+                                                        <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+                                                        <Columns>
+                                                            <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                                            <asp:BoundField DataField="EstadoAnterior" HeaderText="ESTADO ANTERIOR" ItemStyle-Width="20%" />
+                                                            <asp:BoundField DataField="EstadoActual" HeaderText="ESTADO ACTUAL" ItemStyle-Width="20%" />
+                                                            <asp:BoundField DataField="FechaCambio" HeaderText="FECHA CAMBIO ESTADO" ItemStyle-Width="20%" />
+                                                            <asp:BoundField DataField="Usuario" HeaderText="USUARIO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                            <asp:BoundField DataField="Observaciones" HeaderText="OBSERVACIONES" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                        </Columns>
+                                                    </asp:GridView>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                        </asp:Panel>
+
                                     </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
                     </div>
                 </div>
+                <%-- Observacion Cambio de estado y boton--%>
+                <br />
+                    <div>
+                        
+                        <h5>Observación de Cambio de Estado</h5> 
+                        <asp:TextBox runat="server" ID="txtObservacionCambioEstado" CssClass="form-control" />
+                    </div>
+                        
+                <br />
+                <div class="row">
+                    <div class="col-12 text-right">
+                        <asp:Button runat="server" Text="Analizar Solicitud" CssClass="btn btn-info btn-dark" ID="btnEstadoOperador" OnClick="btnEstadoOperador_Click" Visible="false"/>
+                    </div>
+                </div>
+               
             </asp:Panel>
         </ContentTemplate>
     </asp:UpdatePanel>

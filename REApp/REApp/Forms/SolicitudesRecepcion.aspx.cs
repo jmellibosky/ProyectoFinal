@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Text;
 using System.Web.UI.WebControls;
 
 namespace REApp.Forms
@@ -448,6 +449,8 @@ namespace REApp.Forms
             GetTripulantesDeSolicitud(IdSolicitud);
             GetUbicacionesDeSolicitud(IdSolicitud);
 
+           
+
             MostrarABM();
 
             if (e.CommandName.Equals("Detalle"))
@@ -507,11 +510,16 @@ namespace REApp.Forms
             }
         }
 
+
+        //BOTON PARA GENERAR KMZ
+
         protected void btnGenerarKMZ_Click(object sender, EventArgs e)
         {
-            KMLController KMLController = new KMLController(new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt()));
 
-            string kml = KMLController.GenerarKML();
+            Models.Documento KML = GetKML();
+
+            DescargarKML(Encoding.ASCII.GetString(KML.Datos));
+            
 
             ////Aca meto codigo temporal para generar un archivo en el disco C en mi escritorio, cambien porque no les van a andar
             //string path = @"C:\Users\benja\Desktop\kmls\Testing.kml";
@@ -529,6 +537,84 @@ namespace REApp.Forms
             //{
 
             //}
+        }
+
+        protected Models.Documento GetKML()
+        {
+            Models.Documento Documento;
+            List<Models.Documento> Documentos = new SP("bd_reapp").Execute("usp_GetKMLDeSolicitud",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt())
+            ).ToList<Models.Documento>();
+
+            if (Documentos.Count > 0)
+            {
+                // SI EXISTE, SE RECUPERA DE BD
+                Documento = Documentos[0];
+            }
+            else
+            {
+                // SI NO EXISTE, SE GENERA y REGISTRA EN BD
+                KMLController KMLController = new KMLController(new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt()));
+
+                string kml = KMLController.GenerarKML();
+
+                Documento = new Models.Documento()
+                {
+                    IdSolicitud = hdnIdSolicitud.Value.ToInt(),
+                    IdTipoDocumento = 5,
+                    Extension = ".kml",
+                    FHAlta = DateTime.Now,
+                    TipoMIME = "text/plain",
+                    Datos = Encoding.ASCII.GetBytes(kml),
+                    Nombre = "Ubicaciones_Solicitud_N" + hdnIdSolicitud.Value + ".kml"
+                };
+                Documento.Insert();
+            }
+
+            return Documento;
+        }
+
+        protected void DescargarKML(string kml)
+        {
+            Response.Clear();
+            Response.ClearHeaders();
+            Response.AppendHeader("Content-Length", kml.Length.ToString());
+            Response.AppendHeader("Content-Disposition", "attachment;filename=\"Ubicaciones_Solicitud_N" + hdnIdSolicitud.Value + ".kml\"");
+            Response.ContentType = "text/plain";
+            Response.Write(kml);
+            Response.End();
+        }
+
+        //Cargar Historial de Estados
+
+
+        protected void btnVerHistorialSolicitud_Click(object sender, EventArgs e)
+        {
+            if(gvHistorial.Visible == false)
+            {
+                gvHistorial.Visible = true;
+                // ACCESO A DATOS
+                DataTable dt = new SP("bd_reapp").Execute("usp_GetHistorialEstadoDeSolicitud",
+                    P.Add("IdSolicitud", hdnIdSolicitud.Value)
+                );
+
+                if (dt.Rows.Count > 0)
+                {
+                    gvHistorial.DataSource = dt;
+                }
+                else
+                {
+                    gvHistorial.DataSource = null;
+                }
+                gvHistorial.DataBind();
+            }
+            if(gvHistorial.Visible)
+            {
+                gvHistorial.Visible = false;
+            }
+
+
+            //pnlBtnVerHistorialSolicitud.Visible = true;
         }
 
         protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
