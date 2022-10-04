@@ -180,27 +180,22 @@
                                                     <%-- Boton con link para ver detalles solicitud--%>
                                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="ACCIONES" ItemStyle-Width="10%">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lnkVerDetalles" runat="server" OnClick="lnkVerDetalles_Click" CommandName="Detalle"
+                                                            <asp:LinkButton ID="lnkVerDetalles" ToolTip="Ver Detalles" runat="server" OnClick="lnkVerDetalles_Click" CommandName="Detalle"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
 
-                                                            <asp:LinkButton ID="lnkEditar" runat="server" OnClick="lnkEditar_Click" CommandName="Editar"
+                                                            <asp:LinkButton ID="lnkEditar" ToolTip="Editar Solicitud" runat="server" OnClick="lnkEditar_Click" CommandName="Editar"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px;  color:#525252' >  </i>
                                                             </asp:LinkButton>
 
-
-                                                
-                                                                
-                                                        <ItemTemplate>  
-                                                            <asp:LinkButton ID="btnModificarVant" runat="server" OnClick="btnVerForo_Click"
-                                                            CommandArgument='<%# Eval("IdSolicitud") %>' >
-                                                                <i class="fa fa-comments" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i>
-                                                            </asp:LinkButton>
-                                                                </ItemTemplate>
-                                                    
-
+                                                            <itemtemplate>
+                                                                <asp:LinkButton ID="btnModificarVant" ToolTip="Enviar Mensaje" runat="server" OnClick="btnVerForo_Click"
+                                                                    CommandArgument='<%# Eval("IdSolicitud") %>'>
+                                                                    <i class="fa fa-comments" aria-hidden="true" style='font-size: 15px; margin-left: 10px; color: #525252'></i>
+                                                                </asp:LinkButton>
+                                                            </itemtemplate>
 
                                                         </ItemTemplate>
                                                     </asp:TemplateField>

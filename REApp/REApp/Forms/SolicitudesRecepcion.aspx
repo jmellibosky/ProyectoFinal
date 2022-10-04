@@ -172,7 +172,7 @@
                                                     <%-- Boton con link para ver detalles solicitud--%>
                                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="ACCIONES" ItemStyle-Width="10%">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lnkVerDetalles" runat="server" CommandName="Detalle"
+                                                            <asp:LinkButton ID="lnkVerDetalles" ToolTip="Iniciar Recepción" runat="server" CommandName="Detalle"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>

@@ -105,7 +105,7 @@ namespace REApp.Forms
         {
             using (SP sp = new SP("bd_reapp"))
             {
-                int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+                int IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
 
                 DataTable dt = sp.Execute("usp_GetTripulacionDeSolicitud",
                     P.Add("IdSolicitud", IdSolicitud),
@@ -129,10 +129,12 @@ namespace REApp.Forms
             DataTable dt = null;
             using (SP sp = new SP("bd_reapp"))
             {
+                List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
                 if (!ddlSolicitante.SelectedItem.Value.Equals("#"))
                 {
-                    dt = sp.Execute("usp_GetSolicitudes", P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()));
+                    parameters.Add(P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID()));
                 }
+                dt = sp.Execute("usp_GetSolicitudes", parameters.ToArray());
             }
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -149,6 +151,7 @@ namespace REApp.Forms
         protected void CargarComboSolicitante()
         {
             ddlSolicitante.Items.Clear();
+            ddlSolicitante.Items.Add(new ListItem("Todos", "#"));
             using (SP sp = new SP("bd_reapp"))
             {
                 DataTable dt = new UsuarioController().GetComboSolicitante();
@@ -504,7 +507,7 @@ namespace REApp.Forms
             OcultarMostrarPanelesABM(true);
 
             CargarComboModalSolicitante();
-            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+            ddlModalSolicitante.SelectedValue = IdUsuario.ToCryptoID();
             ddlModalSolicitante.Enabled = false;
 
             CargarComboModalActividades();
@@ -598,7 +601,7 @@ namespace REApp.Forms
 
                     dt = new SP("bd_reapp").Execute("usp_GetVantsDeSolicitud",
                         P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt()),
-                        P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID())
+                        P.Add("IdUsuario", ddlModalSolicitante.SelectedValue.ToIntID())
                     );
                 }
 
