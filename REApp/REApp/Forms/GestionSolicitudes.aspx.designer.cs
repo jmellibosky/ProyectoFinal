@@ -501,6 +501,15 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Repeater rptUbicaciones;
 
         /// <summary>
+        /// Control upTripulacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upTripulacion;
+
+        /// <summary>
         /// Control gvTripulacion.
         /// </summary>
         /// <remarks>

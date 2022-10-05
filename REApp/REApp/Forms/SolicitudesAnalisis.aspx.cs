@@ -315,6 +315,7 @@ namespace REApp.Forms
             btnVolver.Visible = false;
             btnGenerarKMZ.Visible = false;
             pnlInteresados.Visible = false;
+            btnFiltrar_Click(null, null);
         }
 
         protected void MostrarABM()

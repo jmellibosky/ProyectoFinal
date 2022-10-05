@@ -348,7 +348,6 @@ namespace REApp.Forms
             }
 
             MostrarListado();
-            btnFiltrar_Click(null, null);
         }
 
 
@@ -365,6 +364,7 @@ namespace REApp.Forms
             pnlABM.Visible = false;
             btnVolver.Visible = false;
             btnGenerarKMZ.Visible = false;
+            btnFiltrar_Click(null, null);
         }
 
         protected void MostrarABM()

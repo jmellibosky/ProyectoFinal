@@ -506,37 +506,41 @@
                                         <div class="row">
                                             <h5>Tripulantes</h5>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <asp:GridView
-                                                    ID="gvTripulacion"
-                                                    runat="server"
-                                                    AutoGenerateColumns="false"
-                                                    CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
-                                                    <AlternatingRowStyle BackColor="white" />
-                                                    <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
-                                                    <RowStyle BackColor="#e1dddd" />
-                                                    <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+                                        <asp:UpdatePanel ID="upTripulacion" runat="server">
+                                            <ContentTemplate>
+                                                <div class="row">
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <asp:GridView
+                                                            ID="gvTripulacion"
+                                                            runat="server"
+                                                            AutoGenerateColumns="false"
+                                                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                                                            <AlternatingRowStyle BackColor="white" />
+                                                            <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                            <RowStyle BackColor="#e1dddd" />
+                                                            <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
 
-                                                    <Columns>
-                                                        <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                        <asp:BoundField DataField="IdTripulacion" HeaderText="ID" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                                                        <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
-                                                        <asp:BoundField DataField="Apellido" HeaderText="APELLIDO" ItemStyle-Width="20%" />
-                                                        <asp:BoundField DataField="DNI" HeaderText="DNI" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
-                                                        <asp:BoundField DataField="Telefono" HeaderText="TELEFONO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                            <Columns>
+                                                                <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                                                <asp:BoundField DataField="IdTripulacion" HeaderText="ID" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                                                <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
+                                                                <asp:BoundField DataField="Apellido" HeaderText="APELLIDO" ItemStyle-Width="20%" />
+                                                                <asp:BoundField DataField="DNI" HeaderText="DNI" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                                <asp:BoundField DataField="Telefono" HeaderText="TELEFONO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
 
-                                                        <%-- Boton con link para ver detalles solicitud--%>
-                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
-                                                            <ItemTemplate>
-                                                                <asp:HiddenField Value='<%# Eval("IdTripulacion") %>' runat="server" ID="hdnIdTripulacion" />
-                                                                <asp:CheckBox runat="server" ID="chkTripulacionVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                    </Columns>
-                                                </asp:GridView>
-                                            </div>
-                                        </div>
+                                                                <%-- Boton con link para ver detalles solicitud--%>
+                                                                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
+                                                                    <ItemTemplate>
+                                                                        <asp:HiddenField Value='<%# Eval("IdTripulacion") %>' runat="server" ID="hdnIdTripulacion" />
+                                                                        <asp:CheckBox runat="server" ID="chkTripulacionVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                            </Columns>
+                                                        </asp:GridView>
+                                                    </div>
+                                                </div>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
 
                                         <hr />
                                         <div class="row">

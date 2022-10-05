@@ -98,6 +98,7 @@ namespace REApp.Forms
                     gvTripulacion.DataSource = null;
                 }
                 gvTripulacion.DataBind();
+                upModalABM.Update();
             }
         }
 
@@ -407,7 +408,6 @@ namespace REApp.Forms
                 }
 
                 MostrarListado();
-                btnFiltrar_Click(null, null);
             }
         }
 
@@ -450,6 +450,7 @@ namespace REApp.Forms
             pnlABM.Visible = false;
             btnVolver.Visible = false;
             btnGenerarKMZ.Visible = false;
+            btnFiltrar_Click(null, null);
         }
 
         protected void MostrarABM()
@@ -459,7 +460,10 @@ namespace REApp.Forms
             pnlABM.Visible = true;
             btnVolver.Visible = true;
 
-            GetTripulantesDeUsuario(Session["IdUsuario"].ToString().ToInt());
+            if (hdnIdSolicitud.Value.Equals(""))
+            {
+                GetTripulantesDeUsuario(ddlModalSolicitante.SelectedValue.ToIntID());
+            }
         }
 
         //True p/visible, False p/ invisible
