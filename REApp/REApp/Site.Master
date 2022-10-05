@@ -25,16 +25,20 @@
     <script src="../Scripts/datepicker.min.js"></script>
     <script src="../Scripts/datatables.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
-    <script src="../Scripts/sweetalert.min.js"></script>
+    <script src="../Scripts/sweetalert.min.js" type="text/javascript"></script>
     <script src="../Scripts/geocomplete.min.js"></script>
     <script src="../Scripts/Autonumeric/autonumeric.min.js"></script>
     <script src="../Scripts/pages.js?v=1.6"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
         $(document).ready(function () {
             Init();
         });
     </script>
+
+    <%-- Sweet Alert--%>
+    <link href="Content/sweetalert.css" rel="stylesheet" />
 
     <asp:ContentPlaceHolder ID="cphHead" runat="server">
     </asp:ContentPlaceHolder>
