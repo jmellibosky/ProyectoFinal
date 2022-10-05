@@ -155,6 +155,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Forms\FileUpload.aspx" />
     <Content Include="Forms\ForoMensajes.aspx" />
+    <Content Include="Forms\CoordinacionInteresado.aspx" />
     <Content Include="Forms\GestionSolicitudes.aspx" />
     <Content Include="Forms\GestionUsuarios.aspx" />
     <Content Include="Forms\GestionVants.aspx" />
@@ -328,6 +329,13 @@
     </Compile>
     <Compile Include="Forms\ForoMensajes.aspx.designer.cs">
       <DependentUpon>ForoMensajes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CoordinacionInteresado.aspx.cs">
+      <DependentUpon>CoordinacionInteresado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\CoordinacionInteresado.aspx.designer.cs">
+      <DependentUpon>CoordinacionInteresado.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\GestionSolicitudes.aspx.cs">
       <DependentUpon>GestionSolicitudes.aspx</DependentUpon>
