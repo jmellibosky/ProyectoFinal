@@ -530,8 +530,10 @@ namespace REApp.Forms
             btnFiltrar_Click(null, null);
         }
 
+
         protected void btnPasarACoordinacion_Click(object sender, EventArgs e)
         {
+            int IdSolicitud = hdnIdSolicitudInteresadosVinculados.Value.ToInt();
             for (int i = 0; i < gvSoloInteresadosVinculados.Rows.Count; i++)
             {
 
@@ -540,12 +542,12 @@ namespace REApp.Forms
                   //Logica Mails
                     string email = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnEmail")).Value.ToString();
                     string nombre= ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnNombre")).Value.ToString();
-                    int idSoli = hdnIdSolicitudInteresadosVinculados.Value.ToInt();
                     int idInteresado = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnIdInteresadoVinculado")).Value.ToInt();
-                    PasarSolicitudACoordinacion(idSoli);
-                    EnviarMail(nombre, email, idInteresado, idSoli);                   
+                    EnviarMail(nombre, email, idInteresado, IdSolicitud);                   
                 }
+                
             }
+            PasarSolicitudACoordinacion(IdSolicitud);
             MostrarListado();
 
         }
@@ -567,11 +569,61 @@ namespace REApp.Forms
 
         protected void PasarSolicitudACoordinacion(int idSolicitud)
         {
+            //Se cambia de estado a enCoordinacion
             new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
                 P.Add("IdSolicitud", idSolicitud),
                 P.Add("IdEstadoSolicitud", 3),
+                //P.Add("Observacines", txtObservacionCambioEstado.ToString()),
                 P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
             );
+        }
+
+        protected void btnHabilitarModificacion_Click(object sender, EventArgs e)
+        {
+            // MODAL DE CONFIRMACIÓN
+
+            new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value),
+                P.Add("IdEstadoSolicitud", 9),
+                P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
+            );
+
+            btnFiltrar_Click(null, null);
+            MostrarListado();
+        }
+
+        protected void btnDevolver_Click(object sender, EventArgs e)
+        {
+            // MODAL DE CONFIRMACIÓN
+
+            new SP("bd_reapp").Execute("usp_DevolverEstadoAnterior",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value),
+                P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
+            );
+
+            btnFiltrar_Click(null, null);
+            MostrarListado();
+        }
+
+        protected void btnVerHistorialSolicitud_Click(object sender, EventArgs e)
+        {
+            // ACCESO A DATOS
+            DataTable dt = new SP("bd_reapp").Execute("usp_GetHistorialEstadoDeSolicitud",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value)
+            );
+
+            if (dt.Rows.Count > 0)
+            {
+                gvHistorial.DataSource = dt;
+            }
+            else
+            {
+                gvHistorial.DataSource = null;
+            }
+            gvHistorial.DataBind();
+
+            pnlBtnVerHistorialSolicitud.Visible = false;
+            gvHistorial.Visible = true;
         }
     }
 }

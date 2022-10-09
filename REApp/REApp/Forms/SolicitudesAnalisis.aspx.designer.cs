@@ -87,6 +87,24 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Panel pnlABM;
 
         /// <summary>
+        /// Control btnHabilitarModificacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnHabilitarModificacion;
+
+        /// <summary>
+        /// Control btnDevolver.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDevolver;
+
+        /// <summary>
         /// Control upModalABM.
         /// </summary>
         /// <remarks>
@@ -303,6 +321,42 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Repeater rptUbicaciones;
 
         /// <summary>
+        /// Control pnlHistorialSolicitud.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlHistorialSolicitud;
+
+        /// <summary>
+        /// Control pnlBtnVerHistorialSolicitud.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlBtnVerHistorialSolicitud;
+
+        /// <summary>
+        /// Control btnVerHistorialSolicitud.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnVerHistorialSolicitud;
+
+        /// <summary>
+        /// Control gvHistorial.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvHistorial;
+
+        /// <summary>
         /// Control gvTripulacion.
         /// </summary>
         /// <remarks>
@@ -373,6 +427,24 @@ namespace REApp.Forms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvSoloInteresadosVinculados;
+
+        /// <summary>
+        /// Control pnlObservacionCambioEstado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlObservacionCambioEstado;
+
+        /// <summary>
+        /// Control txtObservacionCambioEstado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtObservacionCambioEstado;
 
         /// <summary>
         /// Control btnPasarACoordinacion.
