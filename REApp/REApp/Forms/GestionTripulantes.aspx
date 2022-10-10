@@ -134,8 +134,27 @@
 <asp:Content ID="cBody" ContentPlaceHolderID="cphBody" runat="server">
 
 
+    <div class="container">
+        <h1 class="row justify-content-center">
+            <label class="fw-normal mb-3 pb-2">Gestión de Tripulación</label>
+        </h1>
+        <%--Se borra el AutoPostBack porq hay q cargar el dgv de otra forma.--%>
+        <br />
+        <%--<asp:Button ID="NuevaSolicitud" runat="server" Text="Nueva Solicitud" CssClass="btn btn-dark"/>--%>
+    </div>
+    <div style="text-align: end;">
+         <asp:UpdatePanel runat="server">
+            <ContentTemplate>
+                <asp:Button ID="btnNuevo" Text="Nuevo" CssClass="btn btn-primary btn-dark" runat="server" OnClick="btnNuevo_Click" />
+                <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVolver_Click" />
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
+    <br />
+        <%-- Espacio para insertar filtro de Búsqueda--%>
+    <br />
 
-    <%-- Encabezado --%>
+    <%-- Encabezado 
     <div class="row">
         <div class="col-12">
             <h2 class="page-header">
@@ -151,7 +170,7 @@
                 </div>
             </h2>
         </div>
-    </div>
+    </div> --%>
 
     <asp:UpdatePanel ID="upForm" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
         <ContentTemplate>
