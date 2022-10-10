@@ -117,6 +117,7 @@
 
 <asp:Content ID="cBody" ContentPlaceHolderID="cphBody" runat="server">
 
+    <br />
     <h1 class="row justify-content-center">
         <label class="fw-normal mb-3 pb-2">Gestión de Documentación</label>
     </h1>
@@ -131,13 +132,9 @@
                 <%--DDL y Carga de Archivos--%>
                 <div class="row">
                     <div class="col align-self-start">
-                        <h6>Solicitantes</h6>
+                        <asp:Label runat="server">Solicitantes</asp:Label>
                         <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" AutoPostBack="true" Width="300px" />
                     </div>
-                    <div class="col-12 text-center" id="divFiltrar" runat="server"> 
-                        <%-- Vacío para simular el botón "Filtrar"--%>
-                    </div>
-                    <br />
                     <asp:Panel ID="pnlFuAdmin" runat="server">
                     <div class="col align-self-end border">
                         <asp:FileUpload ID="FileUpload1" runat="server" />
