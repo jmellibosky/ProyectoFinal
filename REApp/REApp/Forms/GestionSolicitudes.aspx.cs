@@ -1,9 +1,7 @@
 ﻿using MagicSQL;
-using REApp;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -450,6 +448,7 @@ namespace REApp.Forms
             pnlABM.Visible = false;
             btnVolver.Visible = false;
             btnGenerarKMZ.Visible = false;
+            btnRespuestaPDF.Visible = false;
             btnFiltrar_Click(null, null);
         }
 
@@ -956,9 +955,9 @@ namespace REApp.Forms
             string formRedireccion = "/Forms/GestionSolicitudes/GestionSolicitudes.aspx";
 
             //Se redirecciona a ForoMensajes pasando por parametro (?parametro=valor) el idSolicitud de la tabla y la direccion de este form
-            Response.Redirect("/Forms/ForoMensajes/ForoMensajes.aspx?idSolicitud="+id+"&formRedireccion="+formRedireccion) ;
+            Response.Redirect("/Forms/ForoMensajes/ForoMensajes.aspx?idSolicitud=" + id + "&formRedireccion=" + formRedireccion);
 
-            
+
 
         }
     }

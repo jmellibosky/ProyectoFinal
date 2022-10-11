@@ -1,8 +1,8 @@
 ﻿using MagicSQL;
+using SelectPdf;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -581,16 +581,16 @@ namespace REApp.Forms
                 }
             }
             for (int i = 0; i < gvSoloInteresadosVinculados.Rows.Count; i++)
-                {
-                    if (((CheckBox)gvSoloInteresadosVinculados.Rows[i].FindControl("chkInteresadoVinculado")).Checked)
-                    { // SI ESTÁ CHEQUEADO
-                      //Logica Mails
-                        string email = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnEmail")).Value.ToString();
-                        string nombre = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnNombre")).Value.ToString();
-                        int idInteresado = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnIdInteresadoVinculado")).Value.ToInt();
-                        EnviarMail(nombre, email, idInteresado, idSoli);
-                    }
+            {
+                if (((CheckBox)gvSoloInteresadosVinculados.Rows[i].FindControl("chkInteresadoVinculado")).Checked)
+                { // SI ESTÁ CHEQUEADO
+                  //Logica Mails
+                    string email = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnEmail")).Value.ToString();
+                    string nombre = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnNombre")).Value.ToString();
+                    int idInteresado = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnIdInteresadoVinculado")).Value.ToInt();
+                    EnviarMail(nombre, email, idInteresado, idSoli);
                 }
+            }
 
             Models.Solicitud Solicitud = new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt());
             int idSolicitante = Solicitud.IdUsuario;
@@ -601,7 +601,7 @@ namespace REApp.Forms
 
             MostrarListado();
 
-            
+
 
 
             new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
@@ -670,6 +670,21 @@ namespace REApp.Forms
             //Se redirecciona a ForoMensajes pasando por parametro (?parametro=valor) el idSolicitud de la tabla y la direccion de este form
             Response.Redirect("/Forms/ForoMensajes/ForoMensajes.aspx?idSolicitud=" + id + "&formRedireccion=" + formRedireccion);
 
+        }
+
+        //Boton Generar PDF - Testeando por ahora
+        protected void btnRespuestaPDF_Click(object sender, EventArgs e)
+        {
+            HtmlToPdf converter = new HtmlToPdf();
+            string url = "https://www.w3schools.com";
+
+            //Aca se puede usar el ConvertHtmlString para que pongamos una cadena de html optimizada en una linea y asi poder modificar mejor el resultado final
+            PdfDocument doc = converter.ConvertUrl(url);
+
+            //Queda realizar algun tipo de control porque puede tardar unos segundos dependiendo del tamaño del pdf
+            //Ver tema de descarga mas que guardado, similar a KMZ
+            doc.Save(@"C:\Users\benja\Desktop\kmls\respuestaPDF.pdf");
+            doc.Close();
         }
     }
 }
