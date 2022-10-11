@@ -189,14 +189,10 @@
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px;  color:#525252' >  </i>
                                                             </asp:LinkButton>
-
-                                                            <itemtemplate>
-                                                                <asp:LinkButton ID="btnModificarVant" ToolTip="Enviar Mensaje" runat="server" OnClick="btnVerForo_Click"
-                                                                    CommandArgument='<%# Eval("IdSolicitud") %>'>
+                                                            <asp:LinkButton ID="btnVerForo" ToolTip="Enviar Mensaje" runat="server" OnClick="btnVerForo_Click"
+                                                                CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                                     <i class="fa fa-comments" aria-hidden="true" style='font-size: 15px; margin-left: 10px; color: #525252'></i>
-                                                                </asp:LinkButton>
-                                                            </itemtemplate>
-
+                                                            </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                 </Columns>

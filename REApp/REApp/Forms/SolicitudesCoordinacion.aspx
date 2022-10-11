@@ -113,7 +113,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
     <div class="container">
         <h1 class="row justify-content-center">
-            <label class="fw-normal mb-3 pb-2">Gestión de Solicitudes en Coordinacion</label>
+            <label class="fw-normal mb-3 pb-2">Gestión de Solicitudes en Coordinación</label>
         </h1>
         <%--Se borra el AutoPostBack porq hay q cargar el dgv de otra forma.--%>
         <br />
@@ -171,19 +171,15 @@
                                                     <asp:BoundField DataField="DuracionDias" HeaderText="DURACION DIAS" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
 
                                                     <%-- Boton con link para ver detalles solicitud--%>
-                                                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="ACCIONES" ItemStyle-Width="10%">
+                                                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="ACCIONES" ItemStyle-Width="15%">
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="lnkVerDetalles" runat="server" CommandName="Detalle"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
-                                                            <asp:LinkButton ID="lnkPasarARespuesta" runat="server" CommandName="PasarARespuesta"
+                                                            <asp:LinkButton ID="btnVerForo" ToolTip="Enviar Mensaje" runat="server" OnClick="btnVerForo_Click"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
-                                                <i class="fa-solid fa-thumbs-up" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
-                                                            </asp:LinkButton>
-                                                            <asp:LinkButton ID="lnkRechazarREA" runat="server" CommandName="RechazarREA"
-                                                                CommandArgument='<%# Eval("IdSolicitud") %>'>
-                                                <i class="fa-solid fa-thumbs-down" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
+                                                                    <i class="fa fa-comments" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
