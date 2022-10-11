@@ -136,8 +136,9 @@
         <%-- Encabezado --%>
         <div class="row">
             <div class="col-12">
-                <h2 class="page-header">
-                    <asp:Label style="text-align:center" class="h1" ID="lblTitulo" Text="Gestión de Vants" runat="server" />
+        <h1 class="row justify-content-center">
+            <label class="fw-normal mb-3 pb-2">Gestión de Vants</label>
+        </h1>
 
                     <div style="text-align: end;">
                         <asp:UpdatePanel runat="server">
@@ -147,7 +148,7 @@
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
-                </h2>
+
             </div>
         </div>
 

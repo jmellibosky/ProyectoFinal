@@ -446,6 +446,8 @@ namespace REApp.Forms
                 GetInteresadosSoloVinculadosSolicitud(hdnIdSolicitudInteresadosVinculados.Value.ToInt());
                 MostrarInteresadosVinculados();
             }
+
+            VerHistorialSolicitud();
         }
 
         protected void GetUbicacionesDeSolicitud(int IdSolicitud)
@@ -654,7 +656,7 @@ namespace REApp.Forms
             MostrarListado();
         }
 
-        protected void btnVerHistorialSolicitud_Click(object sender, EventArgs e)
+        protected void VerHistorialSolicitud()
         {
             // ACCESO A DATOS
             DataTable dt = new SP("bd_reapp").Execute("usp_GetHistorialEstadoDeSolicitud",
@@ -671,8 +673,7 @@ namespace REApp.Forms
             }
             gvHistorial.DataBind();
 
-            pnlBtnVerHistorialSolicitud.Visible = false;
-            gvHistorial.Visible = true;
+
         }
 
         protected void btnVerForo_Click(object sender, EventArgs e)

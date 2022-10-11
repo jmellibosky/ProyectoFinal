@@ -79,6 +79,7 @@ namespace REApp.Forms
             }
 
             ScriptManager.GetCurrent(Page).RegisterPostBackControl(btnGenerarKMZ);
+            VerHistorialSolicitud();
         }
 
         protected void GetTripulantesDeUsuario(int IdUsuario)
@@ -448,7 +449,7 @@ namespace REApp.Forms
             pnlABM.Visible = false;
             btnVolver.Visible = false;
             btnGenerarKMZ.Visible = false;
-            btnRespuestaPDF.Visible = false;
+            //btnRespuestaPDF.Visible = false;
             btnFiltrar_Click(null, null);
         }
 
@@ -556,6 +557,8 @@ namespace REApp.Forms
                 btnGuardar.Visible = true;
                 HabilitarDeshabilitarTxts(true);
             }
+
+            VerHistorialSolicitud();
         }
 
         protected void GetUbicacionesDeSolicitud(int IdSolicitud)
@@ -959,6 +962,27 @@ namespace REApp.Forms
 
 
 
+        }
+
+        protected void VerHistorialSolicitud()
+        {
+
+            // ACCESO A DATOS
+            DataTable dt = new SP("bd_reapp").Execute("usp_GetHistorialEstadoDeSolicitud",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value)
+            );
+
+            if (dt.Rows.Count > 0)
+            {
+                gvHistorial.DataSource = dt;
+            }
+            else
+            {
+                gvHistorial.DataSource = null;
+            }
+            gvHistorial.DataBind();
+
+            //pnlBtnVerHistorialSolicitud.Visible = true;
         }
     }
 

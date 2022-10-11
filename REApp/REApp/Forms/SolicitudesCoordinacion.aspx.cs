@@ -302,7 +302,7 @@ namespace REApp.Forms
 
             GetMensajesDeSolicitud(IdSolicitud);
 
-            btnVerHistorialSolicitud_Click(null, null);
+            VerHistorialSolicitud();
 
             MostrarABM();
 
@@ -407,7 +407,7 @@ namespace REApp.Forms
             btnFiltrar_Click(null, null);
         }
 
-        protected void btnVerHistorialSolicitud_Click(object sender, EventArgs e)
+        protected void VerHistorialSolicitud()
         {
             // ACCESO A DATOS
             DataTable dt = new SP("bd_reapp").Execute("usp_GetHistorialEstadoDeSolicitud",

@@ -271,6 +271,35 @@
                                         </div>
                                         <hr />
 
+
+
+                                        <%--TRIPULANTES--%>
+                                        <div class="row">
+                                            <h5>Tripulantes</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <asp:GridView
+                                                    ID="gvTripulacion"
+                                                    runat="server"
+                                                    AutoGenerateColumns="false"
+                                                    CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                                                    <AlternatingRowStyle BackColor="white" />
+                                                    <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                    <RowStyle BackColor="#e1dddd" />
+                                                    <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+
+                                                    <Columns>
+                                                        <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                                        <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
+                                                        <asp:BoundField DataField="Apellido" HeaderText="APELLIDO" ItemStyle-Width="20%" />
+                                                        <asp:BoundField DataField="DNI" HeaderText="DNI" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="Telefono" HeaderText="TELEFONO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                    </Columns>
+                                                </asp:GridView>
+                                            </div>
+                                        </div>
+                                        <hr />
                                         <%--HISTORIAL DE ESTADOS--%>
                                         <asp:Panel ID="pnlHistorialSolicitud" runat="server" Visible="true">
                                             <div class="row">
@@ -301,34 +330,6 @@
                                             </div>
                                             <hr />
                                         </asp:Panel>
-
-                                        <%--TRIPULANTES--%>
-                                        <div class="row">
-                                            <h5>Tripulantes</h5>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <asp:GridView
-                                                    ID="gvTripulacion"
-                                                    runat="server"
-                                                    AutoGenerateColumns="false"
-                                                    CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
-                                                    <AlternatingRowStyle BackColor="white" />
-                                                    <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
-                                                    <RowStyle BackColor="#e1dddd" />
-                                                    <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
-
-                                                    <Columns>
-                                                        <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                        <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
-                                                        <asp:BoundField DataField="Apellido" HeaderText="APELLIDO" ItemStyle-Width="20%" />
-                                                        <asp:BoundField DataField="DNI" HeaderText="DNI" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
-                                                        <asp:BoundField DataField="Telefono" HeaderText="TELEFONO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
-                                                    </Columns>
-                                                </asp:GridView>
-                                            </div>
-                                        </div>
-                                        <hr />
 
                                         <%--AFECTADOS ASOCIADOS A LA REA--%>
                                         <div class="row">

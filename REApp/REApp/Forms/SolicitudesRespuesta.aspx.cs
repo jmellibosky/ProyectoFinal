@@ -460,6 +460,8 @@ namespace REApp.Forms
                 GetInteresadosSoloVinculadosSolicitud(hdnIdSolicitud.Value.ToInt());
                 pnlInteresadosVinculados.Visible = true;
             }
+
+            VerHistorialSolicitud();
         }
 
         protected void GetUbicacionesDeSolicitud(int IdSolicitud)
@@ -655,6 +657,26 @@ namespace REApp.Forms
             Response.ContentType = "text/plain";
             Response.Write(kml);
             Response.End();
+        }
+
+        protected void VerHistorialSolicitud()
+        {
+            // ACCESO A DATOS
+            DataTable dt = new SP("bd_reapp").Execute("usp_GetHistorialEstadoDeSolicitud",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value)
+            );
+
+            if (dt.Rows.Count > 0)
+            {
+                gvHistorial.DataSource = dt;
+            }
+            else
+            {
+                gvHistorial.DataSource = null;
+            }
+            gvHistorial.DataBind();
+
+            //pnlBtnVerHistorialSolicitud.Visible = true;
         }
 
         protected void btnVerForo_Click(object sender, EventArgs e)

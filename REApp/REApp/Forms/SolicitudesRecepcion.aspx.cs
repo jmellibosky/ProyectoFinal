@@ -458,6 +458,8 @@ namespace REApp.Forms
                 btnGenerarKMZ.Visible = true;
                 HabilitarDeshabilitarTxts(false);
             }
+
+            VerHistorialSolicitud();
         }
 
         protected void GetUbicacionesDeSolicitud(int IdSolicitud)
@@ -588,11 +590,9 @@ namespace REApp.Forms
         //Cargar Historial de Estados
 
 
-        protected void btnVerHistorialSolicitud_Click(object sender, EventArgs e)
+        protected void VerHistorialSolicitud()
         {
-            if(gvHistorial.Visible == false)
-            {
-                gvHistorial.Visible = true;
+
                 // ACCESO A DATOS
                 DataTable dt = new SP("bd_reapp").Execute("usp_GetHistorialEstadoDeSolicitud",
                     P.Add("IdSolicitud", hdnIdSolicitud.Value)
@@ -607,14 +607,23 @@ namespace REApp.Forms
                     gvHistorial.DataSource = null;
                 }
                 gvHistorial.DataBind();
-            }
-            if(gvHistorial.Visible)
-            {
-                gvHistorial.Visible = false;
-            }
-
 
             //pnlBtnVerHistorialSolicitud.Visible = true;
+        }
+
+        protected void btnVerForo_Click(object sender, EventArgs e)
+        {
+            //Se obtiene id de solicitud
+            int id = int.Parse((sender as LinkButton).CommandArgument);
+            //Se crea nuevo form ForoMensajes
+            ForoMensajes foroMensajes = new ForoMensajes();
+
+            //Creamos String con la direccion de este form para despues el boton volver nos regrese a este form
+            string formRedireccion = "/Forms/SolicitudesRecepcion/SolicitudesRecepcion.aspx";
+
+            //Se redirecciona a ForoMensajes pasando por parametro (?parametro=valor) el idSolicitud de la tabla y la direccion de este form
+            Response.Redirect("/Forms/ForoMensajes/ForoMensajes.aspx?idSolicitud=" + id + "&formRedireccion=" + formRedireccion);
+
         }
 
         protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)

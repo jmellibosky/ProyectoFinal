@@ -138,9 +138,11 @@
     <%-- Encabezado --%>
     <div class="row">
         <div class="col-12">
-            <h2 class="page-header">
-                <asp:Label ID="lblTitulo" Text="Gestión de Tripulantes" runat="server" />
 
+        <h1 class="row justify-content-center">
+            <label class="fw-normal mb-3 pb-2">Gestión de Tripulantes</label>
+        </h1>
+            <br />
                 <div style="text-align: end;">
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
@@ -149,7 +151,7 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
-            </h2>
+
         </div>
     </div>
 

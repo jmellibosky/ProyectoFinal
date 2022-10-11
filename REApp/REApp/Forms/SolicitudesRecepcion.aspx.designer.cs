@@ -321,15 +321,6 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Panel pnlHistorialSolicitud;
 
         /// <summary>
-        /// Control btnMostrarHistorialSolicitud.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMostrarHistorialSolicitud;
-
-        /// <summary>
         /// Control gvHistorial.
         /// </summary>
         /// <remarks>
@@ -337,15 +328,6 @@ namespace REApp.Forms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvHistorial;
-
-        /// <summary>
-        /// Control txtObservacionCambioEstado.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtObservacionCambioEstado;
 
         /// <summary>
         /// Control btnEstadoOperador.

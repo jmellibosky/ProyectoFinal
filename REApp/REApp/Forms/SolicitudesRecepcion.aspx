@@ -176,6 +176,10 @@
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
+                                                            <asp:LinkButton ID="btnVerForo" ToolTip="Enviar Mensaje" runat="server" OnClick="btnVerForo_Click"
+                                                                CommandArgument='<%# Eval("IdSolicitud") %>'>
+                                                                    <i class="fa fa-comments" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                                            </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                 </Columns>
@@ -380,12 +384,11 @@
 
                                         
                                         <asp:Panel ID="pnlHistorialSolicitud" runat="server" Visible="true">
-<%--                                            <div class="row">
+                                             <div class="row">
                                                 <h5>Historial de Estados</h5>
-                                            </div>--%>
-                                            <div>
-                                                <asp:Button ID="btnMostrarHistorialSolicitud" Text="Ver Historial" Visible="true" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVerHistorialSolicitud_Click" />
-                                            </div>
+
+                                                 </div>
+                                            <br />
                                             <div class="row">
                                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
                                                     <%--GRILLA CON HISTORIAL DE CAMBIOS--%>
@@ -393,7 +396,7 @@
                                                         ID="gvHistorial"
                                                         runat="server"
                                                         AutoGenerateColumns="false"
-                                                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" Visible="false">
+                                                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" Visible="true">
                                                         <AlternatingRowStyle BackColor="white" />
                                                         <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
                                                         <RowStyle BackColor="#e1dddd" />
@@ -420,13 +423,7 @@
                 </div>
                 <%-- Observacion Cambio de estado y boton--%>
                 <br />
-                    <div>
-                        
-                        <h5>Observación de Cambio de Estado</h5> 
-                        <asp:TextBox runat="server" ID="txtObservacionCambioEstado" CssClass="form-control" />
-                    </div>
-                        
-                <br />
+
                 <div class="row">
                     <div class="col-12 text-right">
                         <asp:Button runat="server" Text="Analizar Solicitud" CssClass="btn btn-info btn-dark" ID="btnEstadoOperador" OnClick="btnEstadoOperador_Click" Visible="false"/>

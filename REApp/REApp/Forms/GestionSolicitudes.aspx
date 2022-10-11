@@ -538,6 +538,41 @@
                                             </ContentTemplate>
                                         </asp:UpdatePanel>
 
+
+                                        <%--HISTORIAL DE ESTADOS--%>
+
+                                         <hr />                                       
+                                        <asp:Panel ID="pnlHistorialSolicitud" runat="server" Visible="true">
+                                          <div class="row">
+                                                <h5>Historial de Estados</h5>
+
+
+                                            <div class="row">
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                                    <%--GRILLA CON HISTORIAL DE CAMBIOS--%>
+                                                    <asp:GridView
+                                                        ID="gvHistorial"
+                                                        runat="server"
+                                                        AutoGenerateColumns="false"
+                                                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" Visible="true">
+                                                        <AlternatingRowStyle BackColor="white" />
+                                                        <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                        <RowStyle BackColor="#e1dddd" />
+                                                        <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+                                                        <Columns>
+                                                            <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                                            <asp:BoundField DataField="EstadoAnterior" HeaderText="ESTADO ANTERIOR" ItemStyle-Width="20%" />
+                                                            <asp:BoundField DataField="EstadoActual" HeaderText="ESTADO ACTUAL" ItemStyle-Width="20%" />
+                                                            <asp:BoundField DataField="FechaCambio" HeaderText="FECHA CAMBIO ESTADO" ItemStyle-Width="20%" />
+                                                            <asp:BoundField DataField="Usuario" HeaderText="USUARIO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                            <asp:BoundField DataField="Observaciones" HeaderText="OBSERVACIONES" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                        </Columns>
+                                                    </asp:GridView>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                        </asp:Panel>
+
                                         <hr />
                                         <div class="row">
                                             <div class="col-12 text-right">
