@@ -606,7 +606,8 @@ namespace REApp.Forms
         protected void EnviarMail(string nombre, string email, int idInteresado, int idSolicitud)
         {
 
-            string url = "https://localhost:44355/Forms/HomeDash/HomeDash/Forms/SolicitudesCoodinacion.aspx?idSolicitud=" + idSolicitud + "&idInteresado=" + idInteresado;
+
+            string url = "https://localhost:44355/Forms/HomeDash/HomeDash/Forms/CoodinacionInteresado.aspx?ID=" + "22";
 
             string cuerpo = "Por favor conteste la recomendacion de REA: " + url;
 
@@ -624,7 +625,7 @@ namespace REApp.Forms
             new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
                 P.Add("IdSolicitud", idSolicitud),
                 P.Add("IdEstadoSolicitud", 3),
-                //P.Add("Observacines", txtObservacionCambioEstado.ToString()),
+                //P.Add("Observacin", txtObservacionCambioEstado),
                 P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
             );
         }

@@ -705,7 +705,7 @@ namespace REApp.Forms
 
             //Queda realizar algun tipo de control porque puede tardar unos segundos dependiendo del tamaño del pdf
             //Ver tema de descarga mas que guardado, similar a KMZ
-            doc.Save(@"C:\Users\benja\Desktop\kmls\respuestaPDF.pdf");
+            doc.Save(@"D:\Usuario\Documents\Universidad\5 - Quinto\Proyecto\Pdf\respuestaPDF.pdf");
             doc.Close();
         }
     }
