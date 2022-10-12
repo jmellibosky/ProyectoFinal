@@ -3,6 +3,7 @@ using SelectPdf;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -78,6 +79,7 @@ namespace REApp.Forms
                 }
             }
             ScriptManager.GetCurrent(Page).RegisterPostBackControl(btnGenerarKMZ);
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(btnRespuestaPDF);
         }
 
         protected void GetTripulantesDeUsuario(int IdUsuario)
@@ -705,7 +707,17 @@ namespace REApp.Forms
 
             //Queda realizar algun tipo de control porque puede tardar unos segundos dependiendo del tamaño del pdf
             //Ver tema de descarga mas que guardado, similar a KMZ
-            doc.Save(@"D:\Usuario\Documents\Universidad\5 - Quinto\Proyecto\Pdf\respuestaPDF.pdf");
+            //doc.Save(@"D:\Usuario\Documents\Universidad\5 - Quinto\Proyecto\Pdf\respuestaPDF.pdf");
+
+            byte[] bytes = doc.Save();
+
+            Response.Clear();
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment; filename=\"Respuesta_Solicitud_N" + hdnIdSolicitud.Value + ".pdf\"");
+            Response.BinaryWrite(bytes);
+            Response.ContentEncoding = Encoding.UTF8;
+            Response.End();
+
             doc.Close();
         }
     }
