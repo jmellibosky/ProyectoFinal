@@ -394,17 +394,217 @@ namespace REApp.Forms
                 { // Update
                     using (Tn tn = new Tn("bd_reapp"))
                     {
+                        // RECUPERO EL OBJETO SOLICITUD
                         Solicitud = new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt());
+
+                        // RE-SETEO LOS CAMPOS DE LA SOLICITUD
                         Solicitud.Nombre = txtModalNombreSolicitud.Text;
                         Solicitud.IdModalidad = ddlModalModalidad.SelectedValue.ToIntID();
                         Solicitud.IdEstadoSolicitud = 1;
                         Solicitud.FHDesde = txtModalFechaDesde.Text.ToDateTime();
                         Solicitud.FHHasta = txtModalFechaHasta.Text.ToDateTime();
                         Solicitud.Observaciones = txtModalObservaciones.Text;
-                        Solicitud.FHUltimaActualizacionEstado = DateTime.Now;
+
+                        // UPDATE EN TABLA SOLICITUD
                         Solicitud.Update(tn);
-                    }
-                }
+
+                        // RECUPERO LOS VANTS ANTES DE LA EDICIÓN
+                        DataTable dt = new SP("bd_reapp").Execute("usp_GetVantsDeSolicitud",
+                            P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt()),
+                            P.Add("IdUsuario", ddlModalSolicitante.SelectedValue.ToIntID())
+                        );
+
+                        // RECORRO LA GRILLA DE VANTS
+                        for (int i = 0; i < gvVANTs.Rows.Count; i++)
+                        {
+                            if (((CheckBox)gvVANTs.Rows[i].FindControl("chkVANTVinculado")).Checked)
+                            { // SI ESTÁ CHEQUEADO
+                                // ASUMIMOS QUE EL VANT NO ESTÁ VINCULADO
+                                bool Existe = false;
+                                
+                                // RECORRO LOS VANTS ANTES DE LA EDICIÓN
+                                for (int j = 0; j < dt.Rows.Count; j++)
+                                {
+                                    if (gvVANTs.Rows[i].Cells[0].Text.Equals(dt.Rows[j]["IdVant"].ToString()))
+                                    { 
+                                        // POR LEGIBILIDAD DESMENUCÉ ESTE IF
+                                        if (dt.Rows[j]["Checked"].ToString().Equals("1"))
+                                        {
+                                            // EL VANT SÍ ESTÁ VINCULADO
+                                            Existe = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                
+                                if (!Existe)
+                                { // SI SE RECORRIÓ TODO EL LISTADO Y EL VANT NO ESTÁ VINCULADO
+                                    // CREO OBJETO VANTSOLICITUD
+                                    Models.VantSolicitud VantSolicitud = new Models.VantSolicitud();
+
+                                    // SETEO LOS CAMPOS DEL OBJETO
+                                    VantSolicitud.IdVant = ((HiddenField)gvVANTs.Rows[i].FindControl("hdnIdVant")).Value.ToInt();
+                                    VantSolicitud.IdSolicitud = Solicitud.IdSolicitud;
+
+                                    // INSERT EN TABLA VANTSOLICITUD
+                                    VantSolicitud.Insert(tn);
+                                }
+                            }
+                            else
+                            { // SI NO ESTÁ CHEQUEADO
+                                // ASUMIMOS QUE EL VANT ESTÁ VINCULADO
+                                bool Existe = true;
+
+                                // RECORRO LOS VANTS ANTES DE LA EDICIÓN
+                                for (int j = 0; j < dt.Rows.Count; j++)
+                                {
+                                    if (gvVANTs.Rows[i].Cells[0].Text.Equals(dt.Rows[j]["IdVant"].ToString()))
+                                    {
+                                        // POR LEGIBILIDAD DESMENUCÉ ESTE IF
+                                        if (dt.Rows[j]["Checked"].ToString().Equals("0"))
+                                        {
+                                            // EL VANT ESTÁ VINCULADO
+                                            Existe = false;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (Existe)
+                                { // SI SE RECORRIÓ TODO EL LISTADO Y EL VANT ESTÁ VINCULADO
+                                    int IdVant = ((HiddenField)gvVANTs.Rows[i].FindControl("hdnIdVant")).Value.ToInt();
+                                    int IdSolicitud = Solicitud.IdSolicitud;
+
+                                    // RECUPERO OBJETO VANTSOLICITUD
+                                    List<Models.VantSolicitud> VantSolicitud = new Models.VantSolicitud().Select($"IdVant = {IdVant} AND IdSolicitud = {IdSolicitud}");
+
+                                    if (VantSolicitud.Count != 0)
+                                    {
+                                        // SETEO FHFIN
+                                        VantSolicitud[0].FHBaja = DateTime.Now;
+
+                                        // UPDATE EN TABLA VANTSOLICITUD
+                                        VantSolicitud[0].Update(tn);
+                                    } // FIN IF UPDATE VANTSOLICITUD
+                                } // FIN IF EXISTE VANT VINCULADO
+                            } // FIN ELSE NO ESTÁ CHEQUEADO
+                        } // FIN FOR GRILLA VANTS
+
+                        // RECORRO LAS UBICACIONES DEL VIEWSTATE (SON SÓLO LAS NUEVAS)
+                        List<UbicacionRedux> AuxUbicaciones = Ubicaciones;
+                        for (int i = 0; i < AuxUbicaciones.Count; i++)
+                        {
+                            // CREO OBJETO UBICACION
+                            Models.Ubicacion Ubicacion = new Models.Ubicacion();
+
+                            // SETEO LOS CAMPOS DEL OBJETO
+                            Ubicacion.IdSolicitud = Solicitud.IdSolicitud;
+                            Ubicacion.Altura = AuxUbicaciones[i].Altura;
+                            Ubicacion.IdProvincia = 1; //------------------HARDCODEADO-NI IDEA DE POR QUÉ ESTÁ ESTE CAMPO ACÁ
+
+                            // INSERT EN TABLA UBICACION
+                            Ubicacion.Insert(tn);
+
+                            // RECORRO LOS PUNTOS GEOGRÁFICOS DE LA UBICACIÓN
+                            for (int j = 0; j < AuxUbicaciones[i].PuntosGeograficos.Count; j++)
+                            {
+                                // CREO OBJETO PUNTOGEOGRAFICO
+                                Models.PuntoGeografico PuntoGeografico = AuxUbicaciones[i].PuntosGeograficos[j];
+
+                                // SETEO LOS CAMPOS EL OBJETO
+                                PuntoGeografico.IdUbicacion = Ubicacion.IdUbicacion;
+
+                                // INSERT EN TABLA PUNTOGEOGRAFICO
+                                PuntoGeografico.Insert(tn);
+                            }
+                        }
+
+                        // RECUPERO LOS TRIPULANTES ANTES DE LA EDICIÓN
+                        dt = new SP("bd_reapp").Execute("usp_GetTripulacionDeSolicitud",
+                            P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt()),
+                            P.Add("IdUsuario", ddlModalSolicitante.SelectedValue.ToIntID())
+                        );
+
+                        // RECORRO LA GRILLA DE TRIPULANTES
+                        for (int i = 0; i < gvTripulacion.Rows.Count; i++)
+                        {
+                            if (((CheckBox)gvTripulacion.Rows[i].FindControl("chkTripulacionVinculado")).Checked)
+                            { // SI ESTÁ CHEQUEADO
+                                // ASUMIMOS QUE EL TRIPULANTE NO ESTÁ VINCULADO
+                                bool Existe = false;
+
+                                // RECORRO LOS TRIPULANTES ANTES DE LA EDICIÓN
+                                for (int j = 0; j < dt.Rows.Count; j++)
+                                {
+                                    if (gvTripulacion.Rows[i].Cells[0].Text.Equals(dt.Rows[j]["IdTripulacion"].ToString()))
+                                    {
+                                        // POR LEGIBILIDAD DESMENUCÉ ESTE IF
+                                        if (dt.Rows[j]["Checked"].ToString().Equals("1"))
+                                        {
+                                            // EL TRIPULANTE SÍ ESTÁ VINCULADO
+                                            Existe = true;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (!Existe)
+                                { // SI SE RECORRIÓ TODO EL LISTADO Y EL TRIPULANTE NO ESTÁ VINCULADO
+                                    // CREO OBJETO TRIPULACIONSOLICITUD
+                                    Models.TripulacionSolicitud TripulacionSolicitud = new Models.TripulacionSolicitud();
+
+                                    // SETEO LOS CAMPOS DEL OBJETO
+                                    TripulacionSolicitud.IdTripulacion = ((HiddenField)gvVANTs.Rows[i].FindControl("hdnIdTripulacion")).Value.ToInt();
+                                    TripulacionSolicitud.IdSolicitud = Solicitud.IdSolicitud;
+
+                                    // INSERT EN TABLA VANTSOLICITUD
+                                    TripulacionSolicitud.Insert(tn);
+                                }
+                            }
+                            else
+                            { // SI NO ESTÁ CHEQUEADO
+                                // ASUMIMOS QUE EL VANT ESTÁ VINCULADO
+                                bool Existe = true;
+
+                                // RECORRO LOS VANTS ANTES DE LA EDICIÓN
+                                for (int j = 0; j < dt.Rows.Count; j++)
+                                {
+                                    if (gvTripulacion.Rows[i].Cells[0].Text.Equals(dt.Rows[j]["IdTripulacion"].ToString()))
+                                    {
+                                        // POR LEGIBILIDAD DESMENUCÉ ESTE IF
+                                        if (dt.Rows[j]["Checked"].ToString().Equals("0"))
+                                        {
+                                            // EL TRIPULANTE ESTÁ VINCULADO
+                                            Existe = false;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (Existe)
+                                { // SI SE RECORRIÓ TODO EL LISTADO Y EL TRIPULANTE ESTÁ VINCULADO
+                                    int IdTripulante = ((HiddenField)gvTripulacion.Rows[i].FindControl("hdnIdTripulacion")).Value.ToInt();
+                                    int IdSolicitud = Solicitud.IdSolicitud;
+
+                                    // RECUPERO OBJETO VANTSOLICITUD
+                                    List<Models.TripulacionSolicitud> TripulacionSolicitud = new Models.TripulacionSolicitud().Select($"IdTripulacion = {IdTripulante} AND IdSolicitud = {IdSolicitud}");
+
+                                    if (TripulacionSolicitud.Count != 0)
+                                    {
+                                        // SETEO FHFIN
+                                        TripulacionSolicitud[0].FHVinculacion = DateTime.Now;
+
+                                        // UPDATE EN TABLA VANTSOLICITUD
+                                        TripulacionSolicitud[0].Update(tn);
+                                    } // FIN IF UPDATE VANTSOLICITUD
+                                } // FIN IF EXISTE VANT VINCULADO
+                            } // FIN ELSE NO ESTÁ CHEQUEADO
+                        } // FIN FOR GRILLA VANTS
+
+                        tn.Commit();
+
+                    } // FIN USING TN
+                } // FIN ELSE UPDATE
 
                 MostrarListado();
             }
@@ -574,6 +774,7 @@ namespace REApp.Forms
                 {
                     ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text = dt.Rows[i]["TipoUbicacion"].ToString();
                     ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text = dt.Rows[i]["Datos"].ToString();
+                    ((HiddenField)rptUbicaciones.Items[i].FindControl("hdnRptIdUbicacion")).Value = dt.Rows[i]["IdUbicacion"].ToString();
                 }
             }
         }
@@ -656,6 +857,7 @@ namespace REApp.Forms
                         // index 1: Longitud: <longitud>
                         // index 2: Altura: <altura>
                         string[] SplitPuntosGeograficos = ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text.Trim().Split('|');
+                        Ubicacion.IdUbicacion = ((HiddenField)rptUbicaciones.Items[i].FindControl("hdnRptIdUbicacion")).Value;
                         PuntosGeograficos = new List<Models.PuntoGeografico>();
 
                         for (int j = 0; j < SplitPuntosGeograficos.Length; j++)
@@ -991,8 +1193,7 @@ namespace REApp.Forms
         public double Altura { get; set; }
 
         public List<Models.PuntoGeografico> PuntosGeograficos { get; set; }
+
+        public string IdUbicacion { get; set; }
     }
-
-
-
 }

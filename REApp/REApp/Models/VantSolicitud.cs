@@ -8,7 +8,7 @@ namespace REApp.Models
 {
     public partial class VantSolicitud : ISUD<VantSolicitud>
     {
-        public VantSolicitud() : base(1) { } // base(SPs_Version)
+        public VantSolicitud() : base(2) { } // base(SPs_Version)
 
         // Properties
 
@@ -17,5 +17,9 @@ namespace REApp.Models
         public int IdVant { get; set; }
 
         public int IdSolicitud { get; set; }
+
+        public DateTime? FHAlta { get; set; }
+
+        public DateTime? FHBaja { get; set; }
     }
 }

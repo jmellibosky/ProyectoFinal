@@ -8,7 +8,7 @@ namespace REApp.Models
 {
     public partial class Vant : ISUD<Vant>
     {
-        public Vant() : base(1) { } // base(SPs_Version)
+        public Vant() : base(2) { } // base(SPs_Version)
 
         // Properties
 
@@ -30,15 +30,14 @@ namespace REApp.Models
 
         public string NumeroSerie { get; set; }
 
-        public DateTime AñoFabricacion { get; set; }
+        public DateTime? AñoFabricacion { get; set; }
 
         public string LugarFabricacion { get; set; }
 
         public string LugarGuardado { get; set; }
 
-        public int IdLocalidadPartido { get; set; }
+        public int? IdLocalidadPartido { get; set; }
 
         public string MotivoBaja { get; set; }
-
     }
 }

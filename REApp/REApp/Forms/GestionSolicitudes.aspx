@@ -489,6 +489,7 @@
                                                                     <asp:Label ID="lblRptTipoUbicacion" runat="server" />
                                                                 </h5>
                                                                 <hr />
+                                                                <asp:HiddenField ID="hdnRptIdUbicacion" Value="0" runat="server" />
                                                                 <asp:Label ID="lblRptDatos" runat="server" />
                                                             </div>
                                                         </div>

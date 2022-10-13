@@ -188,7 +188,7 @@ namespace REApp.Forms
             int id = int.Parse((sender as LinkButton).CommandArgument);
             Models.Vant Vant = new Models.Vant().Select(id);
 
-            int idLocalidad = Vant.IdLocalidadPartido;
+            int idLocalidad = (Vant.IdLocalidadPartido.HasValue) ? Vant.IdLocalidadPartido.Value : 0;
             Models.Localidad Localidad = new Models.Localidad().Select(idLocalidad);
 
 
@@ -247,7 +247,7 @@ namespace REApp.Forms
             int id = int.Parse((sender as LinkButton).CommandArgument);
             Models.Vant Vant = new Models.Vant().Select(id);
 
-            int idLocalidad = Vant.IdLocalidadPartido;
+            int idLocalidad = (Vant.IdLocalidadPartido.HasValue) ? Vant.IdLocalidadPartido.Value : 0;
             Models.Localidad Localidad = new Models.Localidad().Select(idLocalidad);
 
             hdnIdVant.Value = id.ToString();
@@ -304,7 +304,7 @@ namespace REApp.Forms
 
             if (Vant.FHBaja == null)
             {
-                int idLocalidad = Vant.IdLocalidadPartido;
+                int idLocalidad = (Vant.IdLocalidadPartido.HasValue) ? Vant.IdLocalidadPartido.Value : 0;
                 Models.Localidad Localidad = new Models.Localidad().Select(idLocalidad);
 
                 hdnIdVant.Value = id.ToString();
