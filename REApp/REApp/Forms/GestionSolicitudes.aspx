@@ -185,7 +185,7 @@
                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
 
-                                                            <asp:LinkButton ID="lnkEditar" ToolTip="Editar Solicitud" runat="server" OnClick="lnkEditar_Click" CommandName="Editar"
+                                                            <asp:LinkButton ID="lnkEditar" Visible='<%# Eval("Editable").ToString().Equals("1") %>' ToolTip="Editar Solicitud" runat="server" OnClick="lnkEditar_Click" CommandName="Editar"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px;  color:#525252' >  </i>
                                                             </asp:LinkButton>

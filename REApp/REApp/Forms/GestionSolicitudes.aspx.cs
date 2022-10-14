@@ -592,7 +592,7 @@ namespace REApp.Forms
                                     if (TripulacionSolicitud.Count != 0)
                                     {
                                         // SETEO FHFIN
-                                        TripulacionSolicitud[0].FHVinculacion = DateTime.Now;
+                                        TripulacionSolicitud[0].FHDesvinculacion = DateTime.Now;
 
                                         // UPDATE EN TABLA VANTSOLICITUD
                                         TripulacionSolicitud[0].Update(tn);
