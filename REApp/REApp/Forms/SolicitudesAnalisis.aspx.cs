@@ -605,17 +605,22 @@ namespace REApp.Forms
 
         protected void EnviarMail(string nombre, string email, int idInteresado, int idSolicitud)
         {
-            string url = "https://localhost:44355/Forms/HomeDash/HomeDash/Forms/CoodinacionInteresado.aspx?ID=" + "22";
+            List<Models.InteresadoSolicitud> InteresadoSolicitud = new Models.InteresadoSolicitud().Select($"IdInteresado = {idInteresado} AND IdSolicitud = {idSolicitud}");
+
+            int IdInteresadoSolicitud = (InteresadoSolicitud.Count > 0) ? InteresadoSolicitud[0].IdInteresadoSolicitud : 0;
+
+            string url = $"https://localhost:44355/Forms/HomeDash/HomeDash/Forms/CoodinacionInteresado.aspx?ID={IdInteresadoSolicitud}";
 
             Controllers.HTMLBuilder builder = new Controllers.HTMLBuilder("Solicitud de Reserva de Espacio Aéreo", "GenericMailTemplate.html");
 
             builder.AppendTexto("Buenas tardes.");
-            builder.AppendSaltoLinea(3);
+            builder.AppendSaltoLinea(2);
             builder.AppendTexto("La Empresa Argentina de Navegación Aérea solicita sus recomendaciones para la coordinación de esta solicitud de Reserva de Espacio Aéreo.");
             builder.AppendSaltoLinea(1);
             builder.AppendTexto("Por favor, ingrese en el siguiente enlace para ver los detalles de esta solicitud y brindar sus recomendaciones.");
             builder.AppendSaltoLinea(1);
             builder.AppendURL(url, "Solicitud de Reserva de Espacio Aéreo");
+            builder.AppendSaltoLinea(3);
 
             string cuerpo = builder.ConstruirHTML();
 
