@@ -153,6 +153,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\html\GenericMailTemplate.html" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
@@ -308,6 +309,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Code\Navegacion.cs" />
+    <Compile Include="Controllers\HTMLBuilder.cs" />
     <Compile Include="Controllers\KMLController.cs" />
     <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\Soporte\Destinatario.cs" />
