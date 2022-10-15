@@ -609,7 +609,7 @@ namespace REApp.Forms
 
             int IdInteresadoSolicitud = (InteresadoSolicitud.Count > 0) ? InteresadoSolicitud[0].IdInteresadoSolicitud : 0;
 
-            string url = $"https://localhost:44355/Forms/HomeDash/HomeDash/Forms/CoodinacionInteresado.aspx?ID={IdInteresadoSolicitud}";
+            string url = $"https://localhost:44355/Forms/CoordinacionInteresado.aspx?ID={IdInteresadoSolicitud}";
 
             Controllers.HTMLBuilder builder = new Controllers.HTMLBuilder("Solicitud de Reserva de Espacio Aéreo", "GenericMailTemplate.html");
 
@@ -618,15 +618,14 @@ namespace REApp.Forms
             builder.AppendTexto("La Empresa Argentina de Navegación Aérea solicita sus recomendaciones para la coordinación de esta solicitud de Reserva de Espacio Aéreo.");
             builder.AppendSaltoLinea(1);
             builder.AppendTexto("Por favor, ingrese en el siguiente enlace para ver los detalles de esta solicitud y brindar sus recomendaciones.");
-            builder.AppendSaltoLinea(1);
-            builder.AppendURL(url, "Solicitud de Reserva de Espacio Aéreo");
-            builder.AppendSaltoLinea(3);
+            builder.AppendSaltoLinea(2);
+            builder.AppendURL(url, "Solicitud de Reserva de Espacio Aéreo");;
 
             string cuerpo = builder.ConstruirHTML();
 
             MailController mail = new MailController("RECOMENDACION REA", cuerpo);
             
-            mail.Add(nombre, email);
+            mail.Add(nombre, "joaquinm.utn@gmail.com");
 
             bool Exito = mail.Enviar();
         }

@@ -161,6 +161,7 @@ namespace REApp.Forms
             //(Tamaño del archivo en bytes)
             int tam = FileUpload.PostedFile.ContentLength;
             byte[] bytes;
+            var a = Convert.ToBase64String(FileUpload.FileBytes);
             using (Stream fs = FileUpload.PostedFile.InputStream)
             {
                 using (BinaryReader br = new BinaryReader(fs))
