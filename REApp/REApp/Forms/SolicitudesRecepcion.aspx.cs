@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -102,7 +101,7 @@ namespace REApp.Forms
         {
             using (SP sp = new SP("bd_reapp"))
             {
-                int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+                int IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
 
                 DataTable dt = sp.Execute("usp_GetTripulacionDeSolicitud",
                     P.Add("IdSolicitud", IdSolicitud),
@@ -126,20 +125,16 @@ namespace REApp.Forms
             DataTable dt = null;
             using (SP sp = new SP("bd_reapp"))
             {
+                List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+                parameters.Add(P.Add("IdEstadoSolicitud1", 1));
+                parameters.Add(P.Add("IdEstadoSolicitud2", 11));
                 if (!ddlSolicitante.SelectedItem.Value.Equals("#"))
                 {
-                    int s = ddlSolicitante.SelectedItem.Value.ToIntID();
-                    dt = sp.Execute("usp_GetSolicitudesPorEstado", 
-                        P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()),
-                        P.Add("IdEstadoSolicitud1", 1),
-                        P.Add("IdEstadoSolicitud2", 11),
-                        P.Add("IdEstadoSolicitud3", null),
-                        P.Add("IdEstadoSolicitud4", null),
-                        P.Add("IdEstadoSolicitud5", null),
-                        P.Add("IdEstadoSolicitud6", null)
-                        );
+                    parameters.Add(P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()));
                 }
+                dt = sp.Execute("usp_GetSolicitudesPorEstado", parameters.ToArray());
             }
+
             if (dt != null && dt.Rows.Count > 0)
             {
                 gvSolicitud.DataSource = dt;
@@ -148,13 +143,14 @@ namespace REApp.Forms
             {
                 gvSolicitud.DataSource = null;
             }
-            gvSolicitud.DataBind();
 
+            gvSolicitud.DataBind();
         }
 
         protected void CargarComboSolicitante()
         {
             ddlSolicitante.Items.Clear();
+            ddlSolicitante.Items.Add(new ListItem("Todos", "#"));
             using (SP sp = new SP("bd_reapp"))
             {
                 DataTable dt = new UsuarioController().GetComboSolicitante();
@@ -217,7 +213,6 @@ namespace REApp.Forms
             }
         }
 
-
         protected void LimpiarModal()
         {
             ddlModalSolicitante.Items.Clear();
@@ -234,7 +229,6 @@ namespace REApp.Forms
             txtModalEstadoSolicitud.Enabled = false;
             rptUbicaciones.DataSource = null;
         }
-
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -352,8 +346,6 @@ namespace REApp.Forms
             MostrarListado();
         }
 
-
-
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             MostrarListado();
@@ -418,7 +410,7 @@ namespace REApp.Forms
             OcultarMostrarPanelesABM(true);
 
             CargarComboModalSolicitante();
-            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+            ddlModalSolicitante.SelectedValue = IdUsuario.ToCryptoID();
             ddlModalSolicitante.Enabled = false;
 
             CargarComboModalActividades();
@@ -450,8 +442,6 @@ namespace REApp.Forms
 
             GetTripulantesDeSolicitud(IdSolicitud);
             GetUbicacionesDeSolicitud(IdSolicitud);
-
-           
 
             MostrarABM();
 
@@ -499,7 +489,7 @@ namespace REApp.Forms
                 //Por ende, recupero los Vants de la Solicitud + los del Usuario
                 dt = new SP("bd_reapp").Execute("usp_GetVantsDeSolicitud",
                     P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt()),
-                    P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID())
+                    P.Add("IdUsuario", ddlModalSolicitante.SelectedValue.ToIntID())
                 );
 
                 if (dt.Rows.Count > 0)
@@ -519,28 +509,9 @@ namespace REApp.Forms
 
         protected void btnGenerarKMZ_Click(object sender, EventArgs e)
         {
-
             Models.Documento KML = GetKML();
 
             DescargarKML(Encoding.ASCII.GetString(KML.Datos));
-            
-
-            ////Aca meto codigo temporal para generar un archivo en el disco C en mi escritorio, cambien porque no les van a andar
-            //string path = @"C:\Users\benja\Desktop\kmls\Testing.kml";
-            //try
-            //{
-            //    using (FileStream fileSystemTest = File.Create(path))
-            //    {
-            //        //Uso todo el System porque no me lo deja usar en el comienzo del archivo ???
-            //        byte[] info = System.Text.Encoding.ASCII.GetBytes(kml);
-            //        fileSystemTest.Write(info, 0, info.Length);
-
-            //    }
-            //}
-            //catch
-            //{
-
-            //}
         }
 
         protected Models.Documento GetKML()
@@ -595,20 +566,20 @@ namespace REApp.Forms
         protected void VerHistorialSolicitud()
         {
 
-                // ACCESO A DATOS
-                DataTable dt = new SP("bd_reapp").Execute("usp_GetHistorialEstadoDeSolicitud",
-                    P.Add("IdSolicitud", hdnIdSolicitud.Value)
-                );
+            // ACCESO A DATOS
+            DataTable dt = new SP("bd_reapp").Execute("usp_GetHistorialEstadoDeSolicitud",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value)
+            );
 
-                if (dt.Rows.Count > 0)
-                {
-                    gvHistorial.DataSource = dt;
-                }
-                else
-                {
-                    gvHistorial.DataSource = null;
-                }
-                gvHistorial.DataBind();
+            if (dt.Rows.Count > 0)
+            {
+                gvHistorial.DataSource = dt;
+            }
+            else
+            {
+                gvHistorial.DataSource = null;
+            }
+            gvHistorial.DataBind();
 
             //pnlBtnVerHistorialSolicitud.Visible = true;
         }

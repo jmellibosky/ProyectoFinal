@@ -75,7 +75,7 @@ namespace REApp.Forms
         {
             using (SP sp = new SP("bd_reapp"))
             {
-                int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+                int IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
 
                 DataTable dt = sp.Execute("usp_GetTripulacionDeSolicitud",
                     P.Add("IdSolicitud", IdSolicitud)
@@ -98,20 +98,17 @@ namespace REApp.Forms
             DataTable dt = null;
             using (SP sp = new SP("bd_reapp"))
             {
+                List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+                parameters.Add(P.Add("IdEstadoSolicitud1", 3));
+                parameters.Add(P.Add("IdEstadoSolicitud2", 4));
+                parameters.Add(P.Add("IdEstadoSolicitud3", 9));
                 if (!ddlSolicitante.SelectedItem.Value.Equals("#"))
                 {
-                    int s = ddlSolicitante.SelectedItem.Value.ToIntID();
-                    dt = sp.Execute("usp_GetSolicitudesPorEstado",
-                        P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()),
-                        P.Add("IdEstadoSolicitud1", 3),
-                        P.Add("IdEstadoSolicitud2", 4),
-                        P.Add("IdEstadoSolicitud3", 9),
-                        P.Add("IdEstadoSolicitud4", null),
-                        P.Add("IdEstadoSolicitud5", null),
-                        P.Add("IdEstadoSolicitud6", null)
-                        );
+                    parameters.Add(P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID()));
                 }
+                dt = sp.Execute("usp_GetSolicitudesPorEstado", parameters.ToArray());
             }
+
             if (dt != null && dt.Rows.Count > 0)
             {
                 gvSolicitud.DataSource = dt;
@@ -120,13 +117,14 @@ namespace REApp.Forms
             {
                 gvSolicitud.DataSource = null;
             }
-            gvSolicitud.DataBind();
 
+            gvSolicitud.DataBind();
         }
 
         protected void CargarComboSolicitante()
         {
             ddlSolicitante.Items.Clear();
+            ddlSolicitante.Items.Add(new ListItem("Todos", "#"));
             using (SP sp = new SP("bd_reapp"))
             {
                 DataTable dt = new UsuarioController().GetComboSolicitante();
@@ -269,7 +267,7 @@ namespace REApp.Forms
             OcultarMostrarPanelesABM(true);
 
             CargarComboModalSolicitante();
-            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+            ddlModalSolicitante.SelectedValue = IdUsuario.ToCryptoID();
             ddlModalSolicitante.Enabled = false;
 
             CargarComboModalActividades();

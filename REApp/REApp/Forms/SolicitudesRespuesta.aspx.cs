@@ -3,7 +3,6 @@ using SelectPdf;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -104,7 +103,7 @@ namespace REApp.Forms
         {
             using (SP sp = new SP("bd_reapp"))
             {
-                int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+                int IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
 
                 DataTable dt = sp.Execute("usp_GetTripulacionDeSolicitud",
                     P.Add("IdSolicitud", IdSolicitud),
@@ -128,20 +127,20 @@ namespace REApp.Forms
             DataTable dt = null;
             using (SP sp = new SP("bd_reapp"))
             {
+                List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+                parameters.Add(P.Add("IdEstadoSolicitud1", 5));
+                parameters.Add(P.Add("IdEstadoSolicitud2", 6));
+                parameters.Add(P.Add("IdEstadoSolicitud3", 7));
+                parameters.Add(P.Add("IdEstadoSolicitud4", 8));
+                parameters.Add(P.Add("IdEstadoSolicitud5", 12));
+                parameters.Add(P.Add("IdEstadoSolicitud6", 10));
                 if (!ddlSolicitante.SelectedItem.Value.Equals("#"))
                 {
-                    int s = ddlSolicitante.SelectedItem.Value.ToIntID();
-                    dt = sp.Execute("usp_GetSolicitudesPorEstado",
-                        P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()),
-                        P.Add("IdEstadoSolicitud1", 5),
-                        P.Add("IdEstadoSolicitud2", 6),
-                        P.Add("IdEstadoSolicitud3", 7),
-                        P.Add("IdEstadoSolicitud4", 8),
-                        P.Add("IdEstadoSolicitud5", 12),
-                        P.Add("IdEstadoSolicitud6", 10)
-                        );
+                    parameters.Add(P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()));
                 }
+                dt = sp.Execute("usp_GetSolicitudesPorEstado", parameters.ToArray());
             }
+
             if (dt != null && dt.Rows.Count > 0)
             {
                 gvSolicitud.DataSource = dt;
@@ -150,13 +149,14 @@ namespace REApp.Forms
             {
                 gvSolicitud.DataSource = null;
             }
-            gvSolicitud.DataBind();
 
+            gvSolicitud.DataBind();
         }
 
         protected void CargarComboSolicitante()
         {
             ddlSolicitante.Items.Clear();
+            ddlSolicitante.Items.Add(new ListItem("Todos", "#"));
             using (SP sp = new SP("bd_reapp"))
             {
                 DataTable dt = new UsuarioController().GetComboSolicitante();
@@ -420,7 +420,7 @@ namespace REApp.Forms
             OcultarMostrarPanelesABM(true);
 
             CargarComboModalSolicitante();
-            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+            ddlModalSolicitante.SelectedValue = IdUsuario.ToCryptoID();
             ddlModalSolicitante.Enabled = false;
 
             CargarComboModalActividades();
@@ -501,7 +501,7 @@ namespace REApp.Forms
                 //Por ende, recupero los Vants de la Solicitud + los del Usuario
                 dt = new SP("bd_reapp").Execute("usp_GetVantsDeSolicitud",
                     P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt()),
-                    P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID())
+                    P.Add("IdUsuario", ddlModalSolicitante.SelectedValue.ToIntID())
                 );
 
                 if (dt.Rows.Count > 0)

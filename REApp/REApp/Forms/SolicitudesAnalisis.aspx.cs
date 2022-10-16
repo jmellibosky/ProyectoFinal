@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -108,8 +107,6 @@ namespace REApp.Forms
         {//OBTIENE TODOS LOS INTERESADOS
             using (SP sp = new SP("bd_reapp"))
             {
-                int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
-
                 DataTable dt = sp.Execute("usp_GetInteresados"
                 );
 
@@ -129,7 +126,7 @@ namespace REApp.Forms
         {//OBTIENE LOS INTERESADOS VINCULADOS A UNA SOLICITUD Y LOS NO VINCULADOS
             using (SP sp = new SP("bd_reapp"))
             {
-                int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+                int IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
 
                 DataTable dt = sp.Execute("usp_GetInteresadosVinculadosSolicitud",
                     P.Add("IdSolicitud", IdSolicitud)
@@ -169,7 +166,7 @@ namespace REApp.Forms
         {
             using (SP sp = new SP("bd_reapp"))
             {
-                int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+                int IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
 
                 DataTable dt = sp.Execute("usp_GetTripulacionDeSolicitud",
                     P.Add("IdSolicitud", IdSolicitud),
@@ -193,20 +190,16 @@ namespace REApp.Forms
             DataTable dt = null;
             using (SP sp = new SP("bd_reapp"))
             {
+                List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+                parameters.Add(P.Add("IdEstadoSolicitud1", 2));
+                parameters.Add(P.Add("IdEstadoSolicitud2", 9));
                 if (!ddlSolicitante.SelectedItem.Value.Equals("#"))
                 {
-                    int s = ddlSolicitante.SelectedItem.Value.ToIntID();
-                    dt = sp.Execute("usp_GetSolicitudesPorEstado",
-                        P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()),
-                        P.Add("IdEstadoSolicitud1", 2),
-                        P.Add("IdEstadoSolicitud2", 9),
-                        P.Add("IdEstadoSolicitud3", null),
-                        P.Add("IdEstadoSolicitud4", null),
-                        P.Add("IdEstadoSolicitud5", null),
-                        P.Add("IdEstadoSolicitud6", null)
-                        );
+                    parameters.Add(P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()));
                 }
+                dt = sp.Execute("usp_GetSolicitudesPorEstado", parameters.ToArray());
             }
+
             if (dt != null && dt.Rows.Count > 0)
             {
                 gvSolicitud.DataSource = dt;
@@ -215,13 +208,14 @@ namespace REApp.Forms
             {
                 gvSolicitud.DataSource = null;
             }
-            gvSolicitud.DataBind();
 
+            gvSolicitud.DataBind();
         }
 
         protected void CargarComboSolicitante()
         {
             ddlSolicitante.Items.Clear();
+            ddlSolicitante.Items.Add(new ListItem("Todos", "#"));
             using (SP sp = new SP("bd_reapp"))
             {
                 DataTable dt = new UsuarioController().GetComboSolicitante();
@@ -376,60 +370,60 @@ namespace REApp.Forms
         {
             if (e.CommandName.Equals("Detalle"))
             { // Detalle
-            int IdSolicitud = e.CommandArgument.ToString().ToInt();
-            Models.Solicitud Solicitud = new Models.Solicitud().Select(IdSolicitud);
+                int IdSolicitud = e.CommandArgument.ToString().ToInt();
+                Models.Solicitud Solicitud = new Models.Solicitud().Select(IdSolicitud);
 
-            int IdUsuario = Solicitud.IdUsuario;
-            Models.Usuario Usuario = new Models.Usuario().Select(IdUsuario);
+                int IdUsuario = Solicitud.IdUsuario;
+                Models.Usuario Usuario = new Models.Usuario().Select(IdUsuario);
 
-            int IdEstado = (int)Solicitud.IdEstadoSolicitud;
-            Models.EstadoSolicitud Estado = new Models.EstadoSolicitud().Select(IdEstado);
+                int IdEstado = (int)Solicitud.IdEstadoSolicitud;
+                Models.EstadoSolicitud Estado = new Models.EstadoSolicitud().Select(IdEstado);
 
-            int IdModalidad = Solicitud.IdModalidad;
-            Models.Modalidad Modalidad = new Models.Modalidad().Select(IdModalidad);
+                int IdModalidad = Solicitud.IdModalidad;
+                Models.Modalidad Modalidad = new Models.Modalidad().Select(IdModalidad);
 
-            LimpiarModal();
-            OcultarMostrarPanelesABM(true);
+                LimpiarModal();
+                OcultarMostrarPanelesABM(true);
 
-            CargarComboModalSolicitante();
-            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
-            ddlModalSolicitante.Enabled = false;
+                CargarComboModalSolicitante();
+                ddlModalSolicitante.SelectedValue = IdUsuario.ToCryptoID();
+                ddlModalSolicitante.Enabled = false;
 
-            CargarComboModalActividades();
-            CargarComboModalSoloModalidades();
+                CargarComboModalActividades();
+                CargarComboModalSoloModalidades();
 
-            ddlModalActividad.SelectedValue = Modalidad.IdActividad.ToCryptoID().ToString();
-            ddlModalModalidad.SelectedValue = Solicitud.IdModalidad.ToCryptoID().ToString();
+                ddlModalActividad.SelectedValue = Modalidad.IdActividad.ToCryptoID().ToString();
+                ddlModalModalidad.SelectedValue = Solicitud.IdModalidad.ToCryptoID().ToString();
 
-            hdnIdSolicitud.Value = IdSolicitud.ToString();
-            txtModalNombreSolicitud.Text = Solicitud.Nombre;
+                hdnIdSolicitud.Value = IdSolicitud.ToString();
+                txtModalNombreSolicitud.Text = Solicitud.Nombre;
 
-            txtModalObservaciones.Text = Solicitud.Observaciones;
-            txtModalEstadoSolicitud.Text = Estado.Nombre;
+                txtModalObservaciones.Text = Solicitud.Observaciones;
+                txtModalEstadoSolicitud.Text = Estado.Nombre;
 
-            txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
-            txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
-            txtModalFechaHasta.Enabled = false;
-            txtModalFechaDesde.Enabled = false;
+                txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
+                txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
+                txtModalFechaHasta.Enabled = false;
+                txtModalFechaDesde.Enabled = false;
 
-            DateTime FHActualiz = (DateTime)Solicitud.FHUltimaActualizacionEstado;
-            if (FHActualiz != null)
-            {
-                txtModalFechaUltimaActualizacion.Text = FHActualiz.ToString();
-            }
-            txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
+                DateTime FHActualiz = (DateTime)Solicitud.FHUltimaActualizacionEstado;
+                if (FHActualiz != null)
+                {
+                    txtModalFechaUltimaActualizacion.Text = FHActualiz.ToString();
+                }
+                txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
 
-            chkVant.Checked = Solicitud.IdAeronave.HasValue;
-            chkVant_CheckedChanged(null, null);
+                chkVant.Checked = Solicitud.IdAeronave.HasValue;
+                chkVant_CheckedChanged(null, null);
 
-            GetTripulantesDeSolicitud(IdSolicitud);
-            GetUbicacionesDeSolicitud(IdSolicitud);
+                GetTripulantesDeSolicitud(IdSolicitud);
+                GetUbicacionesDeSolicitud(IdSolicitud);
 
-            MostrarABM();
+                MostrarABM();
 
 
-            btnGenerarKMZ.Visible = true;
-            HabilitarDeshabilitarTxts(false);
+                btnGenerarKMZ.Visible = true;
+                HabilitarDeshabilitarTxts(false);
             }
             //Para vinculacion de interesados
             if (e.CommandName.Equals("VincularInteresados"))
@@ -438,7 +432,7 @@ namespace REApp.Forms
                 GetInteresados();
                 //GetInteresadosSoloVinculadosSolicitud1(hdnIdSolicitudInteresado.Value.ToInt());
                 MostrarInteresados();
-                
+
             }
             if (e.CommandName.Equals("PasarACoordinacion"))
             {
@@ -485,7 +479,7 @@ namespace REApp.Forms
                 //Por ende, recupero los Vants de la Solicitud + los del Usuario
                 dt = new SP("bd_reapp").Execute("usp_GetVantsDeSolicitud",
                     P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt()),
-                    P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID())
+                    P.Add("IdUsuario", ddlModalSolicitante.SelectedValue.ToIntID())
                 );
 
                 if (dt.Rows.Count > 0)
@@ -562,7 +556,7 @@ namespace REApp.Forms
         {
             for (int i = 0; i < gvInteresados.Rows.Count; i++)
             {
-               
+
                 if (((CheckBox)gvInteresados.Rows[i].FindControl("chkInteresadoVinculado")).Checked)
                 { // SI ESTÁ CHEQUEADO
                   // CREO OBJETO INTERESADO SOLICITUD
@@ -592,11 +586,11 @@ namespace REApp.Forms
                 { // SI ESTÁ CHEQUEADO
                   //Logica Mails
                     string email = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnEmail")).Value.ToString();
-                    string nombre= ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnNombre")).Value.ToString();
+                    string nombre = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnNombre")).Value.ToString();
                     int idInteresado = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnIdInteresadoVinculado")).Value.ToInt();
-                    EnviarMail(nombre, email, idInteresado, IdSolicitud);                   
+                    EnviarMail(nombre, email, idInteresado, IdSolicitud);
                 }
-                
+
             }
             PasarSolicitudACoordinacion(IdSolicitud);
             MostrarListado();
@@ -619,12 +613,12 @@ namespace REApp.Forms
             builder.AppendSaltoLinea(1);
             builder.AppendTexto("Por favor, ingrese en el siguiente enlace para ver los detalles de esta solicitud y brindar sus recomendaciones.");
             builder.AppendSaltoLinea(2);
-            builder.AppendURL(url, "Solicitud de Reserva de Espacio Aéreo");;
+            builder.AppendURL(url, "Solicitud de Reserva de Espacio Aéreo"); ;
 
             string cuerpo = builder.ConstruirHTML();
 
             MailController mail = new MailController("RECOMENDACION REA", cuerpo);
-            
+
             mail.Add(nombre, "joaquinm.utn@gmail.com");
 
             bool Exito = mail.Enviar();

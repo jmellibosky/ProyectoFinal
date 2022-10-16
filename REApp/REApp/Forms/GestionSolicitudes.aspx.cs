@@ -421,12 +421,12 @@ namespace REApp.Forms
                             { // SI ESTÁ CHEQUEADO
                                 // ASUMIMOS QUE EL VANT NO ESTÁ VINCULADO
                                 bool Existe = false;
-                                
+
                                 // RECORRO LOS VANTS ANTES DE LA EDICIÓN
                                 for (int j = 0; j < dt.Rows.Count; j++)
                                 {
                                     if (gvVANTs.Rows[i].Cells[0].Text.Equals(dt.Rows[j]["IdVant"].ToString()))
-                                    { 
+                                    {
                                         // POR LEGIBILIDAD DESMENUCÉ ESTE IF
                                         if (dt.Rows[j]["Checked"].ToString().Equals("1"))
                                         {
@@ -436,7 +436,7 @@ namespace REApp.Forms
                                         }
                                     }
                                 }
-                                
+
                                 if (!Existe)
                                 { // SI SE RECORRIÓ TODO EL LISTADO Y EL VANT NO ESTÁ VINCULADO
                                     // CREO OBJETO VANTSOLICITUD
