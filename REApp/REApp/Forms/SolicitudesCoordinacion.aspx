@@ -351,7 +351,7 @@
                                                     <Columns>
                                                         <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
                                                         <asp:BoundField DataField="IdInteresado" HeaderText="NRO. APROBADOR" ItemStyle-Width="20%" />
-                                                        <asp:BoundField DataField="Interesado" HeaderText="INTERESADO" ItemStyle-Width="20%" />
+                                                        <asp:BoundField DataField="NombreInteresado" HeaderText="INTERESADO" ItemStyle-Width="20%" />
                                                         <asp:BoundField DataField="NombreProvincia" HeaderText="PROVINCIA" ItemStyle-Width="20%" />
                                                         <asp:BoundField DataField="Estado" HeaderText="NOMBREESTADO" ItemStyle-Width="20%" />
                                                         <asp:BoundField DataField="FHCoordinacion" HeaderText="FECHA APROBACIÓN" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
