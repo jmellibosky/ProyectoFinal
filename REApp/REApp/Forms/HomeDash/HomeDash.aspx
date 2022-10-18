@@ -36,7 +36,7 @@
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="HomeForm.aspx">Home
                                 <i class="fa fa-home"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">Gestión de Solicitudes
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes.aspx">Gestión de Solicitudes
                                 <i class="fas fa-plane-departure"></i>
                             </a>
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">Gestión de Tripulación
@@ -57,7 +57,7 @@
                     <ul id="side-menu2" class="nav">
                         <%-- Solicitante --%>
                         <li id="liSolicitante" style="" runat="server">
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/Home.aspx">Home
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="HomeForm.aspx">Home
                                 <i class="fa fa-home"></i>
                             </a>
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">Mis solicitudes
@@ -78,7 +78,7 @@
                     <ul id="side-menu3" class="nav">
                         <%-- Operador --%>
                         <li id="liOperador" style="" runat="server">
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/Home.aspx">Home
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="HomeForm.aspx">Home
                                 <i class="fa fa-home"></i>
                             </a>
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">Gestión de Solicitudes

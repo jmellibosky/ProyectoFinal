@@ -144,23 +144,6 @@ namespace REApp.Forms
             }
         }
 
-        protected void GetTripulantesDeUsuario(int IdUsuario)
-        {
-            using (SP sp = new SP("bd_reapp"))
-            {
-                DataTable dt = sp.Execute("usp_GetTripulacionDeUsuario", P.Add("IdUsuario", IdUsuario));
-
-                if (dt.Rows.Count > 0)
-                {
-                    gvTripulacion.DataSource = dt;
-                }
-                else
-                {
-                    gvTripulacion.DataSource = null;
-                }
-                gvTripulacion.DataBind();
-            }
-        }
 
         protected void GetTripulantesDeSolicitud(int IdSolicitud)
         {
@@ -619,7 +602,7 @@ namespace REApp.Forms
 
             MailController mail = new MailController("RECOMENDACION REA", cuerpo);
 
-            mail.Add(nombre, "joaquinm.utn@gmail.com");
+            mail.Add(nombre, email);
 
             bool Exito = mail.Enviar();
         }

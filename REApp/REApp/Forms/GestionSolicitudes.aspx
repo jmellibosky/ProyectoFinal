@@ -147,7 +147,7 @@
                             <asp:DropDownList runat="server" ID="ddlSolicitante" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" CssClass="form-control select-single" Width="300px" />
                             <br />
                             <div class="text-center">
-                                <asp:Button ID="btnFiltrar" Text="Filtrar" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnFiltrar_Click" />
+                                <asp:Button ID="btnFiltrar" Text="Filtrar" CssClass="btn btn-info btn-dark" runat="server" Visible="false" OnClick="btnFiltrar_Click" />
                             </div>
                             <div class="text-center">
                                 <asp:Button ID="btnPrueba" Visible="false" Text="Test Mail" CssClass="btn btn-dark" runat="server" OnClick="btnPrueba_Click" />
