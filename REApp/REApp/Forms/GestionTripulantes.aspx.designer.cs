@@ -330,6 +330,15 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Label lblCertM;
 
         /// <summary>
+        /// Control hdnFuCM.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnFuCM;
+
+        /// <summary>
         /// Control pnlFuCMTripulante.
         /// </summary>
         /// <remarks>
@@ -391,6 +400,15 @@ namespace REApp.Forms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
+
+        /// <summary>
+        /// Control hdnFuCertComp.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnFuCertComp;
 
         /// <summary>
         /// Control pnlFUCertCompetenciaTripulante.

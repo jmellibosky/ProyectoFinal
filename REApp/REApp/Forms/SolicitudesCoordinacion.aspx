@@ -141,7 +141,7 @@
                             <br />
 
                             <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
-                                <div class="row" style="overflow: auto; height: 500px; width: 1400px;">
+                                <div class="row" style="overflow: auto; height: 450px; width: 1450px;">
                                     <asp:UpdatePanel ID="upSolicitudes" Style="width: 100%;" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                                         <ContentTemplate>
 

@@ -128,6 +128,7 @@ namespace REApp.Forms
         
         protected void Upload_Click(object sender, EventArgs e)
         {
+
             if (FileUpload1.HasFile)
             {
                 //En panel admin se hardcodea con tipoDoc 1 hasta q se haga el codigo
@@ -149,6 +150,10 @@ namespace REApp.Forms
                 int idTipoDoc = lnkUpload4.CommandArgument.ToInt();
                 uploadMethod(FileUpload4, idTipoDoc);
             }
+            CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM);
+            CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia);
+            CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant);
+
         }
 
         protected void uploadMethod(System.Web.UI.WebControls.FileUpload FileUpload,int idTipoDoc)
@@ -281,6 +286,9 @@ namespace REApp.Forms
                     P.Add("IdDocumento", Documento.IdDocumento)
                 );
             }
+            CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM);
+            CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia);
+            CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant);
             BindGrid();
         }
 

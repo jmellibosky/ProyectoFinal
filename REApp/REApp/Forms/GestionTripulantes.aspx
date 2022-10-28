@@ -167,12 +167,12 @@
                                 <%-- Combo Solicitantes --%>
                                 <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group" runat="server" ID="pnlSolicitante">
                                     <asp:Label Text="Solicitantes" runat="server" />
-                                    <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" />
+                                    <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" AutoPostBack="true"  OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged"/>
                                 </asp:Panel>
                             </div>
                             <br />
                             <div class="col-12 text-center" id="divFiltrar" runat="server">
-                                <asp:Button ID="btnFiltrar" Text="Filtrar" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnFiltrar_Click" />
+                                <asp:Button ID="btnFiltrar" Text="Filtrar" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnFiltrar_Click" Visible="false" />
                             </div>
                             <br />
                             <div class="row">
@@ -200,7 +200,7 @@
                             </div>
                             <div class="row">
                                 <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
-                                    <div class="row" style="overflow: auto; height: 500px; width: 1200px;">
+                                    <div class="row" style="overflow: auto; height: 400px; width: 1175px;">
                                         <asp:UpdatePanel ID="upTripulantes" Style="width: 100%;" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                             <ContentTemplate>
                                                 <asp:GridView
@@ -221,10 +221,10 @@
                                                         <asp:TemplateField HeaderText="ACCIONES" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center">
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="btnEditar" CommandName="Editar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
-                                                            <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i>    
+                                                            <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; color:#525252' ></i>    
                                                                 </asp:LinkButton>
                                                                 <asp:LinkButton ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
-                                                            <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; margin-left: 25px; color:#525252' ></i>
+                                                            <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; color:#525252' ></i>
                                                                 </asp:LinkButton>
                                                                 <asp:LinkButton ID="btnVerDetalle" CommandName="Detalle" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
                                                             <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
@@ -235,7 +235,7 @@
                                                 </asp:GridView>
                                             </ContentTemplate>
                                             <Triggers>
-                                                <asp:PostBackTrigger ControlID="gvTripulantes" />
+                                                <asp:PostBackTrigger ControlID="gvTripulantes" />                                            
                                             </Triggers>
                                         </asp:UpdatePanel>
                                     </div>
@@ -322,6 +322,7 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <asp:Label runat="server" CssClass="font-weight-bold" ForeColor="black" ID="lblCertM">Certificado Médico</asp:Label>
+                                                <asp:HiddenField ID="hdnFuCM" runat="server" />
                                                 <hr />
                                                 <asp:Panel runat="server" ID="pnlFuCMTripulante" Visible="true">
                                                     <div class="row">
@@ -332,7 +333,7 @@
                                                     <asp:GridView ID="gvCertMedicoTripulante"
                                                         runat="server"
                                                         AutoGenerateColumns="false"
-                                                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                                                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvCertMedicoTripulante_RowDataBound">
                                                         <AlternatingRowStyle BackColor="white" />
                                                         <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="XX-Small" ForeColor="White" />
                                                         <RowStyle BackColor="#e1dddd" />
@@ -378,6 +379,7 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <asp:Label runat="server" CssClass="font-weight-bold" ForeColor="black" ID="Label1">Certificado de Competencia</asp:Label>
+                                                <asp:HiddenField ID="hdnFuCertComp" runat="server" />
                                                 <hr />
                                                 <asp:Panel runat="server" ID="pnlFUCertCompetenciaTripulante" Visible="true">
                                                     <div class="row">
@@ -388,7 +390,7 @@
                                                     <asp:GridView ID="gvCertCompetenciaTripulante"
                                                         runat="server"
                                                         AutoGenerateColumns="false"
-                                                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                                                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvCertCompetenciaTripulante_RowDataBound">
                                                         <AlternatingRowStyle BackColor="white" />
                                                         <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="XX-Small" ForeColor="White" />
                                                         <RowStyle BackColor="#e1dddd" />
@@ -447,6 +449,8 @@
                 </ContentTemplate>
                 <Triggers>
                     <asp:PostBackTrigger ControlID="btnGuardar" />
+                    <asp:PostBackTrigger ControlID="gvCertMedicoTripulante" />
+                    <asp:PostBackTrigger ControlID="gvCertCompetenciaTripulante" />
                 </Triggers>
             </asp:UpdatePanel>
         </ContentTemplate>
@@ -454,6 +458,7 @@
             <asp:PostBackTrigger ControlID="btnNuevo" />
             <asp:PostBackTrigger ControlID="btnVolver" />
             <asp:PostBackTrigger ControlID="btnFiltrar" />
+             <asp:PostBackTrigger ControlID="ddlSolicitante" />
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>

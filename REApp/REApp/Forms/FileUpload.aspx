@@ -162,7 +162,7 @@
         </asp:Panel>
         <%--DGV Admin--%>
         <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
-            <div class="row" style="overflow: auto; height: 400px; width: 1100px;">
+            <div class="row" style="overflow: auto; height: 375px; width: 1100px;">
                 <asp:Panel ID="upDoc" Style="width: 100%;" runat="server">
                     <asp:GridView ID="gvArchivos"
                         runat="server"
@@ -177,13 +177,13 @@
                             <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
                             <asp:BoundField DataField="NombreUsuario" HeaderText="PROPIETARIO" ItemStyle-Width="10%" />
                             <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
-                            <asp:BoundField DataField="Extension" HeaderText="EXTENSION" ItemStyle-Width="10%" />
-                            <asp:BoundField DataField="TipoMIME" HeaderText="TIPO MIME" ItemStyle-Width="10%" />
+                            <asp:BoundField DataField="Extension" HeaderText="EXTENSION" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                            <asp:BoundField DataField="IdTipoDocumento" HeaderText="TIPO DOC" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                             <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                             <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
 
                             <%-- Boton con link para descargar archivo--%>
-                            <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
+                            <asp:TemplateField ItemStyle-Width="10%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click1"
                                         CommandArgument='<%# Eval("IdDocumento") %>'>

@@ -197,26 +197,26 @@
 
                         <Columns>  
                             <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                            <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO"   ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
-                            <asp:BoundField DataField="Nombre" HeaderText="NOMBRE"          ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center"/>
-                            <asp:BoundField DataField="Apellido" HeaderText="APELLIDO"      ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO"   ItemStyle-Width="5%"/>
+                            <asp:BoundField DataField="Nombre" HeaderText="NOMBRE"          ItemStyle-Width="15%"/>
+                            <asp:BoundField DataField="Apellido" HeaderText="APELLIDO"      ItemStyle-Width="15%"/>
                             <asp:BoundField DataField="Email" HeaderText="EMAIL"            ItemStyle-Width="20%"/>
-                            <asp:BoundField DataField="NombreRol" HeaderText="ROL"          ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center"/>
-                            <asp:BoundField DataField="Dni" HeaderText="DNI"                ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center"/>
-                            <asp:BoundField DataField="Telefono" HeaderText="TELEFONO"      ItemStyle-Width="15%"/>
+                            <asp:BoundField DataField="NombreRol" HeaderText="ROL"          ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="Dni" HeaderText="DNI"                ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="Telefono" HeaderText="TELEFONO"      ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                             <asp:BoundField DataField="Cuit" HeaderText="CUIT"              ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center"/>
 
                             <%-- Boton con link para ver detalles solicitud--%>
-                            <asp:TemplateField  ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="ACCIONES">                
+                            <asp:TemplateField  ItemStyle-Width="25%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">                
                                 <ItemTemplate>  
                                     <asp:LinkButton ID="btnUpdate" CommandName="UpdateUser" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
-                                        <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i>
+                                        <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; color:#525252' ></i>
                                     </asp:LinkButton> 
                                     <asp:LinkButton ID="btnEliminarUsuario" CommandName="DeleteUser" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
-                                        <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i> 
+                                        <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; color:#525252' ></i> 
                                     </asp:LinkButton>
                                     <asp:LinkButton ID="btnDetalle" CommandName="DisplayUser" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
-                                        <i class="fa fa-eye" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i> 
+                                        <i class="fa fa-eye" aria-hidden="true" style='font-size:15px; color:#525252' ></i> 
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField> 

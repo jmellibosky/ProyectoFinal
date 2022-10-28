@@ -24,17 +24,21 @@ namespace REApp.Forms
 
             if (!IsPostBack)
             {
+                hdnFuCM.Value = "";
+                hdnFuCertComp.Value = "";
                 //Si tiene rol Admin 
                 if ( idRolInt == 1)
                 {
                     CargarComboSolicitante();
                     btnNuevo.Visible = false;
+                    filtrarTripulantesXSolicitante();
                 }
                 //Si tiene rol Operador
                 if (idRolInt == 2)
                 {
                     CargarComboSolicitante();
                     btnNuevo.Visible = false;
+                    filtrarTripulantesXSolicitante();
                 }
                 //Si tiene rol Solicitante
                 if (idRolInt == 3)
@@ -60,6 +64,7 @@ namespace REApp.Forms
                     LinkButton lnkBtn2 = (LinkButton)e.Row.FindControl("btnEditar");
                     lnkBtn2.Visible = false;
                 }
+                
             }
         }
 
@@ -90,7 +95,7 @@ namespace REApp.Forms
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
-        filtrarTripulantesXSolicitante();
+            filtrarTripulantesXSolicitante();
         }
 
         protected void filtrarTripulantesXSolicitante()
@@ -122,7 +127,9 @@ namespace REApp.Forms
             Models.Tripulacion Tripulacion = new Models.Tripulacion().Select(IdTripulacion);
 
             if (e.CommandName.Equals("Editar"))
-            { // Detalle
+            { // Editar
+                hdnFuCM.Value = "Editar";
+                hdnFuCertComp.Value = "Editar";
                 LimpiarModal();
 
                 CargarComboModalSolicitante();
@@ -141,12 +148,15 @@ namespace REApp.Forms
 
                 CargarDoc(2, gvCertMedicoTripulante, pnlFuCMTripulante, pnlFechaVencimientoCMTripulante, idTripulacion);
                 CargarDoc(3, gvCertCompetenciaTripulante, pnlFUCertCompetenciaTripulante, pnlFechaVencimientoCertCompetenciaTripulante, idTripulacion);
-
+                
                 MostrarABM();
                 habilitarDeshabilitarInputs(true);
             }
             if (e.CommandName.Equals("Detalle"))
             {//Detalle
+                hdnFuCM.Value = "Detalle";
+                hdnFuCertComp.Value = "Detalle";
+
                 LimpiarModal();
 
                 CargarComboModalSolicitante();
@@ -434,6 +444,8 @@ namespace REApp.Forms
             {//Buscar otra forma de hacer
                 btnNuevo.Visible = false;
             }
+            hdnFuCM.Value = "";
+            hdnFuCertComp.Value = "";
         }
 
         protected void btnCancelarEliminacion_Click(object sender, EventArgs e)
@@ -568,6 +580,49 @@ namespace REApp.Forms
                 sp.Execute("__DocumentoDelete_v1",
                     P.Add("IdDocumento", Documento.IdDocumento)
                 );
+            }
+            int idTripulacion = hdnIdTripulacion.Value.ToInt();
+            CargarDoc(2, gvCertMedicoTripulante, pnlFuCMTripulante, pnlFechaVencimientoCMTripulante, idTripulacion);
+            CargarDoc(3, gvCertCompetenciaTripulante, pnlFUCertCompetenciaTripulante, pnlFechaVencimientoCertCompetenciaTripulante, idTripulacion);
+        }
+
+        protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarTripulantesXSolicitante();
+        }
+
+        protected void gvCertMedicoTripulante_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+
+                LinkButton lnkBtn = (LinkButton)e.Row.FindControl("lnkEliminarArchivo");
+                    
+                if (hdnFuCM.Value == "Detalle")
+                {
+                    lnkBtn.Visible = false;
+                }
+                if(hdnFuCM.Value == "Editar")
+                {
+                    lnkBtn.Visible = true;
+                }
+            }
+        }
+
+        protected void gvCertCompetenciaTripulante_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                LinkButton lnkBtn = (LinkButton)e.Row.FindControl("lnkEliminarArchivo");
+
+                if (hdnFuCertComp.Value == "Detalle")
+                {
+                    lnkBtn.Visible = false;
+                }
+                if (hdnFuCertComp.Value == "Editar")
+                {
+                    lnkBtn.Visible = true;
+                }
             }
         }
 
