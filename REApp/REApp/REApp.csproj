@@ -157,6 +157,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="Forms\CambiarContrasena.aspx" />
     <Content Include="Forms\FileUpload.aspx" />
     <Content Include="Forms\ForoMensajes.aspx" />
     <Content Include="Forms\CoordinacionInteresado.aspx" />
@@ -178,6 +179,7 @@
     <Content Include="Forms\UserLogin.aspx" />
     <Content Include="Forms\UserRegister.aspx" />
     <Content Include="Forms\GestionTripulantes.aspx" />
+    <Content Include="Forms\UserRestauracionFinalizada.aspx" />
     <Content Include="Forms\__Ejemplos.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -321,6 +323,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CambiarContrasena.aspx.cs">
+      <DependentUpon>CambiarContrasena.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\CambiarContrasena.aspx.designer.cs">
+      <DependentUpon>CambiarContrasena.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FileUpload.aspx.cs">
       <DependentUpon>FileUpload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -446,6 +455,13 @@
     </Compile>
     <Compile Include="Forms\GestionTripulantes.aspx.designer.cs">
       <DependentUpon>GestionTripulantes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserRestauracionFinalizada.aspx.cs">
+      <DependentUpon>UserRestauracionFinalizada.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\UserRestauracionFinalizada.aspx.designer.cs">
+      <DependentUpon>UserRestauracionFinalizada.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\__Ejemplos.aspx.cs">
       <DependentUpon>__Ejemplos.aspx</DependentUpon>
