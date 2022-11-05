@@ -393,16 +393,17 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-                                                <div class="alert alert-primary" role="alert">
+                                                <asp:Panel runat="server" ID="pnlMensajes" class="alert alert-primary" role="alert">
                                                     <asp:Repeater ID="rptMensajes" runat="server">
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblRptNombreInteresado" Font-Bold="true" runat="server" Text='<%# Eval("NombreInteresado").ToString() + ", " + Eval("FHCoordinacion").ToString() %>' />
                                                             <asp:HiddenField ID="hdnRptIdInteresado" Value='<%# Eval("IdInteresado") %>' runat="server" />
-                                                            <hr />
+                                                            <br />
                                                             <asp:Label ID="lblRptMensajeInteresado" runat="server" Text='<%# Eval("MensajeInteresado").ToString() %>' />
+                                                            <hr />
                                                         </ItemTemplate>
                                                     </asp:Repeater>
-                                                </div>
+                                                </asp:Panel>
                                             </div>
                                         </div>
                                         <hr />

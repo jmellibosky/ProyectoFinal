@@ -333,10 +333,12 @@ namespace REApp.Forms
             if (dt.Rows.Count > 0)
             {
                 rptMensajes.DataSource = dt;
+                pnlMensajes.Visible = true;
             }
             else
             {
                 rptMensajes.DataSource = null;
+                pnlMensajes.Visible = false;
             }
             rptMensajes.DataBind();
         }
