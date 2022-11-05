@@ -59,6 +59,8 @@ namespace REApp.Forms
                 {
                     CargarComboSolicitante();
                     BindGrid();
+                    pnlAcciones.Visible = true;
+                    btnAgregarUbicacion.Visible = false;
                 }
                 if (idRolInt == 2)
                 {
@@ -66,6 +68,8 @@ namespace REApp.Forms
                     BindGrid();
                     btnNuevo.Visible = false;
                     btnEstadoOperador.Visible = true;
+                    pnlAcciones.Visible = true;
+                    btnAgregarUbicacion.Visible = false;
                 }
                 //Rol Solicitante
                 if (idRolInt == 3)
@@ -74,7 +78,7 @@ namespace REApp.Forms
                     ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
                     ddlSolicitante.Enabled = false;
                     BindGrid();
-
+                    pnlAcciones.Visible = false;
                     btnNuevo.Visible = true;
                 }
             }
@@ -727,8 +731,8 @@ namespace REApp.Forms
             txtModalObservaciones.Text = Solicitud.Observaciones;
             txtModalEstadoSolicitud.Text = Estado.Nombre;
 
-            txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
-            txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
+            txtModalFechaDesde.Text = Solicitud.FHDesde.ToString("yyyy-MM-dd");
+            txtModalFechaHasta.Text = Solicitud.FHHasta.ToString("yyyy-MM-dd");
             txtModalFechaHasta.Enabled = false;
             txtModalFechaDesde.Enabled = false;
 
@@ -875,12 +879,12 @@ namespace REApp.Forms
 
                                     if (!Latitud.Equals("") && !Longitud.Equals(""))
                                     {
-                                        Ubicacion.Altura = Altura.ToDouble();
+                                        Ubicacion.Altura = Altura.Replace('.',',').ToDouble();
 
                                         Models.PuntoGeografico PuntoGeografico = new Models.PuntoGeografico();
                                         PuntoGeografico.EsPoligono = true;
-                                        PuntoGeografico.Latitud = Latitud.ToDouble();
-                                        PuntoGeografico.Longitud = Longitud.ToDouble();
+                                        PuntoGeografico.Latitud = Latitud.Replace('.',',').ToDouble();
+                                        PuntoGeografico.Longitud = Longitud.Replace('.',',').ToDouble();
 
                                         PuntosGeograficos.Add(PuntoGeografico);
                                     }
@@ -893,15 +897,15 @@ namespace REApp.Forms
                 }
                 else
                 {
-                    Ubicacion.Altura = txtCircunferenciaAltura.Text.ToDouble();
+                    Ubicacion.Altura = txtCircunferenciaAltura.Text.Replace('.',',').Replace('.',',').ToDouble();
 
                     List<Models.PuntoGeografico> PuntosGeograficos = new List<Models.PuntoGeografico>();
 
                     Models.PuntoGeografico PuntoGeografico = new Models.PuntoGeografico();
                     PuntoGeografico.EsPoligono = false;
-                    PuntoGeografico.Latitud = txtCircunferenciaLatitud.Text.ToDouble();
-                    PuntoGeografico.Longitud = txtCircunferenciaLongitud.Text.ToDouble();
-                    PuntoGeografico.Radio = txtCircunferenciaRadio.Text.ToDouble();
+                    PuntoGeografico.Latitud = txtCircunferenciaLatitud.Text.Replace('.',',').Replace('.',',').ToDouble();
+                    PuntoGeografico.Longitud = txtCircunferenciaLongitud.Text.Replace('.',',').Replace('.',',').ToDouble();
+                    PuntoGeografico.Radio = txtCircunferenciaRadio.Text.Replace('.',',').Replace('.',',').ToDouble();
 
                     PuntosGeograficos.Add(PuntoGeografico);
 

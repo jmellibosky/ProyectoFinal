@@ -112,7 +112,6 @@
             cursor: pointer;
         }
     </style>
-
 </asp:Content>
 
 
@@ -127,18 +126,18 @@
     </div>
     <div style="text-align: end;">
         <asp:UpdatePanel runat="server">
-            <contenttemplate>
+            <ContentTemplate>
                 <asp:Button ID="btnNuevo" Text="Nueva Solicitud" CssClass="btn btn-primary btn-dark" runat="server" OnClick="btnNuevo_Click" />
                 <asp:Button ID="btnGenerarKMZ" Text="Generar KMZ" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnGenerarKMZ_Click" />
                 <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVolver_Click" />
-            </contenttemplate>
+            </ContentTemplate>
         </asp:UpdatePanel>
     </div>
     <br />
     <br />
 
     <asp:UpdatePanel ID="upForm" runat="server">
-        <contenttemplate>
+        <ContentTemplate>
             <asp:Panel ID="pnlListado" runat="server" Visible="true">
                 <div class="conteiner">
                     <div class="row">
@@ -156,7 +155,7 @@
                             <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
                                 <div class="row" style="overflow: auto; height: 425px; width: 1400px;">
                                     <asp:UpdatePanel ID="upSolicitudes" Style="width: 100%;" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
-                                        <contenttemplate>
+                                        <ContentTemplate>
 
                                             <asp:GridView
                                                 ID="gvSolicitud"
@@ -164,12 +163,12 @@
                                                 OnRowCommand="gvSolicitud_RowCommand"
                                                 AutoGenerateColumns="false"
                                                 CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvSolicitud_RowDataBound">
-                                                <alternatingrowstyle backcolor="white" />
-                                                <headerstyle backcolor="#20789f" font-bold="true" font-size="Large" forecolor="White" />
-                                                <rowstyle backcolor="#e1dddd" />
-                                                <selectedrowstyle backcolor="#669999" font-bold="true" forecolor="white" />
+                                                <AlternatingRowStyle BackColor="white" />
+                                                <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                <RowStyle BackColor="#e1dddd" />
+                                                <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
 
-                                                <columns>
+                                                <Columns>
                                                     <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
                                                     <asp:BoundField DataField="IdSolicitud" HeaderText="ID" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="NombreUsuario" HeaderText="SOLICITANTE" ItemStyle-Width="20%" />
@@ -179,7 +178,7 @@
 
                                                     <%-- Boton con link para ver detalles solicitud--%>
                                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="ACCIONES" ItemStyle-Width="10%">
-                                                        <itemtemplate>
+                                                        <ItemTemplate>
                                                             <asp:LinkButton ID="lnkVerDetalles" ToolTip="Ver Detalles" runat="server" OnClick="lnkVerDetalles_Click" CommandName="Detalle"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size: 15px; color: #525252' /></i>
@@ -193,11 +192,11 @@
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                                 <i class="fa fa-comments" aria-hidden="true" style='font-size: 15px; margin-left: 10px; color: #525252'></i>
                                                             </asp:LinkButton>
-                                                        </itemtemplate>
+                                                        </ItemTemplate>
                                                     </asp:TemplateField>
-                                                </columns>
+                                                </Columns>
                                             </asp:GridView>
-                                        </contenttemplate>
+                                        </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
                             </div>
@@ -208,24 +207,25 @@
 
             <asp:Panel ID="pnlABM" runat="server" Visible="false">
                 <br />
-                <div class="row">
+                <asp:Panel ID="pnlAcciones" runat="server" class="row">
                     <div class="col-12 alert alert-warning" role="alert">
                         <div class="row">
-                            <h5><asp:Label runat="server" Text="Acciones" /></h5>
+                            <h5>
+                                <asp:Label runat="server" Text="Acciones" /></h5>
                         </div>
                         <hr />
                         <div class="row justify-content-center">
                             <asp:Button runat="server" Text="Cambiar Estado a 'Siendo Analizada'" CssClass="btn btn-success" ID="btnEstadoOperador" Visible="false" />
                         </div>
                     </div>
-                </div>
+                </asp:Panel>
                 <br />
                 <div class="row">
                     <div class="col-12">
                         <br />
                         <div class="panel-body">
                             <asp:UpdatePanel ID="upModalABM" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
-                                <contenttemplate>
+                                <ContentTemplate>
                                     <div class="col-12">
                                         <%--SOLICITANTE Y NOMBRE DE SOLICITUD--%>
                                         <div class="row">
@@ -252,11 +252,11 @@
                                         <div class="row">
                                             <asp:Panel CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Fecha Desde" runat="server" />
-                                                <asp:TextBox runat="server" ID="txtModalFechaDesde" CssClass="form-control" />
+                                                <asp:TextBox runat="server" ID="txtModalFechaDesde" CssClass="form-control" TextMode="Date" />
                                             </asp:Panel>
                                             <asp:Panel CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Fecha Hasta" runat="server" />
-                                                <asp:TextBox runat="server" ID="txtModalFechaHasta" CssClass="form-control" />
+                                                <asp:TextBox runat="server" ID="txtModalFechaHasta" CssClass="form-control" TextMode="Date" />
                                             </asp:Panel>
                                             <asp:Panel ID="pnlModalFechaSolicitud" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Fecha de Solicitud" runat="server" />
@@ -295,7 +295,7 @@
                                             <asp:Label Text="Aeronave" runat="server" />
                                         </div>
                                         <asp:UpdatePanel runat="server">
-                                            <contenttemplate>
+                                            <ContentTemplate>
 
                                                 <%--AFECTACIÓN DE VANTS (SÓLO SI SE CHKVANT.CHECKED=FALSE)--%>
                                                 <asp:Panel ID="pnlSeleccionVants" Visible="true" runat="server">
@@ -311,12 +311,12 @@
                                                                             runat="server"
                                                                             AutoGenerateColumns="false"
                                                                             CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
-                                                                            <alternatingrowstyle backcolor="white" />
-                                                                            <headerstyle backcolor="#20789f" font-bold="true" font-size="Large" forecolor="White" />
-                                                                            <rowstyle backcolor="#e1dddd" />
-                                                                            <selectedrowstyle backcolor="#669999" font-bold="true" forecolor="white" />
+                                                                            <AlternatingRowStyle BackColor="white" />
+                                                                            <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                                            <RowStyle BackColor="#e1dddd" />
+                                                                            <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
 
-                                                                            <columns>
+                                                                            <Columns>
                                                                                 <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
                                                                                 <asp:BoundField DataField="IdVant" HeaderText="ID" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                                                 <asp:BoundField DataField="Marca" HeaderText="MARCA" ItemStyle-Width="20%" />
@@ -326,17 +326,12 @@
 
                                                                                 <%-- Boton con link para ver detalles solicitud--%>
                                                                                 <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
-                                                                                    <itemtemplate>
+                                                                                    <ItemTemplate>
                                                                                         <asp:HiddenField Value='<%# Eval("IdVant") %>' runat="server" ID="hdnIdVant" />
                                                                                         <asp:CheckBox runat="server" ID="chkVANTVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
-                                                                                    </itemtemplate>
+                                                                                    </ItemTemplate>
                                                                                 </asp:TemplateField>
-
-
-
-
-
-                                                                            </columns>
+                                                                            </Columns>
                                                                         </asp:GridView>
                                                                     </div>
                                                                 </div>
@@ -344,7 +339,7 @@
                                                         </div>
                                                     </div>
                                                 </asp:Panel>
-                                            </contenttemplate>
+                                            </ContentTemplate>
                                         </asp:UpdatePanel>
                                         <hr />
 
@@ -358,11 +353,11 @@
                                                 <div class="row">
                                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                                         <asp:UpdatePanel runat="server">
-                                                            <contenttemplate>
+                                                            <ContentTemplate>
                                                                 <div class="row">
                                                                     <asp:Button ID="btnAgregarUbicacion" Text="Agregar Ubicación" runat="server" CssClass="btn btn-success" OnClick="btnAgregarUbicacion_Click" />
                                                                 </div>
-                                                            </contenttemplate>
+                                                            </ContentTemplate>
                                                         </asp:UpdatePanel>
                                                     </div>
                                                     <%--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -392,19 +387,19 @@
                                                                                 <div class="row">
                                                                                     <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
                                                                                         <asp:Label Text="Latitud" runat="server" />
-                                                                                        <asp:TextBox ID="txtCircunferenciaLatitud" runat="server" CssClass="form-control" />
+                                                                                        <asp:TextBox ID="txtCircunferenciaLatitud" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
                                                                                     </asp:Panel>
                                                                                     <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
                                                                                         <asp:Label Text="Longitud" runat="server" />
-                                                                                        <asp:TextBox ID="txtCircunferenciaLongitud" runat="server" CssClass="form-control" />
+                                                                                        <asp:TextBox ID="txtCircunferenciaLongitud" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
                                                                                     </asp:Panel>
                                                                                     <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
-                                                                                        <asp:Label Text="Altura" runat="server" />
-                                                                                        <asp:TextBox ID="txtCircunferenciaAltura" runat="server" CssClass="form-control" />
+                                                                                        <asp:Label Text="Altura (m.s.n.m.)" runat="server" />
+                                                                                        <asp:TextBox ID="txtCircunferenciaAltura" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
                                                                                     </asp:Panel>
                                                                                     <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
-                                                                                        <asp:Label Text="Radio" runat="server" />
-                                                                                        <asp:TextBox ID="txtCircunferenciaRadio" runat="server" CssClass="form-control" />
+                                                                                        <asp:Label Text="Radio (km)" runat="server" />
+                                                                                        <asp:TextBox ID="txtCircunferenciaRadio" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
                                                                                     </asp:Panel>
                                                                                 </div>
                                                                             </div>
@@ -415,11 +410,11 @@
                                                                     <asp:Panel ID="pnlAgregarPoligono" class="alert alert-primary" role="alert" runat="server" Visible="false">
                                                                         <div class="row">
                                                                             <asp:UpdatePanel runat="server">
-                                                                                <contenttemplate>
+                                                                                <ContentTemplate>
                                                                                     <asp:Panel runat="server" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
                                                                                         <asp:Button Text="Agregar Punto Geográfico" ID="btnAgregarPuntoGeografico" runat="server" CssClass="btn btn-success" OnClick="btnAgregarPuntoGeografico_Click" />
                                                                                     </asp:Panel>
-                                                                                </contenttemplate>
+                                                                                </ContentTemplate>
                                                                             </asp:UpdatePanel>
                                                                             <br />
                                                                         </div>
@@ -431,15 +426,15 @@
                                                                                         <div class="row">
                                                                                             <asp:Panel runat="server" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
                                                                                                 <asp:Label Text="Latitud" runat="server" />
-                                                                                                <asp:TextBox ID="txtPoligonoLatitud" runat="server" CssClass="form-control" />
+                                                                                                <asp:TextBox ID="txtPoligonoLatitud" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
                                                                                             </asp:Panel>
                                                                                             <asp:Panel runat="server" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
                                                                                                 <asp:Label Text="Longitud" runat="server" />
-                                                                                                <asp:TextBox ID="txtPoligonoLongitud" runat="server" CssClass="form-control" />
+                                                                                                <asp:TextBox ID="txtPoligonoLongitud" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
                                                                                             </asp:Panel>
                                                                                             <asp:Panel runat="server" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-                                                                                                <asp:Label Text="Altura" runat="server" />
-                                                                                                <asp:TextBox ID="txtPoligonoAltura" runat="server" CssClass="form-control" />
+                                                                                                <asp:Label Text="Altura (m.s.n.m.)" runat="server" />
+                                                                                                <asp:TextBox ID="txtPoligonoAltura" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
                                                                                             </asp:Panel>
                                                                                         </div>
                                                                                     </asp:Panel>
@@ -450,17 +445,17 @@
                                                                                         runat="server"
                                                                                         AutoGenerateColumns="false"
                                                                                         CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
-                                                                                        <alternatingrowstyle backcolor="white" />
-                                                                                        <headerstyle backcolor="#20789f" font-bold="true" font-size="Large" forecolor="White" />
-                                                                                        <rowstyle backcolor="#e1dddd" />
-                                                                                        <selectedrowstyle backcolor="#669999" font-bold="true" forecolor="white" />
+                                                                                        <AlternatingRowStyle BackColor="white" />
+                                                                                        <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                                                        <RowStyle BackColor="#e1dddd" />
+                                                                                        <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
 
-                                                                                        <columns>
+                                                                                        <Columns>
                                                                                             <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
                                                                                             <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-Width="20%" />
                                                                                             <asp:BoundField DataField="Longitud" HeaderText="LONGITUD" ItemStyle-Width="20%" />
                                                                                             <asp:BoundField DataField="Altura" HeaderText="ALTURA" ItemStyle-Width="20%" />
-                                                                                        </columns>
+                                                                                        </Columns>
                                                                                     </asp:GridView>
                                                                                 </div>
                                                                             </div>
@@ -490,7 +485,7 @@
                                             <%--UBICACIONES AGREGADAS--%>
                                             <div class="col-6">
                                                 <asp:Repeater ID="rptUbicaciones" runat="server">
-                                                    <itemtemplate>
+                                                    <ItemTemplate>
                                                         <div class="row">
                                                             <div class="col-12 alert alert-success" role="alert">
                                                                 <h5>
@@ -501,7 +496,7 @@
                                                                 <asp:Label ID="lblRptDatos" runat="server" />
                                                             </div>
                                                         </div>
-                                                    </itemtemplate>
+                                                    </ItemTemplate>
                                                 </asp:Repeater>
                                             </div>
                                         </div>
@@ -512,7 +507,7 @@
                                             <h5>Tripulantes</h5>
                                         </div>
                                         <asp:UpdatePanel ID="upTripulacion" runat="server">
-                                            <contenttemplate>
+                                            <ContentTemplate>
                                                 <div class="row">
                                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <asp:GridView
@@ -520,12 +515,12 @@
                                                             runat="server"
                                                             AutoGenerateColumns="false"
                                                             CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
-                                                            <alternatingrowstyle backcolor="white" />
-                                                            <headerstyle backcolor="#20789f" font-bold="true" font-size="Large" forecolor="White" />
-                                                            <rowstyle backcolor="#e1dddd" />
-                                                            <selectedrowstyle backcolor="#669999" font-bold="true" forecolor="white" />
+                                                            <AlternatingRowStyle BackColor="white" />
+                                                            <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                            <RowStyle BackColor="#e1dddd" />
+                                                            <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
 
-                                                            <columns>
+                                                            <Columns>
                                                                 <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
                                                                 <asp:BoundField DataField="IdTripulacion" HeaderText="ID" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                                 <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
@@ -535,16 +530,16 @@
 
                                                                 <%-- Boton con link para ver detalles solicitud--%>
                                                                 <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
-                                                                    <itemtemplate>
+                                                                    <ItemTemplate>
                                                                         <asp:HiddenField Value='<%# Eval("IdTripulacion") %>' runat="server" ID="hdnIdTripulacion" />
                                                                         <asp:CheckBox runat="server" ID="chkTripulacionVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
-                                                                    </itemtemplate>
+                                                                    </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                            </columns>
+                                                            </Columns>
                                                         </asp:GridView>
                                                     </div>
                                                 </div>
-                                            </contenttemplate>
+                                            </ContentTemplate>
                                         </asp:UpdatePanel>
 
 
@@ -553,8 +548,9 @@
                                         <asp:Panel ID="pnlHistorialSolicitud" runat="server" Visible="true">
                                             <div class="row">
                                                 <h5>Historial de Estados</h5>
-
+                                                </div>
                                                 <br />
+                                            <div class="row">
                                                 <div class="row">
                                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
                                                         <%--GRILLA CON HISTORIAL DE CAMBIOS--%>
@@ -563,18 +559,18 @@
                                                             runat="server"
                                                             AutoGenerateColumns="false"
                                                             CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" Visible="true">
-                                                            <alternatingrowstyle backcolor="white" />
-                                                            <headerstyle backcolor="#20789f" font-bold="true" font-size="Large" forecolor="White" />
-                                                            <rowstyle backcolor="#e1dddd" />
-                                                            <selectedrowstyle backcolor="#669999" font-bold="true" forecolor="white" />
-                                                            <columns>
+                                                            <AlternatingRowStyle BackColor="white" />
+                                                            <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                            <RowStyle BackColor="#e1dddd" />
+                                                            <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+                                                            <Columns>
                                                                 <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
                                                                 <asp:BoundField DataField="EstadoAnterior" HeaderText="ESTADO ANTERIOR" ItemStyle-Width="20%" />
                                                                 <asp:BoundField DataField="EstadoActual" HeaderText="ESTADO ACTUAL" ItemStyle-Width="20%" />
                                                                 <asp:BoundField DataField="FechaCambio" HeaderText="FECHA CAMBIO ESTADO" ItemStyle-Width="20%" />
                                                                 <asp:BoundField DataField="Usuario" HeaderText="USUARIO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
                                                                 <asp:BoundField DataField="Observaciones" HeaderText="OBSERVACIONES" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
-                                                            </columns>
+                                                            </Columns>
                                                         </asp:GridView>
                                                     </div>
                                                 </div>
@@ -588,7 +584,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </contenttemplate>
+                                </ContentTemplate>
                                 <%--<Triggers>
                                     <asp:PostBackTrigger ControlID="btnGuardar" />
                                 </Triggers>--%>
@@ -597,6 +593,6 @@
                     </div>
                 </div>
             </asp:Panel>
-        </contenttemplate>
+        </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
