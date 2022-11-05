@@ -605,9 +605,6 @@ namespace REApp.Forms
 
             MostrarListado();
 
-
-
-
             new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
             P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt()),
             P.Add("IdEstadoSolicitud", 8),

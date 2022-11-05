@@ -427,45 +427,38 @@ namespace REApp.Forms
 
         protected void btnAprobar_Click(object sender, EventArgs e)
         {
-            // MODAL DE CONFIRMACIÓN
+            // CONFIRMACIÓN CON MENSAJE OPCIONAL
+            int IdSolicitud = hdnIdSolicitud.Value.ToInt();
+            int IdEstado = 5;
+            string FrmAnterior = "/Forms/SolicitudesCoordinacion.aspx";
 
-            // VALIDAR QUE TODOS LOS INTERESADOS HAYAN APROBADO
+            string url = $"/Forms/CambioEstadoSolicitud.aspx?S={IdSolicitud}&E={IdEstado}&frm={FrmAnterior}";
 
-            new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
-                P.Add("IdSolicitud", hdnIdSolicitud.Value),
-                P.Add("IdEstadoSolicitud", 5),
-                P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
-            );
-
-            btnFiltrar_Click(null, null);
-            MostrarListado();
+            Response.Redirect(url);
         }
 
         protected void btnHabilitarModificacion_Click(object sender, EventArgs e)
         {
-            // MODAL DE CONFIRMACIÓN
+            // CONFIRMACIÓN CON MENSAJE OPCIONAL
+            int IdSolicitud = hdnIdSolicitud.Value.ToInt();
+            int IdEstado = 9;
+            string FrmAnterior = "/Forms/SolicitudesCoordinacion.aspx";
 
-            new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
-                P.Add("IdSolicitud", hdnIdSolicitud.Value),
-                P.Add("IdEstadoSolicitud", 9),
-                P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
-            );
+            string url = $"/Forms/CambioEstadoSolicitud.aspx?S={IdSolicitud}&E={IdEstado}&frm={FrmAnterior}";
 
-            btnFiltrar_Click(null, null);
-            MostrarListado();
+            Response.Redirect(url);
         }
 
         protected void btnDevolver_Click(object sender, EventArgs e)
         {
-            // MODAL DE CONFIRMACIÓN
+            // CONFIRMACIÓN CON MENSAJE OPCIONAL
+            int IdSolicitud = hdnIdSolicitud.Value.ToInt();
+            int IdEstado = -1;
+            string FrmAnterior = "/Forms/SolicitudesCoordinacion.aspx";
 
-            new SP("bd_reapp").Execute("usp_DevolverEstadoAnterior",
-                P.Add("IdSolicitud", hdnIdSolicitud.Value),
-                P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
-            );
+            string url = $"/Forms/CambioEstadoSolicitud.aspx?S={IdSolicitud}&E={IdEstado}&frm={FrmAnterior}";
 
-            btnFiltrar_Click(null, null);
-            MostrarListado();
+            Response.Redirect(url);
         }
 
         protected void gvAfectados_RowCommand(object sender, GridViewCommandEventArgs e)
