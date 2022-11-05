@@ -408,21 +408,6 @@ namespace REApp.Forms
                 btnGenerarKMZ.Visible = true;
                 HabilitarDeshabilitarTxts(false);
             }
-            //Para vinculacion de interesados
-            if (e.CommandName.Equals("VincularInteresados"))
-            {
-                hdnIdSolicitudInteresado.Value = e.CommandArgument.ToString();
-                GetInteresados();
-                //GetInteresadosSoloVinculadosSolicitud1(hdnIdSolicitudInteresado.Value.ToInt());
-                MostrarInteresados();
-
-            }
-            if (e.CommandName.Equals("PasarACoordinacion"))
-            {
-                hdnIdSolicitudInteresadosVinculados.Value = e.CommandArgument.ToString();
-                GetInteresadosSoloVinculadosSolicitud(hdnIdSolicitudInteresadosVinculados.Value.ToInt());
-                MostrarInteresadosVinculados();
-            }
 
             VerHistorialSolicitud();
         }
@@ -554,7 +539,7 @@ namespace REApp.Forms
                     InteresadoSolicitud.Insert();
                 }
             }
-            MostrarListado();
+            MostrarABM();
             btnFiltrar_Click(null, null);
         }
 
@@ -677,6 +662,20 @@ namespace REApp.Forms
             //Se redirecciona a ForoMensajes pasando por parametro (?parametro=valor) el idSolicitud de la tabla y la direccion de este form
             Response.Redirect("/Forms/ForoMensajes/ForoMensajes.aspx?idSolicitud=" + id + "&formRedireccion=" + formRedireccion);
 
+        }
+
+        protected void btnVincularInteresados_Click(object sender, EventArgs e)
+        {
+            hdnIdSolicitudInteresado.Value = hdnIdSolicitud.Value;
+            GetInteresados();
+            MostrarInteresados();
+        }
+
+        protected void btnPasarCoordinacion_Click(object sender, EventArgs e)
+        {
+            hdnIdSolicitudInteresadosVinculados.Value = hdnIdSolicitud.Value;
+            GetInteresadosSoloVinculadosSolicitud(hdnIdSolicitudInteresadosVinculados.Value.ToInt());
+            MostrarInteresadosVinculados();
         }
     }
 }

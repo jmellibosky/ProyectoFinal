@@ -210,9 +210,17 @@
             </asp:Panel>
 
             <asp:Panel ID="pnlABM" runat="server" Visible="false">
+                <br />
                 <div class="row">
-                    <asp:Button runat="server" Text="Cambiar Estado a 'Finalizada'" CssClass="btn btn-info btn-dark" ID="btnEstadoOperador" OnClick="btnEstadoOperador_Click" Visible="false" />
-
+                    <div class="col-12 alert alert-warning" role="alert">
+                        <div class="row">
+                            <h5><asp:Label runat="server" Text="Acciones" /></h5>
+                        </div>
+                        <hr />
+                        <div class="row justify-content-center">
+                            <asp:Button runat="server" Text="Cambiar Estado a Finalizada" CssClass="btn btn-success" ID="btnEstadoOperador" OnClick="btnEstadoOperador_Click" Visible="false" />
+                        </div>
+                    </div>
                 </div>
                 <br />
                 <div class="row">

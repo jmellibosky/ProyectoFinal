@@ -139,7 +139,7 @@
                     <div class="row">
                         <div class="col">
                             <asp:Label runat="server">Solicitantes</asp:Label>
-                            <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" Width="300px" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged"  />
+                            <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" Width="300px" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" />
                             <br />
 
                             <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
@@ -194,7 +194,19 @@
             </asp:Panel>
 
             <asp:Panel ID="pnlABM" runat="server" Visible="false">
-
+                <br />
+                <div class="row">
+                    <div class="col-12 alert alert-warning" role="alert">
+                        <div class="row">
+                            <h5><asp:Label runat="server" Text="Acciones" /></h5>
+                        </div>
+                        <hr />
+                        <div class="row justify-content-center">
+                            <asp:Button runat="server" Text="Analizar Solicitud" CssClass="btn btn-success" ID="btnEstadoOperador" OnClick="btnEstadoOperador_Click" Visible="false" />
+                        </div>
+                    </div>
+                </div>
+                <br />
                 <div class="row">
                     <div class="col-12">
                         <br />
@@ -382,12 +394,12 @@
 
                                         <%--HISTORIAL DE ESTADOS--%>
 
-                                        
+
                                         <asp:Panel ID="pnlHistorialSolicitud" runat="server" Visible="true">
-                                             <div class="row">
+                                            <div class="row">
                                                 <h5>Historial de Estados</h5>
 
-                                                 </div>
+                                            </div>
                                             <br />
                                             <div class="row">
                                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
@@ -421,15 +433,7 @@
                         </div>
                     </div>
                 </div>
-                <%-- Observacion Cambio de estado y boton--%>
-                <br />
 
-                <div class="row">
-                    <div class="col-12 text-right">
-                        <asp:Button runat="server" Text="Analizar Solicitud" CssClass="btn btn-info btn-dark" ID="btnEstadoOperador" OnClick="btnEstadoOperador_Click" Visible="false"/>
-                    </div>
-                </div>
-               
             </asp:Panel>
         </ContentTemplate>
     </asp:UpdatePanel>

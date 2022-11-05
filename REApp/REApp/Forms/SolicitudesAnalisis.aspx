@@ -176,11 +176,11 @@
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
-                                                            <asp:LinkButton ID="lnkPasarACoordinacion" runat="server" CommandName="PasarACoordinacion"
+                                                            <asp:LinkButton ID="lnkPasarACoordinacion" runat="server" Visible="false" CommandName="PasarACoordinacion"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa-solid fa-thumbs-up" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
-                                                            <asp:LinkButton ID="lnkVincularInteresados" runat="server" CommandName="VincularInteresados"
+                                                            <asp:LinkButton ID="lnkVincularInteresados" runat="server" Visible="false" CommandName="VincularInteresados"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa-solid fa-user-group" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
@@ -202,14 +202,23 @@
             </asp:Panel>
 
             <asp:Panel ID="pnlABM" runat="server" Visible="false">
+                <br />
                 <div class="row">
-                    <div class="col-12 text-right">
-                        <asp:Button runat="server" Text="Habilitar Modificación" CssClass="btn btn-info btn-dark" ID="btnHabilitarModificacion" OnClick="btnHabilitarModificacion_Click" />
-                        &nbsp;
-                        <asp:Button runat="server" Text="Devolver Solicitud" CssClass="btn btn-info btn-dark" ID="btnDevolver" OnClick="btnDevolver_Click" />
+                    <div class="col-12 alert alert-warning" role="alert">
+                        <div class="row">
+                            <h5><asp:Label runat="server" Text="Acciones" /></h5>
+                        </div>
+                        <hr />
+                        <div class="row justify-content-center">
+                            <asp:Button runat="server" Text="Habilitar Modificación" CssClass="btn btn-danger" ID="Button1" OnClick="btnHabilitarModificacion_Click" />
+                            &nbsp;
+                            <asp:Button runat="server" Text="Devolver Solicitud" CssClass="btn btn-danger" ID="Button2" OnClick="btnDevolver_Click" />
+                            &nbsp;
+                            <asp:Button runat="server" Text="Vincular Interesados" CssClass="btn btn-success" ID="Button3" OnClick="btnVincularInteresados_Click" />
+                            &nbsp;
+                            <asp:Button runat="server" Text="Cambiar estado a Coordinación" CssClass="btn btn-success" ID="Button4" OnClick="btnPasarCoordinacion_Click" />
+                        </div>
                     </div>
-                </div>
-                <div class="row">
                 </div>
                 <br />
                 <div class="row">

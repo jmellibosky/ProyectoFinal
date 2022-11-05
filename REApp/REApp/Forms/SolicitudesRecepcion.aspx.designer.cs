@@ -87,6 +87,15 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Panel pnlABM;
 
         /// <summary>
+        /// Control btnEstadoOperador.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEstadoOperador;
+
+        /// <summary>
         /// Control upModalABM.
         /// </summary>
         /// <remarks>
@@ -328,14 +337,5 @@ namespace REApp.Forms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvHistorial;
-
-        /// <summary>
-        /// Control btnEstadoOperador.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEstadoOperador;
     }
 }
