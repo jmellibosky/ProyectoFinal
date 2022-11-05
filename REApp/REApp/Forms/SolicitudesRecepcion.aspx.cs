@@ -606,12 +606,14 @@ namespace REApp.Forms
 
         protected void btnEstadoOperador_Click(object sender, EventArgs e)
         {
-            new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
-            P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt()),
-            P.Add("IdEstadoSolicitud", 2),
-            P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt())
-            );
-            MostrarListado();
+            // CONFIRMACIÓN CON MENSAJE OPCIONAL
+            int IdSolicitud = hdnIdSolicitud.Value.ToInt();
+            int IdEstado = 2;
+            string FrmAnterior = "/Forms/SolicitudesCoordinacion.aspx";
+
+            string url = $"/Forms/CambioEstadoSolicitud.aspx?S={IdSolicitud}&E={IdEstado}&frm={FrmAnterior}";
+
+            Response.Redirect(url);
         }
     }
 }
