@@ -184,11 +184,11 @@
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa-solid fa-envelope" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
-                                                            <asp:LinkButton ID="lnkRechazarREA" runat="server" CommandName="RechazarREA"
+                                                            <asp:LinkButton ID="lnkRechazarREA" runat="server" Visible="false" CommandName="RechazarREA"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa-solid fa-circle-xmark" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
-                                                            <asp:LinkButton ID="lnkEliminarREA" runat="server" CommandName="EliminarREA"
+                                                            <asp:LinkButton ID="lnkEliminarREA" runat="server" Visible="false" CommandName="EliminarREA"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa-solid fa-trash-can" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>

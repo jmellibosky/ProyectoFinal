@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using MagicSQL;
 using REApp.Models;
+using REApp.Controllers;
 
 namespace REApp.Forms
 {
@@ -70,6 +71,28 @@ namespace REApp.Forms
                     P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt()),
                     P.Add("Observacion", txtObservaciones.Text)
                 );
+
+                if (IdEstado == 9)
+                { // Si pasa a PendienteModificacion, entonces se envía mail
+                    Usuario u = new Usuario().Select(new Solicitud().Select(IdSolicitud).IdUsuario);
+
+                    HTMLBuilder builder = new HTMLBuilder("Solicitud de Reserva de Espacio Aéreo", "GenericMailTemplate.html");
+
+                    builder.AppendTexto("Buenas tardes.");
+                    builder.AppendSaltoLinea(2);
+                    builder.AppendTexto("La Empresa Argentina de Navegación Aérea solicita se realicen cambios en su reciente Solicitud de Reserva de Espacio Aéreo. Un Operador especializado ha realizado la siguiente observación respecto de su Solicitud:");
+                    builder.AppendSaltoLinea(2);
+                    builder.AppendTexto(txtObservaciones.Text);
+                    builder.AppendSaltoLinea(2);
+                    builder.AppendTexto("Por favor, ingrese al sistema REAPP para realizar los cambios solicitados.");
+
+                    string cuerpo = builder.ConstruirHTML();
+
+                    MailController mail = new MailController("OBSERVACIONES REA", cuerpo);
+                    mail.Add(u.Nombre + u.Apellido, u.Email);
+
+                    bool Exito = mail.Enviar();
+                }
             }
 
             Response.Redirect(frm);
