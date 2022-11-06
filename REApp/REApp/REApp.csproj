@@ -174,6 +174,8 @@
     <Content Include="Forms\SolicitudesAnalisis.aspx" />
     <Content Include="Forms\SolicitudesRecepcion.aspx" />
     <Content Include="Forms\SolicitudesRespuesta.aspx" />
+    <Content Include="Forms\UserSendValidationEmail.aspx" />
+    <Content Include="Forms\UserValidation.aspx" />
     <Content Include="Forms\UserCorrectRegister.aspx" />
     <Content Include="Forms\UserForgotPassword.aspx" />
     <Content Include="Forms\UserLogin.aspx" />
@@ -421,6 +423,20 @@
     </Compile>
     <Compile Include="Forms\SolicitudesRespuesta.aspx.designer.cs">
       <DependentUpon>SolicitudesRespuesta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserSendValidationEmail.aspx.cs">
+      <DependentUpon>UserSendValidationEmail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\UserSendValidationEmail.aspx.designer.cs">
+      <DependentUpon>UserSendValidationEmail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserValidation.aspx.cs">
+      <DependentUpon>UserValidation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\UserValidation.aspx.designer.cs">
+      <DependentUpon>UserValidation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\UserCorrectRegister.aspx.cs">
       <DependentUpon>UserCorrectRegister.aspx</DependentUpon>

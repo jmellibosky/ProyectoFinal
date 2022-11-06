@@ -25,9 +25,9 @@ namespace REApp.Forms
             // Parámetro de Entrada (IdInteresadoSolicitud encriptado)
 
             int IdInteresadoSolicitud = 0;
-            if (Request["ID"] != null)
+            if (Request["S"] != null)
             {
-                IdInteresadoSolicitud = Request["ID"].ToInt(); //.ToIntID();
+                IdInteresadoSolicitud = Request["S"].ToIntID();
             }
 
             if (!IsPostBack && IdInteresadoSolicitud != 0)

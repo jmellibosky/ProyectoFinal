@@ -42,5 +42,9 @@ namespace REApp.Models
         public string SaltKey { get; set; }
 
         public string Cuit { get; set; }
+
+        public bool ValidacionCorreo { get; set; }
+
+        public bool ValidacionEANA { get; set; }
     }
 }

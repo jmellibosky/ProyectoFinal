@@ -1,7 +1,9 @@
 ﻿using MagicSQL;
+using REApp.Models;
 using System;
 using System.Data;
 using System.Security.Cryptography;
+using static REApp.Navegacion;
 
 namespace REApp.Forms
 {
@@ -40,20 +42,28 @@ namespace REApp.Forms
             {
                 //Ver si esto es completamente seguro
                 string idUsuario = dt2.Rows[0][0].ToString();
-                string nombreuser = dt2.Rows[0][1].ToString();
-                string apellidouser = dt2.Rows[0][2].ToString();
-                string idRol = dt2.Rows[0][6].ToString();
+
+                Usuario usuario = new Usuario().Select(idUsuario.ToInt());
+
+                string nombreuser = usuario.Nombre;
+                string apellidouser = usuario.Apellido;
+                string idRol = usuario.IdRol.ToString();
                 string nombrecompleto = nombreuser + " " + apellidouser;
+                bool ValidacionCorreo = usuario.ValidacionCorreo;
 
                 Session["Username"] = nombrecompleto;
                 Session["UsuarioCompleto"] = dt2;
                 Session["IdUsuario"] = idUsuario;
                 Session["IdRol"] = idRol;
 
-                //Saco esta linea para ir probando el Dashboard
-                //Response.Redirect("/Default.aspx");
-
-                Response.Redirect("/Forms/HomeDash/HomeDash.aspx");
+                if (ValidacionCorreo)
+                {
+                    Response.Redirect("/Forms/HomeDash/HomeDash.aspx");
+                }
+                else
+                {
+                    Alert("Validación de Cuenta", "Es necesario que valide su cuenta antes de ingresar.", AlertType.error);
+                }
             }
             else
             {

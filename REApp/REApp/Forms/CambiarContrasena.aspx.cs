@@ -46,7 +46,7 @@ namespace REApp.Forms
             int idUsuario = 0;
             if (Request["ID"] != null)
             {
-                idUsuario = Request["ID"].ToInt();
+                idUsuario = Request["ID"].ToIntID();
             }
 
             if (txt_pass.Value == txt_passcheck.Value)

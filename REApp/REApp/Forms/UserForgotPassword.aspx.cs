@@ -28,17 +28,21 @@ namespace REApp.Forms
                 nombre = dt.Rows[0][1].ToString();
             }
 
-            string url = $"https://localhost:44355/Forms/CambiarContrasena.aspx?ID={idUsuario}";
+            string leftpart = Request.Url.GetLeftPart(UriPartial.Authority);
+            string frmValidacion = "/Forms/CambiarContrasena.aspx";
+            string parameters = $"?ID={idUsuario.ToInt().ToCryptoID()}";
 
-            Controllers.HTMLBuilder builder = new Controllers.HTMLBuilder("Olvide mi contraseña - ReApp", "GenericMailTemplate.html");
+            string url = $"{leftpart}{frmValidacion}{parameters}";
+
+            Controllers.HTMLBuilder builder = new Controllers.HTMLBuilder("Olvidé mi contraseña - REApp", "GenericMailTemplate.html");
 
             builder.AppendTexto("Buen día " + nombre + ".");
             builder.AppendSaltoLinea(2);
-            builder.AppendTexto("Para recuperar su contraseña, ingrese al siguiente enlace porfavor.");
+            builder.AppendTexto("Para recuperar su contraseña, ingrese al siguiente enlace por favor.");
             builder.AppendSaltoLinea(1);
             builder.AppendURL(url, "Cambio de contraseña.");
             builder.AppendSaltoLinea(1);
-            builder.AppendTexto("Recuerde como buenas practicas utilizar simbolos, mayusculas, minusculas y numeros en su contraseña.");
+            builder.AppendTexto("Recuerde como buenas practicas utilizar símbolos, mayúsculas, minúsculas y números en su contraseña.");
 
             string cuerpo = builder.ConstruirHTML();
 

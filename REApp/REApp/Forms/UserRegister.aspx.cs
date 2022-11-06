@@ -6,6 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using REApp.Models;
+using REApp.Controllers;
+using static REApp.Navegacion;
 
 namespace REApp.Forms
 {
@@ -44,9 +47,39 @@ namespace REApp.Forms
 
         }
 
+        protected void EnviarMailConfirmacion(int IdUsuario)
+        {
+            Usuario usuario = new Usuario().Select(IdUsuario);
+
+            HTMLBuilder builder = new HTMLBuilder("Confirmación de Usuario", "GenericMailTemplate.html");
+
+            string leftpart = Request.Url.GetLeftPart(UriPartial.Authority);
+            string frmValidacion = "/Forms/UserValidation.aspx";
+            string parameters = $"?U={usuario.IdUsuario.ToCryptoID()}";
+
+            string url = $"{leftpart}{frmValidacion}{parameters}";
+
+            builder.AppendTexto($"Hola {usuario.Nombre} {usuario.Apellido}.");
+            builder.AppendSaltoLinea(2);
+            builder.AppendTexto("Bienvenido a REApp, la plataforma de la Empresa Argentina de Navegación Aérea para la gestión integral de Reservas de Espacio Aéreo.");
+            builder.AppendSaltoLinea(1);
+            builder.AppendTexto("Para validar su email y comenzar a utilizar el sistema, ingrese al siguiente enlace de verificación: ");
+            builder.AppendURL(url, "Validar Email");
+            builder.AppendSaltoLinea(2);
+            builder.AppendTexto("Si usted no ha solicitado registrarse en REApp, simplemente ignore este correo.");
+            builder.AppendSaltoLinea(2);
+            builder.AppendTexto("Saludos.");
+            builder.AppendSaltoLinea(1);
+            builder.AppendTexto("Equipo de REApp.");
+            string cuerpo = builder.ConstruirHTML();
+
+            MailController mail = new MailController("Confirmación de Usuario", cuerpo);
+            mail.Add($"{usuario.Nombre} {usuario.Apellido}", usuario.Email);
+            mail.Enviar();
+        }
+
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-
             //Ver tema rol, si asignamos de una el Solicitante y despues el admin los eleva, charlar bien esto
             //1 Admin, 2 Operador, 3 Solicitante, 4 Interesado segun la bd_reapp
             int idRol = 3;
@@ -76,10 +109,11 @@ namespace REApp.Forms
                     //Primero se deberia verificar que el mail no esta usado, tengo que crear otro SP
                     using (SP sp = new SP("bd_reapp"))
                     {
-                        sp.Execute("__UsuarioInsert_v1", P.Add("Nombre", nombre), P.Add("Apellido", apellido), P.Add("Email", correo), P.Add("Dni", DNI), P.Add("TipoDni", TipoDni), P.Add("IdRol", idRol), P.Add("CreatedOn", DateTime.Today), P.Add("CreatedBy", null), P.Add("DeletedOn", null), P.Add("DeletedBy", null), P.Add("FechaNacimiento", fechaNac), P.Add("Telefono", telefono), P.Add("Password", hashedpass), P.Add("SaltKey", salt));
-                    }
+                        int IdUsuario = sp.Execute("__UsuarioInsert_v1", P.Add("Nombre", nombre), P.Add("Apellido", apellido), P.Add("Email", correo), P.Add("Dni", DNI), P.Add("TipoDni", TipoDni), P.Add("IdRol", idRol), P.Add("CreatedOn", DateTime.Today), P.Add("CreatedBy", null), P.Add("DeletedOn", null), P.Add("DeletedBy", null), P.Add("FechaNacimiento", fechaNac), P.Add("Telefono", telefono), P.Add("Password", hashedpass), P.Add("SaltKey", salt)).Rows[0][0].ToString().ToInt();
+                        EnviarMailConfirmacion(IdUsuario);
 
-                    //Esta redireccion la voy a hacer a un formulario diciendo que se hizo de forma correcta
+                        Alert("Email enviado", "Por favor, revise su casilla de correo y siga los pasos indicados.", AlertType.success);
+                    }
                     Response.Redirect("/Forms/UserCorrectRegister.aspx");
                 }
                 else

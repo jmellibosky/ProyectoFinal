@@ -568,10 +568,13 @@ namespace REApp.Forms
         protected void EnviarMail(string nombre, string email, int idInteresado, int idSolicitud)
         {
             List<Models.InteresadoSolicitud> InteresadoSolicitud = new Models.InteresadoSolicitud().Select($"IdInteresado = {idInteresado} AND IdSolicitud = {idSolicitud}");
-
             int IdInteresadoSolicitud = (InteresadoSolicitud.Count > 0) ? InteresadoSolicitud[0].IdInteresadoSolicitud : 0;
 
-            string url = $"https://localhost:44355/Forms/CoordinacionInteresado.aspx?ID={IdInteresadoSolicitud}";
+            string leftpart = Request.Url.GetLeftPart(UriPartial.Authority);
+            string frmValidacion = "/Forms/CoordinacionInteresado.aspx";
+            string parameters = $"?S={IdInteresadoSolicitud.ToCryptoID()}";
+
+            string url = $"{leftpart}{frmValidacion}{parameters}";
 
             Controllers.HTMLBuilder builder = new Controllers.HTMLBuilder("Solicitud de Reserva de Espacio Aéreo", "GenericMailTemplate.html");
 
