@@ -158,6 +158,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Forms\CambiarContrasena.aspx" />
+    <Content Include="Forms\CambioEstadoSolicitud.aspx" />
     <Content Include="Forms\FileUpload.aspx" />
     <Content Include="Forms\ForoMensajes.aspx" />
     <Content Include="Forms\CoordinacionInteresado.aspx" />
@@ -332,6 +333,12 @@
     </Compile>
     <Compile Include="Forms\CambiarContrasena.aspx.designer.cs">
       <DependentUpon>CambiarContrasena.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CambioEstadoSolicitud.aspx.cs">
+      <DependentUpon>CambioEstadoSolicitud.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CambioEstadoSolicitud.aspx.designer.cs">
+      <DependentUpon>CambioEstadoSolicitud.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\FileUpload.aspx.cs">
       <DependentUpon>FileUpload.aspx</DependentUpon>
