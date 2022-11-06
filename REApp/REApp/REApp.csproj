@@ -336,6 +336,7 @@
     </Compile>
     <Compile Include="Forms\CambioEstadoSolicitud.aspx.cs">
       <DependentUpon>CambioEstadoSolicitud.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forms\CambioEstadoSolicitud.aspx.designer.cs">
       <DependentUpon>CambioEstadoSolicitud.aspx</DependentUpon>
