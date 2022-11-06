@@ -39,8 +39,6 @@ namespace REApp.Forms
             {
                 Alert("Error", "El correo ingresado no corresponde con ningún usuario.", AlertType.error);
             }
-
-            //Response.Redirect("/Forms/UserLogin.aspx");
         }
         protected void EnviarMailConfirmacion(int IdUsuario)
         {

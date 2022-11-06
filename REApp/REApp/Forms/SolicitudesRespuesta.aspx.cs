@@ -3,6 +3,7 @@ using SelectPdf;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -698,10 +699,31 @@ namespace REApp.Forms
         {
             HtmlToPdf converter = new HtmlToPdf();
             //string url = "https://www.w3schools.com"; Prueba con w3Schools
-            string url = @"D:\Proyectos\ProyectoFinal\REApp\REApp\Templates\plantilla.html";
+            string url = System.Web.Hosting.HostingEnvironment.MapPath("~/Templates/plantilla.html");
+            string content = File.ReadAllText(url);
+
+            //Reemplazar parámetros por las variables correspondientes
+            string Ubicaciones = "";
+
+            DataTable dt = new SP("bd_reapp").Execute("usp_GetUbicacionesParaPDF", P.Add("IdSolicitud", 113));
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Ubicaciones += "<tr>";
+
+                Ubicaciones += $"<td>{dt.Rows[i]["IdUbicacion"]}</td>";
+                Ubicaciones += $"<td>{dt.Rows[i]["Latitud"]}</td>";
+                Ubicaciones += $"<td>{dt.Rows[i]["Longitud"]}</td>";
+                Ubicaciones += $"<td>{dt.Rows[i]["Radio"]}</td>";
+                Ubicaciones += $"<td>{dt.Rows[i]["Altura"]}</td>";
+
+                Ubicaciones += "</tr>";
+            }
+
+            content = content.Replace("$UBICACIONES$", Ubicaciones);
 
             //Aca se puede usar el ConvertHtmlString para que pongamos una cadena de html optimizada en una linea y asi poder modificar mejor el resultado final
-            PdfDocument doc = converter.ConvertUrl(url);
+            PdfDocument doc = converter.ConvertHtmlString(content);
 
             //Queda realizar algun tipo de control porque puede tardar unos segundos dependiendo del tamaño del pdf
             //Ver tema de descarga mas que guardado, similar a KMZ
