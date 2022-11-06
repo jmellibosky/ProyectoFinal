@@ -33,14 +33,14 @@ namespace REApp.Forms
 
                 EnviarMailConfirmacion(idUsuario.ToInt());
 
-                Alert("Email enviado", "Por favor, revise su casilla de correo y siga los pasos indicados.", AlertType.success);
+                Alert("Email enviado", "Por favor, revise su casilla de correo y siga los pasos indicados.", AlertType.success, "/Forms/UserLogin.aspx");
             }
             else
             {
-                Alert("Error", "El correo ingresado no corresponde con ningún usuario. Por favor, regístrese en el sistema antes de continuar.", AlertType.error);
+                Alert("Error", "El correo ingresado no corresponde con ningún usuario.", AlertType.error);
             }
 
-            Response.Redirect("/Forms/UserLogin.aspx");
+            //Response.Redirect("/Forms/UserLogin.aspx");
         }
         protected void EnviarMailConfirmacion(int IdUsuario)
         {
