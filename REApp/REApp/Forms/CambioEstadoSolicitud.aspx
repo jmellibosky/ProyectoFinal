@@ -115,7 +115,39 @@
         </h1>
         <br />
     </div>
+    <%--Grilla interesados para envio de mail en caso de Coordinacion--%>
+    <asp:Panel runat="server" ID="pnlGvInteresado" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12 form-group">
+        <asp:Label Text="Al pasar de estado se enviará el email correspondiente a los siguientes interesados:" runat="server" />
+        <asp:GridView
+            ID="gvSoloInteresadosVinculados"
+            runat="server"
+            AutoGenerateColumns="false"
+            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px"> 
+            <AlternatingRowStyle BackColor="white" />
+            <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+            <RowStyle BackColor="#e1dddd" />
+            <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
 
+            <Columns>
+                <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                <asp:BoundField DataField="IdInteresado" HeaderText="ID INTERESADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
+                <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO" ItemStyle-Width="20%" />
+                <asp:BoundField DataField="Email" HeaderText="EMAIL" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+
+                <%-- Boton con link para ver detalles solicitud--%>
+                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="-" ItemStyle-Width="10%">
+                    <ItemTemplate>
+                        <asp:HiddenField Value='<%# Eval("IdInteresado") %>' runat="server" ID="hdnIdInteresadoVinculado" />
+                        <asp:HiddenField Value='<%# Eval("Email") %>' runat="server" ID="hdnEmail" />
+                        <asp:HiddenField Value='<%# Eval("Nombre") %>' runat="server" ID="hdnNombre" />
+                        <asp:CheckBox Enabled="false" runat="server" ID="chkInteresadoVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+
+    </asp:Panel>
     <%-- Ingresar Observación--%>
     <hr />
     <br />
@@ -155,4 +187,6 @@
             </div>
         </div>
     </asp:Panel>
+
+    
 </asp:Content>

@@ -207,18 +207,22 @@
 
             <asp:Panel ID="pnlABM" runat="server" Visible="false">
                 <br />
-                <asp:Panel ID="pnlAcciones" runat="server" class="row">
-                    <div class="col-12 alert alert-warning" role="alert">
-                        <div class="row">
-                            <h5>
-                                <asp:Label runat="server" Text="Acciones" /></h5>
-                        </div>
-                        <hr />
-                        <div class="row justify-content-center">
-                            <asp:Button runat="server" Text="Cambiar Estado a 'Siendo Analizada'" CssClass="btn btn-success" ID="btnEstadoOperador" Visible="false" />
+                <asp:Panel runat="server" ID="pnlAcciones" Visible="false">
+
+                    <div class="row">
+                        <div class="col-12 alert alert-warning" role="alert">
+                            <div class="row">
+                                <h5>
+                                    <asp:Label runat="server" Text="Acciones" /></h5>
+                            </div>
+                            <hr />
+                            <div class="row justify-content-center">
+                                <asp:Button runat="server" Text="Enviar Solicitud" CssClass="btn btn-danger" ID="btnenviarSolicitud" OnClick="enviarSolicitud_Click"/>
+                            </div>
                         </div>
                     </div>
                 </asp:Panel>
+
                 <br />
                 <div class="row">
                     <div class="col-12">
@@ -234,6 +238,7 @@
                                                 <asp:DropDownList runat="server" ID="ddlModalSolicitante" CssClass="form-control select-single" />
                                             </asp:Panel>
                                             <asp:HiddenField ID="hdnIdSolicitud" runat="server" />
+                                            <asp:HiddenField ID="hdnIdEstadoAnterior" runat="server" />
                                             <asp:Panel ID="pnlModalNombreSolicitud" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Nombre de la Solicitud" runat="server" />
                                                 <asp:TextBox runat="server" ID="txtModalNombreSolicitud" CssClass="form-control font-weight-bold" />
@@ -548,8 +553,8 @@
                                         <asp:Panel ID="pnlHistorialSolicitud" runat="server" Visible="true">
                                             <div class="row">
                                                 <h5>Historial de Estados</h5>
-                                                </div>
-                                                <br />
+                                            </div>
+                                            <br />
                                             <div class="row">
                                                 <div class="row">
                                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">

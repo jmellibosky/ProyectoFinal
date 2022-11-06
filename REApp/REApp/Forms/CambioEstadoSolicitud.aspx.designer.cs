@@ -15,6 +15,24 @@ namespace REApp.Forms
     {
 
         /// <summary>
+        /// Control pnlGvInteresado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlGvInteresado;
+
+        /// <summary>
+        /// Control gvSoloInteresadosVinculados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvSoloInteresadosVinculados;
+
+        /// <summary>
         /// Control pnlNuevoEstado.
         /// </summary>
         /// <remarks>

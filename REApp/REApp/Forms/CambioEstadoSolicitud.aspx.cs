@@ -16,6 +16,7 @@ namespace REApp.Forms
         protected void Page_Load(object sender, EventArgs e)
         {
             int IdEstado = Request["E"].ToInt(); // -1 para el estado anterior; sino IdEstadoSolicitud
+            int IdSolicitud = Request["S"].ToInt();
 
             //Aca hacemos el get que si o si es un string porque de object a int no deja
             string idUsuario = Session["IdUsuario"].ToString();
@@ -30,6 +31,25 @@ namespace REApp.Forms
                 EstadoSolicitud es = new EstadoSolicitud().Select(IdEstado);
 
                 lblEstado.Text = $"La Solicitud pasará a estado {es.Nombre}.";
+
+                if (IdEstado == 3)
+                {
+                    //Se carga la grilla de interesados, para mandar mail a c/u
+                    GetInteresadosSoloVinculadosSolicitud(IdSolicitud);
+                    //Si es explotador, no se le muestra la grilla de interesados
+                    if (idRolInt ==3)
+                    {
+                        pnlGvInteresado.Visible = false;
+                    }
+                    else
+                    {
+                        pnlGvInteresado.Visible = true;
+                    }  
+                }
+                else
+                {
+                    pnlGvInteresado.Visible = false;
+                }
             }
         }
 
@@ -93,9 +113,75 @@ namespace REApp.Forms
 
                     bool Exito = mail.Enviar();
                 }
+                //Si pasa al estado enCoordinacion
+                if (IdEstado == 3)
+                {
+                    //Se envia mail los interesados, cargados en la grilla q se muestra solo al operador.
+                    for (int i = 0; i < gvSoloInteresadosVinculados.Rows.Count; i++)
+                    {
+                        if (((CheckBox)gvSoloInteresadosVinculados.Rows[i].FindControl("chkInteresadoVinculado")).Checked)
+                        { // SI ESTÁ CHEQUEADO
+                          //Logica Mails
+                            string email = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnEmail")).Value.ToString();
+                            string nombre = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnNombre")).Value.ToString();
+                            int idInteresado = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnIdInteresadoVinculado")).Value.ToInt();
+                            EnviarMailCoordinacion(nombre, email, idInteresado, IdSolicitud);
+                        }
+                    }
+                }
             }
-
             Response.Redirect(frm);
+        }
+
+        //Mismo mail que se envia en Analisis
+        protected void EnviarMailCoordinacion(string nombre, string email, int idInteresado, int idSolicitud)
+        {
+            List<Models.InteresadoSolicitud> InteresadoSolicitud = new Models.InteresadoSolicitud().Select($"IdInteresado = {idInteresado} AND IdSolicitud = {idSolicitud}");
+
+            int IdInteresadoSolicitud = (InteresadoSolicitud.Count > 0) ? InteresadoSolicitud[0].IdInteresadoSolicitud : 0;
+
+            string leftpart = Request.Url.GetLeftPart(UriPartial.Authority);
+            string frmValidacion = "/Forms/CoordinacionInteresado.aspx";
+            string parameters = $"?S={IdInteresadoSolicitud.ToCryptoID()}";
+
+            string url = $"{leftpart}{frmValidacion}{parameters}";
+
+            Controllers.HTMLBuilder builder = new Controllers.HTMLBuilder("Solicitud de Reserva de Espacio Aéreo", "GenericMailTemplate.html");
+
+            builder.AppendTexto("Buenas tardes.");
+            builder.AppendSaltoLinea(2);
+            builder.AppendTexto("La Empresa Argentina de Navegación Aérea solicita sus recomendaciones para la coordinación de esta solicitud de Reserva de Espacio Aéreo.");
+            builder.AppendSaltoLinea(1);
+            builder.AppendTexto("Por favor, ingrese en el siguiente enlace para ver los detalles de esta solicitud y brindar sus recomendaciones.");
+            builder.AppendSaltoLinea(2);
+            builder.AppendURL(url, "Solicitud de Reserva de Espacio Aéreo"); ;
+
+            string cuerpo = builder.ConstruirHTML();
+
+            MailController mail = new MailController("RECOMENDACION REA", cuerpo);
+
+            mail.Add(nombre, email);
+
+            bool Exito = mail.Enviar();
+        }
+
+        protected void GetInteresadosSoloVinculadosSolicitud(int idSolicitud)
+        {//OBTIENE SOLO LOS INTERESADOS VINCULADOS A UNA SOLICITUD
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = sp.Execute("usp_GetInteresadosSoloVinculadosSolicitud",
+                    P.Add("IdSolicitud", idSolicitud));
+
+                if (dt.Rows.Count > 0)
+                {
+                    gvSoloInteresadosVinculados.DataSource = dt;
+                }
+                else
+                {
+                    gvSoloInteresadosVinculados.DataSource = null;
+                }
+                gvSoloInteresadosVinculados.DataBind();
+            }
         }
     }
 }

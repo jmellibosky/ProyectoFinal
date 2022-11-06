@@ -46,6 +46,8 @@ namespace REApp.Forms
             //Estos se usan de esta forma porque son ints, ver si hay mejor forma de hacer el set
             int idRolInt = idRol.ToInt();
             int id = idUsuario.ToInt();
+            
+            pnlAcciones.Visible = false;
 
             if (IsPostBack)
             {
@@ -59,7 +61,6 @@ namespace REApp.Forms
                 {
                     CargarComboSolicitante();
                     BindGrid();
-                    pnlAcciones.Visible = true;
                     btnAgregarUbicacion.Visible = false;
                 }
                 if (idRolInt == 2)
@@ -67,8 +68,6 @@ namespace REApp.Forms
                     CargarComboSolicitante();
                     BindGrid();
                     btnNuevo.Visible = false;
-                    btnEstadoOperador.Visible = true;
-                    pnlAcciones.Visible = true;
                     btnAgregarUbicacion.Visible = false;
                 }
                 //Rol Solicitante
@@ -78,7 +77,6 @@ namespace REApp.Forms
                     ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
                     ddlSolicitante.Enabled = false;
                     BindGrid();
-                    pnlAcciones.Visible = false;
                     btnNuevo.Visible = true;
                 }
             }
@@ -405,7 +403,7 @@ namespace REApp.Forms
                         // RE-SETEO LOS CAMPOS DE LA SOLICITUD
                         Solicitud.Nombre = txtModalNombreSolicitud.Text;
                         Solicitud.IdModalidad = ddlModalModalidad.SelectedValue.ToIntID();
-                        Solicitud.IdEstadoSolicitud = 1;
+                        //Solicitud.IdEstadoSolicitud = 1;
                         Solicitud.FHDesde = txtModalFechaDesde.Text.ToDateTime();
                         Solicitud.FHHasta = txtModalFechaHasta.Text.ToDateTime();
                         Solicitud.Observaciones = txtModalObservaciones.Text;
@@ -641,6 +639,7 @@ namespace REApp.Forms
         {
             MostrarListado();
             hdnIdSolicitud.Value = "";
+            hdnIdEstadoAnterior.Value = "";
             if (Session["IdRol"].ToString().ToInt() == 2)
             {//Buscar otra forma de hacer
                 btnNuevo.Visible = false;
@@ -730,11 +729,19 @@ namespace REApp.Forms
 
             txtModalObservaciones.Text = Solicitud.Observaciones;
             txtModalEstadoSolicitud.Text = Estado.Nombre;
+            int idEstadoActual = Estado.IdEstadoSolicitud;
 
             txtModalFechaDesde.Text = Solicitud.FHDesde.ToString("yyyy-MM-dd");
             txtModalFechaHasta.Text = Solicitud.FHHasta.ToString("yyyy-MM-dd");
             txtModalFechaHasta.Enabled = false;
             txtModalFechaDesde.Enabled = false;
+
+            //Se recupera el penultimo estado para enviar mails a interesados si estruvo en coordinacion
+            DataTable dt = new SP("bd_reapp").Execute("usp_GetPenultimoEstadoSolicitud", P.Add("IdSolicitud", IdSolicitud));
+            if (dt.Rows.Count > 0)
+            {
+                hdnIdEstadoAnterior.Value = dt.Rows[0]["IdEstadoSolicitud"].ToString();
+            }
 
             DateTime FHActualiz = (DateTime)Solicitud.FHUltimaActualizacionEstado;
             if (FHActualiz != null)
@@ -761,8 +768,19 @@ namespace REApp.Forms
                 btnGenerarKMZ.Visible = true;
                 btnGuardar.Visible = true;
                 HabilitarDeshabilitarTxts(true);
-            }
 
+                //Si esta en estado PendienteModificacion, se habilita btnEnviarSolicitud
+                if (idEstadoActual == 9)
+                {
+                    string idRol = Session["IdRol"].ToString();
+                    int idRolInt = idRol.ToInt();
+                    //Y tiene rol Explotador
+                    if (idRolInt == 3)
+                    {
+                        pnlAcciones.Visible = true;
+                    }
+                }
+            }
             VerHistorialSolicitud();
         }
 
@@ -1190,6 +1208,20 @@ namespace REApp.Forms
             gvHistorial.DataBind();
 
             //pnlBtnVerHistorialSolicitud.Visible = true;
+        }
+
+        //btnEnviarSolicitud
+        protected void enviarSolicitud_Click(object sender, EventArgs e)
+        {
+            // CONFIRMACIÓN CON MENSAJE OPCIONAL
+            int IdSolicitud = hdnIdSolicitud.Value.ToInt();
+            //int IdEstado = 5;
+            int IdEstado = hdnIdEstadoAnterior.Value.ToInt();
+            string FrmAnterior = "/Forms/GestionSolicitudes.aspx";
+
+            string url = $"/Forms/CambioEstadoSolicitud.aspx?S={IdSolicitud}&E={IdEstado}&frm={FrmAnterior}";
+
+            Response.Redirect(url);
         }
     }
 

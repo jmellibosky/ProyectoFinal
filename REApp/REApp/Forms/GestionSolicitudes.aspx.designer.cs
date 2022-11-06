@@ -123,13 +123,13 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Panel pnlAcciones;
 
         /// <summary>
-        /// Control btnEstadoOperador.
+        /// Control btnenviarSolicitud.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEstadoOperador;
+        protected global::System.Web.UI.WebControls.Button btnenviarSolicitud;
 
         /// <summary>
         /// Control upModalABM.
@@ -166,6 +166,15 @@ namespace REApp.Forms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnIdSolicitud;
+
+        /// <summary>
+        /// Control hdnIdEstadoAnterior.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnIdEstadoAnterior;
 
         /// <summary>
         /// Control pnlModalNombreSolicitud.
