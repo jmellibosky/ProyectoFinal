@@ -697,7 +697,8 @@ namespace REApp.Forms
         protected void btnRespuestaPDF_Click(object sender, EventArgs e)
         {
             HtmlToPdf converter = new HtmlToPdf();
-            string url = "https://www.w3schools.com";
+            //string url = "https://www.w3schools.com"; Prueba con w3Schools
+            string url = @"D:\Proyectos\ProyectoFinal\REApp\REApp\Templates\plantilla.html";
 
             //Aca se puede usar el ConvertHtmlString para que pongamos una cadena de html optimizada en una linea y asi poder modificar mejor el resultado final
             PdfDocument doc = converter.ConvertUrl(url);
