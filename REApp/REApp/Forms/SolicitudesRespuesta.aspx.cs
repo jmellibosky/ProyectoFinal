@@ -707,9 +707,9 @@ namespace REApp.Forms
             //Reemplazar esta por el id correspondiente, hardcodeado para testear
             int idSolicitud = 97;
             string anoPresente = DateTime.Today.Year.ToString();
-            string fechaHoy = DateTime.Today.ToString();
+            string fechaHoy = DateTime.Today.ToShortDateString();
             //No esta funcionando correctamente
-            string horaHoy = DateTime.Today.Hour.ToString();
+            string horaHoy = DateTime.Today.ToShortTimeString();
 
             string nombreSolicitud = "";
             string fechaSolicitud = "";
@@ -720,8 +720,8 @@ namespace REApp.Forms
             string fechaFinSoli = "";
 
             //Estos no los tenemos cargados en la base todavia, los hardcodeo
-            string horaInicioSoli = "12:00hs";
-            string horaFinSoli = "16:00hs";
+            string horaInicioSoli = "";
+            string horaFinSoli = "";
 
             string nombreSolicitante = "";
             string apellidoSolicitante = "";
@@ -740,15 +740,17 @@ namespace REApp.Forms
             DataTable dtInteresado = new SP("bd_reapp").Execute("usp_GetDatosInteresadosParaPDF", P.Add("IdSolicitud", idSolicitud));
 
             //Reemplazo datos simples
-            nombreSolicitud = dtSolicitud.Rows[0]["NombreSoli"].ToString();
-            fechaSolicitud = dtSolicitud.Rows[0]["FHAlta"].ToString();
-            modalidad = dtSolicitud.Rows[0]["Modalidad"].ToString();
-            actividad = dtSolicitud.Rows[0]["Actividad"].ToString();
-            provincia = dtSolicitud.Rows[0]["Provincia"].ToString();
-            fechaInicioSoli = dtSolicitud.Rows[0]["FHDesde"].ToString();
-            fechaFinSoli = dtSolicitud.Rows[0]["FHHasta"].ToString();
-            nombreSolicitante = dtSolicitud.Rows[0]["Nombre"].ToString();
-            apellidoSolicitante = dtSolicitud.Rows[0]["Apellido"].ToString();
+            nombreSolicitud = dtSolicitud.Rows[0]["NombreSoli"].ToString().ToUpper();
+            fechaSolicitud = dtSolicitud.Rows[0]["FAlta"].ToString().ToDateTime().ToShortDateString().ToUpper();
+            modalidad = dtSolicitud.Rows[0]["Modalidad"].ToString().ToUpper();
+            actividad = dtSolicitud.Rows[0]["Actividad"].ToString().ToUpper();
+            provincia = dtSolicitud.Rows[0]["Provincia"].ToString().ToUpper();
+            fechaInicioSoli = dtSolicitud.Rows[0]["FDesde"].ToString().ToDateTime().ToShortDateString().ToUpper();
+            horaInicioSoli = dtSolicitud.Rows[0]["FDesde"].ToString().ToDateTime().AddHours(3).ToShortTimeString().ToUpper(); // Se le agregan 3 horas para pasar de utc-3 a utc+0
+            fechaFinSoli = dtSolicitud.Rows[0]["FHasta"].ToString().ToDateTime().ToShortDateString().ToUpper();
+            horaFinSoli = dtSolicitud.Rows[0]["FHasta"].ToString().ToDateTime().AddHours(3).ToShortTimeString().ToUpper();
+            nombreSolicitante = dtSolicitud.Rows[0]["Nombre"].ToString().ToUpper();
+            apellidoSolicitante = dtSolicitud.Rows[0]["Apellido"].ToString().ToUpper();
             mailSolicitante = dtSolicitud.Rows[0]["Email"].ToString();
 
             //Reemplazo tabla Ubicaciones
@@ -756,7 +758,7 @@ namespace REApp.Forms
             {
                 Ubicaciones += "<tr>";
 
-                Ubicaciones += $"<td>{dtUbi.Rows[i]["IdUbicacion"]}</td>";
+                Ubicaciones += $"<td>{dtUbi.Rows[i]["IdUbicacion"].ToString().ToUpper()}</td>";
                 Ubicaciones += $"<td>{dtUbi.Rows[i]["Latitud"]}</td>";
                 Ubicaciones += $"<td>{dtUbi.Rows[i]["Longitud"]}</td>";
                 Ubicaciones += $"<td>{dtUbi.Rows[i]["Radio"]}</td>";
@@ -770,8 +772,8 @@ namespace REApp.Forms
             {
                 Tripulacion += "<tr>";
 
-                Tripulacion += $"<td>{dtTripulacion.Rows[i]["Apellido"]}</td>";
-                Tripulacion += $"<td>{dtTripulacion.Rows[i]["Nombre"]}</td>";
+                Tripulacion += $"<td>{dtTripulacion.Rows[i]["Apellido"].ToString().ToUpper()}</td>";
+                Tripulacion += $"<td>{dtTripulacion.Rows[i]["Nombre"].ToString().ToUpper()}</td>";
                 Tripulacion += $"<td>{dtTripulacion.Rows[i]["DNI"]}</td>";
                 Tripulacion += $"<td>{dtTripulacion.Rows[i]["Correo"]}</td>";
 
@@ -784,9 +786,9 @@ namespace REApp.Forms
                 Vant += "<tr>";
 
                 Vant += $"<td>VANT-{dtVant.Rows[i]["Vant"]}</td>";
-                Vant += $"<td>{dtVant.Rows[i]["Marca Vant"]}</td>";
-                Vant += $"<td>{dtVant.Rows[i]["Modelo"]}</td>";
-                Vant += $"<td>{dtVant.Rows[i]["Serial"]}</td>";
+                Vant += $"<td>{dtVant.Rows[i]["Marca Vant"].ToString().ToUpper()}</td>";
+                Vant += $"<td>{dtVant.Rows[i]["Modelo"].ToString().ToUpper()}</td>";
+                Vant += $"<td>{dtVant.Rows[i]["Serial"].ToString().ToUpper()}</td>";
 
                 Vant += "</tr>";
             }
@@ -796,7 +798,7 @@ namespace REApp.Forms
             {
                 Interesado += "<br />";
 
-                Interesado += $"&emsp;&emsp;{dtInteresado.Rows[i]["Nombre"]}";
+                Interesado += $"&emsp;&emsp;{dtInteresado.Rows[i]["Nombre"].ToString().ToUpper()}";
                 Interesado += $"&emsp;&emsp;&emsp;&emsp;{dtInteresado.Rows[i]["Email"]}";
             }
 
