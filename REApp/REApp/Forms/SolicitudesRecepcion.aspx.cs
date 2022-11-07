@@ -609,7 +609,7 @@ namespace REApp.Forms
             // CONFIRMACIÓN CON MENSAJE OPCIONAL
             int IdSolicitud = hdnIdSolicitud.Value.ToInt();
             int IdEstado = 2;
-            string FrmAnterior = "/Forms/SolicitudesCoordinacion.aspx";
+            string FrmAnterior = "/Forms/SolicitudesAnalisis.aspx";
 
             string url = $"/Forms/CambioEstadoSolicitud.aspx?S={IdSolicitud}&E={IdEstado}&frm={FrmAnterior}";
 
