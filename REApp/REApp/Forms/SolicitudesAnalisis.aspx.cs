@@ -65,71 +65,11 @@ namespace REApp.Forms
             ScriptManager.GetCurrent(Page).RegisterPostBackControl(btnGenerarKMZ);
         }
 
-        protected void GetInteresadosSoloVinculadosSolicitud(int idSolicitud)
-        {//OBTIENE SOLO LOS INTERESADOS VINCULADOS A UNA SOLICITUD
-            using (SP sp = new SP("bd_reapp"))
-            {
-                DataTable dt = sp.Execute("usp_GetInteresadosSoloVinculadosSolicitud",
-                    P.Add("IdSolicitud", idSolicitud));
-
-                if (dt.Rows.Count > 0)
-                {
-                    gvSoloInteresadosVinculados.DataSource = dt;
-                }
-                else
-                {
-                    gvSoloInteresadosVinculados.DataSource = null;
-                }
-                gvSoloInteresadosVinculados.DataBind();
-            }
-        }
-
-        protected void GetInteresadosSoloVinculadosSolicitud1(int idSolicitud)
-        {//OBTIENE SOLO LOS INTERESADOS VINCULADOS A UNA SOLICITUD
-            using (SP sp = new SP("bd_reapp"))
-            {
-                DataTable dt = sp.Execute("usp_GetInteresadosSoloVinculadosSolicitud",
-                    P.Add("IdSolicitud", idSolicitud));
-
-                if (dt.Rows.Count > 0)
-                {
-                    gvInteresados.DataSource = dt;
-                }
-                else
-                {
-                    gvInteresados.DataSource = null;
-                }
-                gvInteresados.DataBind();
-            }
-        }
-
         protected void GetInteresados()
         {//OBTIENE TODOS LOS INTERESADOS
             using (SP sp = new SP("bd_reapp"))
             {
                 DataTable dt = sp.Execute("usp_GetInteresados"
-                );
-
-                if (dt.Rows.Count > 0)
-                {
-                    gvInteresados.DataSource = dt;
-                }
-                else
-                {
-                    gvInteresados.DataSource = null;
-                }
-                gvInteresados.DataBind();
-            }
-        }
-
-        protected void GetInteresadosDeSolicitud(int IdSolicitud)
-        {//OBTIENE LOS INTERESADOS VINCULADOS A UNA SOLICITUD Y LOS NO VINCULADOS
-            using (SP sp = new SP("bd_reapp"))
-            {
-                int IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
-
-                DataTable dt = sp.Execute("usp_GetInteresadosVinculadosSolicitud",
-                    P.Add("IdSolicitud", IdSolicitud)
                 );
 
                 if (dt.Rows.Count > 0)
@@ -311,15 +251,6 @@ namespace REApp.Forms
         {
             pnlInteresadosVinculados.Visible = false;
             pnlInteresados.Visible = true;
-            pnlListado.Visible = false;
-            pnlABM.Visible = false;
-            btnVolver.Visible = true;
-        }
-
-        protected void MostrarInteresadosVinculados()
-        {
-            pnlInteresadosVinculados.Visible = true;
-            pnlInteresados.Visible = false;
             pnlListado.Visible = false;
             pnlABM.Visible = false;
             btnVolver.Visible = true;
@@ -546,55 +477,7 @@ namespace REApp.Forms
 
         protected void btnPasarACoordinacion_Click(object sender, EventArgs e)
         {
-            int IdSolicitud = hdnIdSolicitudInteresadosVinculados.Value.ToInt();
-            for (int i = 0; i < gvSoloInteresadosVinculados.Rows.Count; i++)
-            {
-
-                if (((CheckBox)gvSoloInteresadosVinculados.Rows[i].FindControl("chkInteresadoVinculado")).Checked)
-                { // SI ESTÁ CHEQUEADO
-                  //Logica Mails
-                    string email = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnEmail")).Value.ToString();
-                    string nombre = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnNombre")).Value.ToString();
-                    int idInteresado = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnIdInteresadoVinculado")).Value.ToInt();
-                    EnviarMail(nombre, email, idInteresado, IdSolicitud);
-                }
-
-            }
-            PasarSolicitudACoordinacion(IdSolicitud);
-            MostrarListado();
-
         }
-
-        protected void EnviarMail(string nombre, string email, int idInteresado, int idSolicitud)
-        {
-            List<Models.InteresadoSolicitud> InteresadoSolicitud = new Models.InteresadoSolicitud().Select($"IdInteresado = {idInteresado} AND IdSolicitud = {idSolicitud}");
-            int IdInteresadoSolicitud = (InteresadoSolicitud.Count > 0) ? InteresadoSolicitud[0].IdInteresadoSolicitud : 0;
-
-            string leftpart = Request.Url.GetLeftPart(UriPartial.Authority);
-            string frmValidacion = "/Forms/CoordinacionInteresado.aspx";
-            string parameters = $"?S={IdInteresadoSolicitud.ToCryptoID()}";
-
-            string url = $"{leftpart}{frmValidacion}{parameters}";
-
-            Controllers.HTMLBuilder builder = new Controllers.HTMLBuilder("Solicitud de Reserva de Espacio Aéreo", "GenericMailTemplate.html");
-
-            builder.AppendTexto("Buenas tardes.");
-            builder.AppendSaltoLinea(2);
-            builder.AppendTexto("La Empresa Argentina de Navegación Aérea solicita sus recomendaciones para la coordinación de esta solicitud de Reserva de Espacio Aéreo.");
-            builder.AppendSaltoLinea(1);
-            builder.AppendTexto("Por favor, ingrese en el siguiente enlace para ver los detalles de esta solicitud y brindar sus recomendaciones.");
-            builder.AppendSaltoLinea(2);
-            builder.AppendURL(url, "Solicitud de Reserva de Espacio Aéreo"); ;
-
-            string cuerpo = builder.ConstruirHTML();
-
-            MailController mail = new MailController("RECOMENDACION REA", cuerpo);
-
-            mail.Add(nombre, email);
-
-            bool Exito = mail.Enviar();
-        }
-
 
         protected void PasarSolicitudACoordinacion(int idSolicitud)
         {
@@ -676,9 +559,7 @@ namespace REApp.Forms
 
         protected void btnPasarCoordinacion_Click(object sender, EventArgs e)
         {
-            hdnIdSolicitudInteresadosVinculados.Value = hdnIdSolicitud.Value;
-            GetInteresadosSoloVinculadosSolicitud(hdnIdSolicitudInteresadosVinculados.Value.ToInt());
-            MostrarInteresadosVinculados();
+            PasarSolicitudACoordinacion(hdnIdSolicitud.Value.ToInt());
         }
     }
 }
