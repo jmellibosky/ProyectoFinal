@@ -704,23 +704,103 @@ namespace REApp.Forms
 
             //Reemplazar parámetros por las variables correspondientes
             string Ubicaciones = "";
+            //Reemplazar esta por el id correspondiente, hardcodeado para testear
+            int idSolicitud = 97;
+            string anoPresente = DateTime.Today.Year.ToString();
+            string fechaHoy = DateTime.Today.ToString();
+            //No esta funcionando correctamente
+            string horaHoy = DateTime.Today.Hour.ToString();
 
-            DataTable dt = new SP("bd_reapp").Execute("usp_GetUbicacionesParaPDF", P.Add("IdSolicitud", 113));
+            string nombreSolicitud = "";
+            string fechaSolicitud = "";
+            string modalidad = "";
+            string actividad = "";
+            string provincia = "";
+            string fechaInicioSoli = "";
+            string fechaFinSoli = "";
 
-            for (int i = 0; i < dt.Rows.Count; i++)
+            //Estos no los tenemos cargados en la base todavia, los hardcodeo
+            string horaInicioSoli = "12:00hs";
+            string horaFinSoli = "16:00hs";
+
+            string nombreSolicitante = "";
+            string apellidoSolicitante = "";
+            string mailSolicitante = "";
+
+            //Empieza con mayuscula los datos "compuestos" en tablas
+            string Interesado = "";
+            string Tripulacion = "";
+            string Vant = "";
+
+            //Aca creamos las datatables de los datos "compuestos"
+            DataTable dtUbi = new SP("bd_reapp").Execute("usp_GetUbicacionesParaPDF", P.Add("IdSolicitud", idSolicitud));
+            DataTable dtSolicitud = new SP("bd_reapp").Execute("usp_GetDatosSolicitudParaPDF", P.Add("IdSolicitud", idSolicitud));
+            DataTable dtTripulacion = new SP("bd_reapp").Execute("usp_GetDatosTripulacionParaPDF", P.Add("IdSolicitud", idSolicitud));
+            DataTable dtVant = new SP("bd_reapp").Execute("usp_GetDatosVantParaPDF", P.Add("IdSolicitud", idSolicitud));
+            DataTable dtInteresado = new SP("bd_reapp").Execute("usp_GetDatosInteresadosParaPDF", P.Add("IdSolicitud", idSolicitud));
+
+            //Reemplazo datos simples
+            nombreSolicitud = dtSolicitud.Rows[0]["NombreSoli"].ToString();
+            fechaSolicitud = dtSolicitud.Rows[0]["FHAlta"].ToString();
+            modalidad = dtSolicitud.Rows[0]["Modalidad"].ToString();
+            actividad = dtSolicitud.Rows[0]["Actividad"].ToString();
+            provincia = dtSolicitud.Rows[0]["Provincia"].ToString();
+            fechaInicioSoli = dtSolicitud.Rows[0]["FHDesde"].ToString();
+            fechaFinSoli = dtSolicitud.Rows[0]["FHHasta"].ToString();
+            nombreSolicitante = dtSolicitud.Rows[0]["Nombre"].ToString();
+            apellidoSolicitante = dtSolicitud.Rows[0]["Apellido"].ToString();
+            mailSolicitante = dtSolicitud.Rows[0]["Email"].ToString();
+
+            //Reemplazo tabla Ubicaciones
+            for (int i = 0; i < dtUbi.Rows.Count; i++)
             {
                 Ubicaciones += "<tr>";
 
-                Ubicaciones += $"<td>{dt.Rows[i]["IdUbicacion"]}</td>";
-                Ubicaciones += $"<td>{dt.Rows[i]["Latitud"]}</td>";
-                Ubicaciones += $"<td>{dt.Rows[i]["Longitud"]}</td>";
-                Ubicaciones += $"<td>{dt.Rows[i]["Radio"]}</td>";
-                Ubicaciones += $"<td>{dt.Rows[i]["Altura"]}</td>";
+                Ubicaciones += $"<td>{dtUbi.Rows[i]["IdUbicacion"]}</td>";
+                Ubicaciones += $"<td>{dtUbi.Rows[i]["Latitud"]}</td>";
+                Ubicaciones += $"<td>{dtUbi.Rows[i]["Longitud"]}</td>";
+                Ubicaciones += $"<td>{dtUbi.Rows[i]["Radio"]}</td>";
+                Ubicaciones += $"<td>{dtUbi.Rows[i]["Altura"]}</td>";
 
                 Ubicaciones += "</tr>";
             }
 
-            content = content.Replace("$UBICACIONES$", Ubicaciones);
+            //Reemplazo tabla Tripulacion
+            for (int i = 0; i < dtTripulacion.Rows.Count; i++)
+            {
+                Tripulacion += "<tr>";
+
+                Tripulacion += $"<td>{dtTripulacion.Rows[i]["Apellido"]}</td>";
+                Tripulacion += $"<td>{dtTripulacion.Rows[i]["Nombre"]}</td>";
+                Tripulacion += $"<td>{dtTripulacion.Rows[i]["DNI"]}</td>";
+                Tripulacion += $"<td>{dtTripulacion.Rows[i]["Correo"]}</td>";
+
+                Tripulacion += "</tr>";
+            }
+
+            //Reemplazo tabla Vant
+            for (int i = 0; i < dtVant.Rows.Count; i++)
+            {
+                Vant += "<tr>";
+
+                Vant += $"<td>VANT-{dtVant.Rows[i]["Vant"]}</td>";
+                Vant += $"<td>{dtVant.Rows[i]["Marca Vant"]}</td>";
+                Vant += $"<td>{dtVant.Rows[i]["Modelo"]}</td>";
+                Vant += $"<td>{dtVant.Rows[i]["Serial"]}</td>";
+
+                Vant += "</tr>";
+            }
+
+            //Reemplazo Interesados
+            for (int i = 0; i < dtInteresado.Rows.Count; i++)
+            {
+                Interesado += "<br />";
+
+                Interesado += $"&emsp;&emsp;{dtInteresado.Rows[i]["Nombre"]}";
+                Interesado += $"&emsp;&emsp;&emsp;&emsp;{dtInteresado.Rows[i]["Email"]}";
+            }
+
+            content = content.Replace("$NUMEROSOLICITUD$", idSolicitud.ToString()).Replace("$AÑOPRESENTE$", anoPresente).Replace("$NOMBRESOLICITUD$", nombreSolicitud).Replace("$FECHARESPUESTA$", fechaHoy).Replace("$HORARESPUESTA$", horaHoy).Replace("$NOMBRESOLICITANTE$", nombreSolicitante).Replace("$APELLIDOSOLICITANTE$", apellidoSolicitante).Replace("$MAILSOLICITANTE$", mailSolicitante).Replace("$FECHASOLICITUD$", fechaSolicitud).Replace("$ACTIVIDAD$", actividad).Replace("$MODALIDAD$", modalidad).Replace("$PROVINCIA$", provincia).Replace("$FECHAINICIO$", fechaInicioSoli).Replace("$FECHAFIN$", fechaFinSoli).Replace("$UBICACIONES$", Ubicaciones).Replace("$HORAINICIO$", horaInicioSoli).Replace("$HORAFIN$", horaFinSoli).Replace("$TRIPULACION$", Tripulacion).Replace("$VANT$", Vant).Replace("$INTERESADOS$", Interesado);
 
             //Aca se puede usar el ConvertHtmlString para que pongamos una cadena de html optimizada en una linea y asi poder modificar mejor el resultado final
             PdfDocument doc = converter.ConvertHtmlString(content);

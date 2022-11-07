@@ -68,7 +68,7 @@
             <div class="container" style="margin: 15px;">
                 <div class="row justify-content-center">
                     <div class="col-6" style="text-align:center;">
-                        <img src="file:///D:/Proyectos/ProyectoFinal/REApp/REApp/Assets/PDFMinisterioEANA.png" alt="LogoEANA" style="height: fit-content;" />
+                        <img src="https://i.imgur.com/rSCQjSr.png" alt="LogoEANA" style="height: fit-content;" />
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
             <div class="container alert-interesado" style="margin: 10px; page-break-inside: avoid">
                 <div class="row">
                     <br />
-                    <b>REA-CBA: </b>$NUMEROSOLITUD$/$AÑOPRESENTE$
+                    <b>REA-CBA: </b>$NUMEROSOLICITUD$/$AÑOPRESENTE$
                     <br />
                     <b>REF: </b>$NOMBRESOLICITUD$
                     <br />
@@ -102,10 +102,9 @@
                     <br />
                     <b>EJECUTIVO: </b>
                     <br />
-                    &emsp;&emsp;$NOMBRESOLICITANTE$&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$MAILSOLICITANTE$
-                    <br />
+                    &emsp;&emsp;$NOMBRESOLICITANTE$ $APELLIDOSOLICITANTE$&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$MAILSOLICITANTE$
                     $INTERESADOS$
-                    <br/>
+                    <br />
                 </div>
                 <hr />
                 <div class="row">
@@ -118,7 +117,7 @@
                 <hr />
                 <div class="row">
                     <br />
-                    &emsp;&emsp;REFERENTE A MAIL RECIBIDO EN FECHA $FECHASOLICITUD$, DEL $NOMBRESOLICITANTE$, RELACIONADA CON SOLICITUD PARA REALIZAR $MODALIDADACTIVIDAD$ EN $PROVINCIA$. ESTA JEFATURA ANS/OPS PRESTA CONFORMIDAD DE USO DE ESPACIO AÉREO DE ACUERDO CON EL SIGUIENTE DETALLE:
+                    &emsp;&emsp;REFERENTE A MAIL RECIBIDO EN FECHA $FECHASOLICITUD$, DE $APELLIDOSOLICITANTE$ $NOMBRESOLICITANTE$, RELACIONADA CON SOLICITUD PARA REALIZAR $ACTIVIDAD$ $MODALIDAD$ EN $PROVINCIA$. ESTA JEFATURA ANS/OPS PRESTA CONFORMIDAD DE USO DE ESPACIO AÉREO DE ACUERDO CON EL SIGUIENTE DETALLE:
                     <br />
                 </div>
             </div>
@@ -167,12 +166,29 @@
                     <br />
                     <b>TRIPULACIÓN / PILOTOS A DISTANCIA:</b>
                     <br />
+                    <table class="dt">
+                        <thead>
+                            <tr>
+                                <th>APELLIDO</th>
+                                <th>NOMBRE</th>
+                                <th>LICENCIA</th>
+                                <th>EMAIL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            $TRIPULACION$
+                            <!-- <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                    <br />
                 </div>
                 <hr />
-                <div class="row">
-                    <br />
-                    <p>&emsp;&emsp;$NOMBRETRIPULACION$</p>
-                </div>
             </div>
 
             <div class="container alert-interesado" style="margin: 10px; page-break-inside: avoid">
@@ -186,7 +202,28 @@
                     <br />
                     <p>EL SOLICITANTE EXPRESA CUMPLIR CON EL REGISTRO DE EQUIPO:</p>
                     <br />
-                    <p>&emsp;&emsp;$VANT$</p>
+                    <table class="dt">
+                        <thead>
+                            <tr>
+                                <th>VANT</th>
+                                <th>MARCA</th>
+                                <th>MODELO</th>
+                                <th>SERIAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            $VANT$
+                            <!-- <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
                     <br />
                     <p>&emsp;&emsp;MANIFIESTA CONTAR CON EVALUACIÓN DE IDONEIDAD ANTE LA ADMINISTRACIÓN NACIONAL DE AVIACIÓN CIVIL (ANAC).</p>
                     <br />
