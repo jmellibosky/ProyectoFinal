@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static REApp.Navegacion;
 
 namespace REApp.Forms
 {
@@ -331,9 +332,8 @@ namespace REApp.Forms
                         {
                             uploadMethod(FileUploadCertCompetenciaTripulante, 3, idTripulacion);
                         }
-
-
                     }
+                    Alert("Tripulante creado con éxito", "Se ha agregado un nuevo Tripulante.", AlertType.success, "/Forms/GestionTripulantes.aspx");
                 }
                 else
                 { // Update
@@ -356,10 +356,11 @@ namespace REApp.Forms
                     {
                         uploadMethod(FileUploadCertCompetenciaTripulante, 3, idTripulacion);
                     }
+                    Alert("Tripulante actualizado con éxito", "Se han guardado los datos del tripulante.", AlertType.success, "/Forms/GestionTripulantes.aspx");
                 }
-
-                MostrarListado();
-                btnFiltrar_Click(null, null);
+                
+                //MostrarListado();
+                //btnFiltrar_Click(null, null);
             }
         }
 
@@ -463,8 +464,9 @@ namespace REApp.Forms
                 );
             }
             pnlAlertaEliminar.Visible = false;
+            Alert("Tripulante dado de baja con éxito", "Se ha dado de baja el Tripulante seleccionado.", AlertType.success, "/Forms/GestionTripulantes.aspx");
 
-            btnFiltrar_Click(null, null);
+            //btnFiltrar_Click(null, null);
         }
 
         //Subida de Archivos

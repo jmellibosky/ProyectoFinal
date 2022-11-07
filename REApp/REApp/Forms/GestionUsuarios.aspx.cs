@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static REApp.Navegacion;
 
 namespace REApp.Forms
 {
@@ -316,7 +317,8 @@ namespace REApp.Forms
                 UsuarioViejo.Update();
 
                 hdnIdUsuario.Value = "";
-                MostrarListado();
+                Alert("Usuario actualizado con éxito", "Se ha actualizado el usuario seleccionado.", AlertType.success, "/Forms/GestionUsuarios.aspx");
+                //MostrarListado();
                 //BindGrid();
             }
            
@@ -382,10 +384,11 @@ namespace REApp.Forms
 
             UsuarioController userController = new UsuarioController();
             userController.LogicDeleteUser(hdnDeleteUserId.Value.ToInt(), hdnIdCurrentUser.Value.ToInt());
-            
+
             //UsuarioAEliminar.Delete();
 
-            MostrarListado();
+            Alert("Usuario dado de baja con éxito", "Se dado de baja el usuario seleccionado.", AlertType.success, "/Forms/GestionUsuarios.aspx");
+            //MostrarListado();
         }
 
         protected void gvUsuarios_RowDataBound(object sender, GridViewRowEventArgs e)

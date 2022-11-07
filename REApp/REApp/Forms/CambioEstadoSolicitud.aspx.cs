@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using MagicSQL;
 using REApp.Models;
 using REApp.Controllers;
+using static REApp.Navegacion;
 
 namespace REApp.Forms
 {
@@ -82,6 +83,7 @@ namespace REApp.Forms
                     P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt()),
                     P.Add("Observacion", txtObservaciones.Text)
                 );
+                Alert("Solicitud devuelta con éxito", "La solicitud ha sido devuelta a su estado anterior.", AlertType.success, frm);
             }
             else
             { // TRASLADAR A ESTADO
@@ -112,6 +114,7 @@ namespace REApp.Forms
                     mail.Add(u.Nombre + u.Apellido, u.Email);
 
                     bool Exito = mail.Enviar();
+                    Alert("Estado de solicitud cambiado con éxito", "La solicitud ha sido cambiada a estado PendienteModificacion", AlertType.success, frm);
                 }
                 //Si pasa al estado enCoordinacion
                 if (IdEstado == 3)
@@ -128,9 +131,15 @@ namespace REApp.Forms
                             EnviarMailCoordinacion(nombre, email, idInteresado, IdSolicitud);
                         }
                     }
+                    Alert("Estado de solicitud modificado con éxito", "La solicitud ha sido cambiada a estado EnCoordinacion", AlertType.success, frm);
+                }
+                if (IdEstado == 2)
+                {
+                    Alert("Estado de solicitud modificado con éxito", "La solicitud ha sido cambiada a estado EnAnalisis", AlertType.success, frm);
                 }
             }
-            Response.Redirect(frm);
+            //Alert("Estado de solicitud modificado con éxito", "La solicitud ha sido cambiada a un nuevo estado.", AlertType.success, frm);
+            //Response.Redirect(frm);
         }
 
         //Mismo mail que se envia en Analisis

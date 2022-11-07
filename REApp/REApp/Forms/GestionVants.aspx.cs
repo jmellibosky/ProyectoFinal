@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using MagicSQL;
 using REApp.Models;
+using static REApp.Navegacion;
 
 namespace REApp.Forms
 {
@@ -388,6 +389,7 @@ namespace REApp.Forms
                         Vant.Insert();
 
                     }
+                    Alert("VANT creado con éxito", "Se ha agregado un nuevo VANT a su colección.", AlertType.success, "/Forms/GestionVants.aspx");
                 }
                 else if (pnlMotivoBaja.Visible == false)
                 { // Update
@@ -405,6 +407,7 @@ namespace REApp.Forms
                     Vant.NumeroSerie = txtNumeroSerie.Text;
                     Vant.IdLocalidadPartido = ddlLocalidadPartido.SelectedValue.ToIntID();
                     Vant.Update();
+                    Alert("VANT actualizado con éxito", "Se han guardado los datos.", AlertType.success, "/Forms/GestionVants.aspx");
 
                 }
                 else
@@ -419,6 +422,7 @@ namespace REApp.Forms
                             P.Add("IdVant", Vant.IdVant)
                         );
                     }
+                    Alert("VANT dado de baja con éxito", "Se ha dado de baja el VANT seleccionado.", AlertType.success, "/Forms/GestionVants.aspx");
                 }
 
 
