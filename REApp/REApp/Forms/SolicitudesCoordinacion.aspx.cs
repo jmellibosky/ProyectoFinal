@@ -5,6 +5,7 @@ using System.Data;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static REApp.Navegacion;
 
 namespace REApp.Forms
 {
@@ -480,6 +481,8 @@ namespace REApp.Forms
                 };
 
                 Coordinacion.Insert();
+
+                Alert("Aprobada", "Solicitud Aprobada por Operador.", AlertType.success);
 
             }
             else if (e.CommandName.Equals("Reenviar"))
