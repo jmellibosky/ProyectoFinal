@@ -27,7 +27,7 @@
             <!-- Sidebar-->
             <div class="border-end" style="background-color: #484c64" id="sidebar-wrapper">
                 <%-- Aca es donde depende si es Admin o no lo que se muestra --%>
-                <image src="/Assets/EANA3.png" alt="LogoEANA" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;"></image>
+                <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;"></image>
                 <%--<div runat="server" id="lblRol" class="sidebar-heading border-bottom bg-light">Rol Sistema</div>--%>
                 <div class="list-group list-group-flush">
                     <ul id="side-menu" class="nav">

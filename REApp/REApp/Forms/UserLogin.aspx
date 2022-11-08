@@ -28,7 +28,7 @@
             <div class="card" style="border-radius: 1rem;">
               <div class="row g-0">
                 <div class="col-md-6 col-lg-5 d-none d-md-block">
-                  <img src="/Assets/LoginBanner.jpg"
+                  <img src="/Assets/LoginBannerReapp.png"
                     alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
                 </div>
                 <div class="col-md-6 col-lg-7 d-flex align-items-center">
