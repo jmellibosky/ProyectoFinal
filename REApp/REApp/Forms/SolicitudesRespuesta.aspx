@@ -212,7 +212,7 @@
 
             <asp:Panel ID="pnlABM" runat="server" Visible="false">
                 <br />
-                <div class="row">
+<%--                <div class="row">
                     <div class="col-12 alert alert-warning" role="alert">
                         <div class="row">
                             <h5><asp:Label runat="server" Text="Acciones" /></h5>
@@ -222,7 +222,7 @@
                             <asp:Button runat="server" Text="Cambiar Estado a Finalizada" CssClass="btn btn-success" ID="btnEstadoOperador" OnClick="btnEstadoOperador_Click" Visible="false" />
                         </div>
                     </div>
-                </div>
+                </div>--%>
                 <br />
                 <div class="row">
                     <div class="col-12">

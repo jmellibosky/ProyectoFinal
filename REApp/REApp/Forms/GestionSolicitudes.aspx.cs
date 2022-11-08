@@ -477,6 +477,8 @@ namespace REApp.Forms
                             SolicitudEstadoHistorial.Insert(tn);
 
                             tn.Commit();
+
+                            Alert("Solicitud creada con éxito", "Se ha agregado una nueva solicitud.", AlertType.success);
                         }
                         catch (Exception ex)
                         {
@@ -696,6 +698,7 @@ namespace REApp.Forms
                         } // FIN FOR GRILLA VANTS
 
                         tn.Commit();
+                        Alert("Solicitud modificada con éxito", "Se ha modificado una solicitud existente.", AlertType.success);
 
                     } // FIN USING TN
                 } // FIN ELSE UPDATE
@@ -723,6 +726,9 @@ namespace REApp.Forms
 
             chkVant.Checked = false;
             chkVant_CheckedChanged(null, null);
+
+            pnlHistorialSolicitud.Visible = false;
+            btnAgregarUbicacion.Visible = true;
 
             MostrarABM();
         }
@@ -857,12 +863,16 @@ namespace REApp.Forms
             { // Detalle
                 btnGenerarKMZ.Visible = true;
                 HabilitarDeshabilitarTxts(false);
+                pnlHistorialSolicitud.Visible = true;
+                btnAgregarUbicacion.Visible = false;
             }
             if (e.CommandName.Equals("Editar"))
             {
                 btnGenerarKMZ.Visible = true;
                 btnGuardar.Visible = true;
                 HabilitarDeshabilitarTxts(true);
+                pnlHistorialSolicitud.Visible = true;
+                btnAgregarUbicacion.Visible = true;
 
                 //Si esta en estado PendienteModificacion, se habilita btnEnviarSolicitud
                 if (idEstadoActual == 9)
@@ -1220,13 +1230,13 @@ namespace REApp.Forms
             }
             if (!TieneTripulantes)
             {
-                Alert("Error", "Por favor, ingrese al menos un Tripulante.", AlertType.error);
-                return false;
+                //Alert("Error", "Por favor, ingrese al menos un Tripulante.", AlertType.error);
+                //return false;
             }
             if (Ubicaciones.Count == 0)
             {
-                Alert("Error", "Por favor, ingrese al menos una ubicación sobre la que desea solicitar la reserva.", AlertType.error);
-                return false;
+                //Alert("Error", "Por favor, ingrese al menos una ubicación sobre la que desea solicitar la reserva.", AlertType.error);
+                //return false;
             }
             return true;
         }
@@ -1355,6 +1365,7 @@ namespace REApp.Forms
         //btnEnviarSolicitud
         protected void enviarSolicitud_Click(object sender, EventArgs e)
         {
+            btnGuardar_Click(null, null);
             // CONFIRMACIÓN CON MENSAJE OPCIONAL
             int IdSolicitud = hdnIdSolicitud.Value.ToInt();
             //int IdEstado = 5;
@@ -1362,7 +1373,7 @@ namespace REApp.Forms
             string FrmAnterior = "/Forms/GestionSolicitudes.aspx";
 
             string url = $"/Forms/CambioEstadoSolicitud.aspx?S={IdSolicitud}&E={IdEstado}&frm={FrmAnterior}";
-
+            
             Response.Redirect(url);
         }
 

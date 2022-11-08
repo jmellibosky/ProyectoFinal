@@ -137,6 +137,10 @@ namespace REApp.Forms
                 {
                     Alert("Estado de solicitud modificado con éxito", "La solicitud ha sido cambiada a estado EnAnalisis", AlertType.success, frm);
                 }
+                if (IdEstado == 5)
+                {
+                    Alert("Estado de solicitud modificado con éxito", "La solicitud ha sido cambiada a estado PendienteRespuesta", AlertType.success, frm);
+                }
             }
             //Alert("Estado de solicitud modificado con éxito", "La solicitud ha sido cambiada a un nuevo estado.", AlertType.success, frm);
             //Response.Redirect(frm);
