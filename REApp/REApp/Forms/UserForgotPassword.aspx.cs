@@ -1,6 +1,7 @@
 ﻿using MagicSQL;
 using System;
 using System.Data;
+using static REApp.Navegacion;
 
 namespace REApp.Forms
 {
@@ -52,8 +53,11 @@ namespace REApp.Forms
 
             bool Exito = mail.Enviar();
 
+            //Sweetalerts antes de redireccionar
+            Alert("Correo enviado con exito", "Revise su casilla para restaurar su contraseña.", AlertType.success, "/Forms/UserLogin.aspx");
+
             //Aca estaria bueno un SweetAlert diciendo que revise el mail
-            Response.Redirect("/Forms/UserLogin.aspx");
+            //Response.Redirect("/Forms/UserLogin.aspx"); Comento esta linea porque lo hacemos con SweetAlert
         }
     }
 }
