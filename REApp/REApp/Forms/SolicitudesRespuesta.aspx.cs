@@ -901,58 +901,77 @@ namespace REApp.Forms
 
         protected void btnEnviarMail_Click(object sender, EventArgs e)
         {
-            int idSolicitud = hdnIdSolicitud.Value.ToInt();
-
-            HTMLBuilder builder = new HTMLBuilder("Solicitud de Reserva de Espacio Aéreo", "GenericMailTemplate.html");
-
-            builder.AppendTexto("Buenas tardes.");
-            builder.AppendSaltoLinea(2);
-            builder.AppendTexto("La Empresa Argentina de Navegación Aérea les comunica que la REA " + idSolicitud.ToString() + " fue aprobada por REA-CBA. Se adjunta la información relevante para el caso.");
-
-            string cuerpo = builder.ConstruirHTML();
-
-            MailController mail = new MailController("RESPUESTA REA", cuerpo);
-
-            GetRespuesta(false);
-
-            DataTable dtDocumento = new SP("bd_reapp").Execute("usp_GetRespuestaSolicitud",
-                P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt())); ;
-            
-
-            int idDoc = (int)dtDocumento.Rows[0][0];
-
-            mail.Add(new Models.Documento().Select(idDoc));
-
-
-            //false porque no descarga la respuesta, solo la genera si no esta y la guarda en la BD
-            
-
-            
-            //Envio de mail a cada tripulante
-
-            for (int i = 0; i < gvSoloInteresadosVinculados.Rows.Count; i++)
+            try
             {
-                if (((CheckBox)gvSoloInteresadosVinculados.Rows[i].FindControl("chkInteresadoVinculado")).Checked)
-                { // SI ESTÁ CHEQUEADO
-                  //Logica Mails
-                    string email = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnEmail")).Value.ToString();
-                    string nombre = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnNombre")).Value.ToString();
-                    //EnviarMail(nombre, email, idSolicitud);
-                    mail.Add(nombre, email);
+                int idSolicitud = hdnIdSolicitud.Value.ToInt();
+
+                HTMLBuilder builder = new HTMLBuilder("Solicitud de Reserva de Espacio Aéreo", "GenericMailTemplate.html");
+
+                string leftpart = Request.Url.GetLeftPart(UriPartial.Authority);
+                string frmValidacion = "/Forms/VistaEstaticaSolicitud.aspx";
+                string parameters = $"?S={hdnIdSolicitud.Value.ToInt().ToCryptoID()}";
+
+                string url = $"{leftpart}{frmValidacion}{parameters}";
+
+                builder.AppendTexto("Buenas tardes.");
+                builder.AppendSaltoLinea(2);
+                builder.AppendTexto("La Empresa Argentina de Navegación Aérea les comunica que la REA " + idSolicitud.ToString() + " fue aprobada por REA-CBA. Se adjunta la información relevante para el caso.");
+                builder.AppendURL(url, "Detalles de la Solicitud");
+
+                string cuerpo = builder.ConstruirHTML();
+
+                MailController mail = new MailController("RESPUESTA REA", cuerpo);
+
+                GetRespuesta(false);
+
+                DataTable dtDocumento = new SP("bd_reapp").Execute("usp_GetRespuestaSolicitud",
+                    P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt())); ;
+
+
+                int idDoc = (int)dtDocumento.Rows[0][0];
+
+                mail.Add(new Models.Documento().Select(idDoc));
+
+
+                //false porque no descarga la respuesta, solo la genera si no esta y la guarda en la BD
+
+
+
+                //Envio de mail a cada tripulante
+
+                for (int i = 0; i < gvSoloInteresadosVinculados.Rows.Count; i++)
+                {
+                    if (((CheckBox)gvSoloInteresadosVinculados.Rows[i].FindControl("chkInteresadoVinculado")).Checked)
+                    { // SI ESTÁ CHEQUEADO
+                      //Logica Mails
+                        string email = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnEmail")).Value.ToString();
+                        string nombre = ((HiddenField)gvSoloInteresadosVinculados.Rows[i].FindControl("hdnNombre")).Value.ToString();
+                        //EnviarMail(nombre, email, idSolicitud);
+                        mail.Add(nombre, email);
+                    }
                 }
+
+                //Se trae el explotador con su mail
+
+                Models.Solicitud Solicitud = new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt());
+                int idSolicitante = Solicitud.IdUsuario;
+                Models.Usuario Usuario = new Models.Usuario().Select(idSolicitante);
+                string emailSolicitante = Usuario.Email.ToString();
+                string nombreSolicitante = Usuario.Nombre + " " + Usuario.Apellido;
+                mail.Add(nombreSolicitante, emailSolicitante);
+
+                bool Exito = mail.Enviar();
+
+                new SP("bd_reapp").Execute("usp_ActualizarEstadoSolicitud",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value.ToInt()),
+                P.Add("IdEstadoSolicitud", 6),
+                P.Add("IdUsuarioCambioEstado", Session["IdUsuario"].ToString().ToInt()));
+
+                Alert("Correos enviados con éxito", "Se han enviado los correos de Respuesta.", AlertType.success, "/Forms/SolicitudesRespuesta.aspx");
             }
-
-            //Se trae el explotador con su mail
-
-            Models.Solicitud Solicitud = new Models.Solicitud().Select(hdnIdSolicitud.Value.ToInt());
-            int idSolicitante = Solicitud.IdUsuario;
-            Models.Usuario Usuario = new Models.Usuario().Select(idSolicitante);
-            string emailSolicitante = Usuario.Email.ToString();
-            string nombreSolicitante = Usuario.Nombre + " " + Usuario.Apellido;
-            mail.Add(nombreSolicitante, emailSolicitante);
-
-            bool Exito = mail.Enviar();
-            Alert("Correos enviados con éxito", "Se han enviado los correos de Respuesta.", AlertType.success, "/Forms/SolicitudesRespuesta.aspx");
+            catch (Exception)
+            {
+            }
         }
     }
 }
