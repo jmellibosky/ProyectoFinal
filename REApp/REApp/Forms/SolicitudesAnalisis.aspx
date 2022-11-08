@@ -420,7 +420,7 @@
                                                         ID="gvHistorial"
                                                         runat="server"
                                                         AutoGenerateColumns="false"
-                                                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" Visible="false">
+                                                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
                                                         <AlternatingRowStyle BackColor="white" />
                                                         <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
                                                         <RowStyle BackColor="#e1dddd" />
