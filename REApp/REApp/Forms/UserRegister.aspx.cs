@@ -109,7 +109,7 @@ namespace REApp.Forms
                     //Primero se deberia verificar que el mail no esta usado, tengo que crear otro SP
                     using (SP sp = new SP("bd_reapp"))
                     {
-                        int IdUsuario = sp.Execute("__UsuarioInsert_v1", P.Add("Nombre", nombre), P.Add("Apellido", apellido), P.Add("Email", correo), P.Add("Dni", DNI), P.Add("TipoDni", TipoDni), P.Add("IdRol", idRol), P.Add("CreatedOn", DateTime.Today), P.Add("CreatedBy", null), P.Add("DeletedOn", null), P.Add("DeletedBy", null), P.Add("FechaNacimiento", fechaNac), P.Add("Telefono", telefono), P.Add("Password", hashedpass), P.Add("SaltKey", salt)).Rows[0][0].ToString().ToInt();
+                        int IdUsuario = sp.Execute("__UsuarioInsert_v1", P.Add("Nombre", nombre), P.Add("Apellido", apellido), P.Add("Email", correo), P.Add("Dni", DNI), P.Add("TipoDni", TipoDni), P.Add("IdRol", idRol), P.Add("CreatedOn", DateTime.Today), P.Add("CreatedBy", null), P.Add("DeletedOn", null), P.Add("DeletedBy", null), P.Add("FechaNacimiento", fechaNac), P.Add("Telefono", telefono), P.Add("Password", hashedpass), P.Add("SaltKey", salt), P.Add("ValidacionCorreo", 0), P.Add("ValidacionEANA", 0)).Rows[0][0].ToString().ToInt(); //Ver ValidacionCorreo y EANA
                         EnviarMailConfirmacion(IdUsuario);
 
                         Alert("Email enviado", "Por favor, revise su casilla de correo y siga los pasos indicados.", AlertType.success);
