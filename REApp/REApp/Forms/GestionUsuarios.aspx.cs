@@ -328,44 +328,32 @@ namespace REApp.Forms
         {
             if (txtModalNombreUsuario.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese el nombre del usuario.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el nombre del usuario.", AlertType.error);
                 return false;
             }
             if (txtModalApellidoUsuario.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese el apellido del usuario.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el apellido del usuario.", AlertType.error);
                 return false;
             }
             if (txtModalDni.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese el DNI del usuario.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el DNI del usuario.", AlertType.error);
                 return false;
             }
             if (txtModalFechaNac.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese la fecha de nacimiento del usuario.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el fecha de nacimiento del usuario.", AlertType.error);
                 return false;
             }
             if (txtModalFechaNac.Text.ToDateTimeNull() == null)
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese una fecha de nacimiento válida.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese una fecha de nacimiento válida.", AlertType.error);
                 return false;
             }
             if (txtModalTelefono.Text.Equals("") && txtModalCorreo.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese al menos un dato de contacto del usuario.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese al menos un dato de contacto del usuario.", AlertType.error);
                 return false;
             }
 

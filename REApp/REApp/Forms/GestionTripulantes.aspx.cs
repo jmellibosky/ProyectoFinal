@@ -72,6 +72,7 @@ namespace REApp.Forms
         protected void CargarComboSolicitante()
         {
             ddlSolicitante.Items.Clear();
+            ddlSolicitante.Items.Add(new ListItem("Todos", "#"));
             using (SP sp = new SP("bd_reapp"))
             {
                 DataTable dt = new UsuarioController().GetComboSolicitante();
@@ -104,10 +105,15 @@ namespace REApp.Forms
             DataTable dt = null;
             using (SP sp = new SP("bd_reapp"))
             {
+                List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+
                 if (!ddlSolicitante.SelectedValue.Equals("#"))
                 {
-                    dt = sp.Execute("usp_GetTripulacionDeUsuario", P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID()));
+                    parameters.Add(P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID()));
                 }
+                parameters.Add(P.Add("Documentacion", ddlDocumentación.SelectedValue.ToInt()));
+
+                dt = sp.Execute("usp_GetTripulacion", parameters.ToArray());
             }
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -118,6 +124,7 @@ namespace REApp.Forms
                 gvTripulantes.DataSource = null;
             }
             gvTripulantes.DataBind();
+            upTripulantes.Update();
         }
 
 
@@ -248,44 +255,32 @@ namespace REApp.Forms
         {
             if (txtModalNombre.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese el nombre del tripulante.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el nombre del tripulante.", AlertType.error);
                 return false;
             }
             if (txtModalApellido.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese el apellido del tripulante.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el apellido del tripulante.", AlertType.error);
                 return false;
             }
             if (txtModalDNI.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese el DNI del tripulante.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el DNI del tripulante.", AlertType.error);
                 return false;
             }
             if (txtModalFechaNacimiento.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese la fecha de nacimiento del tripulante.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese la fecha de nacimiento del tripulante.", AlertType.error);
                 return false;
             }
             if (txtModalFechaNacimiento.Text.ToDateTimeNull() == null)
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese una fecha de nacimiento válida.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese una fecha de nacimiento válida.", AlertType.error);
                 return false;
             }
             if (txtModalTelefono.Text.Equals("") && txtModalCorreo.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese al menos un dato de contacto del tripulante.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese al menos un dato de contacto del tripulante.", AlertType.error);
                 return false;
             }
 
@@ -628,5 +623,9 @@ namespace REApp.Forms
             }
         }
 
+        protected void ddlDocumentación_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnFiltrar_Click(null, null);
+        }
     }
 }

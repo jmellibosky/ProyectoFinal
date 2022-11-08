@@ -156,7 +156,7 @@ namespace REApp.Forms
                 }
                 if (!ddlFiltroProvincia.SelectedValue.Equals("#"))
                 {
-                    parameters.Add(P.Add("IdActividad", ddlFiltroProvincia.SelectedValue.ToIntID()));
+                    parameters.Add(P.Add("IdProvincia", ddlFiltroProvincia.SelectedValue.ToIntID()));
                 }
                 try
                 {
@@ -1133,14 +1133,17 @@ namespace REApp.Forms
         {
             if (txtPoligonoLatitud.Text.Equals(""))
             {
+                Alert("Error", "Por favor, ingrese latitud.", AlertType.error);
                 return false;
             }
             if (txtPoligonoLongitud.Text.Equals(""))
             {
+                Alert("Error", "Por favor, ingrese longitud.", AlertType.error);
                 return false;
             }
             if (txtPoligonoAltura.Text.Equals(""))
             {
+                Alert("Error", "Por favor, ingrese altura.", AlertType.error);
                 return false;
             }
             return true;
@@ -1152,18 +1155,22 @@ namespace REApp.Forms
             {
                 if (txtCircunferenciaAltura.Text.Equals(""))
                 {
+                    Alert("Error", "Por favor, ingrese altura.", AlertType.error);
                     return false;
                 }
                 if (txtCircunferenciaLatitud.Text.Equals(""))
                 {
+                    Alert("Error", "Por favor, ingrese latitud.", AlertType.error);
                     return false;
                 }
                 if (txtCircunferenciaLongitud.Text.Equals(""))
                 {
+                    Alert("Error", "Por favor, ingrese longitud.", AlertType.error);
                     return false;
                 }
                 if (txtCircunferenciaRadio.Text.Equals(""))
                 {
+                    Alert("Error", "Por favor, ingrese radio.", AlertType.error);
                     return false;
                 }
             }
@@ -1174,14 +1181,51 @@ namespace REApp.Forms
         {
             if (txtModalNombreSolicitud.Text.Equals(""))
             {
+                Alert("Error", "Por favor, ingrese un nombre representativo para la reserva.", AlertType.error);
                 return false;
             }
             if (txtModalFechaDesde.Text.Equals(""))
             {
+                Alert("Error", "Por favor, ingrese la fecha y hora desde la que desea solicitar la reserva.", AlertType.error);
                 return false;
             }
             if (txtModalFechaHasta.Text.Equals(""))
             {
+                Alert("Error", "Por favor, ingrese la fecha y hora hasta la que desea solicitar la reserva.", AlertType.error);
+                return false;
+            }
+            if (chkVant.Checked)
+            {
+                bool TieneVants = false;
+                for (int i = 0; i < gvVANTs.Rows.Count; i++)
+                {
+                    if (((CheckBox)gvVANTs.Rows[i].FindControl("chkVANTVinculado")).Checked)
+                    {
+                        TieneVants = true;
+                    }
+                }
+                if (!TieneVants)
+                {
+                    Alert("Error", "Por favor, ingrese al menos un VANT.", AlertType.error);
+                    return false;
+                }
+            }
+            bool TieneTripulantes = false;
+            for (int i = 0; i < gvTripulacion.Rows.Count; i++)
+            {
+                if (((CheckBox)gvTripulacion.Rows[i].FindControl("chkTripulacionVinculado")).Checked)
+                {
+                    TieneTripulantes = true;
+                }
+            }
+            if (!TieneTripulantes)
+            {
+                Alert("Error", "Por favor, ingrese al menos un Tripulante.", AlertType.error);
+                return false;
+            }
+            if (Ubicaciones.Count == 0)
+            {
+                Alert("Error", "Por favor, ingrese al menos una ubicación sobre la que desea solicitar la reserva.", AlertType.error);
                 return false;
             }
             return true;

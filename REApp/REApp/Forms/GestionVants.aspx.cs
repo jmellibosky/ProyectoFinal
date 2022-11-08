@@ -491,81 +491,58 @@ namespace REApp.Forms
         {
             if (txtFabricante.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese el nombre del Fabricante del VANT.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el nombre del Fabricante del VANT.", AlertType.error);
                 return false;
             }
             if (ddlMarcaVant.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, seleccione la Marca del VANT.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, seleccione la Marca del VANT.", AlertType.error);
                 return false;
             }
             if (txtModelo.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese el modelo del VANT.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el modelo del VANT.", AlertType.error);
                 return false;
             }
             if (txtNumeroSerie.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese el Número de Serie del VANT.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el Número de Serie del VANT.", AlertType.error);
                 return false;
 
             }
             if (txtAñoFabricacion.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese el Año de Fabricación del VANT.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el Año de Fabricación del VANT.", AlertType.error);
                 return false;
             }
             if (txtLugarFabricacion.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese el Lugar de Fabricación del VANT.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el Lugar de Fabricación del VANT.", AlertType.error);
                 return false;
             }
-
             if (txtLugarGuardado.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese el Lugar de Guardado del VANT.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el Lugar de Guardado del VANT.", AlertType.error);
                 return false;
             }
             if (ddlClaseVant.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, seleccione la Clase del VANT.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, seleccione la Clase del VANT.", AlertType.error);
                 return false;
             }
             if (ddlLocalidadPartido.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, seleccione la Localidad/Partido.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, seleccione la Localidad/Partido.", AlertType.error);
                 return false;
             }
             if (ddlProvincia.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, seleccione la Provincia.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, seleccione la Provincia.", AlertType.error);
                 return false;
             }
             if(pnlMotivoBaja.Visible & txtMotivoBaja.Text.Equals(""))
             {
-                txtErrorHeader.Text = "Error";
-                txtErrorBody.Text = "Por favor, ingrese el Motivo de Baja.";
-                pnlError.Visible = true;
+                Alert("Error", "Por favor, ingrese el Motivo de Baja.", AlertType.error);
                 return false;
             }
 

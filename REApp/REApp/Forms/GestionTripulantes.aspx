@@ -167,7 +167,17 @@
                                 <%-- Combo Solicitantes --%>
                                 <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group" runat="server" ID="pnlSolicitante">
                                     <asp:Label Text="Solicitantes" runat="server" />
-                                    <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" AutoPostBack="true"  OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged"/>
+                                    <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged"/>
+                                </asp:Panel>
+                                <%-- Combo Documentación --%>
+                                <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group" runat="server" ID="pnlDocumentacion">
+                                    <asp:Label Text="Documentación" runat="server" />
+                                    <asp:DropDownList runat="server" ID="ddlDocumentación" CssClass="form-control select-single" AutoPostBack="true" OnSelectedIndexChanged="ddlDocumentación_SelectedIndexChanged">
+                                        <asp:ListItem Text="Todos" Value="0" />    
+                                        <asp:ListItem Text="Vigente" Value="1" />    
+                                        <asp:ListItem Text="Vencida" Value="2" />    
+                                        <asp:ListItem Text="Faltante" Value="3" />    
+                                    </asp:DropDownList>
                                 </asp:Panel>
                             </div>
                             <br />
@@ -287,7 +297,7 @@
 
                                             <asp:Panel ID="pnlModalFechaNacimiento" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Fecha de Nacimiento" runat="server" />
-                                                <asp:TextBox runat="server" ID="txtModalFechaNacimiento" CssClass="form-control" />
+                                                <asp:TextBox runat="server" ID="txtModalFechaNacimiento" CssClass="form-control" TextMode="Date" />
                                             </asp:Panel>
                                         </div>
                                         <br />
@@ -366,7 +376,7 @@
                                                 <asp:Panel runat="server" ID="pnlFechaVencimientoCMTripulante">
                                                     <div class="row">
                                                         <asp:Label CssClass="width: 50%; text-align: right; text-md-center font-weight-bold" runat="server">Fecha de Vencimiento:&nbsp &nbsp</asp:Label>
-                                                        <input type="date" id="txtFechaVencimientoCertMedicoTripulante" runat="server" />
+                                                        <input type="date" class="form-control" id="txtFechaVencimientoCertMedicoTripulante" runat="server" />
                                                         <hr />
                                                     </div>
                                                 </asp:Panel>
@@ -424,7 +434,7 @@
                                                 <asp:Panel runat="server" ID="pnlFechaVencimientoCertCompetenciaTripulante">
                                                     <div class="row">
                                                         <asp:Label CssClass="width: 50%; text-align: right; text-md-center font-weight-bold" runat="server">Fecha de Vencimiento:&nbsp &nbsp</asp:Label>
-                                                        <input type="date" id="txtFechaDeVencimientoCertCompetenciaTripulante" runat="server" />
+                                                        <input type="date" class="form-control" id="txtFechaDeVencimientoCertCompetenciaTripulante" runat="server" />
                                                         <hr />
                                                     </div>
                                                 </asp:Panel>
