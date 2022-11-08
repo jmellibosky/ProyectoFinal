@@ -1,6 +1,7 @@
 ﻿using MagicSQL;
 using System;
 using System.Security.Cryptography;
+using static REApp.Navegacion;
 
 namespace REApp.Forms
 {
@@ -61,12 +62,12 @@ namespace REApp.Forms
                     sp.Execute("usp_RestaurarContrasena", P.Add("idusuario", idUsuario), P.Add("contrasenaHash", hashedpass), P.Add("contrasenaSalt", salt));
                 }
 
-                Response.Redirect("/Forms/UserRestauracionFinalizada.aspx");
+                Alert("Contraseña cambiada con exito", "Se redirigirá al inicio de sesión.", AlertType.success, "/Forms/UserLogin.aspx");
 
             }
             else
             {
-                //Aca faltaria el SweetAlert
+                Alert("Error", "Ambos campos deben ser iguales.", AlertType.error);
                 txt_pass.Value = "";
                 txt_passcheck.Value = "";
                 txt_pass.Focus();
