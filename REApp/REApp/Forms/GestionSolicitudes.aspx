@@ -142,8 +142,34 @@
                 <div class="conteiner">
                     <div class="row">
                         <div class="col">
-                            <asp:Label runat="server">Solicitantes</asp:Label>
-                            <asp:DropDownList runat="server" ID="ddlSolicitante" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" CssClass="form-control select-single" Width="300px" />
+                            <div class="row">
+                                <div class="form-group col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <asp:Label runat="server" Text="Solicitante" />
+                                    <asp:DropDownList runat="server" ID="ddlSolicitante" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" CssClass="form-control select-single" />
+                                </div>
+                                <div class="form-group col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <asp:Label runat="server" Text="Estado" />
+                                    <asp:DropDownList runat="server" ID="ddlEstado" AutoPostBack="true" OnSelectedIndexChanged="ddlEstado_SelectedIndexChanged" CssClass="form-control select-single" />
+                                </div>
+                                <div class="form-group col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <asp:Label runat="server" Text="Actividad" />
+                                    <asp:DropDownList runat="server" ID="ddlActividad" AutoPostBack="true" OnSelectedIndexChanged="ddlActividad_SelectedIndexChanged" CssClass="form-control select-single" />
+                                </div>
+                                <div class="form-group col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <asp:Label runat="server" Text="Provincia" />
+                                    <asp:DropDownList runat="server" ID="ddlFiltroProvincia" AutoPostBack="true" OnSelectedIndexChanged="ddlActividad_SelectedIndexChanged" CssClass="form-control select-single" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <asp:Label runat="server" Text="Fecha Desde" />
+                                    <asp:TextBox TextMode="Date" ID="txtFiltroFechaDesde" runat="server" AutoPostBack="true" OnTextChanged="txtFiltroFechaDesde_TextChanged" CssClass="form-control" />
+                                </div>
+                                <div class="form-group col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <asp:Label runat="server" Text="Fecha Hasta" />
+                                    <asp:TextBox TextMode="Date" ID="txtFiltroFechaHasta" runat="server" AutoPostBack="true" OnTextChanged="txtFiltroFechaHasta_TextChanged" CssClass="form-control" />
+                                </div>
+                            </div>
                             <br />
                             <div class="text-center">
                                 <asp:Button ID="btnFiltrar" Text="Filtrar" CssClass="btn btn-info btn-dark" runat="server" Visible="false" OnClick="btnFiltrar_Click" />
@@ -217,7 +243,7 @@
                             </div>
                             <hr />
                             <div class="row justify-content-center">
-                                <asp:Button runat="server" Text="Enviar Solicitud" CssClass="btn btn-danger" ID="btnenviarSolicitud" OnClick="enviarSolicitud_Click"/>
+                                <asp:Button runat="server" Text="Enviar Solicitud" CssClass="btn btn-danger" ID="btnenviarSolicitud" OnClick="enviarSolicitud_Click" />
                             </div>
                         </div>
                     </div>
@@ -257,11 +283,11 @@
                                         <div class="row">
                                             <asp:Panel CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Fecha Desde" runat="server" />
-                                                <asp:TextBox runat="server" ID="txtModalFechaDesde" CssClass="form-control" TextMode="Date" />
+                                                <asp:TextBox runat="server" ID="txtModalFechaDesde" CssClass="form-control" TextMode="DateTimeLocal" />
                                             </asp:Panel>
                                             <asp:Panel CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Fecha Hasta" runat="server" />
-                                                <asp:TextBox runat="server" ID="txtModalFechaHasta" CssClass="form-control" TextMode="Date" />
+                                                <asp:TextBox runat="server" ID="txtModalFechaHasta" CssClass="form-control" TextMode="DateTimeLocal" />
                                             </asp:Panel>
                                             <asp:Panel ID="pnlModalFechaSolicitud" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Fecha de Solicitud" runat="server" />
@@ -378,10 +404,16 @@
                                                             <div class="row">
                                                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                     <div class="row">
-                                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                                                             <asp:Label Text="Circunferencia" runat="server" />
                                                                             <asp:CheckBox ID="chkEsPoligono" runat="server" AutoPostBack="true" OnCheckedChanged="chkEsPoligono_CheckedChanged" />
                                                                             <asp:Label Text="Polígono" runat="server" />
+                                                                        </div>
+                                                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                                            <asp:Panel ID="pnlProvincia" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-sm-6 form-group" runat="server">
+                                                                                <asp:Label Text="Provincia" runat="server" />
+                                                                                <asp:DropDownList runat="server" ID="ddlProvincia" CssClass="form-control select-single" />
+                                                                            </asp:Panel>
                                                                         </div>
                                                                     </div>
                                                                     <br />
@@ -498,6 +530,7 @@
                                                                 </h5>
                                                                 <hr />
                                                                 <asp:HiddenField ID="hdnRptIdUbicacion" Value="0" runat="server" />
+                                                                <asp:HiddenField ID="hdnRptIdProvincia" Value="0" runat="server" />
                                                                 <asp:Label ID="lblRptDatos" runat="server" />
                                                             </div>
                                                         </div>

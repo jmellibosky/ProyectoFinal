@@ -1,4 +1,5 @@
 ﻿using MagicSQL;
+using REApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -59,13 +60,13 @@ namespace REApp.Forms
                 //Rol Admin o Operador
                 if (idRolInt == 1)
                 {
-                    CargarComboSolicitante();
+                    CargarFiltros();
                     BindGrid();
                     btnAgregarUbicacion.Visible = false;
                 }
                 if (idRolInt == 2)
                 {
-                    CargarComboSolicitante();
+                    CargarFiltros();
                     BindGrid();
                     btnNuevo.Visible = false;
                     btnAgregarUbicacion.Visible = false;
@@ -73,7 +74,7 @@ namespace REApp.Forms
                 //Rol Solicitante
                 if (idRolInt == 3)
                 {
-                    CargarComboSolicitante();
+                    CargarFiltros();
                     ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
                     ddlSolicitante.Enabled = false;
                     BindGrid();
@@ -83,6 +84,14 @@ namespace REApp.Forms
 
             ScriptManager.GetCurrent(Page).RegisterPostBackControl(btnGenerarKMZ);
             VerHistorialSolicitud();
+        }
+
+        protected void CargarFiltros()
+        {
+            CargarComboSolicitante();
+            CargarComboEstados();
+            CargarComboActividades();
+            CargarFiltroComboProvincias();
         }
 
         protected void GetTripulantesDeUsuario(int IdUsuario)
@@ -137,6 +146,42 @@ namespace REApp.Forms
                 {
                     parameters.Add(P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID()));
                 }
+                if (!ddlEstado.SelectedValue.Equals("#"))
+                {
+                    parameters.Add(P.Add("IdEstado", ddlEstado.SelectedValue.ToIntID()));
+                }
+                if (!ddlActividad.SelectedValue.Equals("#"))
+                {
+                    parameters.Add(P.Add("IdActividad", ddlActividad.SelectedValue.ToIntID()));
+                }
+                if (!ddlFiltroProvincia.SelectedValue.Equals("#"))
+                {
+                    parameters.Add(P.Add("IdActividad", ddlFiltroProvincia.SelectedValue.ToIntID()));
+                }
+                try
+                {
+                    DateTime d = txtFiltroFechaDesde.Text.ToDateTime();
+
+                    if (!d.Equals(System.Data.SqlTypes.SqlDateTime.MinValue.Value))
+                    {
+                        parameters.Add(P.Add("FechaDesde", d));
+                    }
+                }
+                catch (Exception)
+                {
+                }
+                try
+                {
+                    DateTime h = txtFiltroFechaHasta.Text.ToDateTime();
+
+                    if (!h.Equals(System.Data.SqlTypes.SqlDateTime.MinValue.Value))
+                    {
+                        parameters.Add(P.Add("FechaHasta", h));
+                    }
+                }
+                catch (Exception)
+                {
+                }
                 dt = sp.Execute("usp_GetSolicitudes", parameters.ToArray());
             }
             if (dt != null && dt.Rows.Count > 0)
@@ -188,6 +233,52 @@ namespace REApp.Forms
                 {
                     ddlModalActividad.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdActividad"].ToString().ToInt().ToCryptoID()));
                 }
+            }
+        }
+
+        protected void CargarComboProvincias()
+        {
+            ddlProvincia.Items.Clear();
+            List<Provincia> Provincias = new Provincia().Select();
+
+            foreach (Provincia provincia in Provincias)
+            {
+                ddlProvincia.Items.Add(new ListItem(provincia.Nombre, provincia.IdProvincia.ToCryptoID()));
+            }
+        }
+        protected void CargarFiltroComboProvincias()
+        {
+            ddlFiltroProvincia.Items.Clear();
+            ddlFiltroProvincia.Items.Add(new ListItem("Todos", "#"));
+            List<Provincia> Provincias = new Provincia().Select();
+
+            foreach (Provincia provincia in Provincias)
+            {
+                ddlFiltroProvincia.Items.Add(new ListItem(provincia.Nombre, provincia.IdProvincia.ToCryptoID()));
+            }
+        }
+
+        protected void CargarComboActividades()
+        {
+            ddlActividad.Items.Clear();
+            ddlActividad.Items.Add(new ListItem("Todos", "#"));
+            List<Actividad> Actividades = new Actividad().Select();
+
+            foreach (Actividad actividad in Actividades)
+            {
+                ddlActividad.Items.Add(new ListItem(actividad.Nombre, actividad.IdActividad.ToCryptoID()));
+            }
+        }
+
+        protected void CargarComboEstados()
+        {
+            ddlEstado.Items.Clear();
+            ddlEstado.Items.Add(new ListItem("Todos", "#"));
+            List<EstadoSolicitud> Estados = new EstadoSolicitud().Select();
+
+            foreach (EstadoSolicitud estado in Estados)
+            {
+                ddlEstado.Items.Add(new ListItem(estado.Nombre, estado.IdEstadoSolicitud.ToCryptoID()));
             }
         }
 
@@ -341,7 +432,7 @@ namespace REApp.Forms
                                 // SETEO LOS CAMPOS DEL OBJETO
                                 Ubicacion.IdSolicitud = Solicitud.IdSolicitud;
                                 Ubicacion.Altura = AuxUbicaciones[i].Altura;
-                                Ubicacion.IdProvincia = 1; //------------------HARDCODEADO-NI IDEA DE POR QUÉ ESTÁ ESTE CAMPO ACÁ
+                                Ubicacion.IdProvincia = AuxUbicaciones[i].IdProvincia;
 
                                 // INSERT EN TABLA UBICACION
                                 Ubicacion.Insert(tn);
@@ -387,7 +478,7 @@ namespace REApp.Forms
 
                             tn.Commit();
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
                             tn.RollBack();
                         }
@@ -503,7 +594,7 @@ namespace REApp.Forms
                             // SETEO LOS CAMPOS DEL OBJETO
                             Ubicacion.IdSolicitud = Solicitud.IdSolicitud;
                             Ubicacion.Altura = AuxUbicaciones[i].Altura;
-                            Ubicacion.IdProvincia = 1; //------------------HARDCODEADO-NI IDEA DE POR QUÉ ESTÁ ESTE CAMPO ACÁ
+                            Ubicacion.IdProvincia = AuxUbicaciones[i].IdProvincia;
 
                             // INSERT EN TABLA UBICACION
                             Ubicacion.Insert(tn);
@@ -623,6 +714,7 @@ namespace REApp.Forms
             CargarComboModalActividades();
             int idActividad = ddlModalActividad.SelectedItem.Value.ToIntID();
             CargarComboModalModalidades(idActividad);
+            CargarComboProvincias();
 
             ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
             ddlModalSolicitante.Visible = true;
@@ -720,6 +812,7 @@ namespace REApp.Forms
 
             CargarComboModalActividades();
             CargarComboModalSoloModalidades();
+            CargarComboProvincias();
 
             ddlModalActividad.SelectedValue = Modalidad.IdActividad.ToCryptoID().ToString();
             ddlModalModalidad.SelectedValue = Solicitud.IdModalidad.ToCryptoID().ToString();
@@ -731,8 +824,10 @@ namespace REApp.Forms
             txtModalEstadoSolicitud.Text = Estado.Nombre;
             int idEstadoActual = Estado.IdEstadoSolicitud;
 
-            txtModalFechaDesde.Text = Solicitud.FHDesde.ToString("yyyy-MM-dd");
-            txtModalFechaHasta.Text = Solicitud.FHHasta.ToString("yyyy-MM-dd");
+            txtModalFechaDesde.TextMode = TextBoxMode.SingleLine;
+            txtModalFechaHasta.TextMode = TextBoxMode.SingleLine;
+            txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
+            txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
             txtModalFechaHasta.Enabled = false;
             txtModalFechaDesde.Enabled = false;
 
@@ -798,6 +893,7 @@ namespace REApp.Forms
                     ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text = dt.Rows[i]["TipoUbicacion"].ToString();
                     ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text = dt.Rows[i]["Datos"].ToString();
                     ((HiddenField)rptUbicaciones.Items[i].FindControl("hdnRptIdUbicacion")).Value = dt.Rows[i]["IdUbicacion"].ToString();
+                    ((HiddenField)rptUbicaciones.Items[i].FindControl("hdnRptIdProvincia")).Value = dt.Rows[i]["IdProvincia"].ToString();
                 }
             }
         }
@@ -881,6 +977,7 @@ namespace REApp.Forms
                         // index 2: Altura: <altura>
                         string[] SplitPuntosGeograficos = ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text.Trim().Split('|');
                         Ubicacion.IdUbicacion = ((HiddenField)rptUbicaciones.Items[i].FindControl("hdnRptIdUbicacion")).Value;
+                        Ubicacion.IdProvincia = ((HiddenField)rptUbicaciones.Items[i].FindControl("hdnRptIdProvincia")).Value.ToInt();
                         PuntosGeograficos = new List<Models.PuntoGeografico>();
 
                         for (int j = 0; j < SplitPuntosGeograficos.Length; j++)
@@ -916,6 +1013,7 @@ namespace REApp.Forms
                 else
                 {
                     Ubicacion.Altura = txtCircunferenciaAltura.Text.Replace('.',',').Replace('.',',').ToDouble();
+                    Ubicacion.IdProvincia = ddlProvincia.SelectedValue.ToIntID();
 
                     List<Models.PuntoGeografico> PuntosGeograficos = new List<Models.PuntoGeografico>();
 
@@ -1223,6 +1321,26 @@ namespace REApp.Forms
 
             Response.Redirect(url);
         }
+
+        protected void txtFiltroFechaDesde_TextChanged(object sender, EventArgs e)
+        {
+            btnFiltrar_Click(null, null);
+        }
+
+        protected void txtFiltroFechaHasta_TextChanged(object sender, EventArgs e)
+        {
+            btnFiltrar_Click(null, null);
+        }
+
+        protected void ddlActividad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnFiltrar_Click(null, null);
+        }
+
+        protected void ddlEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnFiltrar_Click(null, null);
+        }
     }
 
     public class UbicacionRedux
@@ -1232,5 +1350,7 @@ namespace REApp.Forms
         public List<Models.PuntoGeografico> PuntosGeograficos { get; set; }
 
         public string IdUbicacion { get; set; }
+
+        public int IdProvincia { get; set; }
     }
 }
