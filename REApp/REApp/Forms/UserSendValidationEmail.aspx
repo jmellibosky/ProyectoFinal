@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="mt-2">
-                        <a class="small text-muted" href="#!">¿Olvido su correo electronico?</a>
+                        <a class="small text-muted" href="#!">¿Olvidó su correo electronico?</a>
                     </div>
                     
                     <div class="mt-2">

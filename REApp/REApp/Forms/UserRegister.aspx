@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="form-outline mb-3">
-                        <input type="text" id="txt_telefono" runat="server" class="form-control form-control-lg" required="required" placeholder="Numero de Telefono (con 0 y 15)"/>
+                        <input type="text" id="txt_telefono" runat="server" class="form-control form-control-lg" required="required" placeholder="Número de Teléfono (con 0 y 15)"/>
                     </div>
 
                     <%--Dos textbox por si lo necesitamos para caracteristica y numero por separado--%>
@@ -67,7 +67,7 @@
                     <div class="container p-0">
                         <div class="row">
                             <div class="col-sm">
-                                <span class="form-label font-weight-bold ml-2">Numero DNI</span>
+                                <span class="form-label font-weight-bold ml-2">Número DNI</span>
                             </div>
                             <div class="col-sm">
                                 <span class="form-label font-weight-bold ml-2" style="border-left: 0; border-right: 0;">Tipo DNI</span>
