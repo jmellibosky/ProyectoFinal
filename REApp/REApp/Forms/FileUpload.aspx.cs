@@ -134,28 +134,28 @@ namespace REApp.Forms
             {
                 //En panel admin se hardcodea con tipoDoc 1 hasta q se haga el codigo
                 //int idTipoDoc = lnkUpload1.CommandArgument.ToInt();
-                uploadMethod(FileUpload1, 1);
-                Alert("Archivo cargado con éxito", "Se ha cargado un nuevo archivo al usuario seleccionado.", AlertType.success, "/Forms/FileUpload.aspx");
+                uploadMethod(FileUpload1, 1, "Varios");
+                //Alert("Archivo cargado con éxito", "Se ha cargado un nuevo archivo al usuario seleccionado.", AlertType.success, "/Forms/FileUpload.aspx");
             }
             //
             if (FileUpload2.HasFile)
             {
                 int idTipoDoc = lnkUpload2.CommandArgument.ToInt();
-                uploadMethod(FileUpload2, idTipoDoc);
-                Alert("Certificado Médico cargado con éxito", "Se ha vinculado un nuevo Certificado Médico a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
+                uploadMethod(FileUpload2, idTipoDoc, "Certificado Médico");
+                //Alert("Certificado Médico cargado con éxito", "Se ha vinculado un nuevo Certificado Médico a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
 
             }
             if (FileUpload3.HasFile) 
             {
                 int idTipoDoc = lnkUpload3.CommandArgument.ToInt();
-                uploadMethod(FileUpload3, idTipoDoc);
-                Alert("Certificado de Competencia cargado con éxito", "Se ha vinculado un nuevo Certificado de Competencia a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
+                uploadMethod(FileUpload3, idTipoDoc, "Certificado de Competencia");
+                //Alert("Certificado de Competencia cargado con éxito", "Se ha vinculado un nuevo Certificado de Competencia a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
             }
             if (FileUpload4.HasFile)
             {
                 int idTipoDoc = lnkUpload4.CommandArgument.ToInt();
-                uploadMethod(FileUpload4, idTipoDoc);
-                Alert("CEVANT cargado con éxito", "Se ha vinculado un nuevo CEVANT a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
+                uploadMethod(FileUpload4, idTipoDoc, "CEVANT");
+                //Alert("CEVANT cargado con éxito", "Se ha vinculado un nuevo CEVANT a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
             }
             //CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM);
             //CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia);
@@ -163,7 +163,7 @@ namespace REApp.Forms
 
         }
 
-        protected void uploadMethod(System.Web.UI.WebControls.FileUpload FileUpload,int idTipoDoc)
+        protected void uploadMethod(System.Web.UI.WebControls.FileUpload FileUpload,int idTipoDoc, string titulo)
         {
             //Se obtienen los datos del documento
             string filename = Path.GetFileName(FileUpload.PostedFile.FileName);
@@ -240,17 +240,19 @@ namespace REApp.Forms
                     }
                     BindGrid();
                     txtFechaVencimientoAdmin.Value = "";
-                    LbArchivo.Text = "El archivo se subió con éxito.";
-                    LbArchivo.CssClass = "hljs-string border";
+                    string tituloAlert = "El Archivo " + titulo + " se ha subido con éxito";
+                    Alert(tituloAlert, "Se ha vinculado el documento a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
                 }
                 else
                 {
-                    LbArchivo.Text = "El tamaño del archivo debe ser menor a 5Mb";
+                    string tituloAlert1 = "El Archivo " + titulo + " no cumple con las especificaciones";
+                    Alert(tituloAlert1, "El tamaño del archivo debe ser menor a 5Mb", AlertType.error);
                 }
             }
             else
             {
-                LbArchivo.Text = "Selecciona solo archivos con extensión .PDF";
+                string tituloAlert2 = "El Archivo " + titulo + " no cumple con las especificaciones";
+                Alert(tituloAlert2, "Selecciona solo archivos con extensión .PDF", AlertType.error);
             }
         }
 
