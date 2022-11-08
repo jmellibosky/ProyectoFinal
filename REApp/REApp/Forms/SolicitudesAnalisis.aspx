@@ -164,10 +164,10 @@
                                                     <asp:BoundField DataField="NombreActividad" HeaderText="ACTIVIDAD" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="NombreEstado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="NombreUsuarioModificacion" HeaderText="MODIFICADO POR" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                                                    <asp:BoundField DataField="FHUltimaActualizacionEstado" HeaderText="ULTIMA MODIFICACION" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                                    <asp:BoundField DataField="FHUltimaActualizacionEstado" HeaderText="ULTIMA MODIFICACIÓN" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="NombreProvincia" HeaderText="PROVINCIA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="FHDesde" HeaderText="FECHA INICIO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                                    <asp:BoundField DataField="DuracionDias" HeaderText="DURACION DIAS" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                                    <asp:BoundField DataField="DuracionDias" HeaderText="DURACIÓN DIAS" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
 
                                                     <%-- Boton con link para ver detalles solicitud--%>
                                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="ACCIONES" ItemStyle-Width="20%">
@@ -393,7 +393,7 @@
                                                         <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
                                                         <asp:BoundField DataField="Apellido" HeaderText="APELLIDO" ItemStyle-Width="20%" />
                                                         <asp:BoundField DataField="DNI" HeaderText="DNI" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
-                                                        <asp:BoundField DataField="Telefono" HeaderText="TELEFONO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="Telefono" HeaderText="TELÉFONO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
 
                                                         <%-- Boton con link para ver detalles solicitud--%>
                                                         <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
@@ -451,9 +451,6 @@
             <%--Interesados--%>
             <asp:Panel runat="server" ID="pnlInteresados">
                 <div class="col">
-                    <div class="row">
-                        <asp:Label runat="server">Intersadoss</asp:Label>
-                    </div>
                     <div class="row" style="overflow: auto; height: 400px; width: 1100px;">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <asp:HiddenField ID="hdnIdSolicitudInteresado" runat="server" />
@@ -471,7 +468,7 @@
                                     <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
                                     <asp:BoundField DataField="IdInteresado" HeaderText="ID INTERESADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                     <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
-                                    <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO" ItemStyle-Width="20%" />
+                                    <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center"/>
                                     <asp:BoundField DataField="Email" HeaderText="EMAIL" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
 
                                     <%-- Boton con link para ver detalles solicitud--%>
