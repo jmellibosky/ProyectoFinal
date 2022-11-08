@@ -203,7 +203,7 @@
                             <asp:BoundField DataField="Email" HeaderText="EMAIL"            ItemStyle-Width="20%"/>
                             <asp:BoundField DataField="NombreRol" HeaderText="ROL"          ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                             <asp:BoundField DataField="Dni" HeaderText="DNI"                ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
-                            <asp:BoundField DataField="Telefono" HeaderText="TELEFONO"      ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="Telefono" HeaderText="TELÉFONO"      ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                             <asp:BoundField DataField="Cuit" HeaderText="CUIT"              ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center"/>
 
                             <%-- Boton con link para ver detalles solicitud--%>
