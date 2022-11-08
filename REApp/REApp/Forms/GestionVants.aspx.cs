@@ -207,6 +207,7 @@ namespace REApp.Forms
 
 
             txtFabricante.Text = Vant.Fabricante;
+            txtAñoFabricacion.TextMode = TextBoxMode.SingleLine;
             txtAñoFabricacion.Text = Vant.AñoFabricacion.ToString();
             txtModelo.Text = Vant.Modelo;
             txtLugarFabricacion.Text = Vant.LugarFabricacion;
@@ -264,6 +265,7 @@ namespace REApp.Forms
 
 
             txtFabricante.Text = Vant.Fabricante;
+            txtAñoFabricacion.TextMode = TextBoxMode.SingleLine;
             txtAñoFabricacion.Text = Vant.AñoFabricacion.ToString();
             txtModelo.Text = Vant.Modelo;
             txtLugarFabricacion.Text = Vant.LugarFabricacion;

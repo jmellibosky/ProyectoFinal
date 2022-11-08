@@ -149,6 +149,7 @@ namespace REApp.Forms
                 txtModalApellido.Text = Tripulacion.Apellido;
                 txtModalNombre.Text = Tripulacion.Nombre;
                 txtModalDNI.Text = Tripulacion.DNI;
+                txtModalFechaNacimiento.TextMode = TextBoxMode.SingleLine;
                 txtModalFechaNacimiento.Text = Tripulacion.FechaNacimiento.ToString();
                 txtModalTelefono.Text = Tripulacion.Telefono;
                 txtModalCorreo.Text = Tripulacion.Correo;
@@ -176,6 +177,7 @@ namespace REApp.Forms
                 txtModalApellido.Text = Tripulacion.Apellido;
                 txtModalNombre.Text = Tripulacion.Nombre;
                 txtModalDNI.Text = Tripulacion.DNI;
+                txtModalFechaNacimiento.TextMode = TextBoxMode.SingleLine;
                 txtModalFechaNacimiento.Text = Tripulacion.FechaNacimiento.ToString();
                 txtModalTelefono.Text = Tripulacion.Telefono;
                 txtModalCorreo.Text = Tripulacion.Correo;
@@ -410,6 +412,13 @@ namespace REApp.Forms
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             LimpiarModal();
+            txtModalApellido.Enabled = true;
+            txtModalNombre.Enabled = true;
+            txtModalDNI.Enabled = true;
+            txtModalFechaNacimiento.Enabled = true;
+            txtModalTelefono.Enabled = true;
+            txtModalCorreo.Enabled = true;
+
 
             CargarComboModalSolicitante();
 
