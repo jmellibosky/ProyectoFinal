@@ -188,7 +188,7 @@
                                                             <asp:BoundField DataField="Marca" ItemStyle-Width="20%"  HeaderText="MARCA" />
                                                             <asp:BoundField DataField="Modelo" ItemStyle-Width="20%"  HeaderText="MODELO" />
                                                             <asp:BoundField DataField="Clase" ItemStyle-Width="20%" HeaderText="CLASE" />             
-                                                            <asp:BoundField DataField="NumeroSerie" ItemStyle-Width="20%" HeaderText="NUMERO DE SERIE" />
+                                                            <asp:BoundField DataField="NumeroSerie" ItemStyle-Width="20%" HeaderText="NÚMERO DE SERIE" />
 
 
                                                             <%--Boton para editar vant de la BD --%>
@@ -284,7 +284,7 @@
                                         <div class="row">
                                             <asp:Panel ID="pnlModalAñoFabricacion" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Año de Fabricacion" runat="server" />
-                                                <asp:TextBox runat="server" ID="txtAñoFabricacion" CssClass="form-control" />
+                                                <asp:TextBox runat="server" ID="txtAñoFabricacion" CssClass="form-control" TextMode="Date" />
                                             </asp:Panel>
 
                                             <asp:Panel ID="pnlModalLugarFabricacion" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">

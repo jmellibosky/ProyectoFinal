@@ -165,10 +165,10 @@
                                                     <asp:BoundField DataField="NombreActividad" HeaderText="ACTIVIDAD" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="NombreEstado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="NombreUsuarioModificacion" HeaderText="MODIFICADO POR" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                                                    <asp:BoundField DataField="FHUltimaActualizacionEstado" HeaderText="ULTIMA MODIFICACION" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                                    <asp:BoundField DataField="FHUltimaActualizacionEstado" HeaderText="ULTIMA MODIFICACIÓN" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="NombreProvincia" HeaderText="PROVINCIA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="FHDesde" HeaderText="FECHA INICIO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                                    <asp:BoundField DataField="DuracionDias" HeaderText="DURACION DIAS" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                                    <asp:BoundField DataField="DuracionDias" HeaderText="DURACIÓN DIAS" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
 
                                                     <%-- Boton con link para ver detalles solicitud--%>
                                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="ACCIONES" ItemStyle-Width="15%">
@@ -303,7 +303,7 @@
                                                         <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
                                                         <asp:BoundField DataField="Apellido" HeaderText="APELLIDO" ItemStyle-Width="20%" />
                                                         <asp:BoundField DataField="DNI" HeaderText="DNI" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
-                                                        <asp:BoundField DataField="Telefono" HeaderText="TELEFONO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="Telefono" HeaderText="TELÉFONO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
                                                     </Columns>
                                                 </asp:GridView>
                                             </div>

@@ -7,6 +7,13 @@
     <link href="/Content/bootstrap.min.css" rel="stylesheet" />
     <%--<link href="/Content/Site.css" rel="stylesheet" />--%>
     <script src="https://kit.fontawesome.com/8e4807e881.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="sweetalert2.min.js"></script>
+    <%-- Sweet Alert--%>
+    <link href="Content/sweetalert.css" rel="stylesheet" />
+    <link rel="stylesheet" href="sweetalert2.min.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Cambiar Contraseña</title>
 </head>

@@ -227,7 +227,7 @@
                                                         <asp:BoundField HeaderText="NOMBRE" DataField="Nombre" ItemStyle-Width="20%" />
                                                         <asp:BoundField HeaderText="APELLIDO" DataField="Apellido" ItemStyle-Width="20%" />
                                                         <asp:BoundField HeaderText="DNI" DataField="DNI" ItemStyle-Width="20%" />
-                                                        <asp:BoundField HeaderText="TELEFONO" DataField="Telefono" ItemStyle-Width="20%" />
+                                                        <asp:BoundField HeaderText="TELÉFONO" DataField="Telefono" ItemStyle-Width="20%" />
                                                         <asp:TemplateField HeaderText="ACCIONES" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center">
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="btnEditar" CommandName="Editar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">

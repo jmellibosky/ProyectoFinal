@@ -297,61 +297,97 @@ namespace REApp.Forms
                 { // Insert
                     using (Tn tn = new Tn("bd_reapp"))
                     {
-                        Tripulacion = new Models.Tripulacion();
+                        try{
+                            Tripulacion = new Models.Tripulacion();
 
+                            Tripulacion.Nombre = txtModalNombre.Text;
+                            Tripulacion.Apellido = txtModalApellido.Text;
+                            Tripulacion.DNI = txtModalDNI.Text;
+                            Tripulacion.FechaNacimiento = txtModalFechaNacimiento.Text.ToDateTime();
+                            Tripulacion.Telefono = txtModalTelefono.Text;
+                            Tripulacion.Correo = txtModalCorreo.Text;
+                            Tripulacion.FHAlta = DateTime.Now;
+                            Tripulacion.Insert(tn);
+
+                            Models.TripulacionUsuario TripulacionUsuario = new Models.TripulacionUsuario();
+                            TripulacionUsuario.IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
+                            TripulacionUsuario.IdTripulacion = Tripulacion.IdTripulacion;
+                            TripulacionUsuario.FHAlta = DateTime.Now;
+                            TripulacionUsuario.Insert(tn);
+
+                            //Subida de Archivos
+                            int idTripulacion = Tripulacion.IdTripulacion;
+                            if (FileUploadCMATrip.HasFile)
+                            {
+                                int Exito = uploadMethod(FileUploadCMATrip, 2, idTripulacion, "Certificado Médico", tn);
+                                if (Exito == 0)
+                                {
+                                    return;
+                                }
+                            }
+                            if (FileUploadCertCompetenciaTripulante.HasFile)
+                            {
+                                int Exito = uploadMethod(FileUploadCertCompetenciaTripulante, 3, idTripulacion, "Certificado de Competencia", tn);
+                                if (Exito == 0)
+                                {
+                                    return;
+                                }
+                            }
+
+                            tn.Commit();
+
+                            Alert("Tripulante creado con éxito", "Se ha agregado un nuevo Tripulante.", AlertType.success, "/Forms/GestionTripulantes.aspx");
+                        }
+                        catch (Exception ex)
+                        {
+                            tn.RollBack();
+                        }
+                    }
+                }
+                else
+                { // Update
+                    using (Tn tn = new Tn("bd_reapp"))
+                    { 
+                        try
+                    {
+                        Tripulacion = new Models.Tripulacion().Select(hdnIdTripulacion.Value.ToInt());
                         Tripulacion.Nombre = txtModalNombre.Text;
                         Tripulacion.Apellido = txtModalApellido.Text;
                         Tripulacion.DNI = txtModalDNI.Text;
                         Tripulacion.FechaNacimiento = txtModalFechaNacimiento.Text.ToDateTime();
                         Tripulacion.Telefono = txtModalTelefono.Text;
                         Tripulacion.Correo = txtModalCorreo.Text;
-                        Tripulacion.FHAlta = DateTime.Now;
-                        Tripulacion.Insert();
+                        Tripulacion.Update(tn);
 
-                        
-
-                        Models.TripulacionUsuario TripulacionUsuario = new Models.TripulacionUsuario();
-                        TripulacionUsuario.IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
-                        TripulacionUsuario.IdTripulacion = Tripulacion.IdTripulacion;
-                        TripulacionUsuario.FHAlta = DateTime.Now;
-                        TripulacionUsuario.Insert();
-
-
-                        //Subida de Archivos
                         int idTripulacion = Tripulacion.IdTripulacion;
+
                         if (FileUploadCMATrip.HasFile)
                         {
-                            uploadMethod(FileUploadCMATrip, 2, idTripulacion);
+                            int Exito = uploadMethod(FileUploadCMATrip, 2, idTripulacion, "Certificado Médico", tn);
+                                if (Exito == 0)
+                                {
+                                    return;
+                                }
                         }
                         if (FileUploadCertCompetenciaTripulante.HasFile)
                         {
-                            uploadMethod(FileUploadCertCompetenciaTripulante, 3, idTripulacion);
-                        }
-                    }
-                    Alert("Tripulante creado con éxito", "Se ha agregado un nuevo Tripulante.", AlertType.success, "/Forms/GestionTripulantes.aspx");
-                }
-                else
-                { // Update
-                    Tripulacion = new Models.Tripulacion().Select(hdnIdTripulacion.Value.ToInt());
-                    Tripulacion.Nombre = txtModalNombre.Text;
-                    Tripulacion.Apellido = txtModalApellido.Text;
-                    Tripulacion.DNI = txtModalDNI.Text;
-                    Tripulacion.FechaNacimiento = txtModalFechaNacimiento.Text.ToDateTime();
-                    Tripulacion.Telefono = txtModalTelefono.Text;
-                    Tripulacion.Correo = txtModalCorreo.Text;
-                    Tripulacion.Update();
+                                int Exito = uploadMethod(FileUploadCertCompetenciaTripulante, 3, idTripulacion, "Certificado de Competencia", tn);
+                                if (Exito == 0)
+                                {
+                                    return;
+                                }
+                            }
 
-                    int idTripulacion = Tripulacion.IdTripulacion;
+                            tn.Commit();
+                            Alert("Tripulante actualizado con éxito", "Se han guardado los datos del tripulante.", AlertType.success, "/Forms/GestionTripulantes.aspx");
+                    }
+                    catch (Exception)
+                    {
+                        tn.RollBack();
+                    }
+                    }
 
-                    if (FileUploadCMATrip.HasFile)
-                    {
-                        uploadMethod(FileUploadCMATrip, 2, idTripulacion);
-                    }
-                    if (FileUploadCertCompetenciaTripulante.HasFile)
-                    {
-                        uploadMethod(FileUploadCertCompetenciaTripulante, 3, idTripulacion);
-                    }
-                    Alert("Tripulante actualizado con éxito", "Se han guardado los datos del tripulante.", AlertType.success, "/Forms/GestionTripulantes.aspx");
+
                 }
                 
                 //MostrarListado();
@@ -465,8 +501,9 @@ namespace REApp.Forms
         }
 
         //Subida de Archivos
-        protected void uploadMethod(System.Web.UI.WebControls.FileUpload FileUpload, int idTipoDoc, int idTripulacion)
+        protected int uploadMethod(System.Web.UI.WebControls.FileUpload FileUpload, int idTipoDoc, int idTripulacion, string titulo, Tn transaccion)
         {
+            int Exito = 0;
             //Se obtienen los datos del documento
             string filename = Path.GetFileName(FileUpload.PostedFile.FileName);
             string extension = System.IO.Path.GetExtension(FileUpload.FileName);
@@ -484,13 +521,12 @@ namespace REApp.Forms
             }
             if (extension == ".pdf")
             {
-                //Tamaño de archivo menor a 1Mb
+                //Tamaño de archivo menor a 5Mb
                 if (tam <= 5000000)
                 {
                     //Insert MagicSQL
                     Models.Documento Documento = null;
-                    using (Tn tn = new Tn("bd_reapp"))
-                    {
+
                         //Se crea y guardan los campos de documento
                         Documento = new Models.Documento();
 
@@ -503,7 +539,6 @@ namespace REApp.Forms
                         Documento.TipoMIME = contentType;
                         Documento.IdTipoDocumento = idTipoDoc;
                         Documento.IdTripulacion = idTripulacion;
-                        //Documento.FHBaja = null;
 
                         //Certificado Medico
                         if (idTipoDoc == 2)
@@ -513,6 +548,7 @@ namespace REApp.Forms
                                 Documento.FHVencimiento = txtFechaVencimientoCertMedicoTripulante.Value.ToDateTime();
                             }
                         }
+                        //Certificado de Competencia
                         if (idTipoDoc == 3)
                         {
                             if (txtFechaDeVencimientoCertCompetenciaTripulante.Value != "")
@@ -520,22 +556,24 @@ namespace REApp.Forms
                                 Documento.FHVencimiento = txtFechaDeVencimientoCertCompetenciaTripulante.Value.ToDateTime();
                             }
                         }
+                    Documento.Insert(transaccion);
+                    return Exito = 1;
+                    //string tituloAlert = "Archivo " + titulo + " subido con éxito";
+                    //Alert(tituloAlert, "Se ha vinculado el documento a su tripulante.", AlertType.success, "/Forms/GestionTripulantes.aspx");
 
-                        Documento.Insert();
-                    }
-                    //BindGrid();
-                    //txtFechaVencimientoAdmin.Value = "";
-                    //LbArchivo.Text = "El archivo se subió con éxito.";
-                    //LbArchivo.CssClass = "hljs-string border";
                 }
                 else
                 {
-                    //LbArchivo.Text = "El tamaño del archivo debe ser menor a 5Mb";
+                    string tituloAlert1 = "El Archivo " + titulo + " no cumple con las especificaciones";
+                    Alert(tituloAlert1, "El tamaño del archivo debe ser menor a 5Mb", AlertType.error);
+                    return Exito;
                 }
             }
             else
             {
-                //LbArchivo.Text = "Selecciona solo archivos con extensión .PDF";
+                string tituloAlert2 = "El Archivo " + titulo + " no cumple con las especificaciones";
+                Alert(tituloAlert2, "Selecciona solo archivos con extensión .PDF", AlertType.error);
+                return Exito;
             }
         }
 

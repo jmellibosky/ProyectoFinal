@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="d-flex align-items-center mb-3 pb-1">
-                        <span class="h1 fw-bold mb-1 font-weight-bolder" >¿Olvido su contraseña?</span>
+                        <span class="h1 fw-bold mb-1 font-weight-bolder" >¿Olvidó su contraseña?</span>
                     </div>
 
                     <div class="form-outline mb-3">
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="mt-2">
-                        <a class="small text-muted" href="#!">¿Olvido su correo electronico?</a>
+                        <a class="small text-muted" href="#!">¿Olvidó su correo electronico?</a>
                     </div>
                     
                     <div class="mt-2">

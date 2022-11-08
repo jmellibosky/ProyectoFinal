@@ -60,7 +60,7 @@
                           <asp:Button ID="login" runat="server" OnClick="btnSubmit_Click" CssClass="btn btn-primary btn-lg btn-block" Text="Ingresar"/>
                       </div>
 
-                      <a class="small text-muted" href="/Forms/UserForgotPassword.aspx">¿Olvido su contraseña?</a>
+                      <a class="small text-muted" href="/Forms/UserForgotPassword.aspx">¿Olvidó su contraseña?</a>
                       <a class="small text-muted" href="/Forms/UserSendValidationEmail.aspx">Reenviar correo de validación</a>
                       <p class="mb-5 pb-lg-2" style="color: #393f81;">¿No tiene una cuenta? <a href="/Forms/UserRegister.aspx"
                           style="color: #393f81; font-weight:500">Registrese aquí</a></p>

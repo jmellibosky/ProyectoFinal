@@ -177,7 +177,7 @@
                             <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
                             <asp:BoundField DataField="NombreUsuario" HeaderText="PROPIETARIO" ItemStyle-Width="10%" />
                             <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
-                            <asp:BoundField DataField="Extension" HeaderText="EXTENSION" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                            <asp:BoundField DataField="Extension" HeaderText="EXTENSIÓN" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                             <asp:BoundField DataField="IdTipoDocumento" HeaderText="TIPO DOC" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                             <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                             <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
