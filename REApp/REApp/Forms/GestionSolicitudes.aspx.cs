@@ -162,7 +162,7 @@ namespace REApp.Forms
                 {
                     DateTime d = txtFiltroFechaDesde.Text.ToDateTime();
 
-                    if (!d.Equals(System.Data.SqlTypes.SqlDateTime.MinValue.Value))
+                    if (d > System.Data.SqlTypes.SqlDateTime.MinValue.Value)
                     {
                         parameters.Add(P.Add("FechaDesde", d));
                     }
@@ -174,7 +174,7 @@ namespace REApp.Forms
                 {
                     DateTime h = txtFiltroFechaHasta.Text.ToDateTime();
 
-                    if (!h.Equals(System.Data.SqlTypes.SqlDateTime.MinValue.Value))
+                    if (h > System.Data.SqlTypes.SqlDateTime.MinValue.Value)
                     {
                         parameters.Add(P.Add("FechaHasta", h));
                     }
