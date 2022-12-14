@@ -707,30 +707,91 @@ namespace REApp.Forms
             }
         }
 
+
+        protected bool ValidarDocumentacion()
+        {
+            bool TieneCertificadoMedico = false;
+            bool TieneCertificadoCompetencia = false;
+            bool TieneCEVANT = false;
+
+            int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+
+            try
+            {
+                List<Documento> DocumentosUsuario = new Documento().Select($"IdUsuario = {IdUsuario}");
+
+                int IdCertificadoMedico = new TipoDocumento().Select("Nombre = 'Certificado Médico'")[0].IdTipoDocumento;
+                int IdCertificadoComptencia = new TipoDocumento().Select("Nombre = 'Certificado de Competencia'")[0].IdTipoDocumento;
+                int IdCEVANT = new TipoDocumento().Select("Nombre = 'CEVANT'")[0].IdTipoDocumento;
+
+                foreach (Documento Doc in DocumentosUsuario)
+                {
+                    if (Doc.FHVencimiento.Value > DateTime.Now)
+                    {
+                        if (Doc.IdTipoDocumento.Value == IdCertificadoMedico)
+                        {
+                            TieneCertificadoMedico = true;
+                        }
+                        if (Doc.IdTipoDocumento.Value == IdCertificadoComptencia)
+                        {
+                            TieneCertificadoCompetencia = true;
+                        }
+                        if (Doc.IdTipoDocumento.Value == IdCEVANT)
+                        {
+                            TieneCEVANT = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Alert("Error", "Ocurrió un error en la validación de los documentos.", AlertType.error);
+            }
+
+            if (!TieneCertificadoCompetencia)
+            {
+                Alert("Error", "No se encontró Certificado de Competencia o el mismo ha caducado. Por favor, verifique su documentación.", AlertType.error);
+            }
+            else if (!TieneCertificadoMedico)
+            {
+                Alert("Error", "No se encontró Certificado Médico o el mismo ha caducado. Por favor, verifique su documentación.", AlertType.error);                
+            }
+            else if (!TieneCEVANT)
+            {
+                Alert("Error", "No se encontró CEVANT o el mismo ha caducado. Por favor, verifique su documentación.", AlertType.error);
+            }
+
+            return TieneCertificadoMedico && TieneCertificadoCompetencia && TieneCEVANT;
+        }
+
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
-            LimpiarModal();
-            OcultarMostrarPanelesABM(false);
-            HabilitarDeshabilitarTxts(true);
+            // Si el usuario logueado no es de tipo Solicitante O se validó la documentación
+            if (!Session["IdRol"].ToString().Equals("3") || ValidarDocumentacion())
+            {
+                LimpiarModal();
+                OcultarMostrarPanelesABM(false);
+                HabilitarDeshabilitarTxts(true);
 
-            CargarComboModalSolicitante();
-            CargarComboModalActividades();
-            int idActividad = ddlModalActividad.SelectedItem.Value.ToIntID();
-            CargarComboModalModalidades(idActividad);
-            CargarComboProvincias();
+                CargarComboModalSolicitante();
+                CargarComboModalActividades();
+                int idActividad = ddlModalActividad.SelectedItem.Value.ToIntID();
+                CargarComboModalModalidades(idActividad);
+                CargarComboProvincias();
 
-            ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
-            ddlModalSolicitante.Visible = true;
-            ddlModalSolicitante.Enabled = false;
-            btnGuardar.Visible = true;
+                ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+                ddlModalSolicitante.Visible = true;
+                ddlModalSolicitante.Enabled = false;
+                btnGuardar.Visible = true;
 
-            chkVant.Checked = false;
-            chkVant_CheckedChanged(null, null);
+                chkVant.Checked = false;
+                chkVant_CheckedChanged(null, null);
 
-            pnlHistorialSolicitud.Visible = false;
-            btnAgregarUbicacion.Visible = true;
+                pnlHistorialSolicitud.Visible = false;
+                btnAgregarUbicacion.Visible = true;
 
-            MostrarABM();
+                MostrarABM();
+            }
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
