@@ -7,13 +7,15 @@ namespace REApp.Models
 {
     public partial class Interesado : ISUD<Interesado>
     {
-        public Interesado() : base(2) { } // base(SPs_Version)
+        public Interesado() : base(3) { } // base(SPs_Version)
 
         // Properties
 
         public int IdInteresado { get; set; }
 
         public string Nombre { get; set; }
+
+        public string Apellido { get; set; }
 
         public int? IdUsuario { get; set; }
 
@@ -24,5 +26,11 @@ namespace REApp.Models
         public DateTime? FHBaja { get; set; }
 
         public int? IdLocalidad { get; set; }
+
+        public int? IdProvincia { get; set; }
+
+        public string Telefono { get; set; }
+
+        public string Observacion { get; set; }
     }
 }

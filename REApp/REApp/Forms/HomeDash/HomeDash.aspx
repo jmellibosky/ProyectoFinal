@@ -51,6 +51,9 @@
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">Gestion de Documentación
                                 <i class="fas fa-list"></i>
                             </a>
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">Gestion de Interesados
+                                <i class="fas fa-address-book"></i>
+                            </a>
                         </li>
                     </ul>
 
@@ -107,6 +110,9 @@
                             </a>
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">Gestion de Documentación
                                 <i class="fas fa-list"></i>
+                            </a>
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">Gestion de Interesados
+                                <i class="fas fa-address-book"></i>
                             </a>
                         </li>
                     </ul>
