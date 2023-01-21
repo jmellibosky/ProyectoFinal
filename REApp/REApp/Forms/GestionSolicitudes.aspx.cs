@@ -849,6 +849,15 @@ namespace REApp.Forms
             txtModalNombreSolicitud.Enabled = valor;
             txtModalObservaciones.Enabled = valor;
             btnGuardar.Visible = valor;
+
+            foreach (GridViewRow vant in gvVANTs.Rows)
+            {
+                ((CheckBox)vant.FindControl("chkVANTVinculado")).Enabled = valor;
+            }
+            foreach (GridViewRow trip in gvTripulacion.Rows)
+            {
+                ((CheckBox)trip.FindControl("chkTripulacionVinculado")).Enabled = valor;
+            }
         }
 
         protected void btnFiltrar_Click(object sender, EventArgs e)

@@ -511,3 +511,6 @@ D:\Proyectos\ProyectoFinal\REApp\REApp\bin\System.Threading.Tasks.Extensions.xml
 D:\Proyectos\ProyectoFinal\REApp\REApp\bin\Select.HtmlToPdf.dll
 D:\Proyectos\ProyectoFinal\REApp\REApp\bin\Select.HtmlToPdf.xml
 D:\Proyectos\ProyectoFinal\REApp\REApp\bin\Select.Html.dep
+C:\Users\musi\Documents\GitHub\ProyectoFinal\REApp\REApp\bin\Select.HtmlToPdf.dll
+C:\Users\musi\Documents\GitHub\ProyectoFinal\REApp\REApp\bin\Select.HtmlToPdf.xml
+C:\Users\musi\Documents\GitHub\ProyectoFinal\REApp\REApp\bin\Select.Html.dep

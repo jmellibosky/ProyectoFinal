@@ -27,7 +27,14 @@ namespace REApp.Forms
             using (SP sp = new SP("bd_reapp"))
             {
                 dt = sp.Execute("usp_CorreoSaltCheck", P.Add("correo", correo));
-                saltkey = dt.Rows[0][0].ToString();
+                if (dt.Rows.Count > 0)
+                {
+                    saltkey = dt.Rows[0][0].ToString();
+                }
+                else
+                {
+                    saltkey = "";
+                }
             }
 
             string hashedpass = SecurityHelper.HashPassword(password, saltkey, 10101, 70);
