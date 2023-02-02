@@ -268,12 +268,19 @@ namespace REApp.Forms
                 Alert("Error", "Por favor, ingrese el Apellido del tripulante.", AlertType.error);
                 return false;
             }
+            string numberPatter = @"^[a-zA-Z]+$";
 
             if (txtModalDNI.Text.Equals(""))
             {
                 Alert("Error", "Por favor, ingrese el DNI del tripulante.", AlertType.error);
                 return false;
             }
+
+            if (!Regex.IsMatch(txtModalDNI.Text, numberPatter))
+            {
+                Alert("Error", "Por favor, ingrese una número de DNI válido.", AlertType.error);
+            }
+
 
             if (txtModalFechaNacimiento.Text.Equals(""))
             {
@@ -302,7 +309,14 @@ namespace REApp.Forms
                 Alert("Error", "Por favor, ingrese al menos un dato de contacto del tripulante.", AlertType.error);
                 return false;
             }
-            if(!txtModalCorreo.Text.Equals(""))
+
+            //Todavia no validar, ver si agregamos con caracteristica del pais/provincia
+            //if (!Regex.IsMatch(txtModalTelefono.Text, numberPatter))
+            //{
+            //    Alert("Error", "Por favor, ingrese una número de teléfono válido.", AlertType.error);
+            //}
+
+            if (!txtModalCorreo.Text.Equals(""))
             {
                 string emailPattern = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
                 if(!Regex.IsMatch(txtModalCorreo.Text, emailPattern))

@@ -40,6 +40,7 @@ namespace REApp.Forms
                 else
                 {
                     //Mostrar error diciendo que no es success, con nuestro tipo de captcha capaz no hace falta 
+
                     flagCaptcha = false;
                 }
             }
@@ -98,6 +99,12 @@ namespace REApp.Forms
                 txt_password.Value = "";
                 txt_email.Value = "";
                 txt_email.Focus();
+
+            }
+
+            if (flagCaptcha == false)
+            {
+                Alert("Error", "Por favor, verificar Captcha para iniciar sesión.", AlertType.error);
             }
 
         }
