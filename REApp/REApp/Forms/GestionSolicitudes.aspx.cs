@@ -3,7 +3,9 @@ using REApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using static REApp.Navegacion;
@@ -1264,16 +1266,55 @@ namespace REApp.Forms
                 Alert("Error", "Por favor, ingrese un nombre representativo para la reserva.", AlertType.error);
                 return false;
             }
+
+
             if (txtModalFechaDesde.Text.Equals(""))
             {
                 Alert("Error", "Por favor, ingrese la fecha y hora desde la que desea solicitar la reserva.", AlertType.error);
                 return false;
             }
+
+
             if (txtModalFechaHasta.Text.Equals(""))
             {
                 Alert("Error", "Por favor, ingrese la fecha y hora hasta la que desea solicitar la reserva.", AlertType.error);
                 return false;
             }
+
+            //Se valida la expresión regular de la fecha de nacimiento
+            string datePattern = @"^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$";
+            if ((!Regex.IsMatch(txtModalFechaDesde.Text, datePattern)) || (txtModalFechaDesde.Text.ToDateTimeNull() == null))
+            {
+                Alert("Error", "Por favor, ingrese una fecha y hora válida desde la que desea solicitar la reserva.", AlertType.error);
+                return false;
+            }
+            if ((!Regex.IsMatch(txtModalFechaHasta.Text, datePattern)) || (txtModalFechaHasta.Text.ToDateTimeNull() == null))
+            {
+                Alert("Error", "Por favor, ingrese una fecha y hora válida hasta la que desea solicitar la reserva.", AlertType.error);
+                return false;
+            }
+
+            DateTime fechaActual = DateTime.Now.Date;
+
+            string fechaDesdeString = txtModalFechaDesde.Text.Replace("-", "/");
+            string fechaHastaString = txtModalFechaHasta.Text.Replace("-", "/");
+
+            DateTime fechaDesde = DateTime.ParseExact(fechaDesdeString, "yyyy/MM/dd", CultureInfo.InvariantCulture);
+            DateTime fechaHasta = DateTime.ParseExact(fechaHastaString, "yyyy/MM/dd", CultureInfo.InvariantCulture);
+
+            if (fechaDesde.Date > fechaHasta.Date)
+            {
+                Alert("Error", "Por favor, ingrese una Fecha Desde a la que desea solicitar la reserva que sea menor a la Fecha Hasta.", AlertType.error);
+                return false;
+            }
+
+            if(fechaDesde.Date < fechaActual)
+            {
+                Alert("Error", "Por favor, ingrese una Fecha Desde a la que desea solicitar la reserva que sea menor a la Fecha Actual.", AlertType.error);
+                return false;
+            }
+
+
             if (chkVant.Checked)
             {
                 bool TieneVants = false;

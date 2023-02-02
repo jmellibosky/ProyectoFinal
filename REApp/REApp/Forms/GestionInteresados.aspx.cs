@@ -2,6 +2,7 @@
 using REApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using static REApp.Navegacion;
 
@@ -97,7 +98,19 @@ namespace REApp.Forms
             {
                 Alert("Error", "Por favor, ingrese al menos un dato de contacto del Interesado.", AlertType.error);
                 return false;
+
             }
+
+            if (!txtEmail.Text.Equals(""))
+            {
+                string emailPattern = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+                if (!Regex.IsMatch(txtEmail.Text, emailPattern))
+                {
+                    Alert("Error", "Por favor, ingrese un correo electronico válido.", AlertType.error);
+                    return false;
+                }
+            }
+
 
             return true;
         }

@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -341,16 +343,31 @@ namespace REApp.Forms
                 Alert("Error", "Por favor, ingrese el DNI del usuario.", AlertType.error);
                 return false;
             }
+
+
+
             if (txtModalFechaNac.Text.Equals(""))
             {
                 Alert("Error", "Por favor, ingrese el fecha de nacimiento del usuario.", AlertType.error);
                 return false;
             }
-            if (txtModalFechaNac.Text.ToDateTimeNull() == null)
+            //Se valida la expresión regular de la fecha de nacimiento
+            string datePattern = @"^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$";
+            if ((!Regex.IsMatch(txtModalFechaNac.Text, datePattern)) || (txtModalFechaNac.Text.ToDateTimeNull() == null))
             {
-                Alert("Error", "Por favor, ingrese una fecha de nacimiento válida.", AlertType.error);
+                Alert("Error", "Por favor, ingrese una Fecha de Nacimiento válida.", AlertType.error);
                 return false;
             }
+            //Para que la fecha no supere a la actual
+            DateTime fechaActual = DateTime.Now.Date;
+            string fechaNac = txtModalFechaNac.Text.Replace("-", "/");
+            DateTime fecha = DateTime.ParseExact(fechaNac, "yyyy/MM/dd", CultureInfo.InvariantCulture);
+            if (fecha.Date > fechaActual)
+            {
+                Alert("Error", "Por favor, ingrese una Fecha de Nacimiento menor a la Fecha Actual.", AlertType.error);
+                return false;
+            }
+
             if (txtModalTelefono.Text.Equals("") && txtModalCorreo.Text.Equals(""))
             {
                 Alert("Error", "Por favor, ingrese al menos un dato de contacto del usuario.", AlertType.error);
