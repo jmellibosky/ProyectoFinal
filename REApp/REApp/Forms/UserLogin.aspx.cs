@@ -11,7 +11,6 @@ namespace REApp.Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -22,6 +21,28 @@ namespace REApp.Forms
             DataTable dt = new DataTable();
             DataTable dt2 = new DataTable();
             int flagLogin;
+
+            bool flagCaptcha = false;
+
+            //Checkeamos que el captcha este correcto
+            if (String.IsNullOrEmpty(Recaptcha.Response))
+            {
+                //Aca iria una alerta para mostrar que se tiene que no tiene que estar vacio
+                flagCaptcha = false;
+            }
+            else
+            {
+                if (Recaptcha.Verify().Success)
+                {
+                    //Funciona, no hace falta mostrar mas nada, solo prender la bandera o redireccionar
+                    flagCaptcha = true;
+                }
+                else
+                {
+                    //Mostrar error diciendo que no es success, con nuestro tipo de captcha capaz no hace falta 
+                    flagCaptcha = false;
+                }
+            }
 
             //Podriamos implementar SweetAlerts para dejarlo mas bonito
             using (SP sp = new SP("bd_reapp"))
@@ -45,7 +66,7 @@ namespace REApp.Forms
                 flagLogin = dt2.Rows.Count;
             }
 
-            if (flagLogin == 1)
+            if (flagLogin == 1 && flagCaptcha == true)
             {
                 //Ver si esto es completamente seguro
                 string idUsuario = dt2.Rows[0][0].ToString();
@@ -75,6 +96,7 @@ namespace REApp.Forms
             else
             {
                 txt_password.Value = "";
+                txt_email.Value = "";
                 txt_email.Focus();
             }
 
