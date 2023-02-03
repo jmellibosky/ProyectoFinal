@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserRegister.aspx.cs" Inherits="REApp.Forms.UserRegister" %>
+<%@ Register Assembly="Recaptcha.Web" Namespace="Recaptcha.Web.UI.Controls" TagPrefix="cc1" %>
 
 <!DOCTYPE html>
 
@@ -119,6 +120,8 @@
                         <label class="form-label font-weight-bold ml-2" for="txt_fec_nac">Fecha de Nacimiento</label>
                         <input type="date" id="txt_fec_nac" runat="server" class="form-control form-control-lg" required="required" placeholder="Correo Electronico"/>
                     </div>
+
+                    <cc1:RecaptchaWidget ID="Recaptcha" runat="server" />
 
                     <div class="pt-1">                    
                         <asp:Button ID="login" runat="server" CssClass="btn btn-primary btn-lg btn-block" OnClick="btnRegister_Click" Text="Registrarse"/>

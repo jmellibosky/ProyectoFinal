@@ -1,16 +1,11 @@
 ﻿using MagicSQL;
-using System;
-using System.Security.Cryptography;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using REApp.Models;
 using REApp.Controllers;
-using static REApp.Navegacion;
-using System.Text.RegularExpressions;
+using REApp.Models;
+using System;
 using System.Globalization;
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
+using static REApp.Navegacion;
 
 namespace REApp.Forms
 {
@@ -83,7 +78,32 @@ namespace REApp.Forms
         protected void btnRegister_Click(object sender, EventArgs e)
         {
 
-            if(ValidarGuardar())
+            bool flagCaptcha = false;
+
+            //Checkeamos que el captcha este correcto
+            if (String.IsNullOrEmpty(Recaptcha.Response))
+            {
+                //Aca iria una alerta para mostrar que se tiene que no tiene que estar vacio
+                flagCaptcha = false;
+                Alert("Error", "Por favor, complete el captcha.", AlertType.error);
+            }
+            else
+            {
+                if (Recaptcha.Verify().Success)
+                {
+                    //Funciona, no hace falta mostrar mas nada, solo prender la bandera o redireccionar
+                    flagCaptcha = true;
+                }
+                else
+                {
+                    //Mostrar error diciendo que no es success, con nuestro tipo de captcha capaz no hace falta 
+
+                    flagCaptcha = false;
+                    Alert("Error", "Por favor, complete el captcha.", AlertType.error);
+                }
+            }
+
+            if (ValidarGuardar() && flagCaptcha == true)
             {
                 //Ver tema rol, si asignamos de una el Solicitante y despues el admin los eleva, charlar bien esto
                 //1 Admin, 2 Operador, 3 Solicitante, 4 Interesado segun la bd_reapp
@@ -170,7 +190,7 @@ namespace REApp.Forms
             }
             if (txt_email.Value.Equals(""))
             {
-                Alert("Error", "Por favor, ingrese un cooreo electronico.", AlertType.error);
+                Alert("Error", "Por favor, ingrese un correo electronico.", AlertType.error);
                 return false;
             }
             if (!txt_email.Value.Equals(""))

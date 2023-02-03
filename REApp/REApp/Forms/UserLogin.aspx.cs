@@ -29,6 +29,7 @@ namespace REApp.Forms
             {
                 //Aca iria una alerta para mostrar que se tiene que no tiene que estar vacio
                 flagCaptcha = false;
+                Alert("Error", "Por favor, complete el captcha.", AlertType.error);
             }
             else
             {
@@ -42,6 +43,7 @@ namespace REApp.Forms
                     //Mostrar error diciendo que no es success, con nuestro tipo de captcha capaz no hace falta 
 
                     flagCaptcha = false;
+                    Alert("Error", "Por favor, complete el captcha.", AlertType.error);
                 }
             }
 

@@ -105,6 +105,15 @@ namespace REApp.Forms
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txt_fec_nac;
 
         /// <summary>
+        /// Control Recaptcha.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::Recaptcha.Web.UI.Controls.RecaptchaWidget Recaptcha;
+
+        /// <summary>
         /// Control login.
         /// </summary>
         /// <remarks>
