@@ -180,6 +180,8 @@ namespace REApp.Forms
             {//Buscar otra forma de hacer
                 btnNuevo.Visible = false;
             }
+            //validacion user
+            btnValidar.Visible = false;
         }
 
         protected void MostrarABM()
@@ -189,6 +191,9 @@ namespace REApp.Forms
             pnlABM.Visible = true;
             btnVolver.Visible = true;
             btnGuardar.Visible = true;
+            //validacion user
+            btnValidar.Visible = true;
+
         }
         protected void MostrarMsgEliminar()
         {
@@ -414,7 +419,32 @@ namespace REApp.Forms
                     LinkButton lnkBtn2 = (LinkButton)e.Row.FindControl("btnEliminarUsuario");
                     lnkBtn2.Visible = false;
                 }
+                //if (Session["idRol"].ToString() == "1")
+                //{
+                //    if (e.Row.RowType == DataControlRowType.Header)
+                //    {
+                //        e.Row.Cells[0].Visible = true;
+                //    }
+                //    if (e.Row.RowType == DataControlRowType.DataRow)
+                //    {
+                //        e.Row.Cells[0].Visible = true;
+                //    }
+                //}
             }
+        }
+
+        protected void btnValidar_Click(object sender, EventArgs e)
+        {
+            //Models.Usuario UsuarioViejo = null;
+            Models.Usuario UsuarioViejo = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
+
+            // Update
+            UsuarioViejo.ValidacionEANA = true;
+            UsuarioViejo.Update();
+
+            hdnIdUsuario.Value = "";
+            Alert("Usuario validado con éxito", "Se ha validado el usuario seleccionado.", AlertType.success, "/Forms/GestionUsuarios.aspx");
+
         }
     }
 }

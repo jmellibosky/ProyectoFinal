@@ -54,7 +54,7 @@ namespace REApp.Forms
             if (!IsPostBack)
             {
 
-                if (idRolInt == 2)
+                if (idRolInt == 2 || idRolInt == 1)
                 {
                     CargarComboSolicitante();
                     BindGrid();

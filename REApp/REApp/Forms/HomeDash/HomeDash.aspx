@@ -39,6 +39,20 @@
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes.aspx">Gestión de Solicitudes
                                 <i class="fas fa-plane-departure"></i>
                             </a>
+                             <%--Roles Compartidos Operador/Admin--%>
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRecepcion">&nbsp; &nbsp; Recepción de Solicitudes REA
+                                <i class="fas fa-plane-departure"></i>
+                            </a>
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesAnalisis">&nbsp; &nbsp; Validación Análisis REA
+                                <i class="fas fa-plane-departure"></i>
+                            </a>
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesCoordinacion">&nbsp; &nbsp; Validación Coordinación REA
+                                <i class="fas fa-plane-departure"></i>
+                            </a>
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRespuesta">&nbsp; &nbsp; Respuesta REA
+                                <i class="fas fa-plane-departure"></i>
+                            </a>
+                            <%--  --%>
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">Gestión de Tripulación
                                 <i class="fas fa-users"></i>
                             </a>
@@ -54,6 +68,7 @@
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">Gestion de Interesados
                                 <i class="fas fa-address-book"></i>
                             </a>
+                           
                         </li>
                     </ul>
 
@@ -74,7 +89,7 @@
                             </a>
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">Mi documentación                                <i class="fas fa-file-lines"></i>
                                 <i class="fas fa-list"></i>
-                            </a>
+                            </a>                           
                         </li>
                     </ul>
 

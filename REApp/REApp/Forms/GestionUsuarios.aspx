@@ -204,6 +204,7 @@
                             <asp:BoundField DataField="NombreRol" HeaderText="ROL"          ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                             <asp:BoundField DataField="Dni" HeaderText="DNI"                ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                             <asp:BoundField DataField="Telefono" HeaderText="TELÉFONO"      ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="ValidacionEANA" HeaderText="ACTIVO"  ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                             <asp:BoundField DataField="Cuit" HeaderText="CUIT"              ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center"/>
 
                             <%-- Boton con link para ver detalles solicitud--%>
@@ -310,6 +311,7 @@
                                         <div class="row">
                                             <div style="justify-content:center;">
                                                 <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" OnClick="btnGuardar_Click1" />
+                                                <asp:Button ID="btnValidar" Text="Validar Usuario" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnValidar_Click" />
                                             </div>
                                         </div>
                                     </div>
