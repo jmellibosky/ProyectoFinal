@@ -206,6 +206,7 @@ namespace REApp.Forms
             if (!Regex.IsMatch(txt_dni.Value, numberPattern))
             {
                 Alert("Error", "Por favor, ingrese una número de DNI válido.", AlertType.error);
+                return false;
             }
             if (txt_fec_nac.Value.Equals(""))
             {

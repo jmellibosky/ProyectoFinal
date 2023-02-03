@@ -354,6 +354,7 @@ namespace REApp.Forms
             if (!Regex.IsMatch(txtModalDni.Text, numberPattern))
             {
                 Alert("Error", "Por favor, ingrese una número de DNI válido.", AlertType.error);
+                return false;
             }
 
 
