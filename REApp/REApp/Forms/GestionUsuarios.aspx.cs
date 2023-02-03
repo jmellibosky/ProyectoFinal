@@ -343,10 +343,10 @@ namespace REApp.Forms
                 Alert("Error", "Por favor, ingrese el DNI del usuario.", AlertType.error);
                 return false;
             }
-            string numberPatter = @"^[a-zA-Z]+$";
+            string numberPattern = @"^\d+$";
 
 
-            if (!Regex.IsMatch(txtModalDni.Text, numberPatter))
+            if (!Regex.IsMatch(txtModalDni.Text, numberPattern))
             {
                 Alert("Error", "Por favor, ingrese una número de DNI válido.", AlertType.error);
             }

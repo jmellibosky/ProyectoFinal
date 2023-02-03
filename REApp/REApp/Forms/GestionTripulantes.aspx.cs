@@ -268,7 +268,7 @@ namespace REApp.Forms
                 Alert("Error", "Por favor, ingrese el Apellido del tripulante.", AlertType.error);
                 return false;
             }
-            string numberPatter = @"^[a-zA-Z]+$";
+            string numberPatter = @"^\d+$";
 
             if (txtModalDNI.Text.Equals(""))
             {

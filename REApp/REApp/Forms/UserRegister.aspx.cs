@@ -9,6 +9,8 @@ using System.Web.UI.WebControls;
 using REApp.Models;
 using REApp.Controllers;
 using static REApp.Navegacion;
+using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace REApp.Forms
 {
@@ -153,14 +155,71 @@ namespace REApp.Forms
 
         }
 
-        // POR AHORA PAUSO ESTA FUNCIÓN, EL FORM VALIDA QUE ESTEN LOS CAMPOS, PERO POR AHI TAMBIEN ESTARÍA BUENO QUE LOS VALIDE POR EL BACK
+
         protected bool ValidarGuardar()
         {
-        //    if (txt_nombre.Value.Equals(""))
-        //    {
-        //        Alert("Error", "Por favor, ingrese un nombre.", AlertType.error);
-        //        return false;
-        //    }
+            if (txt_nombre.Value.Equals(""))
+            {
+                Alert("Error", "Por favor, ingrese un nombre.", AlertType.error);
+                return false;
+            }
+            if (txt_apellido.Value.Equals(""))
+            {
+                Alert("Error", "Por favor, ingrese un apellido.", AlertType.error);
+                return false;
+            }
+            if (txt_email.Value.Equals(""))
+            {
+                Alert("Error", "Por favor, ingrese un cooreo electronico.", AlertType.error);
+                return false;
+            }
+            if (!txt_email.Value.Equals(""))
+            {
+                string emailPattern = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+                if (!Regex.IsMatch(txt_email.Value, emailPattern))
+                {
+                    Alert("Error", "Por favor, ingrese un correo electronico válido.", AlertType.error);
+                    return false;
+                }
+            }
+            if (txt_telefono.Value.Equals(""))
+            {
+                Alert("Error", "Por favor, ingrese un teléfono.", AlertType.error);
+                return false;
+            }
+            if (txt_password.Value.Equals(""))
+            {
+                Alert("Error", "Por favor, ingrese una contraseña.", AlertType.error);
+                return false;
+            }
+            if (txt_passwordCheck.Value.Equals(""))
+            {
+                Alert("Error", "Por favor, ingrese la confirmación de contraseña.", AlertType.error);
+                return false;
+            }
+            if (txt_dni.Value.Equals(""))
+            {
+                Alert("Error", "Por favor, ingrese un DNI.", AlertType.error);
+                return false;
+            }
+            string numberPattern = @"^\d+$";
+            if (!Regex.IsMatch(txt_dni.Value, numberPattern))
+            {
+                Alert("Error", "Por favor, ingrese una número de DNI válido.", AlertType.error);
+            }
+            if (txt_fec_nac.Value.Equals(""))
+            {
+                Alert("Error", "Por favor, ingrese la fecha de nacimiento.", AlertType.error);
+                return false;
+            }
+            DateTime fechaActual = DateTime.Now.Date;
+            string fechaNac = txt_fec_nac.Value.Replace("-", "/");
+            DateTime fecha = DateTime.ParseExact(fechaNac, "yyyy/MM/dd", CultureInfo.InvariantCulture);
+            if (fecha.Date > fechaActual)
+            {
+                Alert("Error", "Por favor, ingrese una Fecha de Nacimiento menor a la Fecha Actual.", AlertType.error);
+                return false;
+            }
             return true;
         }
     }
