@@ -315,8 +315,10 @@ namespace REApp.Forms
             {
                 if (!ddlSolicitante.SelectedItem.Value.Equals("#"))
                 {
+                    int IdUsuario = ddlSolicitante.SelectedItem.Value.ToIntID();
+
                     dt = sp.Execute("usp_GetDocumentacionPorTipo", 
-                        P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()), 
+                        P.Add("IdUsuario", IdUsuario), 
                         P.Add("IdTipoDocumento", idDoc));
                 }
             }

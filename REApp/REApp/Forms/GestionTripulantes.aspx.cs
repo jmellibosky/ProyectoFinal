@@ -30,7 +30,7 @@ namespace REApp.Forms
                 hdnFuCM.Value = "";
                 hdnFuCertComp.Value = "";
                 //Si tiene rol Admin 
-                if ( idRolInt == 1)
+                if (idRolInt == 1)
                 {
                     CargarComboSolicitante();
                     btnNuevo.Visible = false;
@@ -53,7 +53,7 @@ namespace REApp.Forms
                     MostrarListado();
                     btnNuevo.Visible = true;
                 }
-            }           
+            }
         }
 
         protected void gvTripulantes_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -67,7 +67,6 @@ namespace REApp.Forms
                     LinkButton lnkBtn2 = (LinkButton)e.Row.FindControl("btnEditar");
                     lnkBtn2.Visible = false;
                 }
-                
             }
         }
 
@@ -144,8 +143,12 @@ namespace REApp.Forms
 
                 CargarComboModalSolicitante();
 
-                ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
-                ddlModalSolicitante.Enabled = false;
+                List<Models.TripulacionUsuario> TripulacionUsuario = new Models.TripulacionUsuario().Select($"IdTripulacion = {IdTripulacion} AND FHBaja IS NULL");
+                if (TripulacionUsuario.Count > 0)
+                {
+                    ddlModalSolicitante.SelectedValue = TripulacionUsuario[0].IdUsuario.ToCryptoID();
+                    ddlModalSolicitante.Enabled = false;
+                }
 
                 hdnIdTripulacion.Value = IdTripulacion.ToString();
                 txtModalApellido.Text = Tripulacion.Apellido;
@@ -159,7 +162,7 @@ namespace REApp.Forms
 
                 CargarDoc(2, gvCertMedicoTripulante, pnlFuCMTripulante, pnlFechaVencimientoCMTripulante, idTripulacion);
                 CargarDoc(3, gvCertCompetenciaTripulante, pnlFUCertCompetenciaTripulante, pnlFechaVencimientoCertCompetenciaTripulante, idTripulacion);
-                
+
                 MostrarABM();
                 habilitarDeshabilitarInputs(true);
             }
@@ -172,8 +175,12 @@ namespace REApp.Forms
 
                 CargarComboModalSolicitante();
 
-                ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
-                ddlModalSolicitante.Enabled = false;
+                List<Models.TripulacionUsuario> TripulacionUsuario = new Models.TripulacionUsuario().Select($"IdTripulacion = {IdTripulacion} AND FHBaja IS NULL");
+                if (TripulacionUsuario.Count > 0)
+                {
+                    ddlModalSolicitante.SelectedValue = TripulacionUsuario[0].IdUsuario.ToCryptoID();
+                    ddlModalSolicitante.Enabled = false;
+                }
 
                 hdnIdTripulacion.Value = IdTripulacion.ToString();
                 txtModalApellido.Text = Tripulacion.Apellido;
@@ -190,8 +197,6 @@ namespace REApp.Forms
 
                 MostrarABM();
                 habilitarDeshabilitarInputs(false);
-
-
             }
             if (e.CommandName.Equals("Eliminar"))
             { // Eliminar
@@ -320,7 +325,7 @@ namespace REApp.Forms
             if (!txtModalCorreo.Text.Equals(""))
             {
                 string emailPattern = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
-                if(!Regex.IsMatch(txtModalCorreo.Text, emailPattern))
+                if (!Regex.IsMatch(txtModalCorreo.Text, emailPattern))
                 {
                     Alert("Error", "Por favor, ingrese un Correo Electronico válido.", AlertType.error);
                     return false;
@@ -340,7 +345,8 @@ namespace REApp.Forms
                 { // Insert
                     using (Tn tn = new Tn("bd_reapp"))
                     {
-                        try{
+                        try
+                        {
                             Tripulacion = new Models.Tripulacion();
 
                             Tripulacion.Nombre = txtModalNombre.Text;
@@ -390,30 +396,30 @@ namespace REApp.Forms
                 else
                 { // Update
                     using (Tn tn = new Tn("bd_reapp"))
-                    { 
-                        try
                     {
-                        Tripulacion = new Models.Tripulacion().Select(hdnIdTripulacion.Value.ToInt());
-                        Tripulacion.Nombre = txtModalNombre.Text;
-                        Tripulacion.Apellido = txtModalApellido.Text;
-                        Tripulacion.DNI = txtModalDNI.Text;
-                        Tripulacion.FechaNacimiento = txtModalFechaNacimiento.Text.ToDateTime();
-                        Tripulacion.Telefono = txtModalTelefono.Text;
-                        Tripulacion.Correo = txtModalCorreo.Text;
-                        Tripulacion.Update(tn);
-
-                        int idTripulacion = Tripulacion.IdTripulacion;
-
-                        if (FileUploadCMATrip.HasFile)
+                        try
                         {
-                            int Exito = uploadMethod(FileUploadCMATrip, 2, idTripulacion, "Certificado Médico", tn);
+                            Tripulacion = new Models.Tripulacion().Select(hdnIdTripulacion.Value.ToInt());
+                            Tripulacion.Nombre = txtModalNombre.Text;
+                            Tripulacion.Apellido = txtModalApellido.Text;
+                            Tripulacion.DNI = txtModalDNI.Text;
+                            Tripulacion.FechaNacimiento = txtModalFechaNacimiento.Text.ToDateTime();
+                            Tripulacion.Telefono = txtModalTelefono.Text;
+                            Tripulacion.Correo = txtModalCorreo.Text;
+                            Tripulacion.Update(tn);
+
+                            int idTripulacion = Tripulacion.IdTripulacion;
+
+                            if (FileUploadCMATrip.HasFile)
+                            {
+                                int Exito = uploadMethod(FileUploadCMATrip, 2, idTripulacion, "Certificado Médico", tn);
                                 if (Exito == 0)
                                 {
                                     return;
                                 }
-                        }
-                        if (FileUploadCertCompetenciaTripulante.HasFile)
-                        {
+                            }
+                            if (FileUploadCertCompetenciaTripulante.HasFile)
+                            {
                                 int Exito = uploadMethod(FileUploadCertCompetenciaTripulante, 3, idTripulacion, "Certificado de Competencia", tn);
                                 if (Exito == 0)
                                 {
@@ -423,16 +429,16 @@ namespace REApp.Forms
 
                             tn.Commit();
                             Alert("Tripulante actualizado con éxito", "Se han guardado los datos del tripulante.", AlertType.success, "/Forms/GestionTripulantes.aspx");
-                    }
-                    catch (Exception)
-                    {
-                        tn.RollBack();
-                    }
+                        }
+                        catch (Exception)
+                        {
+                            tn.RollBack();
+                        }
                     }
 
 
                 }
-                
+
                 //MostrarListado();
                 //btnFiltrar_Click(null, null);
             }
@@ -521,7 +527,7 @@ namespace REApp.Forms
             LimpiarGv(gvCertCompetenciaTripulante, pnlFUCertCompetenciaTripulante, pnlFechaVencimientoCertCompetenciaTripulante);
             txtFechaDeVencimientoCertCompetenciaTripulante.Value = "";
             txtFechaVencimientoCertMedicoTripulante.Value = "";
-            
+
             if (Session["IdRol"].ToString().ToInt() == 2)
             {//Buscar otra forma de hacer
                 btnNuevo.Visible = false;
@@ -577,35 +583,35 @@ namespace REApp.Forms
                     //Insert MagicSQL
                     Models.Documento Documento = null;
 
-                        //Se crea y guardan los campos de documento
-                        Documento = new Models.Documento();
+                    //Se crea y guardan los campos de documento
+                    Documento = new Models.Documento();
 
-                        Documento.Nombre = filename;
-                        Documento.IdSolicitud = null;
-                        Documento.Datos = bytes;
-                        Documento.Extension = extension;
-                        Documento.IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
-                        Documento.FHAlta = DateTime.Today;
-                        Documento.TipoMIME = contentType;
-                        Documento.IdTipoDocumento = idTipoDoc;
-                        Documento.IdTripulacion = idTripulacion;
+                    Documento.Nombre = filename;
+                    Documento.IdSolicitud = null;
+                    Documento.Datos = bytes;
+                    Documento.Extension = extension;
+                    Documento.IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+                    Documento.FHAlta = DateTime.Today;
+                    Documento.TipoMIME = contentType;
+                    Documento.IdTipoDocumento = idTipoDoc;
+                    Documento.IdTripulacion = idTripulacion;
 
-                        //Certificado Medico
-                        if (idTipoDoc == 2)
+                    //Certificado Medico
+                    if (idTipoDoc == 2)
+                    {
+                        if (txtFechaVencimientoCertMedicoTripulante.Value != "")
                         {
-                            if (txtFechaVencimientoCertMedicoTripulante.Value != "")
-                            {
-                                Documento.FHVencimiento = txtFechaVencimientoCertMedicoTripulante.Value.ToDateTime();
-                            }
+                            Documento.FHVencimiento = txtFechaVencimientoCertMedicoTripulante.Value.ToDateTime();
                         }
-                        //Certificado de Competencia
-                        if (idTipoDoc == 3)
+                    }
+                    //Certificado de Competencia
+                    if (idTipoDoc == 3)
+                    {
+                        if (txtFechaDeVencimientoCertCompetenciaTripulante.Value != "")
                         {
-                            if (txtFechaDeVencimientoCertCompetenciaTripulante.Value != "")
-                            {
-                                Documento.FHVencimiento = txtFechaDeVencimientoCertCompetenciaTripulante.Value.ToDateTime();
-                            }
+                            Documento.FHVencimiento = txtFechaDeVencimientoCertCompetenciaTripulante.Value.ToDateTime();
                         }
+                    }
                     Documento.Insert(transaccion);
                     return Exito = 1;
                     //string tituloAlert = "Archivo " + titulo + " subido con éxito";
@@ -682,12 +688,12 @@ namespace REApp.Forms
             {
 
                 LinkButton lnkBtn = (LinkButton)e.Row.FindControl("lnkEliminarArchivo");
-                    
+
                 if (hdnFuCM.Value == "Detalle")
                 {
                     lnkBtn.Visible = false;
                 }
-                if(hdnFuCM.Value == "Editar")
+                if (hdnFuCM.Value == "Editar")
                 {
                     lnkBtn.Visible = true;
                 }

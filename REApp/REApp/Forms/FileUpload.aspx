@@ -125,17 +125,17 @@
     <%--Panel Admin--%>
     <asp:Panel ID="PanelAdmin" runat="server" Visible="false">
         <%-- Mostrar Archivos--%>
-        
 
-            <div class="container justify-content-center">
 
-                <%--DDL y Carga de Archivos--%>
-                <div class="row">
-                    <div class="col align-self-start">
-                        <asp:Label runat="server">Solicitantes</asp:Label>
-                        <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" AutoPostBack="true" Width="300px" />
-                    </div>
-                    <asp:Panel ID="pnlFuAdmin" runat="server">
+        <div class="container justify-content-center">
+
+            <%--DDL y Carga de Archivos--%>
+            <div class="row">
+                <div class="col align-self-start">
+                    <asp:Label runat="server">Solicitantes</asp:Label>
+                    <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" AutoPostBack="true" Width="300px" />
+                </div>
+                <asp:Panel ID="pnlFuAdmin" runat="server">
                     <div class="col align-self-end border">
                         <asp:FileUpload ID="FileUpload1" runat="server" />
                         <br />
@@ -157,52 +157,56 @@
                         </div>
                         <br />
                     </div>
-                </div>
-            </div>
-        </asp:Panel>
-        <%--DGV Admin--%>
-        <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
-            <div class="row" style="overflow: auto; height: 375px; width: 1100px;">
-                <asp:Panel ID="upDoc" Style="width: 100%;" runat="server">
-                    <asp:GridView ID="gvArchivos"
-                        runat="server"
-                        AutoGenerateColumns="false"
-                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvArchivos_RowDataBound">
-                        <AlternatingRowStyle BackColor="white" />
-                        <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
-                        <RowStyle BackColor="#e1dddd" />
-                        <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
-                        <Columns>
-                            <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                            <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="NombreUsuario" HeaderText="PROPIETARIO" ItemStyle-Width="10%" />
-                            <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
-                            <asp:BoundField DataField="Extension" HeaderText="EXTENSIÓN" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="IdTipoDocumento" HeaderText="TIPO DOC" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
-                            <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-
-                            <%-- Boton con link para descargar archivo--%>
-                            <asp:TemplateField ItemStyle-Width="10%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click1"
-                                        CommandArgument='<%# Eval("IdDocumento") %>'>
-                                            <i class="fas fa-file-pdf" aria-hidden="true" style='font-size:15px;  color:#525252'></i> 
-                                    </asp:LinkButton>
-                                    <%--Boton para eliminar archivo de la BD--%>
-                                    <asp:LinkButton ID="lnkEliminarArchivo" runat="server" OnClick="lnkEliminarArchivo_Click"
-                                        CommandArgument='<%# Eval("IdDocumento") %>'>
-                                            <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; color:#525252' ></i>
-                                    </asp:LinkButton>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                        </Columns>
-
-                    </asp:GridView>
-                </asp:Panel>
             </div>
         </div>
+    </asp:Panel>
+    <%--DGV Admin--%>
+    <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
+        <div class="row" style="overflow: auto; height: 375px; width: 1100px;">
+            <asp:Panel ID="upDoc" Style="width: 100%;" runat="server">
+                <asp:GridView ID="gvArchivos"
+                    runat="server"
+                    AutoGenerateColumns="false"
+                    CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvArchivos_RowDataBound">
+                    <AlternatingRowStyle BackColor="white" />
+                    <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                    <RowStyle BackColor="#e1dddd" />
+                    <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+                    <Columns>
+                        <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                        <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+                        <asp:BoundField DataField="NombreUsuario" HeaderText="PROPIETARIO" ItemStyle-Width="10%" />
+                        <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
+                        <asp:BoundField DataField="Extension" HeaderText="EXTENSIÓN" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                        <asp:BoundField DataField="IdTipoDocumento" HeaderText="TIPO DOC" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                        <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                        <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+
+                        <%-- Boton con link para descargar archivo--%>
+                        <asp:TemplateField ItemStyle-Width="10%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' OnClick="lnkDownload_Click1"
+                                            CommandArgument='<%# Eval("IdDocumento") %>'>
+                                            <i class="fas fa-file-pdf" aria-hidden="true" style='font-size:15px; color:#525252'></i> 
+                                        </asp:LinkButton>
+                                        <%--Boton para eliminar archivo de la BD--%>
+                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click"
+                                            CommandArgument='<%# Eval("IdDocumento") %>'>
+                                            <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; color:#525252' ></i>
+                                        </asp:LinkButton>
+                                    </div>
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                    </Columns>
+
+                </asp:GridView>
+            </asp:Panel>
+        </div>
+    </div>
     </asp:Panel>
     <%--  --%>
     <%--Panel Solicitante--%>
@@ -238,12 +242,12 @@
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
-                                        <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click1"
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
-                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" OnClick="lnkEliminarArchivo_Click"
+                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fa fa-trash-can" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
@@ -304,12 +308,12 @@
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
-                                        <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click1"
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
-                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" OnClick="lnkEliminarArchivo_Click"
+                                        <asp:LinkButton ID="lnkEliminarArchivo" CssClass="btn btn-danger" runat="server" OnClick="lnkEliminarArchivo_Click"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fa fa-trash-can" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
@@ -372,12 +376,12 @@
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
-                                        <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click1"
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
-                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" OnClick="lnkEliminarArchivo_Click"
+                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fa fa-trash-can" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>

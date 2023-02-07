@@ -195,17 +195,17 @@
                                                             <asp:TemplateField  ItemStyle-Width="20%" ItemStyle-Wrap="false" HeaderText="ACCIONES">  
                                                                 
                                                                 <ItemTemplate>  
-                                                                    <asp:LinkButton ID="btnModificarVant" runat="server" OnClick="btnModificarVant_Click"
+                                                                    <asp:LinkButton ID="btnModificarVant" CssClass="btn btn-warning" runat="server" OnClick="btnModificarVant_Click" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este VANT se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>'
                                                                     CommandArgument='<%# Eval("IdVant") %>' >
-                                                                        <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; margin-left: 10px; color:#525252' ></i>
+                                                                        <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; color:#525252' ></i>
                                                                     </asp:LinkButton> 
-                                                                    <asp:LinkButton ID="btnEliminarVant" runat="server" OnClick="btnEliminarVant_Click"
+                                                                    <asp:LinkButton ID="btnEliminarVant" runat="server" CssClass="btn btn-danger" OnClick="btnEliminarVant_Click" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este VANT se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>'
                                                                     CommandArgument='<%# Eval("IdVant") %>'>
-                                                                        <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; margin-left: 25px; color:#525252' ></i> 
+                                                                        <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; color:#525252' ></i> 
                                                                     </asp:LinkButton>
-                                                                    <asp:LinkButton ID="btnDetalleVant" runat="server" OnClick="btnDetalleVant_Click"
+                                                                    <asp:LinkButton ID="btnDetalleVant" runat="server" CssClass="btn btn-secondary" OnClick="btnDetalleVant_Click"
                                                                     CommandArgument='<%# Eval("IdVant") %>'>
-                                                                        <i class="fa fa-eye" aria-hidden="true" style='font-size:15px; margin-left: 25px; color:#525252' ></i> 
+                                                                        <i class="fa fa-eye" aria-hidden="true" style='font-size:15px; color:#525252' ></i> 
                                                                     </asp:LinkButton>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField> 

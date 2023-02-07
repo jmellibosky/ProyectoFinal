@@ -139,18 +139,18 @@
     <div class="row">
         <div class="col-12">
 
-        <h1 class="row justify-content-center">
-            <label class="fw-normal mb-3 pb-2">Gestión de Tripulantes</label>
-        </h1>
+            <h1 class="row justify-content-center">
+                <label class="fw-normal mb-3 pb-2">Gestión de Tripulantes</label>
+            </h1>
             <br />
-                <div style="text-align: end;">
-                    <asp:UpdatePanel runat="server">
-                        <ContentTemplate>
-                            <asp:Button ID="btnNuevo" Text="Nuevo" CssClass="btn btn-primary btn-dark" runat="server" OnClick="btnNuevo_Click" />
-                            <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVolver_Click" />
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                </div>
+            <div style="text-align: end;">
+                <asp:UpdatePanel runat="server">
+                    <ContentTemplate>
+                        <asp:Button ID="btnNuevo" Text="Nuevo" CssClass="btn btn-primary btn-dark" runat="server" OnClick="btnNuevo_Click" />
+                        <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVolver_Click" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
 
         </div>
     </div>
@@ -167,16 +167,16 @@
                                 <%-- Combo Solicitantes --%>
                                 <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group" runat="server" ID="pnlSolicitante">
                                     <asp:Label Text="Solicitantes" runat="server" />
-                                    <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged"/>
+                                    <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" />
                                 </asp:Panel>
                                 <%-- Combo Documentación --%>
                                 <asp:Panel CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group" runat="server" ID="pnlDocumentacion">
                                     <asp:Label Text="Documentación" runat="server" />
                                     <asp:DropDownList runat="server" ID="ddlDocumentación" CssClass="form-control select-single" AutoPostBack="true" OnSelectedIndexChanged="ddlDocumentación_SelectedIndexChanged">
-                                        <asp:ListItem Text="Todos" Value="0" />    
-                                        <asp:ListItem Text="Vigente" Value="1" />    
-                                        <asp:ListItem Text="Vencida" Value="2" />    
-                                        <asp:ListItem Text="Faltante" Value="3" />    
+                                        <asp:ListItem Text="Todos" Value="0" />
+                                        <asp:ListItem Text="Vigente" Value="1" />
+                                        <asp:ListItem Text="Vencida" Value="2" />
+                                        <asp:ListItem Text="Faltante" Value="3" />
                                     </asp:DropDownList>
                                 </asp:Panel>
                             </div>
@@ -230,22 +230,26 @@
                                                         <asp:BoundField HeaderText="TELÉFONO" DataField="Telefono" ItemStyle-Width="20%" />
                                                         <asp:TemplateField HeaderText="ACCIONES" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center">
                                                             <ItemTemplate>
-                                                                <asp:LinkButton ID="btnEditar" CommandName="Editar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <asp:LinkButton ID="btnEditar" CssClass="btn btn-warning" CommandName="Editar" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este tripulante se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
                                                             <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; color:#525252' ></i>    
-                                                                </asp:LinkButton>
-                                                                <asp:LinkButton ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
+                                                                        </asp:LinkButton>
+                                                                        <asp:LinkButton ID="btnEliminar" CssClass="btn btn-danger" CommandName="Eliminar" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este tripulante se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
                                                             <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; color:#525252' ></i>
-                                                                </asp:LinkButton>
-                                                                <asp:LinkButton ID="btnVerDetalle" CommandName="Detalle" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
+                                                                        </asp:LinkButton>
+                                                                        <asp:LinkButton ID="btnVerDetalle" CssClass="btn btn-secondary" CommandName="Detalle" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
                                                             <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
-                                                                </asp:LinkButton>
+                                                                        </asp:LinkButton>
+                                                                    </div>
+                                                                </div>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                     </Columns>
                                                 </asp:GridView>
                                             </ContentTemplate>
                                             <Triggers>
-                                                <asp:PostBackTrigger ControlID="gvTripulantes" />                                            
+                                                <asp:PostBackTrigger ControlID="gvTripulantes" />
                                             </Triggers>
                                         </asp:UpdatePanel>
                                     </div>
@@ -468,7 +472,7 @@
             <asp:PostBackTrigger ControlID="btnNuevo" />
             <asp:PostBackTrigger ControlID="btnVolver" />
             <asp:PostBackTrigger ControlID="btnFiltrar" />
-             <asp:PostBackTrigger ControlID="ddlSolicitante" />
+            <asp:PostBackTrigger ControlID="ddlSolicitante" />
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
