@@ -212,6 +212,26 @@ namespace REApp.Forms
                 Alert("Error", "Por favor, ingrese una contraseña.", AlertType.error);
                 return false;
             }
+            if (txt_password.Value.Length < 8)
+            {
+                Alert("Error", "Por favor, ingrese una contraseña con igual o mas de 8 caracteres.", AlertType.error);
+                return false;
+            }
+            if (!txt_password.Value.Equals(""))
+            {
+                string passwordPatternMayus = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+                string passwordPatternNumbers = "0123456789";
+                if (!Regex.IsMatch(txt_email.Value, passwordPatternMayus))
+                {
+                    Alert("Error", "Por favor, ingrese una clave con al menos una mayúscula y un número.", AlertType.error);
+                    return false;
+                }
+                if (!Regex.IsMatch(txt_email.Value, passwordPatternNumbers))
+                {
+                    Alert("Error", "Por favor, ingrese una clave con al menos una mayúscula y un número.", AlertType.error);
+                    return false;
+                }
+            }
             if (txt_passwordCheck.Value.Equals(""))
             {
                 Alert("Error", "Por favor, ingrese la confirmación de contraseña.", AlertType.error);
@@ -220,6 +240,11 @@ namespace REApp.Forms
             if (txt_dni.Value.Equals(""))
             {
                 Alert("Error", "Por favor, ingrese un DNI.", AlertType.error);
+                return false;
+            }
+            if (txt_dni.Value.Length < 8 || txt_dni.Value.Length > 10)
+            {
+                Alert("Error", "Por favor, ingrese un DNI valido.", AlertType.error);
                 return false;
             }
             string numberPattern = @"^\d+$";

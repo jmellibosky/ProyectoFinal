@@ -58,11 +58,11 @@
                     </div>
 
                     <div class="form-outline mb-3">
-                        <input type="password" id="txt_password" runat="server" class="form-control form-control-lg" required="required" placeholder="Contraseña"/>
+                        <input type="password" id="txt_password" minlength="8" maxlength="32" runat="server" class="form-control form-control-lg" required="required" placeholder="Contraseña"/>
                     </div>
 
                     <div class="form-outline mb-3">
-                        <input type="password" id="txt_passwordCheck" runat="server" class="form-control form-control-lg" required="required" placeholder="Repita su contraseña"/>
+                        <input type="password" id="txt_passwordCheck" runat="server" minlength="8" maxlength="32" class="form-control form-control-lg" required="required" placeholder="Repita su contraseña"/>
                     </div>
                     
                     <div class="container p-0">
