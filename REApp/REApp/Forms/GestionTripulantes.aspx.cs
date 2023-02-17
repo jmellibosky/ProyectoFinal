@@ -281,7 +281,7 @@ namespace REApp.Forms
                 return false;
             }
 
-            if (!Regex.IsMatch(txtModalDNI.Text, numberPatter))
+            if (!Regex.IsMatch(txtModalDNI.Text, numberPatter) && txtModalDNI.Text.Length != 8)
             {
                 Alert("Error", "Por favor, ingrese una número de DNI válido.", AlertType.error);
                 return false;
