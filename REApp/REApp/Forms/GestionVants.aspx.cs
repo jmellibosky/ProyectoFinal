@@ -181,6 +181,7 @@ namespace REApp.Forms
             ddlModalSolicitante.Enabled = false;
             MostrarABM();
             habilitarDeshabilitarInputs(true);
+            txtAñoFabricacion.TextMode = TextBoxMode.Date;
         }
 
         protected void btnModificarVant_Click(object sender, EventArgs e)
@@ -477,6 +478,7 @@ namespace REApp.Forms
 
             pnlMotivoBaja.Visible = false;
             txtMotivoBaja.Enabled = false;
+            txtAñoFabricacion.TextMode = TextBoxMode.DateTime;
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)

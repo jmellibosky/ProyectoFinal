@@ -284,7 +284,7 @@
                                         <div class="row">
                                             <asp:Panel ID="pnlModalAñoFabricacion" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Año de Fabricacion" runat="server" />
-                                                <asp:TextBox runat="server" ID="txtAñoFabricacion" CssClass="form-control" TextMode="Date" />
+                                                <asp:TextBox runat="server" ID="txtAñoFabricacion" CssClass="form-control" TextMode="DateTime" />
                                             </asp:Panel>
 
                                             <asp:Panel ID="pnlModalLugarFabricacion" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
