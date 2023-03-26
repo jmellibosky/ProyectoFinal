@@ -402,6 +402,24 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Button btnAgregarUbicacion;
 
         /// <summary>
+        /// Control fupKML.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fupKML;
+
+        /// <summary>
+        /// Control btnEscanearKML.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEscanearKML;
+
+        /// <summary>
         /// Control pnlAgregarUbicacion.
         /// </summary>
         /// <remarks>

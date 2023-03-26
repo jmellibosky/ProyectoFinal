@@ -14,10 +14,10 @@ namespace REApp.Models
 
         public int IdUbicacion { get; set; }
 
-        public int IdSolicitud { get; set; }
+        public int? IdSolicitud { get; set; }
 
         public double Altura { get; set; }
 
-        public int IdProvincia { get; set; }
+        public int? IdProvincia { get; set; }
     }
 }

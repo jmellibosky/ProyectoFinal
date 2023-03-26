@@ -382,18 +382,30 @@
                                             <%--AGREGAR UBICACIONES--%>
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="row">
-                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <div class="col">
                                                         <asp:UpdatePanel runat="server">
                                                             <ContentTemplate>
                                                                 <div class="row">
-                                                                    <asp:Button ID="btnAgregarUbicacion" Text="Agregar Ubicación" runat="server" CssClass="btn btn-success" OnClick="btnAgregarUbicacion_Click" />
+                                                                    <div class="col">
+                                                                        <asp:Button ID="btnAgregarUbicacion" Text="Agregar Ubicación" runat="server" CssClass="btn btn-block btn-success" OnClick="btnAgregarUbicacion_Click" />
+                                                                    </div>
                                                                 </div>
                                                             </ContentTemplate>
                                                         </asp:UpdatePanel>
                                                     </div>
-                                                    <%--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                                        <asp:FileUpload ID="fupKMZ" runat="server" />
-                                                    </div>--%>
+                                                    <div class="col">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <asp:FileUpload runat="server" ID="fupKML" />
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <asp:Button ID="btnEscanearKML" Text="Escanear KML" runat="server" CssClass="btn btn-success" OnClick="btnEscanearKML_Click" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <br />
 
@@ -623,9 +635,9 @@
                                         </div>
                                     </div>
                                 </ContentTemplate>
-                                <%--<Triggers>
-                                    <asp:PostBackTrigger ControlID="btnGuardar" />
-                                </Triggers>--%>
+                                <Triggers>
+                                    <asp:PostBackTrigger ControlID="btnUpload" />  
+                                </Triggers>
                             </asp:UpdatePanel>
                         </div>
                     </div>

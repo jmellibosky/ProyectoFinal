@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.UI;
@@ -1506,6 +1507,41 @@ namespace REApp.Forms
         protected void ddlEstado_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnFiltrar_Click(null, null);
+        }
+
+        protected void btnEscanearKML_Click(object sender, EventArgs e)
+        {
+            upModalABM.Update();
+            if (fupKML.HasFile)
+            {
+                using (StreamReader reader = new StreamReader(fupKML.FileContent))
+                {
+                    string PlainKML = reader.ReadToEnd();
+                    List<UbicacionRedux> ListUbicaciones = new KMLController(PlainKML).ParsearKML();
+
+                    List<string> Ubicaciones = new List<string>();
+
+                    foreach (UbicacionRedux Ubicacion in ListUbicaciones)
+                    {
+                        string PuntosGeograficos = "";
+
+                        foreach (PuntoGeografico Punto in Ubicacion.PuntosGeograficos)
+                        {
+                            PuntosGeograficos += $"Latitud: {Punto.Latitud} / Longitud: {Punto.Longitud} / Altura: {Ubicacion.Altura}";
+                        }
+                        Ubicaciones.Add(PuntosGeograficos);
+                    }
+
+                    rptUbicaciones.DataSource = Ubicaciones;
+                    rptUbicaciones.DataBind();
+
+                    for (int i = 0; i < rptUbicaciones.Items.Count; i++)
+                    {
+                        ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text = "Polígono";
+                        ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text = Ubicaciones[i];
+                    }
+                }
+            }
         }
     }
 
