@@ -205,7 +205,7 @@ namespace REApp.Forms
             ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
             ddlModalSolicitante.Enabled = false;
 
-
+            txtAñoFabricacion.TextMode = TextBoxMode.DateTime;
             txtFabricante.Text = Vant.Fabricante;
             txtAñoFabricacion.TextMode = TextBoxMode.SingleLine;
             txtAñoFabricacion.Text = Vant.AñoFabricacion.ToString();
@@ -449,6 +449,7 @@ namespace REApp.Forms
             ddlLocalidadPartido.Items.Clear();
             ddlProvincia.Items.Clear();
             txtMotivoBaja.Text = "";
+            txtAñoFabricacion.TextMode = TextBoxMode.DateTime;
 
             pnlError.Visible = false;
         }

@@ -187,10 +187,14 @@
                             <ItemTemplate>
                                 <div class="row">
                                     <div class="col-12">
-                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' OnClick="lnkDownload_Click1"
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" 
+                                            ToolTip='<%# Eval("VinculadoSolicitud").ToString() == "1" ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>' 
+                                            Enabled='<%# Eval("VinculadoSolicitud").ToString() != "1" %>' 
+                                            OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
-                                            <i class="fas fa-file-pdf" aria-hidden="true" style='font-size:15px; color:#525252'></i> 
+                                            <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
+
                                         <%--Boton para eliminar archivo de la BD--%>
                                         <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
@@ -409,6 +413,75 @@
                         <asp:LinkButton ID="lnkUpload4" runat="server" OnClick="Upload_Click"
                             CommandArgument="4">
                             <asp:Button ID="Button3" runat="server" Text="Subir Archivo" OnClick="Upload_Click" CssClass="btn btn-dark" />
+                        </asp:LinkButton>
+                    </div>
+                </asp:Panel>
+                <br />
+            </div>
+
+
+            <%--FileUpload 5--%>
+            <div class="col-sm-6">
+                <div class="row">
+                    <asp:Label runat="server" CssClass="font-weight-bold" ForeColor="black" ID="Label3">Seguro/Póliza</asp:Label>
+                </div>
+                <hr />
+                <div class="row">
+                    <asp:Panel runat="server" ID="pnlFuSeguroPoliza" Visible="true">
+                        <asp:FileUpload ID="FileUpload6" runat="server" />
+                    </asp:Panel>
+                    <asp:Panel runat="server" ID="panel4" Visible="true">
+                        <asp:GridView ID="gvSeguroPoliza"
+                            runat="server"
+                            AutoGenerateColumns="false"
+                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                            <AlternatingRowStyle BackColor="white" />
+                            <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="XX-Small" ForeColor="White" />
+                            <RowStyle BackColor="#e1dddd" />
+                            <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+                            <Columns>
+                                <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="IdTipoDocumento" HeaderText="ID DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
+                                <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <%-- Boton con link para descargar archivo--%>
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' OnClick="lnkDownload_Click1"
+                                            CommandArgument='<%# Eval("IdDocumento") %>'>
+                                                <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                        </asp:LinkButton>
+                                        <%--Boton para eliminar archivo de la BD--%>
+                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click"
+                                            CommandArgument='<%# Eval("IdDocumento") %>'>
+                                                <i class="fa fa-trash-can" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                        </asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
+                    </asp:Panel>
+
+                </div>
+                <br />
+                <hr />
+                <br />
+                <asp:Panel runat="server" ID="pnlFechaVencimientoSeguroPoliza">
+                    <div class="row">
+                        <asp:Label CssClass="width: 50%; text-align: right; text-md-center font-weight-bold" runat="server">Fecha de Vencimiento:&nbsp &nbsp</asp:Label>
+                        <input type="date" id="txtFechaVencimientoSeguroPoliza" runat="server" />
+                        <hr />
+                    </div>
+                </asp:Panel>
+                <hr />
+                <br />
+                <asp:Panel runat="server" ID="pnlBtnSubirArchivoSeguroPoliza">
+                    <div class="row">
+                        <asp:LinkButton ID="lnkUpload6" runat="server" OnClick="Upload_Click"
+                            CommandArgument="6">
+                            <asp:Button ID="Button4" runat="server" Text="Subir Archivo" OnClick="Upload_Click" CssClass="btn btn-dark" />
                         </asp:LinkButton>
                     </div>
                 </asp:Panel>
