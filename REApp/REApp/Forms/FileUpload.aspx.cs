@@ -52,6 +52,7 @@ namespace REApp.Forms
                     CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM);
                     CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia);
                     CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant);
+                    CargarDoc(6, gvSeguroPoliza, pnlFuSeguroPoliza, pnlFechaVencimientoSeguroPoliza, pnlBtnSubirArchivoSeguroPoliza);
                 }
                 
             }
@@ -79,6 +80,7 @@ namespace REApp.Forms
                     CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM);
                     CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia);
                     CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant);
+                    CargarDoc(6, gvSeguroPoliza, pnlFuSeguroPoliza, pnlFechaVencimientoSeguroPoliza, pnlBtnSubirArchivoSeguroPoliza);
                 }
             }
         }
@@ -157,6 +159,12 @@ namespace REApp.Forms
                 uploadMethod(FileUpload4, idTipoDoc, "CEVANT");
                 //Alert("CEVANT cargado con éxito", "Se ha vinculado un nuevo CEVANT a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
             }
+            if (FileUpload6.HasFile)
+            {
+                int idTipoDoc = lnkUpload6.CommandArgument.ToInt();
+                uploadMethod(FileUpload6, idTipoDoc, "Seguro/Póliza");
+                //Alert("Seguro/Poliza cargado con éxito", "Se ha vinculado un nuevo Seguro/Poliza a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
+            }
             //CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM);
             //CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia);
             //CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant);
@@ -232,6 +240,15 @@ namespace REApp.Forms
                             if (txtFechaVencimientoCevant.Value != "")
                             {
                                 Documento.FHVencimiento = txtFechaVencimientoCevant.Value.ToDateTime();
+                            }
+
+                        }
+                        //Seguro/Póliza (En Bd idTipoDoc=6 es para Poliza Vant)
+                        if (idTipoDoc == 6)
+                        {
+                            if (txtFechaVencimientoSeguroPoliza.Value != "")
+                            {
+                                Documento.FHVencimiento = txtFechaVencimientoSeguroPoliza.Value.ToDateTime();
                             }
                         }
 
