@@ -43,6 +43,8 @@ namespace REApp.Forms
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Form.Attributes.Add("enctype", "multipart/form-data");
+
             //Aca hacemos el get que si o si es un string porque de object a int no deja
             string idUsuario = Session["IdUsuario"].ToString();
             string idRol = Session["IdRol"].ToString();
@@ -65,14 +67,14 @@ namespace REApp.Forms
                 {
                     CargarFiltros();
                     BindGrid();
-                    btnAgregarUbicacion.Visible = false;
+                    btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = false;
                 }
                 if (idRolInt == 2)
                 {
                     CargarFiltros();
                     BindGrid();
                     btnNuevo.Visible = false;
-                    btnAgregarUbicacion.Visible = false;
+                    btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = false;
                 }
                 //Rol Solicitante
                 if (idRolInt == 3)
@@ -112,7 +114,7 @@ namespace REApp.Forms
                     gvTripulacion.DataSource = null;
                 }
                 gvTripulacion.DataBind();
-                upModalABM.Update();
+                //upModalABM.Update();
             }
         }
 
@@ -330,7 +332,7 @@ namespace REApp.Forms
             pnlAgregarPoligono.Visible = false;
             pnlAgregarUbicacion.Visible = false;
             pnlAgregarPuntoGeografico.Visible = false;
-            btnAgregarUbicacion.Visible = true;
+            btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = true;
             btnAgregarPuntoGeografico.Visible = true;
             rptUbicaciones.DataSource = null;
             rptUbicaciones.DataBind();
@@ -435,7 +437,7 @@ namespace REApp.Forms
                                 // SETEO LOS CAMPOS DEL OBJETO
                                 Ubicacion.IdSolicitud = Solicitud.IdSolicitud;
                                 Ubicacion.Altura = AuxUbicaciones[i].Altura;
-                                Ubicacion.IdProvincia = AuxUbicaciones[i].IdProvincia;
+                                Ubicacion.IdProvincia = AuxUbicaciones[i].IdProvincia == 0 ? 1 : AuxUbicaciones[i].IdProvincia;
 
                                 // INSERT EN TABLA UBICACION
                                 Ubicacion.Insert(tn);
@@ -486,6 +488,8 @@ namespace REApp.Forms
                         catch (Exception ex)
                         {
                             tn.RollBack();
+
+                            Alert("Error", "Ocurrió un error. Detalles del error: " + ex.Message, AlertType.error);
                         }
                     }
                 }
@@ -791,7 +795,7 @@ namespace REApp.Forms
                 chkVant_CheckedChanged(null, null);
 
                 pnlHistorialSolicitud.Visible = false;
-                btnAgregarUbicacion.Visible = true;
+                btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = true;
 
                 MostrarABM();
             }
@@ -937,7 +941,7 @@ namespace REApp.Forms
                 btnGenerarKMZ.Visible = true;
                 HabilitarDeshabilitarTxts(false);
                 pnlHistorialSolicitud.Visible = true;
-                btnAgregarUbicacion.Visible = false;
+                btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = false;
             }
             if (e.CommandName.Equals("Editar"))
             {
@@ -945,7 +949,7 @@ namespace REApp.Forms
                 btnGuardar.Visible = true;
                 HabilitarDeshabilitarTxts(true);
                 pnlHistorialSolicitud.Visible = true;
-                btnAgregarUbicacion.Visible = true;
+                btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = true;
 
                 //Si esta en estado PendienteModificacion, se habilita btnEnviarSolicitud
                 if (idEstadoActual == 9)
@@ -1029,7 +1033,7 @@ namespace REApp.Forms
         protected void btnAgregarUbicacion_Click(object sender, EventArgs e)
         {
             pnlAgregarUbicacion.Visible = true;
-            btnAgregarUbicacion.Visible = false;
+            btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = false;
 
             txtCircunferenciaAltura.Text =
             txtCircunferenciaLatitud.Text =
@@ -1044,7 +1048,7 @@ namespace REApp.Forms
             {
                 pnlAgregarUbicacion.Visible = false;
                 pnlAgregarPuntoGeograficoYGrilla.Visible = false;
-                btnAgregarUbicacion.Visible = true;
+                btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = true;
                 AgregarUbicacionRepeater();
 
                 UbicacionRedux Ubicacion = new UbicacionRedux();
@@ -1511,7 +1515,6 @@ namespace REApp.Forms
 
         protected void btnEscanearKML_Click(object sender, EventArgs e)
         {
-            upModalABM.Update();
             if (fupKML.HasFile)
             {
                 using (StreamReader reader = new StreamReader(fupKML.FileContent))
@@ -1519,7 +1522,9 @@ namespace REApp.Forms
                     string PlainKML = reader.ReadToEnd();
                     List<UbicacionRedux> ListUbicaciones = new KMLController(PlainKML).ParsearKML();
 
-                    List<string> Ubicaciones = new List<string>();
+                    Ubicaciones = ListUbicaciones;
+
+                    List<string> UbicacionesStr = new List<string>();
 
                     foreach (UbicacionRedux Ubicacion in ListUbicaciones)
                     {
@@ -1527,18 +1532,18 @@ namespace REApp.Forms
 
                         foreach (PuntoGeografico Punto in Ubicacion.PuntosGeograficos)
                         {
-                            PuntosGeograficos += $"Latitud: {Punto.Latitud} / Longitud: {Punto.Longitud} / Altura: {Ubicacion.Altura}";
+                            PuntosGeograficos += $"Latitud: {Punto.Latitud} / Longitud: {Punto.Longitud} / Altura: {Ubicacion.Altura} | ";
                         }
-                        Ubicaciones.Add(PuntosGeograficos);
+                        UbicacionesStr.Add(PuntosGeograficos);
                     }
 
-                    rptUbicaciones.DataSource = Ubicaciones;
+                    rptUbicaciones.DataSource = UbicacionesStr;
                     rptUbicaciones.DataBind();
 
                     for (int i = 0; i < rptUbicaciones.Items.Count; i++)
                     {
                         ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text = "Polígono";
-                        ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text = Ubicaciones[i];
+                        ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text = UbicacionesStr[i];
                     }
                 }
             }

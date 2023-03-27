@@ -254,7 +254,7 @@
                     <div class="col-12">
                         <br />
                         <div class="panel-body">
-                            <asp:UpdatePanel ID="upModalABM" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                            <asp:UpdatePanel ID="upModalABM" runat="server">
                                 <ContentTemplate>
                                     <div class="col-12">
                                         <%--SOLICITANTE Y NOMBRE DE SOLICITUD--%>
@@ -636,7 +636,7 @@
                                     </div>
                                 </ContentTemplate>
                                 <Triggers>
-                                    <asp:PostBackTrigger ControlID="btnUpload" />  
+                                    <asp:PostBackTrigger ControlID="btnEscanearKML" />
                                 </Triggers>
                             </asp:UpdatePanel>
                         </div>
@@ -644,5 +644,8 @@
                 </div>
             </asp:Panel>
         </ContentTemplate>
+        <Triggers>
+            <asp:PostBackTrigger ControlID="btnEscanearKML" />
+        </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
