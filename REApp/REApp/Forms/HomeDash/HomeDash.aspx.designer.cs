@@ -33,6 +33,15 @@ namespace REApp.Forms.HomeDash
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
+        /// Control sidebarAdmin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sidebarAdmin;
+
+        /// <summary>
         /// Control liAdministrador.
         /// </summary>
         /// <remarks>
@@ -42,22 +51,40 @@ namespace REApp.Forms.HomeDash
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAdministrador;
 
         /// <summary>
-        /// Control liSolicitante.
+        /// Control sidebarSolicitante.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSolicitante;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sidebarSolicitante;
 
         /// <summary>
-        /// Control liOperador.
+        /// Control li2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liOperador;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li2;
+
+        /// <summary>
+        /// Control sidebarOperador.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sidebarOperador;
+
+        /// <summary>
+        /// Control li6.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li6;
 
         /// <summary>
         /// Control lblUsername.

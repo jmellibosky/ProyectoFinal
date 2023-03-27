@@ -5586,6 +5586,96 @@ textarea.form-control-lg {
     border-top: 0;
 }
 
+.list-group-item-action-o {
+    width: 100%;
+    color: #495057;
+    text-align: inherit;
+}
+
+    .list-group-item-action-o:hover, .list-group-item-action-o:focus {
+        z-index: 1;
+        color: white;
+        text-decoration: none;
+        background-color: #5864B5;
+    }
+
+    .list-group-item-action-o:active {
+        color: white;
+        background-color: #484c64;
+    }
+
+.list-group-item-o {
+    position: relative;
+    display: block;
+    padding: 0.5rem 1rem;
+    color: white;
+    text-decoration: none;
+    background-color: #484c64;
+    /*border: 1px solid rgba(0, 0, 0, 0.125);*/
+    border-right: 0;
+    border-top: 0;
+}
+
+.list-group-item-action-s {
+    width: 100%;
+    color: #495057;
+    text-align: inherit;
+}
+
+    .list-group-item-action-s:hover, .list-group-item-action-s:focus {
+        z-index: 1;
+        color: white;
+        text-decoration: none;
+        background-color: #50E279;
+    }
+
+    .list-group-item-action-s:active {
+        color: white;
+        background-color: #22D354;
+    }
+
+.list-group-item-s {
+    position: relative;
+    display: block;
+    padding: 0.5rem 1rem;
+    color: white;
+    text-decoration: none;
+    background-color: #22a246;
+    /*border: 1px solid rgba(0, 0, 0, 0.125);*/
+    border-right: 0;
+    border-top: 0;
+}
+
+.list-group-item-action-a {
+    width: 100%;
+    color: #495057;
+    text-align: inherit;
+}
+
+    .list-group-item-action-a:hover, .list-group-item-action-a:focus {
+        z-index: 1;
+        color: white;
+        text-decoration: none;
+        background-color: #5D2C77;
+    }
+
+    .list-group-item-action-a:active {
+        color: white;
+        background-color: #954CBD;
+    }
+
+.list-group-item-a {
+    position: relative;
+    display: block;
+    padding: 0.5rem 1rem;
+    color: white;
+    text-decoration: none;
+    background-color: #8a3db2;
+    /*border: 1px solid rgba(0, 0, 0, 0.125);*/
+    border-right: 0;
+    border-top: 0;
+}
+
     .list-group-item:first-child {
         border-top-left-radius: inherit;
         border-top-right-radius: inherit;
@@ -7520,6 +7610,21 @@ textarea.form-control-lg {
 
 .border-end {
     border-right: 1px solid #dee2e6 !important;
+}
+
+.border-end-a {
+    border-right: 1px solid #dee2e6 !important;
+    background-color: #8a3db2;
+}
+
+.border-end-s {
+    border-right: 1px solid #dee2e6 !important;
+    background-color: #22a246;
+}
+
+.border-end-o {
+    border-right: 1px solid #dee2e6 !important;
+    background-color: #484c64;
 }
 
 .border-end-0 {

@@ -21,20 +21,20 @@ namespace REApp.Forms.HomeDash
                 if (idRolInt == 3) //Solicitante
                 {
                     //lblRol.InnerText = "Solicitante";
-                    liAdministrador.Style["display"] = "none";
-                    liOperador.Style["display"] = "none";
+                    sidebarOperador.Style["display"] = "none";
+                    sidebarAdmin.Style["display"] = "none";
                 }
                 else if (idRolInt == 1) //Administrador
                 {
                     //lblRol.InnerText = "Administrador";
-                    liSolicitante.Style["display"] = "none";
-                    liOperador.Style["display"] = "none";
+                    sidebarOperador.Style["display"] = "none";
+                    sidebarSolicitante.Style["display"] = "none";
                 }
                 else if (idRolInt == 2) //Operador
                 {
                     //lblRol.InnerText = "Operador";
-                    liSolicitante.Style["display"] = "none";
-                    liAdministrador.Style["display"] = "none";
+                    sidebarSolicitante.Style["display"] = "none";
+                    sidebarAdmin.Style["display"] = "none";
                 }
 
             }
