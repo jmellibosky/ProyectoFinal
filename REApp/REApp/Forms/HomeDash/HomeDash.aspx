@@ -25,7 +25,8 @@
 
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
-            <div class="border-end" style="background-color: #484c64" id="sidebar-wrapper">
+            <!-- Empieza SideBar Administrador -->
+            <div class="border-end-a" runat="server" id="sidebarAdmin">
                 <%-- Aca es donde depende si es Admin o no lo que se muestra --%>
                 <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;"></image>
                 <%--<div runat="server" id="lblRol" class="sidebar-heading border-bottom bg-light">Rol Sistema</div>--%>
@@ -33,69 +34,83 @@
                     <ul id="side-menu" class="nav">
                         <%-- Administrador --%>
                         <li id="liAdministrador" style="" runat="server">
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="HomeForm.aspx">Home
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="HomeForm.aspx">Home
                                 <i class="fa fa-home"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes.aspx">Gestión de Solicitudes
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes.aspx">Gestión de Solicitudes
                                 <i class="fas fa-plane-departure"></i>
                             </a>
                              <%--Roles Compartidos Operador/Admin--%>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRecepcion">&nbsp; &nbsp; Recepción de Solicitudes REA
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRecepcion">&nbsp; &nbsp; Recepción de Solicitudes REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesAnalisis">&nbsp; &nbsp; Validación Análisis REA
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/SolicitudesAnalisis">&nbsp; &nbsp; Validación Análisis REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesCoordinacion">&nbsp; &nbsp; Validación Coordinación REA
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/SolicitudesCoordinacion">&nbsp; &nbsp; Validación Coordinación REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRespuesta">&nbsp; &nbsp; Respuesta REA
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRespuesta">&nbsp; &nbsp; Respuesta REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
                             <%--  --%>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">Gestión de Tripulación
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">Gestión de Tripulación
                                 <i class="fas fa-users"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionUsuarios.aspx">Gestión de Usuarios
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionUsuarios.aspx">Gestión de Usuarios
                                 <i class="fas fa-user"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">Gestión de Vants
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">Gestión de Vants
                                 <i class="fas fa-plane"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">Gestion de Documentación
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">Gestion de Documentación
                                 <i class="fas fa-list"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">Gestion de Interesados
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">Gestion de Interesados
                                 <i class="fas fa-address-book"></i>
                             </a>
                            
                         </li>
                     </ul>
-
+                </div>
+            </div>
+            <!-- Empieza SideBar Solicitante -->
+            <div class="border-end-s" runat="server" id="sidebarSolicitante">
+                <%-- Aca es donde depende si es Admin o no lo que se muestra --%>
+                <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;"></image>
+                <%--<div runat="server" id="lblRol" class="sidebar-heading border-bottom bg-light">Rol Sistema</div>--%>
+                <div class="list-group list-group-flush">
                     <ul id="side-menu2" class="nav">
                         <%-- Solicitante --%>
-                        <li id="liSolicitante" style="" runat="server">
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="HomeForm.aspx">Home
+                        <li id="li2" style="" runat="server">
+                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="HomeForm.aspx">Home
                                 <i class="fa fa-home"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">Mis solicitudes
+                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">Mis solicitudes
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">Mi tripulación
+                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">Mi tripulación
                                 <i class="fas fa-users"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">Mis VANTs
+                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">Mis VANTs
                                 <i class="fas fa-plane"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">Mi documentación                                <i class="fas fa-file-lines"></i>
+                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">Mi documentación                                <i class="fas fa-file-lines"></i>
                                 <i class="fas fa-list"></i>
                             </a>                           
                         </li>
                     </ul>
-
+                </div>
+            </div>
+            <!-- Empieza SideBar Operador -->
+            <div class="border-end-o" runat="server" id="sidebarOperador">
+                <%-- Aca es donde depende si es Admin o no lo que se muestra --%>
+                <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;"></image>
+                <%--<div runat="server" id="lblRol" class="sidebar-heading border-bottom bg-light">Rol Sistema</div>--%>
+                <div class="list-group list-group-flush">
                     <ul id="side-menu3" class="nav">
                         <%-- Operador --%>
-                        <li id="liOperador" style="" runat="server">
+                        <li id="li6" style="" runat="server">
                             <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="HomeForm.aspx">Home
                                 <i class="fa fa-home"></i>
                             </a>

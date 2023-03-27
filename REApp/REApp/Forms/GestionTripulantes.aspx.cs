@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using static REApp.Navegacion;
 
@@ -17,6 +15,8 @@ namespace REApp.Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+
             //Aca hacemos el get que si o si es un string porque de object a int no deja
             string idUsuario = Session["IdUsuario"].ToString();
             string idRol = Session["IdRol"].ToString();
