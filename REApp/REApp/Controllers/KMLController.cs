@@ -14,11 +14,17 @@ namespace REApp
         private string NombreCarpeta { get; set; }
         private string NombreArchivo { get; set; }
 
+        /* El constructor con string KML tiene el objetivo de inicializar un objeto KMLController a 
+         * partir de un texto plano en formato KML
+         */
         public KMLController(string KML)
         {
             this.KML = KML;
         }
 
+        /* Este método permite obtener un listado de ubicaciones con sus puntos geográficos correspondientes
+         * a partir de un string KML de texto plano en formato KML
+         */
         public List<UbicacionRedux> ParsearKML()
         {
             List<UbicacionRedux> ListUbicaciones = new List<UbicacionRedux>();
@@ -77,6 +83,9 @@ namespace REApp
             return ListUbicaciones;
         }
 
+        /* Este constructor inicializa un objeto KMLController para una Solicitud y con la posibilidad
+         * de incluir las reservas en período o excluirlas
+         */
         public KMLController(Solicitud Solicitud, bool VerReservasEnPeriodo = true)
         {
             KML = "";
@@ -101,6 +110,9 @@ namespace REApp
         private string AlphaLinea = "ff"; // Transparencia para el contorno
         private string AlphaArea = "77"; // Transparencia para el área
 
+        /* Método utilizado para generar el archivo de texto plano en formato KML a partir de las ubicaciones
+         * y los puntos geográficos de la solicitud en curso
+         */
         public string GenerarKML()
         {
             // HEADER
@@ -138,6 +150,7 @@ namespace REApp
             return KML;
         }
 
+        #region Generación KML
         public string AgregarEncabezadoKML()
         {
             string kml = "";
@@ -309,5 +322,6 @@ namespace REApp
             kml += "</coordinates></LinearRing></outerBoundaryIs></Polygon></Placemark>";
             return kml;
         }
+        #endregion
     }
 }
