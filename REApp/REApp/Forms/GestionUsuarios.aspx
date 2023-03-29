@@ -269,7 +269,7 @@
                                                 </asp:Panel>
                                                 <asp:Panel ID="pnlModalFechaNacimiento" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
                                                     <asp:Label Text="Fecha de Nacimiento" runat="server" />
-                                                    <asp:TextBox runat="server" ID="txtModalFechaNac" CssClass="form-control" />
+                                                    <asp:TextBox runat="server" ID="txtModalFechaNac" CssClass="form-control" /> <%--TextMode="DateTime"--%>
                                                 </asp:Panel>
                                             </div>
                                             <div class="row">

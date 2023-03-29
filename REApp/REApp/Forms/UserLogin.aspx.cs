@@ -3,6 +3,7 @@ using REApp.Models;
 using System;
 using System.Data;
 using System.Security.Cryptography;
+using System.Web;
 using static REApp.Navegacion;
 
 namespace REApp.Forms
@@ -90,9 +91,10 @@ namespace REApp.Forms
                 Session["UsuarioCompleto"] = dt2;
                 Session["IdUsuario"] = idUsuario;
                 Session["IdRol"] = idRol;
-
+                
                 if (ValidacionCorreo)
                 {
+                    CreateCookie(nombrecompleto, idUsuario);
                     Response.Redirect("/Forms/HomeDash/HomeDash.aspx");
                 }
                 else
@@ -129,5 +131,22 @@ namespace REApp.Forms
                 }
             }
         }
+
+        public static void CreateCookie(string cookieName, string value)
+        {
+            HttpCookie httpCookie = new HttpCookie(cookieName);
+            value = Encrypt(value);
+            httpCookie.Value = value;
+            httpCookie.Expires = DateTime.Now.AddYears(50);
+            HttpContext.Current.Response.Cookies.Add(httpCookie);
+        }
+
+        //Encripta la cookie, falta ver q metodo de encriptacion se usa
+        public static string Encrypt(string value)
+        {
+            //encriptacion
+            return value;
+        }
+
     }
 }

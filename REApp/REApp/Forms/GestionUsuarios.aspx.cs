@@ -1,9 +1,13 @@
 ﻿using MagicSQL;
+using REApp.Controllers;
+using REApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
@@ -46,7 +50,7 @@ namespace REApp.Forms
 
             }
 
-            hdnIdCurrentUser.Value = idUsuario; // <----------- Modificar con el ID de Usuario Logueado (Por ahora le asigno uno de la BD)
+            hdnIdCurrentUser.Value = idUsuario; 
         }
 
         private void BindGridOperador()
@@ -115,6 +119,7 @@ namespace REApp.Forms
             txtModalTelefono.Text =
             txtModalCuit.Text =
             txtModalTipoDni.Text = "";
+            txtModalFechaNac.TextMode = TextBoxMode.Date;
         }
 
         //protected void btnGuardar_Click(object sender, EventArgs e)
@@ -158,6 +163,7 @@ namespace REApp.Forms
         {
             LimpiarModal();
             MostrarABM();
+            txtModalFechaNac.TextMode = TextBoxMode.Date;
 
         }
 
@@ -176,12 +182,12 @@ namespace REApp.Forms
             pnlAlertDeleteUser.Visible = false;
             pnlError.Visible = false;
 
+            //boton Nuevo solo para Administradores
             if (Session["IdRol"].ToString().ToInt() == 2)
             {//Buscar otra forma de hacer
                 btnNuevo.Visible = false;
             }
-            //validacion user
-            btnValidar.Visible = false;
+
         }
 
         protected void MostrarABM()
@@ -191,9 +197,6 @@ namespace REApp.Forms
             pnlABM.Visible = true;
             btnVolver.Visible = true;
             btnGuardar.Visible = true;
-            //validacion user
-            btnValidar.Visible = true;
-
         }
         protected void MostrarMsgEliminar()
         {
@@ -244,12 +247,19 @@ namespace REApp.Forms
                 txtModalDni.Text = Usuario.Dni.ToString();
                 txtModalTipoDni.Text = Usuario.TipoDni;
                 txtModalCuit.Text = Usuario.Cuit;
+                txtModalFechaNac.TextMode = TextBoxMode.SingleLine;
                 txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString();
                 txtModalCorreo.Text = Usuario.Email;
                 txtModalTelefono.Text = Usuario.Telefono;
 
                 MostrarABM();
                 habilitarDeshabilitarInputs(false);
+
+                //validacionEANA solo para Administradores
+                if (Session["IdRol"].ToString().ToInt() == 1)
+                {//Buscar otra forma de hacer 
+                    btnValidar.Visible = true;
+                }
 
 
             }
@@ -272,12 +282,13 @@ namespace REApp.Forms
                 txtModalDni.Text = Usuario.Dni.ToString();
                 txtModalTipoDni.Text = Usuario.TipoDni;
                 txtModalCuit.Text = Usuario.Cuit;
+                txtModalFechaNac.TextMode = TextBoxMode.SingleLine;
                 txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString();
                 txtModalCorreo.Text = Usuario.Email;
                 txtModalTelefono.Text = Usuario.Telefono;
 
                 habilitarDeshabilitarInputs(true);
-
+                btnValidar.Visible = false;
             }
             if (e.CommandName.Equals("DeleteUser"))
             {
@@ -305,31 +316,103 @@ namespace REApp.Forms
         {
             if (ValidarCampos())
             {
-                Models.Usuario UsuarioViejo = null;
-                UsuarioViejo = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
+                if(hdnIdUsuario.Value != "")
+                {
+                    Models.Usuario UsuarioViejo = null;
+                    UsuarioViejo = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
 
-                // Update
-                UsuarioViejo.Nombre = txtModalNombreUsuario.Text;
-                UsuarioViejo.Apellido = txtModalApellidoUsuario.Text;
-                UsuarioViejo.IdRol = ddlModalRol.SelectedValue.ToString().ToIntID();
-                UsuarioViejo.Dni = txtModalDni.Text;
-                UsuarioViejo.TipoDni = txtModalTipoDni.Text;
-                UsuarioViejo.FechaNacimiento = txtModalFechaNac.Text.ToDateTime();
-                UsuarioViejo.Telefono = txtModalTelefono.Text;
-                UsuarioViejo.Email = txtModalCorreo.Text;
-                UsuarioViejo.Cuit = txtModalCuit.Text;
-                UsuarioViejo.Password = UsuarioViejo.Password;
-                UsuarioViejo.SaltKey = UsuarioViejo.SaltKey;
+                    // Update
+                    UsuarioViejo.Nombre = txtModalNombreUsuario.Text;
+                    UsuarioViejo.Apellido = txtModalApellidoUsuario.Text;
+                    UsuarioViejo.IdRol = ddlModalRol.SelectedValue.ToString().ToIntID();
+                    UsuarioViejo.Dni = txtModalDni.Text;
+                    UsuarioViejo.TipoDni = txtModalTipoDni.Text;
+                    UsuarioViejo.FechaNacimiento = txtModalFechaNac.Text.ToDateTime();
+                    UsuarioViejo.Telefono = txtModalTelefono.Text;
+                    UsuarioViejo.Email = txtModalCorreo.Text;
+                    UsuarioViejo.Cuit = txtModalCuit.Text;
+                    UsuarioViejo.Password = UsuarioViejo.Password;
+                    UsuarioViejo.SaltKey = UsuarioViejo.SaltKey;
 
-                UsuarioViejo.Update();
+                    UsuarioViejo.Update();
 
-                hdnIdUsuario.Value = "";
-                Alert("Usuario actualizado con éxito", "Se ha actualizado el usuario seleccionado.", AlertType.success, "/Forms/GestionUsuarios.aspx");
-                //MostrarListado();
-                //BindGrid();
+                    hdnIdUsuario.Value = "";
+                    Alert("Usuario actualizado con éxito", "Se ha actualizado el usuario seleccionado.", AlertType.success, "/Forms/GestionUsuarios.aspx");
+                    //MostrarListado();
+                    //BindGrid();
+                }
+                else
+                { // Insert
+                    using (Tn tn = new Tn("bd_reapp"))
+                    {
+                        Models.Usuario Usuario = new Models.Usuario();
+                        Usuario.Nombre = txtModalNombreUsuario.Text;
+                        Usuario.Apellido = txtModalApellidoUsuario.Text;
+                        Usuario.IdRol = ddlModalRol.SelectedValue.ToString().ToIntID();
+                        Usuario.Dni = txtModalDni.Text;
+                        Usuario.TipoDni = txtModalTipoDni.Text;
+                        Usuario.CreatedOn = DateTime.Today;
+                        Usuario.FechaNacimiento = txtModalFechaNac.Text.ToDateTime();
+                        Usuario.Telefono = txtModalTelefono.Text;
+                        Usuario.Email = txtModalCorreo.Text;
+                        Usuario.Cuit = txtModalCuit.Text;
+                        string salt = SecurityHelper.GenerateSalt(70);
+                        string password = generarContrasena();
+                        Usuario.Password = generarHash(salt, password);
+                        Usuario.SaltKey = salt;
+                        Usuario.ValidacionCorreo = true;
+                        Usuario.Insert();
+                        EnviarMailConfirmacion(Usuario, password);
+                    }
+                    hdnIdUsuario.Value = "";
+                    Alert("Usuario creado con éxito", "", AlertType.success, "/Forms/GestionUsuarios.aspx");
+                }
             }
-           
         }
+
+        protected string generarHash(string salt, string password)
+        {
+            string hashedpass = SecurityHelper.HashPassword(password, salt, 10101, 70);
+            return hashedpass;
+        }
+
+        protected string generarContrasena()
+        {
+            const string chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()";
+            var random = new Random();
+            var result = new StringBuilder();
+            for (int i = 0; i < 10; i++)
+            {
+                result.Append(chars[random.Next(chars.Length)]);
+            }
+            return result.ToString();
+        }
+
+        protected void EnviarMailConfirmacion(Usuario usuario, string password)
+        {
+            HTMLBuilder builder = new HTMLBuilder("Confirmación de Usuario", "GenericMailTemplate.html");
+
+            builder.AppendTexto($"Hola {usuario.Nombre} {usuario.Apellido}.");
+            builder.AppendSaltoLinea(2);
+            builder.AppendTexto("Bienvenido a REApp, la plataforma de la Empresa Argentina de Navegación Aérea para la gestión integral de Reservas de Espacio Aéreo.");
+            builder.AppendSaltoLinea(1);
+            builder.AppendTexto("Sus datos para ingresar al sistema son los siguientes: ");
+            builder.AppendSaltoLinea(1);
+            builder.AppendTexto("Email: " + usuario.Email);
+            builder.AppendTexto("Contraseña: " + password);
+            builder.AppendSaltoLinea(2);
+            builder.AppendTexto("Esta contraseña fue generada automaticamente, porfavor cambiela al ingresar al sistema.");
+            builder.AppendSaltoLinea(2);
+            builder.AppendTexto("Saludos.");
+            builder.AppendSaltoLinea(1);
+            builder.AppendTexto("Equipo de REApp.");
+            string cuerpo = builder.ConstruirHTML();
+
+            MailController mail = new MailController("Confirmación de Usuario", cuerpo);
+            mail.Add($"{usuario.Nombre} {usuario.Apellido}", usuario.Email);
+            mail.Enviar();
+        }
+
 
         protected bool ValidarCampos()
         {
@@ -365,11 +448,11 @@ namespace REApp.Forms
 
 
 
-            if (txtModalFechaNac.Text.Equals(""))
-            {
-                Alert("Error", "Por favor, ingrese el fecha de nacimiento del usuario.", AlertType.error);
-                return false;
-            }
+            //if (txtModalFechaNac.Text.Equals(""))
+            //{
+            //    Alert("Error", "Por favor, ingrese el fecha de nacimiento del usuario.", AlertType.error);
+            //    return false;
+            //}
 
             //Se valida la expresión regular de la fecha de nacimiento
             //string datePattern = @"^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$";
@@ -470,6 +553,35 @@ namespace REApp.Forms
 
             hdnIdUsuario.Value = "";
             Alert("Usuario validado con éxito", "Se ha validado el usuario seleccionado.", AlertType.success, "/Forms/GestionUsuarios.aspx");
+
+        }
+
+        //para Generacion de password
+        public class SecurityHelper
+        {
+
+            //Creamos la salt -> Valor random que se guardaria con cada pass(Se usa cuando querramos generar una clave nomas)
+            public static string GenerateSalt(int nSalt)
+            {
+                var saltBytes = new byte[nSalt];
+
+                using (var provider = new RNGCryptoServiceProvider())
+                {
+                    provider.GetNonZeroBytes(saltBytes);
+                }
+
+                return Convert.ToBase64String(saltBytes);
+            }
+
+            public static string HashPassword(string password, string salt, int nIterations, int nHash)
+            {
+                var saltBytes = Convert.FromBase64String(salt);
+
+                using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, saltBytes, nIterations))
+                {
+                    return Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(nHash));
+                }
+            }
 
         }
     }

@@ -57,9 +57,19 @@ namespace REApp
 
         protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {
+            DeleteCookie((string)Session["Username"]);
             Session.Clear();
             Session.Abandon();
             Response.Redirect("/Forms/UserLogin.aspx");
+        }
+
+        //Elimina la cookie
+        public static void DeleteCookie(string cookieName)
+        {
+            HttpCookie httpCookie = new HttpCookie(cookieName);
+            httpCookie.Value = "";
+            httpCookie.Expires = DateTime.Now.AddYears(-1);
+            HttpContext.Current.Response.Cookies.Add(httpCookie);
         }
     }
 

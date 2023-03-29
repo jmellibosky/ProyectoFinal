@@ -713,6 +713,33 @@ namespace REApp.Forms
                 MostrarListado();
             }
         }
+        protected bool ValidarUsuarioEANA()
+        {
+            bool TieneValidacionEANA = false;
+
+            int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+
+            try
+            {
+                Models.Usuario Usuario = new Models.Usuario().Select(IdUsuario);
+
+                if (Usuario.ValidacionEANA)
+                {
+                    TieneValidacionEANA = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Alert("Error", "Ocurrió un error en la validación del usuario", AlertType.error);
+            }
+
+            if (!TieneValidacionEANA)
+            {
+                Alert("Error", "Su usuario no se encuentro autorizado para crear solicitudes. Su usuario aún  no ha sido validado por el Administrador.", AlertType.error);
+            }
+            return TieneValidacionEANA;
+        }
 
 
         protected bool ValidarDocumentacion()
@@ -720,6 +747,7 @@ namespace REApp.Forms
             bool TieneCertificadoMedico = false;
             bool TieneCertificadoCompetencia = false;
             bool TieneCEVANT = false;
+            
 
             int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
 
@@ -776,28 +804,32 @@ namespace REApp.Forms
             // Si el usuario logueado no es de tipo Solicitante O se validó la documentación
             if (!Session["IdRol"].ToString().Equals("3") || ValidarDocumentacion())
             {
-                LimpiarModal();
-                OcultarMostrarPanelesABM(false);
-                HabilitarDeshabilitarTxts(true);
+                if (ValidarUsuarioEANA())
+                {
+                    LimpiarModal();
+                    OcultarMostrarPanelesABM(false);
+                    HabilitarDeshabilitarTxts(true);
 
-                CargarComboModalSolicitante();
-                CargarComboModalActividades();
-                int idActividad = ddlModalActividad.SelectedItem.Value.ToIntID();
-                CargarComboModalModalidades(idActividad);
-                CargarComboProvincias();
+                    CargarComboModalSolicitante();
+                    CargarComboModalActividades();
+                    int idActividad = ddlModalActividad.SelectedItem.Value.ToIntID();
+                    CargarComboModalModalidades(idActividad);
+                    CargarComboProvincias();
 
-                ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
-                ddlModalSolicitante.Visible = true;
-                ddlModalSolicitante.Enabled = false;
-                btnGuardar.Visible = true;
+                    ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
+                    ddlModalSolicitante.Visible = true;
+                    ddlModalSolicitante.Enabled = false;
+                    btnGuardar.Visible = true;
 
-                chkVant.Checked = false;
-                chkVant_CheckedChanged(null, null);
+                    chkVant.Checked = false;
+                    chkVant_CheckedChanged(null, null);
 
-                pnlHistorialSolicitud.Visible = false;
-                btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = true;
+                    pnlHistorialSolicitud.Visible = false;
+                    btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = true;
 
-                MostrarABM();
+                    MostrarABM();
+                }
+                
             }
         }
 
