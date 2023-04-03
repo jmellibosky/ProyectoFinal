@@ -1,5 +1,6 @@
 ﻿using MagicSQL;
 using REApp.Models;
+using REAPP.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -239,6 +240,7 @@ namespace REApp.Forms
                     ddlModalActividad.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdActividad"].ToString().ToInt().ToCryptoID()));
                 }
             }
+            ddlModalActividad_SelectedIndexChanged(null, null);
         }
 
         protected void CargarComboProvincias()
@@ -747,7 +749,7 @@ namespace REApp.Forms
             bool TieneCertificadoMedico = false;
             bool TieneCertificadoCompetencia = false;
             bool TieneCEVANT = false;
-            
+
 
             int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
 
@@ -829,7 +831,7 @@ namespace REApp.Forms
 
                     MostrarABM();
                 }
-                
+
             }
         }
 
@@ -1020,7 +1022,32 @@ namespace REApp.Forms
         protected void ddlModalActividad_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idActividad = ddlModalActividad.SelectedItem.Value.ToIntID();
-            CargarComboModalModalidades(idActividad);
+
+            if (idActividad > 0)
+            {
+                Actividad Actividad = new Actividad().Select(idActividad);
+
+                if (Actividad.AdmiteVANTs.HasValue && Actividad.AdmiteVANTs.Value)
+                { // Admite VANTs
+                    chkVant.Checked = false;
+                    chkVant.Enabled = false;
+                    pnlVehiculos.Visible = true;
+                    chkVant_CheckedChanged(null, null);
+                }
+                else if (Actividad.AdmiteAeronaves.HasValue && Actividad.AdmiteAeronaves.Value)
+                { // Admite Aeronaves
+                    chkVant.Checked = true;
+                    chkVant.Enabled = false;
+                    pnlVehiculos.Visible = true;
+                    chkVant_CheckedChanged(null, null);
+                }
+                else if (Actividad.AdmiteVANTs.HasValue && !Actividad.AdmiteVANTs.Value && Actividad.AdmiteAeronaves.HasValue && !Actividad.AdmiteAeronaves.Value)
+                { // No admite ni VANTs ni Aeronaves
+                    pnlVehiculos.Visible = false;
+                }
+
+                CargarComboModalModalidades(idActividad);
+            }
         }
 
         protected void lnkEditar_Click(object sender, EventArgs e)
@@ -1352,22 +1379,26 @@ namespace REApp.Forms
             }
 
 
-            if (chkVant.Checked)
-            {
-                bool TieneVants = false;
-                for (int i = 0; i < gvVANTs.Rows.Count; i++)
+            if (pnlSeleccionVants.Visible)
+            { // Si no está visible es porque la Actividad elegida no admite ni VANTs ni Aeronaves
+                if (!chkVant.Checked)
                 {
-                    if (((CheckBox)gvVANTs.Rows[i].FindControl("chkVANTVinculado")).Checked)
+                    bool TieneVants = false;
+                    for (int i = 0; i < gvVANTs.Rows.Count; i++)
                     {
-                        TieneVants = true;
+                        if (((CheckBox)gvVANTs.Rows[i].FindControl("chkVANTVinculado")).Checked)
+                        {
+                            TieneVants = true;
+                        }
+                    }
+                    if (!TieneVants)
+                    {
+                        Alert("Error", "Por favor, ingrese al menos un VANT.", AlertType.error);
+                        return false;
                     }
                 }
-                if (!TieneVants)
-                {
-                    Alert("Error", "Por favor, ingrese al menos un VANT.", AlertType.error);
-                    return false;
-                }
             }
+
             bool TieneTripulantes = false;
             for (int i = 0; i < gvTripulacion.Rows.Count; i++)
             {

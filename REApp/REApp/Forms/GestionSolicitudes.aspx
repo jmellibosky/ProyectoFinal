@@ -118,7 +118,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
     <div class="container">
         <h1 class="row justify-content-center mb-0 pb-0 pt-5">
-            <label style="font-family:Azonix; letter-spacing: 3px" class="fw-normal mb-3 pb-2">Gestión de Solicitudes</label>
+            <label style="font-family: Azonix; letter-spacing: 3px" class="fw-normal mb-3 pb-2">Gestión de Solicitudes</label>
         </h1>
         <%--Se borra el AutoPostBack porq hay q cargar el dgv de otra forma.--%>
         <br />
@@ -316,63 +316,65 @@
                                         </div>
                                         <hr />
 
-                                        <%--VEHÍCULOS AÉREOS--%>
-                                        <div class="row">
-                                            <h5>Vehículos Aéreos</h5>
-                                        </div>
-                                        <div class="row">
-                                            <asp:Label Text="VANT" runat="server" />
-                                            <asp:CheckBox ID="chkVant" runat="server" CssClass="switchery" AutoPostBack="true" OnCheckedChanged="chkVant_CheckedChanged" />
-                                            <asp:Label Text="Aeronave" runat="server" />
-                                        </div>
-                                        <asp:UpdatePanel runat="server">
-                                            <ContentTemplate>
+                                        <asp:Panel ID="pnlVehiculos" runat="server">
+                                            <%--VEHÍCULOS AÉREOS--%>
+                                            <div class="row">
+                                                <h5>Vehículos Aéreos</h5>
+                                            </div>
+                                            <div class="row">
+                                                <asp:Label Text="VANT" runat="server" />
+                                                <asp:CheckBox ID="chkVant" runat="server" CssClass="switchery" AutoPostBack="true" OnCheckedChanged="chkVant_CheckedChanged" />
+                                                <asp:Label Text="Aeronave" runat="server" />
+                                            </div>
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
 
-                                                <%--AFECTACIÓN DE VANTS (SÓLO SI SE CHKVANT.CHECKED=FALSE)--%>
-                                                <asp:Panel ID="pnlSeleccionVants" Visible="true" runat="server">
+                                                    <%--AFECTACIÓN DE VANTS (SÓLO SI SE CHKVANT.CHECKED=FALSE)--%>
+                                                    <asp:Panel ID="pnlSeleccionVants" Visible="true" runat="server">
 
-                                                    <%--VANTS--%>
-                                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <div class="col">
-                                                                    <div class="row">
-                                                                        <asp:GridView
-                                                                            ID="gvVANTs"
-                                                                            runat="server"
-                                                                            AutoGenerateColumns="false"
-                                                                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
-                                                                            <AlternatingRowStyle BackColor="white" />
-                                                                            <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
-                                                                            <RowStyle BackColor="#e1dddd" />
-                                                                            <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+                                                        <%--VANTS--%>
+                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="row">
+                                                                            <asp:GridView
+                                                                                ID="gvVANTs"
+                                                                                runat="server"
+                                                                                AutoGenerateColumns="false"
+                                                                                CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                                                                                <AlternatingRowStyle BackColor="white" />
+                                                                                <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                                                <RowStyle BackColor="#e1dddd" />
+                                                                                <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
 
-                                                                            <Columns>
-                                                                                <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                                                <asp:BoundField DataField="IdVant" HeaderText="ID" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                                                                                <asp:BoundField DataField="Marca" HeaderText="MARCA" ItemStyle-Width="20%" />
-                                                                                <asp:BoundField DataField="Modelo" HeaderText="MODELO" ItemStyle-Width="20%" />
-                                                                                <asp:BoundField DataField="Clase" HeaderText="CLASE" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
-                                                                                <asp:BoundField DataField="NumeroSerie" HeaderText="NRO. SERIE" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                                                <Columns>
+                                                                                    <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                                                                    <asp:BoundField DataField="IdVant" HeaderText="ID" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                                                                    <asp:BoundField DataField="Marca" HeaderText="MARCA" ItemStyle-Width="20%" />
+                                                                                    <asp:BoundField DataField="Modelo" HeaderText="MODELO" ItemStyle-Width="20%" />
+                                                                                    <asp:BoundField DataField="Clase" HeaderText="CLASE" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                                                    <asp:BoundField DataField="NumeroSerie" HeaderText="NRO. SERIE" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
 
-                                                                                <%-- Boton con link para ver detalles solicitud--%>
-                                                                                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
-                                                                                    <ItemTemplate>
-                                                                                        <asp:HiddenField Value='<%# Eval("IdVant") %>' runat="server" ID="hdnIdVant" />
-                                                                                        <asp:CheckBox runat="server" ID="chkVANTVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
-                                                                                    </ItemTemplate>
-                                                                                </asp:TemplateField>
-                                                                            </Columns>
-                                                                        </asp:GridView>
+                                                                                    <%-- Boton con link para ver detalles solicitud--%>
+                                                                                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
+                                                                                        <ItemTemplate>
+                                                                                            <asp:HiddenField Value='<%# Eval("IdVant") %>' runat="server" ID="hdnIdVant" />
+                                                                                            <asp:CheckBox runat="server" ID="chkVANTVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
+                                                                                        </ItemTemplate>
+                                                                                    </asp:TemplateField>
+                                                                                </Columns>
+                                                                            </asp:GridView>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </asp:Panel>
-                                            </ContentTemplate>
-                                        </asp:UpdatePanel>
-                                        <hr />
+                                                    </asp:Panel>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                            <hr />
+                                        </asp:Panel>
 
                                         <%--UBICACIONES--%>
                                         <div class="row">
