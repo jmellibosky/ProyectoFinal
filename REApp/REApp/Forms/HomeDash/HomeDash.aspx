@@ -21,7 +21,6 @@
     <form id="HomeDashForm" runat="server">
         <%-- Ver bien porque se usa esto --%>
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <!-- Empieza SideBar Administrador -->
@@ -156,6 +155,7 @@
                         <button type="button" class="btn btn-proyecto" onclick="hideSidebar()" id="sidebarToggle">
                             <i class="fas fa-bars"></i>
                         </button>
+                        <label runat="server" id="nombreRol" class="reappText">ROL USUARIO</label>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">

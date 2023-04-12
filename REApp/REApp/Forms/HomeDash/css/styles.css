@@ -4257,6 +4257,15 @@ textarea.form-control-lg {
             border-top-right-radius: 0;
         }
 
+.reappText {
+    text-align: left;
+    word-break: break-word;
+    text-transform: uppercase;
+    margin-left: 6px;
+    color: rgba(0, 0, 0, 0.55);
+    font-weight: bold;
+}
+
 .nav {
     display: block;
     flex-wrap: wrap;
@@ -4271,6 +4280,7 @@ textarea.form-control-lg {
     color: #0d6efd;
     text-decoration: none;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    font-weight: bold;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -5622,7 +5632,7 @@ textarea.form-control-lg {
 
 .list-group-item-action-s {
     width: 100%;
-    color: #495057;
+    color: #1B5EDA;
     text-align: inherit;
 }
 
@@ -5630,12 +5640,12 @@ textarea.form-control-lg {
         z-index: 1;
         color: white;
         text-decoration: none;
-        background-color: #50E279;
+        background-color: #1B5EDA;
     }
 
     .list-group-item-action-s:active {
         color: white;
-        background-color: #22D354;
+        background-color: #3775E6;
     }
 
 .list-group-item-s {
@@ -5644,7 +5654,7 @@ textarea.form-control-lg {
     padding: 0.5rem 1rem;
     color: white;
     text-decoration: none;
-    background-color: #22a246;
+    background-color: #1446A0;
     /*border: 1px solid rgba(0, 0, 0, 0.125);*/
     border-right: 0;
     border-top: 0;
@@ -5652,7 +5662,7 @@ textarea.form-control-lg {
 
 .list-group-item-action-a {
     width: 100%;
-    color: #495057;
+    color: #686864;
     text-align: inherit;
 }
 
@@ -5660,12 +5670,12 @@ textarea.form-control-lg {
         z-index: 1;
         color: white;
         text-decoration: none;
-        background-color: #5D2C77;
+        background-color: #494946;
     }
 
     .list-group-item-action-a:active {
         color: white;
-        background-color: #954CBD;
+        background-color: #686864;
     }
 
 .list-group-item-a {
@@ -5674,7 +5684,7 @@ textarea.form-control-lg {
     padding: 0.5rem 1rem;
     color: white;
     text-decoration: none;
-    background-color: #8a3db2;
+    background-color: #343432;
     /*border: 1px solid rgba(0, 0, 0, 0.125);*/
     border-right: 0;
     border-top: 0;
@@ -7618,12 +7628,12 @@ textarea.form-control-lg {
 
 .border-end-a {
     border-right: 1px solid #dee2e6 !important;
-    background-color: #8a3db2;
+    background-color: #343432;
 }
 
 .border-end-s {
     border-right: 1px solid #dee2e6 !important;
-    background-color: #22a246;
+    background-color: #1446A0;
 }
 
 .border-end-o {
