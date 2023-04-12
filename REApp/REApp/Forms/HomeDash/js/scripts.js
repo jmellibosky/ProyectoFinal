@@ -7,20 +7,33 @@
 // Scripts
 // 
 
-window.addEventListener('DOMContentLoaded', event => {
-
-    // Toggle the side navigation
-    const sidebarToggle = document.body.querySelector('#sidebarToggle');
-    if (sidebarToggle) {
-        // Uncomment Below to persist sidebar toggle between refreshes
-        // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
-        //     document.body.classList.toggle('sb-sidenav-toggled');
-        // }
-        sidebarToggle.addEventListener('click', event => {
-            event.preventDefault();
-            document.body.classList.toggle('sb-sidenav-toggled');
-            localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
-        });
+var myDivs = document.querySelectorAll('.sidebarToggle'); // select all elements with class "sidebarToggle"
+for (var i = 0; i < myDivs.length; i++) {
+    var div = myDivs[i];
+    if (div.style.display !== "none") {
+        divx = div; // set divx as current div that is displaying
     }
+}
 
-});
+//const button = document.getElementById("sidebarToggle");
+//const divx = document.getElementById("sidebarAdmin");
+
+/*button.addEventListener("click", function () {
+    if (div.classList.contains("hiddenSidebar")) {
+        div.classList.remove("hiddenSidebar");
+        return false;
+    } else {
+        div.classList.add("hiddenSidebar");
+        return false;
+    }
+});*/
+
+function hideSidebar() {
+    if (divx.classList.contains("hiddenSidebar")) {
+        divx.classList.remove("hiddenSidebar");
+        return false;
+    } else {
+        divx.classList.add("hiddenSidebar");
+        return false;
+    }
+}

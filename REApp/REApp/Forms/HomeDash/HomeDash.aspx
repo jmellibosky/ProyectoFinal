@@ -13,8 +13,7 @@
     <script src="https://kit.fontawesome.com/8e4807e881.js" crossorigin="anonymous"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
 </head>
@@ -26,9 +25,9 @@
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <!-- Empieza SideBar Administrador -->
-            <div class="border-end-a" runat="server" id="sidebarAdmin">
+            <div class="border-end-a sidebarToggle" runat="server" id="sidebarAdmin">
                 <%-- Aca es donde depende si es Admin o no lo que se muestra --%>
-                <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;"></image>
+                <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;margin:10px 10px 10px 10px"></image>
                 <%--<div runat="server" id="lblRol" class="sidebar-heading border-bottom bg-light">Rol Sistema</div>--%>
                 <div class="list-group list-group-flush">
                     <ul id="side-menu" class="nav">
@@ -75,9 +74,9 @@
                 </div>
             </div>
             <!-- Empieza SideBar Solicitante -->
-            <div class="border-end-s" runat="server" id="sidebarSolicitante">
+            <div class="border-end-s sidebarToggle" runat="server" id="sidebarSolicitante">
                 <%-- Aca es donde depende si es Admin o no lo que se muestra --%>
-                <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;"></image>
+                <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;margin:10px 10px 10px 10px"></image>
                 <%--<div runat="server" id="lblRol" class="sidebar-heading border-bottom bg-light">Rol Sistema</div>--%>
                 <div class="list-group list-group-flush">
                     <ul id="side-menu2" class="nav">
@@ -103,9 +102,9 @@
                 </div>
             </div>
             <!-- Empieza SideBar Operador -->
-            <div class="border-end-o" runat="server" id="sidebarOperador">
+            <div class="border-end-o sidebarToggle" runat="server" id="sidebarOperador">
                 <%-- Aca es donde depende si es Admin o no lo que se muestra --%>
-                <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;"></image>
+                <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;margin:10px 10px 10px 10px"></image>
                 <%--<div runat="server" id="lblRol" class="sidebar-heading border-bottom bg-light">Rol Sistema</div>--%>
                 <div class="list-group list-group-flush">
                     <ul id="side-menu3" class="nav">
@@ -154,7 +153,7 @@
                 <!-- Top navigation-->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <div class="container-fluid">
-                        <button class="btn btn-proyecto" id="sidebarToggle">
+                        <button type="button" class="btn btn-proyecto" onclick="hideSidebar()" id="sidebarToggle">
                             <i class="fas fa-bars"></i>
                         </button>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -183,7 +182,11 @@
             </div>
         </div>
     </form>
-
 </body>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+
 </html>
+
+
 
