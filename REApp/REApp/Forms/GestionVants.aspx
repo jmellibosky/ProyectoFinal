@@ -239,11 +239,11 @@
                                 <ContentTemplate>
                                     <div class="col-12">
                                         <div class="row">
-                                            <asp:Panel ID="pnlModalSolicitante" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
-                                                <h6>SOLICITANTE</h6>
+                                            <h6>SOLICITANTE</h6>
+                                            <asp:Panel ID="pnlModalSolicitante" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server"/>
                                                 <asp:DropDownList runat="server" ID="ddlModalSolicitante" CssClass="form-control select-single" />
-                                            </asp:Panel>
                                         </div>
+                                        <br />
                                         <br />
                                         <div class="row"> 
                                             <h6>DATOS VANT</h6>   
@@ -294,8 +294,10 @@
 
                                         </div>
                                         </br>
-
-                                       
+                                        <div class="row"> 
+                                            <h6>DATOS UBICACIÓN (Acorde a dirección jurídica del explotador)</h6> 
+                                        </div>
+                                        </br>
                                         <div class="row">
                                             <asp:Panel ID="pnlModalProvincia" CssClass="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 form-group" runat="server">
                                                 <asp:Label Text="Provincia" runat="server" />

@@ -10,6 +10,9 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
 :root {
     --bs-blue: #0d6efd;
     --bs-indigo: #6610f2;
@@ -5581,6 +5584,7 @@ textarea.form-control-lg {
         color: white;
         text-decoration: none;
         background-color: #5864B5;
+        border-radius: .375rem;
     }
 
     .list-group-item-action:active {
@@ -5598,6 +5602,7 @@ textarea.form-control-lg {
     /*border: 1px solid rgba(0, 0, 0, 0.125);*/
     border-right: 0;
     border-top: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
 .list-group-item-action-o {
@@ -5611,6 +5616,7 @@ textarea.form-control-lg {
         color: white;
         text-decoration: none;
         background-color: #5864B5;
+        border-radius: .375rem;
     }
 
     .list-group-item-action-o:active {
@@ -5628,6 +5634,7 @@ textarea.form-control-lg {
     /*border: 1px solid rgba(0, 0, 0, 0.125);*/
     border-right: 0;
     border-top: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
 .list-group-item-action-s {
@@ -5641,6 +5648,7 @@ textarea.form-control-lg {
         color: white;
         text-decoration: none;
         background-color: #1B5EDA;
+        border-radius: .375rem;
     }
 
     .list-group-item-action-s:active {
@@ -5658,6 +5666,7 @@ textarea.form-control-lg {
     /*border: 1px solid rgba(0, 0, 0, 0.125);*/
     border-right: 0;
     border-top: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
 .list-group-item-action-a {
@@ -5671,6 +5680,7 @@ textarea.form-control-lg {
         color: white;
         text-decoration: none;
         background-color: #494946;
+        border-radius: .375rem;
     }
 
     .list-group-item-action-a:active {
@@ -5688,6 +5698,7 @@ textarea.form-control-lg {
     /*border: 1px solid rgba(0, 0, 0, 0.125);*/
     border-right: 0;
     border-top: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
     .list-group-item:first-child {
@@ -7629,16 +7640,19 @@ textarea.form-control-lg {
 .border-end-a {
     border-right: 1px solid #dee2e6 !important;
     background-color: #343432;
+    padding: .5rem;
 }
 
 .border-end-s {
     border-right: 1px solid #dee2e6 !important;
     background-color: #1446A0;
+    padding: .5rem;
 }
 
 .border-end-o {
     border-right: 1px solid #dee2e6 !important;
     background-color: #484c64;
+    padding: .5rem;
 }
 
 .border-end-0 {

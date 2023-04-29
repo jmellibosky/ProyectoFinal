@@ -35,36 +35,36 @@
                             <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="HomeForm.aspx">Home
                                 <i class="fa fa-home"></i>
                             </a>
-                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes.aspx">Gestión de Solicitudes
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes.aspx">GESTIÓN DE SOLICITUDES
                                 <i class="fas fa-plane-departure"></i>
                             </a>
                              <%--Roles Compartidos Operador/Admin--%>
-                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRecepcion">&nbsp; &nbsp; Recepción de Solicitudes REA
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRecepcion">&nbsp; &nbsp; RECEPCIÓN DE SOLICITUDES REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/SolicitudesAnalisis">&nbsp; &nbsp; Validación Análisis REA
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/SolicitudesAnalisis">&nbsp; &nbsp; VALIDACIÓN ANÁLISIS REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/SolicitudesCoordinacion">&nbsp; &nbsp; Validación Coordinación REA
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/SolicitudesCoordinacion">&nbsp; &nbsp; VALIDACIÓN COORDINACIÓN REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRespuesta">&nbsp; &nbsp; Respuesta REA
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRespuesta">&nbsp; &nbsp; RESPUESTA REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
                             <%--  --%>
-                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">Gestión de Tripulación
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">GESTIÓN DE TRIPULACIÓN
                                 <i class="fas fa-users"></i>
                             </a>
-                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionUsuarios.aspx">Gestión de Usuarios
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionUsuarios.aspx">GESTIÓN DE USUARIOS
                                 <i class="fas fa-user"></i>
                             </a>
-                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">Gestión de Vants
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">GESTIÓN DE VANTS
                                 <i class="fas fa-plane"></i>
                             </a>
-                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">Gestion de Documentación
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">GESTION DE DOCUMENTACIÓN
                                 <i class="fas fa-list"></i>
                             </a>
-                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">Gestion de Interesados
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">GESTION DE INTERESADOS
                                 <i class="fas fa-address-book"></i>
                             </a>
                            
@@ -81,19 +81,19 @@
                     <ul id="side-menu2" class="nav">
                         <%-- Solicitante --%>
                         <li id="li2" style="" runat="server">
-                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="HomeForm.aspx">Home
+                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="HomeForm.aspx">HOME
                                 <i class="fa fa-home"></i>
                             </a>
-                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">Mis solicitudes
+                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">MIS SOLICITUDES
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">Mi tripulación
+                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">MI TRIPULACIÓN
                                 <i class="fas fa-users"></i>
                             </a>
-                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">Mis VANTs
+                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">MIS VANTs
                                 <i class="fas fa-plane"></i>
                             </a>
-                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">Mi documentación                                <i class="fas fa-file-lines"></i>
+                            <a class="list-group-item-s list-group-item-action-s p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">MI DOCUMENTACIÓN                                <i class="fas fa-file-lines"></i>
                                 <i class="fas fa-list"></i>
                             </a>                           
                         </li>
@@ -109,37 +109,37 @@
                     <ul id="side-menu3" class="nav">
                         <%-- Operador --%>
                         <li id="li6" style="" runat="server">
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="HomeForm.aspx">Home
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="HomeForm.aspx">HOME
                                 <i class="fa fa-home"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">Gestión de Solicitudes
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">GESTIÓN DE SOLICITUDES
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRecepcion">&nbsp; &nbsp; Recepción de Solicitudes REA
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRecepcion">&nbsp; &nbsp; RECEPCIÓN DE SOLICITUDES REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesAnalisis">&nbsp; &nbsp; Validación Análisis REA
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesAnalisis">&nbsp; &nbsp; VALIDACIÓN ANÁLISIS REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesCoordinacion">&nbsp; &nbsp; Validación Coordinación REA
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesCoordinacion">&nbsp; &nbsp; VALIDACIÓN COORDINACIÓN REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRespuesta">&nbsp; &nbsp; Respuesta REA
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRespuesta">&nbsp; &nbsp; RESPUESTA REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">Gestión de Tripulación
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">GESTIÓN DE TRIPULACIÓN
                                 <i class="fas fa-users"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionUsuarios.aspx">Gestión de Usuarios
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionUsuarios.aspx">GESTIÓN DE USUARIOS
                                 <i class="fas fa-user"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">Gestión de Vants
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">GESTIÓN DE VANTS
                                 <i class="fas fa-plane"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">Gestion de Documentación
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">GESTION DE DOCUMENTACIÓN
                                 <i class="fas fa-list"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">Gestion de Interesados
+                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">GESTION DE INTERESADOS
                                 <i class="fas fa-address-book"></i>
                             </a>
                         </li>

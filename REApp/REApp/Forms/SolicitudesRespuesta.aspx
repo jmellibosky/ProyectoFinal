@@ -172,7 +172,7 @@
                                                     <asp:BoundField DataField="FHDesde" HeaderText="FECHA INICIO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                                     <asp:BoundField DataField="DuracionDias" HeaderText="DURACIÓN DIAS" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                                     <%--Falta verificar si tiene o no el NOTAM--%>
-                                                    <asp:BoundField HeaderText="NOTAM" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                                    <%--<asp:BoundField HeaderText="NOTAM" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />--%>
 
                                                     <%-- Boton con link para ver detalles solicitud--%>
                                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="ACCIONES" ItemStyle-Width="20%">
@@ -181,10 +181,11 @@
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
-                                                            <asp:LinkButton ID="lnkMailRespuesta" runat="server" CommandName="EnviarMailRespuesta"
+                                                           <%-- Comentado por las dudas, se remueve por la falta de necesidad de acceder a un notam--%>
+                                                            <%--<asp:LinkButton ID="lnkMailRespuesta" runat="server" CommandName="EnviarMailRespuesta"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa-solid fa-envelope" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
-                                                            </asp:LinkButton>
+                                                            </asp:LinkButton>--%>
                                                             <asp:LinkButton ID="lnkRechazarREA" runat="server" Visible="false" CommandName="RechazarREA"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa-solid fa-circle-xmark" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
