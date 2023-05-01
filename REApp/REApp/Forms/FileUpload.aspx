@@ -254,13 +254,13 @@
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
-                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
+                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-success" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <%--Icono resubir/actualizar en vez de eliminar, para solicitantes--%>
-                                                <i class="fa-solid fa-rotate-right" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                                <i class="fa-sharp fa-solid fa-file-arrow-up" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Historial de archivos CM--%>
-                                        <asp:LinkButton ID="verHistorialCM" runat="server" CssClass="btn btn-danger" OnClick="verHistorialCM_Click">
+                                        <asp:LinkButton ID="verHistorialCM" runat="server" CssClass="btn btn-danger" OnClick="verHistorialCM_Click" Visible="false">
                                             <i class="fa-solid fa-list" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                     </ItemTemplate>
@@ -326,13 +326,13 @@
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
-                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
+                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-success" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <%--Icono resubir/actualizar en vez de eliminar, para solicitantes--%>
-                                                <i class="fa-solid fa-rotate-right" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                                <i class="fa-sharp fa-solid fa-file-arrow-up" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Historial de archivos CertCompetencia--%>
-                                        <asp:LinkButton ID="verHistorialCertCompetencia" runat="server" CssClass="btn btn-danger" OnClick="verHistorialCertCompetencia_Click">
+                                        <asp:LinkButton ID="verHistorialCertCompetencia" runat="server" CssClass="btn btn-danger" OnClick="verHistorialCertCompetencia_Click" Visible="false">
                                             <i class="fa-solid fa-list" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                     </ItemTemplate>
@@ -401,13 +401,13 @@
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
-                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
+                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-success" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <%--Icono resubir/actualizar en vez de eliminar, para solicitantes--%>
-                                                <i class="fa-solid fa-rotate-right" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                                <i class="fa-sharp fa-solid fa-file-arrow-up" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Historial de archivos Cevant--%>
-                                        <asp:LinkButton ID="verHistorialCevant" runat="server" CssClass="btn btn-danger" OnClick="verHistorialCevant_Click">
+                                        <asp:LinkButton ID="verHistorialCevant" runat="server" CssClass="btn btn-danger" OnClick="verHistorialCevant_Click" Visible="false">
                                             <i class="fa-solid fa-list" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
 
@@ -477,13 +477,13 @@
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
-                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
+                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-success" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <%--Icono resubir/actualizar en vez de eliminar, para solicitantes--%>
-                                                <i class="fa-solid fa-rotate-right" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                                <i class="fa-sharp fa-solid fa-file-arrow-up" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Historial de archivos Seguro Poliza--%>
-                                        <asp:LinkButton ID="verHistorialSeguroPoliza" runat="server" CssClass="btn btn-danger" OnClick="verHistorialSeguroPoliza_Click">
+                                        <asp:LinkButton ID="verHistorialSeguroPoliza" runat="server" CssClass="btn btn-danger" OnClick="verHistorialSeguroPoliza_Click" Visible="false">
                                             <i class="fa-solid fa-list" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                     </ItemTemplate>

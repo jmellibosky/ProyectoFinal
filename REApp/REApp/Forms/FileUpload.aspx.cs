@@ -376,6 +376,8 @@ namespace REApp.Forms
             }
         }
 
+
+
         protected void gvArchivos_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -387,6 +389,8 @@ namespace REApp.Forms
                 }
             }
         }
+
+
 
         protected void verHistorialCevant_Click(object sender, EventArgs e)
         {
