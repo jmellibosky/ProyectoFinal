@@ -159,7 +159,10 @@
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                                <li class="nav-item active"><a runat="server" id="lblUsername" onserverclick="lblUsername_ServerClick" class="nav-link">Perfil de Usuario</a></li>
+                                <%--<li class="nav-item active"><a runat="server" id="A1" onserverclick="lblUsername_ServerClick" class="nav-link">Perfil de Usuario</a></li>--%>
+                                <a class="list-group-item list-group-item-action p-3" runat="server" id="lblUsername" target="iframePage" href="/Forms/PerfilUsuario.aspx">
+                                    <%--<i class="fas fa-user"></i>--%>
+                                </a>
                                 <li class="nav-item"><a onserverclick="btnCerrarSesion_Click" class="nav-link" runat="server">Cerrar Sesión</a></li>
                                 <%--<li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>

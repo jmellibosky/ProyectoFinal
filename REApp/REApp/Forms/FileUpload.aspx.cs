@@ -49,10 +49,14 @@ namespace REApp.Forms
                     ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
                     ddlSolicitante.Enabled = false;
                     MostrarPanelSolicitante();
-                    CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM);
-                    CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia);
-                    CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant);
-                    CargarDoc(6, gvSeguroPoliza, pnlFuSeguroPoliza, pnlFechaVencimientoSeguroPoliza, pnlBtnSubirArchivoSeguroPoliza);
+                    //Certificado Medico
+                    //CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM, 0);
+                    //Cert Competencia
+                    //CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia, 0);
+                    //CEVANT
+                    //CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant, 0);
+                    //Poliza
+                    //CargarDoc(6, gvSeguroPoliza, pnlFuSeguroPoliza, pnlFechaVencimientoSeguroPoliza, pnlBtnSubirArchivoSeguroPoliza, 0);
                 }
                 
             }
@@ -77,10 +81,14 @@ namespace REApp.Forms
                     ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
                     ddlSolicitante.Enabled = false;
                     MostrarPanelSolicitante();
-                    CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM);
-                    CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia);
-                    CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant);
-                    CargarDoc(6, gvSeguroPoliza, pnlFuSeguroPoliza, pnlFechaVencimientoSeguroPoliza, pnlBtnSubirArchivoSeguroPoliza);
+                    //Certificado Medico
+                    CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM, 0);
+                    //Cert Competencia
+                    CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia, 0);
+                    //CEVANT
+                    CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant, 0);
+                    //Poliza
+                    CargarDoc(6, gvSeguroPoliza, pnlFuSeguroPoliza, pnlFechaVencimientoSeguroPoliza, pnlBtnSubirArchivoSeguroPoliza, 0);
                 }
             }
         }
@@ -308,6 +316,7 @@ namespace REApp.Forms
 
             using (SP sp = new SP("bd_reapp"))
             {
+                //baja logica, agrega FHBaja
                 sp.Execute("__DocumentoDelete_v1",
                     P.Add("IdDocumento", Documento.IdDocumento)
                 );
@@ -324,7 +333,7 @@ namespace REApp.Forms
 
         }
 
-        private void CargarDoc(int idDoc, GridView gv, Panel panelFileUpload, Panel panelFechaVencimiento, Panel panelBtnSubirArchivo)
+        private void CargarDoc(int idDoc, GridView gv, Panel panelFileUpload, Panel panelFechaVencimiento, Panel panelBtnSubirArchivo, int MostrarHistorial)
         {
             DataTable dt = null;
             //int idUsuario = 6;
@@ -336,7 +345,9 @@ namespace REApp.Forms
 
                     dt = sp.Execute("usp_GetDocumentacionPorTipo", 
                         P.Add("IdUsuario", IdUsuario), 
-                        P.Add("IdTipoDocumento", idDoc));
+                        P.Add("IdTipoDocumento", idDoc),
+                        //Con 0 no muestra historial, con 1 si
+                        P.Add("MostrarDocumentosEliminados", MostrarHistorial));
                 }
             }
             if (dt != null && dt.Rows.Count > 0)
@@ -373,6 +384,130 @@ namespace REApp.Forms
                 {
                     LinkButton lnkBtn = (LinkButton)e.Row.FindControl("lnkEliminarArchivo");
                     lnkBtn.Visible = false;
+                }
+            }
+        }
+
+        protected void verHistorialCevant_Click(object sender, EventArgs e)
+        {
+            CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant, 1);
+            // Iterar a través de todas las filas de la grilla
+            foreach (GridViewRow row in gvCevant.Rows)
+            {
+                // Buscar el LinkButton dentro de la fila actual
+                LinkButton linkButton = (LinkButton)row.FindControl("lnkEliminarArchivo");
+                LinkButton linkButton2 = (LinkButton)row.FindControl("verHistorialCevant");
+
+                // Ocultar el LinkButton en la fila actual
+                linkButton.Visible = false;
+                linkButton2.Visible = false;
+            }
+        }
+
+        protected void gvCevant_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                foreach (GridViewRow row in gvCevant.Rows)
+                {
+                    // Buscar el LinkButton dentro de la fila actual
+                    LinkButton linkButton = (LinkButton)e.Row.FindControl("lnkDownload");
+
+                    // Asociar el evento Click al LinkButton
+                    linkButton.Click += new EventHandler(lnkDownload_Click1);
+                }
+            }
+        }
+
+        protected void verHistorialCertCompetencia_Click(object sender, EventArgs e)
+        {
+            CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia, 1);
+            // Iterar a través de todas las filas de la grilla
+            foreach (GridViewRow row in gvCertCompetencia.Rows)
+            {
+                // Buscar el LinkButton dentro de la fila actual
+                LinkButton linkButton = (LinkButton)row.FindControl("lnkEliminarArchivo");
+                LinkButton linkButton2 = (LinkButton)row.FindControl("verHistorialCertCompetencia");
+
+                // Ocultar el LinkButton en la fila actual
+                linkButton.Visible = false;
+                linkButton2.Visible = false;
+            }
+        }
+
+        protected void verHistorialCM_Click(object sender, EventArgs e)
+        {
+            CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM, 1);
+            // Iterar a través de todas las filas de la grilla
+            foreach (GridViewRow row in gvCertMedico.Rows)
+            {
+                // Buscar el LinkButton dentro de la fila actual
+                LinkButton linkButton = (LinkButton)row.FindControl("lnkEliminarArchivo");
+                LinkButton linkButton2 = (LinkButton)row.FindControl("verHistorialCM");
+
+                // Ocultar el LinkButton en la fila actual
+                linkButton.Visible = false;
+                linkButton2.Visible = false;
+            }
+        }
+
+        protected void verHistorialSeguroPoliza_Click(object sender, EventArgs e)
+        {
+            CargarDoc(6, gvSeguroPoliza, pnlFuSeguroPoliza, pnlFechaVencimientoSeguroPoliza, pnlBtnSubirArchivoSeguroPoliza, 1);
+            // Iterar a través de todas las filas de la grilla
+            foreach (GridViewRow row in gvSeguroPoliza.Rows)
+            {
+                // Buscar el LinkButton dentro de la fila actual
+                LinkButton linkButton = (LinkButton)row.FindControl("lnkEliminarArchivo");
+                LinkButton linkButton2 = (LinkButton)row.FindControl("verHistorialSeguroPoliza");
+
+                // Ocultar el LinkButton en la fila actual
+                linkButton.Visible = false;
+                linkButton2.Visible = false;
+            }
+        }
+
+        protected void gvSeguroPoliza_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                foreach (GridViewRow row in gvSeguroPoliza.Rows)
+                {
+                    // Buscar el LinkButton dentro de la fila actual
+                    LinkButton linkButton = (LinkButton)e.Row.FindControl("lnkDownload");
+
+                    // Asociar el evento Click al LinkButton
+                    linkButton.Click += new EventHandler(lnkDownload_Click1);
+                }
+            }
+        }
+
+        protected void gvCertCompetencia_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                foreach (GridViewRow row in gvCertCompetencia.Rows)
+                {
+                    // Buscar el LinkButton dentro de la fila actual
+                    LinkButton linkButton = (LinkButton)e.Row.FindControl("lnkDownload");
+
+                    // Asociar el evento Click al LinkButton
+                    linkButton.Click += new EventHandler(lnkDownload_Click1);
+                }
+            }
+        }
+
+        protected void gvCertMedico_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                foreach (GridViewRow row in gvCertMedico.Rows)
+                {
+                    // Buscar el LinkButton dentro de la fila actual
+                    LinkButton linkButton = (LinkButton)e.Row.FindControl("lnkDownload");
+
+                    // Asociar el evento Click al LinkButton
+                    linkButton.Click += new EventHandler(lnkDownload_Click1);
                 }
             }
         }

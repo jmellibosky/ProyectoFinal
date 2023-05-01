@@ -188,6 +188,7 @@
     <Content Include="Forms\CambiarContrasena.aspx" />
     <Content Include="Forms\CambioEstadoSolicitud.aspx" />
     <Content Include="Forms\GestionInteresados.aspx" />
+    <Content Include="Forms\PerfilUsuario.aspx" />
     <Content Include="Forms\VistaEstaticaSolicitud.aspx" />
     <Content Include="Forms\FileUpload.aspx" />
     <Content Include="Forms\ForoMensajes.aspx" />
@@ -378,6 +379,13 @@
     </Compile>
     <Compile Include="Forms\GestionInteresados.aspx.designer.cs">
       <DependentUpon>GestionInteresados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PerfilUsuario.aspx.cs">
+      <DependentUpon>PerfilUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\PerfilUsuario.aspx.designer.cs">
+      <DependentUpon>PerfilUsuario.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\VistaEstaticaSolicitud.aspx.cs">
       <DependentUpon>VistaEstaticaSolicitud.aspx</DependentUpon>

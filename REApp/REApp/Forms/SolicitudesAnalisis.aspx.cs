@@ -5,6 +5,7 @@ using System.Data;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static REApp.Navegacion;
 
 namespace REApp.Forms
 {
@@ -468,6 +469,7 @@ namespace REApp.Forms
 
                     // INSERT EN TABLA INTERESADOSOLICITUD
                     InteresadoSolicitud.Insert();
+                    Alert("Se actualizaron los interesados de la solicitud", "Los mismos seran notificados por mail al pasar la solicitud al siguiente estado.", AlertType.success, "/Forms/SolicitudesAnalisis.aspx");
                 }
             }
             MostrarABM();

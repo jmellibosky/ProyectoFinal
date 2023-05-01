@@ -119,7 +119,7 @@
 
     <br />
     <h1 class="row justify-content-center mb-0 pb-0 pt-5">
-        <label style="font-family:Azonix; letter-spacing: 3px" class="fw-normal mb-3 pb-2">Gestión de Documentación</label>
+        <label style="font-family: Azonix; letter-spacing: 3px" class="fw-normal mb-3 pb-2">Gestión de Documentación</label>
     </h1>
 
     <%--Panel Admin--%>
@@ -181,15 +181,17 @@
                         <asp:BoundField DataField="IdTipoDocumento" HeaderText="TIPO DOC" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                         <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                         <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                        <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                        <asp:BoundField DataField="VinculadoSolicitud" HeaderText="Vinculado a Solicitud" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
 
                         <%-- Boton con link para descargar archivo--%>
                         <asp:TemplateField ItemStyle-Width="10%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                             <ItemTemplate>
                                 <div class="row">
                                     <div class="col-12">
-                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" 
-                                            ToolTip='<%# Eval("VinculadoSolicitud").ToString() == "1" ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>' 
-                                            Enabled='<%# Eval("VinculadoSolicitud").ToString() != "1" %>' 
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info"
+                                            ToolTip='<%# Eval("VinculadoSolicitud").ToString() == "Si" ? "Este documento se encuentra vinculado a una solicitud vigente." : "No se encuentra vinculado a una solicitud vigente" %>'
+                                            Enabled='<%# Eval("VinculadoSolicitud").ToString() != "Si" %>'
                                             OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                             <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
@@ -231,7 +233,7 @@
                         <asp:GridView ID="gvCertMedico"
                             runat="server"
                             AutoGenerateColumns="false"
-                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvCertMedico_RowDataBound">
                             <AlternatingRowStyle BackColor="white" />
                             <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="XX-Small" ForeColor="White" />
                             <RowStyle BackColor="#e1dddd" />
@@ -243,6 +245,7 @@
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
@@ -251,9 +254,14 @@
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
-                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click"
+                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
-                                                <i class="fa fa-trash-can" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                                <%--Icono resubir/actualizar en vez de eliminar, para solicitantes--%>
+                                                <i class="fa-solid fa-rotate-right" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                        </asp:LinkButton>
+                                        <%--Historial de archivos CM--%>
+                                        <asp:LinkButton ID="verHistorialCM" runat="server" CssClass="btn btn-danger" OnClick="verHistorialCM_Click">
+                                            <i class="fa-solid fa-list" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -297,7 +305,7 @@
                         <asp:GridView ID="gvCertCompetencia"
                             runat="server"
                             AutoGenerateColumns="false"
-                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvCertCompetencia_RowDataBound">
                             <AlternatingRowStyle BackColor="white" />
                             <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="XX-Small" ForeColor="White" />
                             <RowStyle BackColor="#e1dddd" />
@@ -309,6 +317,7 @@
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
@@ -317,9 +326,14 @@
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
-                                        <asp:LinkButton ID="lnkEliminarArchivo" CssClass="btn btn-danger" runat="server" OnClick="lnkEliminarArchivo_Click"
+                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
-                                                <i class="fa fa-trash-can" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                                <%--Icono resubir/actualizar en vez de eliminar, para solicitantes--%>
+                                                <i class="fa-solid fa-rotate-right" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                        </asp:LinkButton>
+                                        <%--Historial de archivos CertCompetencia--%>
+                                        <asp:LinkButton ID="verHistorialCertCompetencia" runat="server" CssClass="btn btn-danger" OnClick="verHistorialCertCompetencia_Click">
+                                            <i class="fa-solid fa-list" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -365,7 +379,7 @@
                         <asp:GridView ID="gvCevant"
                             runat="server"
                             AutoGenerateColumns="false"
-                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvCevant_RowDataBound">
                             <AlternatingRowStyle BackColor="white" />
                             <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="XX-Small" ForeColor="White" />
                             <RowStyle BackColor="#e1dddd" />
@@ -377,18 +391,26 @@
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
-                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' OnClick="lnkDownload_Click1"
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>'
+                                            Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
-                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click"
+                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
-                                                <i class="fa fa-trash-can" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                                <%--Icono resubir/actualizar en vez de eliminar, para solicitantes--%>
+                                                <i class="fa-solid fa-rotate-right" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
+                                        <%--Historial de archivos Cevant--%>
+                                        <asp:LinkButton ID="verHistorialCevant" runat="server" CssClass="btn btn-danger" OnClick="verHistorialCevant_Click">
+                                            <i class="fa-solid fa-list" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                        </asp:LinkButton>
+
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -434,7 +456,7 @@
                         <asp:GridView ID="gvSeguroPoliza"
                             runat="server"
                             AutoGenerateColumns="false"
-                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvSeguroPoliza_RowDataBound">
                             <AlternatingRowStyle BackColor="white" />
                             <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="XX-Small" ForeColor="White" />
                             <RowStyle BackColor="#e1dddd" />
@@ -446,6 +468,7 @@
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
@@ -454,9 +477,14 @@
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
-                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click"
+                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
-                                                <i class="fa fa-trash-can" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                                <%--Icono resubir/actualizar en vez de eliminar, para solicitantes--%>
+                                                <i class="fa-solid fa-rotate-right" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                        </asp:LinkButton>
+                                        <%--Historial de archivos Seguro Poliza--%>
+                                        <asp:LinkButton ID="verHistorialSeguroPoliza" runat="server" CssClass="btn btn-danger" OnClick="verHistorialSeguroPoliza_Click">
+                                            <i class="fa-solid fa-list" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
