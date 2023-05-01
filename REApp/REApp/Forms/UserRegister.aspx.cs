@@ -219,14 +219,8 @@ namespace REApp.Forms
             }
             if (!txt_password.Value.Equals(""))
             {
-                string passwordPatternMayus = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-                string passwordPatternNumbers = "0123456789";
-                if (!Regex.IsMatch(txt_email.Value, passwordPatternMayus))
-                {
-                    Alert("Error", "Por favor, ingrese una clave con al menos una mayúscula y un número.", AlertType.error);
-                    return false;
-                }
-                if (!Regex.IsMatch(txt_email.Value, passwordPatternNumbers))
+                string passwordPatternMayusculaNumero = @"^(?=.*[A-Z])(?=.*\d).+$";
+                if (!Regex.IsMatch(txt_password.Value, passwordPatternMayusculaNumero))
                 {
                     Alert("Error", "Por favor, ingrese una clave con al menos una mayúscula y un número.", AlertType.error);
                     return false;
