@@ -908,96 +908,114 @@ namespace REApp.Forms
 
         protected void gvSolicitud_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int IdSolicitud = e.CommandArgument.ToString().ToInt();
-            Models.Solicitud Solicitud = new Models.Solicitud().Select(IdSolicitud);
-
-            int IdUsuario = Solicitud.IdUsuario;
-            Models.Usuario Usuario = new Models.Usuario().Select(IdUsuario);
-
-            int IdEstado = (int)Solicitud.IdEstadoSolicitud;
-            Models.EstadoSolicitud Estado = new Models.EstadoSolicitud().Select(IdEstado);
-
-            int IdModalidad = Solicitud.IdModalidad;
-            Models.Modalidad Modalidad = new Models.Modalidad().Select(IdModalidad);
-
-            LimpiarModal();
-            OcultarMostrarPanelesABM(true);
-
-            CargarComboModalSolicitante();
-            ddlModalSolicitante.SelectedValue = IdUsuario.ToCryptoID();
-            ddlModalSolicitante.Enabled = false;
-
-            CargarComboModalActividades();
-            CargarComboModalSoloModalidades();
-            CargarComboProvincias();
-
-            ddlModalActividad.SelectedValue = Modalidad.IdActividad.ToCryptoID().ToString();
-            ddlModalModalidad.SelectedValue = Solicitud.IdModalidad.ToCryptoID().ToString();
-
-            hdnIdSolicitud.Value = IdSolicitud.ToString();
-            txtModalNombreSolicitud.Text = Solicitud.Nombre;
-
-            txtModalObservaciones.Text = Solicitud.Observaciones;
-            txtModalEstadoSolicitud.Text = Estado.Nombre;
-            int idEstadoActual = Estado.IdEstadoSolicitud;
-
-            txtModalFechaDesde.TextMode = TextBoxMode.SingleLine;
-            txtModalFechaHasta.TextMode = TextBoxMode.SingleLine;
-            txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
-            txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
-            txtModalFechaHasta.Enabled = false;
-            txtModalFechaDesde.Enabled = false;
-
-            //Se recupera el penultimo estado para enviar mails a interesados si estruvo en coordinacion
-            DataTable dt = new SP("bd_reapp").Execute("usp_GetPenultimoEstadoSolicitud", P.Add("IdSolicitud", IdSolicitud));
-            if (dt.Rows.Count > 0)
+            if (e.CommandName.Equals("Detalle") || e.CommandName.Equals("Editar"))
             {
-                hdnIdEstadoAnterior.Value = dt.Rows[0]["IdEstadoSolicitud"].ToString();
-            }
+                int IdSolicitud = e.CommandArgument.ToString().ToInt();
+                Models.Solicitud Solicitud = new Models.Solicitud().Select(IdSolicitud);
 
-            DateTime FHActualiz = (DateTime)Solicitud.FHUltimaActualizacionEstado;
-            if (FHActualiz != null)
-            {
-                txtModalFechaUltimaActualizacion.Text = FHActualiz.ToString();
-            }
-            txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
+                int IdUsuario = Solicitud.IdUsuario;
+                Models.Usuario Usuario = new Models.Usuario().Select(IdUsuario);
 
-            chkVant.Checked = Solicitud.IdAeronave.HasValue;
-            chkVant_CheckedChanged(null, null);
+                int IdEstado = (int)Solicitud.IdEstadoSolicitud;
+                Models.EstadoSolicitud Estado = new Models.EstadoSolicitud().Select(IdEstado);
 
-            GetTripulantesDeSolicitud(IdSolicitud);
-            GetUbicacionesDeSolicitud(IdSolicitud);
+                int IdModalidad = Solicitud.IdModalidad;
+                Models.Modalidad Modalidad = new Models.Modalidad().Select(IdModalidad);
 
-            MostrarABM();
+                LimpiarModal();
+                OcultarMostrarPanelesABM(true);
 
-            if (e.CommandName.Equals("Detalle"))
-            { // Detalle
-                btnGenerarKMZ.Visible = true;
-                HabilitarDeshabilitarTxts(false);
-                pnlHistorialSolicitud.Visible = true;
-                btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = false;
-            }
-            if (e.CommandName.Equals("Editar"))
-            {
-                btnGenerarKMZ.Visible = true;
-                btnGuardar.Visible = true;
-                HabilitarDeshabilitarTxts(true);
-                pnlHistorialSolicitud.Visible = true;
-                btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = true;
+                CargarComboModalSolicitante();
+                ddlModalSolicitante.SelectedValue = IdUsuario.ToCryptoID();
+                ddlModalSolicitante.Enabled = false;
 
-                //Si esta en estado PendienteModificacion, se habilita btnEnviarSolicitud
-                if (idEstadoActual == 9)
+                CargarComboModalActividades();
+                CargarComboModalSoloModalidades();
+                CargarComboProvincias();
+
+                ddlModalActividad.SelectedValue = Modalidad.IdActividad.ToCryptoID().ToString();
+                ddlModalModalidad.SelectedValue = Solicitud.IdModalidad.ToCryptoID().ToString();
+
+                hdnIdSolicitud.Value = IdSolicitud.ToString();
+                txtModalNombreSolicitud.Text = Solicitud.Nombre;
+
+                txtModalObservaciones.Text = Solicitud.Observaciones;
+                txtModalEstadoSolicitud.Text = Estado.Nombre;
+                int idEstadoActual = Estado.IdEstadoSolicitud;
+
+                txtModalFechaDesde.TextMode = TextBoxMode.SingleLine;
+                txtModalFechaHasta.TextMode = TextBoxMode.SingleLine;
+                txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
+                txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
+                txtModalFechaHasta.Enabled = false;
+                txtModalFechaDesde.Enabled = false;
+
+                //Se recupera el penultimo estado para enviar mails a interesados si estruvo en coordinacion
+                DataTable dt = new SP("bd_reapp").Execute("usp_GetPenultimoEstadoSolicitud", P.Add("IdSolicitud", IdSolicitud));
+                if (dt.Rows.Count > 0)
                 {
-                    string idRol = Session["IdRol"].ToString();
-                    int idRolInt = idRol.ToInt();
-                    //Y tiene rol Explotador
-                    if (idRolInt == 3)
+                    hdnIdEstadoAnterior.Value = dt.Rows[0]["IdEstadoSolicitud"].ToString();
+                }
+
+                DateTime FHActualiz = (DateTime)Solicitud.FHUltimaActualizacionEstado;
+                if (FHActualiz != null)
+                {
+                    txtModalFechaUltimaActualizacion.Text = FHActualiz.ToString();
+                }
+                txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
+
+                chkVant.Checked = Solicitud.IdAeronave.HasValue;
+                chkVant_CheckedChanged(null, null);
+
+                GetTripulantesDeSolicitud(IdSolicitud);
+                GetUbicacionesDeSolicitud(IdSolicitud);
+
+                MostrarABM();
+
+                if (e.CommandName.Equals("Detalle"))
+                { // Detalle
+                    btnGenerarKMZ.Visible = true;
+                    HabilitarDeshabilitarTxts(false);
+                    pnlHistorialSolicitud.Visible = true;
+                    btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = false;
+                }
+                if (e.CommandName.Equals("Editar"))
+                {
+                    btnGenerarKMZ.Visible = true;
+                    btnGuardar.Visible = true;
+                    HabilitarDeshabilitarTxts(true);
+                    pnlHistorialSolicitud.Visible = true;
+                    btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = true;
+
+                    //Si esta en estado PendienteModificacion, se habilita btnEnviarSolicitud
+                    if (idEstadoActual == 9)
                     {
-                        pnlAcciones.Visible = true;
+                        string idRol = Session["IdRol"].ToString();
+                        int idRolInt = idRol.ToInt();
+                        //Y tiene rol Explotador
+                        if (idRolInt == 3)
+                        {
+                            pnlAcciones.Visible = true;
+                        }
                     }
                 }
+                VerHistorialSolicitud();
             }
-            VerHistorialSolicitud();
+            else if (e.CommandName.Equals("Eliminar"))
+            {
+                int IdSolicitud = e.CommandArgument.ToString().ToInt();
+
+                Solicitud Solicitud = new Solicitud().Select(IdSolicitud);
+
+                if (Solicitud != null)
+                {
+                    Solicitud.FHBaja = DateTime.Now;
+                    Solicitud.Update();
+
+                    Alert("Éxito", "La Solicitud ha sido eliminada.", AlertType.success);
+                    btnFiltrar_Click(null, null);
+                }
+            }
         }
 
         protected void GetUbicacionesDeSolicitud(int IdSolicitud)

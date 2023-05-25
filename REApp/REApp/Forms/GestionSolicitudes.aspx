@@ -214,9 +214,15 @@
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                                 <i class="fa fa-pencil" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                                             </asp:LinkButton>
+
                                                             <asp:LinkButton ID="btnVerForo" ToolTip="Enviar Mensaje" runat="server" OnClick="btnVerForo_Click"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                                 <i class="fa fa-comments" aria-hidden="true" style='font-size: 15px; margin-left: 10px; color: #525252'></i>
+                                                            </asp:LinkButton>
+
+                                                            <asp:LinkButton ID="btnEliminar" ToolTip="Eliminar" runat="server" CommandName="Eliminar"
+                                                                CommandArgument='<%# Eval("IdSolicitud") %>' Visible='<%# ddlSolicitante.Enabled %>'>
+                                                                <i class="fa fa-trash text-danger" aria-hidden="true" style='font-size: 15px; margin-left: 10px'></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>

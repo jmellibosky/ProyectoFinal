@@ -121,6 +121,14 @@ namespace REApp.Forms
                 {
                     parameters.Add(P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()));
                 }
+                if (ddlVerBajas.SelectedItem.Value.Equals("0"))
+                {
+                    parameters.Add(P.Add("VerBajas", "0"));
+                }
+                else
+                {
+                    parameters.Add(P.Add("VerBajas", "1"));
+                }
                 dt = sp.Execute("usp_GetSolicitudesPorEstado", parameters.ToArray());
             }
 
@@ -339,9 +347,24 @@ namespace REApp.Forms
 
                 btnGenerarKMZ.Visible = true;
                 HabilitarDeshabilitarTxts(false);
-            }
 
-            VerHistorialSolicitud();
+                VerHistorialSolicitud();
+            }
+            else if (e.CommandName.Equals("Eliminar"))
+            {
+                int IdSolicitud = e.CommandArgument.ToString().ToInt();
+
+                Models.Solicitud Solicitud = new Models.Solicitud().Select(IdSolicitud);
+
+                if (Solicitud != null)
+                {
+                    Solicitud.FHBaja = DateTime.Now;
+                    Solicitud.Update();
+
+                    Alert("Éxito", "La Solicitud ha sido eliminada.", AlertType.success);
+                    btnFiltrar_Click(null, null);
+                }
+            }
         }
 
         protected void GetUbicacionesDeSolicitud(int IdSolicitud)
@@ -562,6 +585,11 @@ namespace REApp.Forms
         protected void btnPasarCoordinacion_Click(object sender, EventArgs e)
         {
             PasarSolicitudACoordinacion(hdnIdSolicitud.Value.ToInt());
+        }
+
+        protected void ddlVerBajas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnFiltrar_Click(null, null);
         }
     }
 }

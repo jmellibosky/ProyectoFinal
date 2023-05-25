@@ -141,6 +141,14 @@ namespace REApp.Forms
                 {
                     parameters.Add(P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()));
                 }
+                if (ddlVerBajas.SelectedItem.Value.Equals("0"))
+                {
+                    parameters.Add(P.Add("VerBajas", "0"));
+                }
+                else
+                {
+                    parameters.Add(P.Add("VerBajas", "1"));
+                }
                 dt = sp.Execute("usp_GetSolicitudesPorEstado", parameters.ToArray());
             }
 
@@ -409,68 +417,83 @@ namespace REApp.Forms
 
         protected void gvSolicitud_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int IdSolicitud = e.CommandArgument.ToString().ToInt();
-            Models.Solicitud Solicitud = new Models.Solicitud().Select(IdSolicitud);
-
-            int IdUsuario = Solicitud.IdUsuario;
-            Models.Usuario Usuario = new Models.Usuario().Select(IdUsuario);
-
-            int IdEstado = (int)Solicitud.IdEstadoSolicitud;
-            Models.EstadoSolicitud Estado = new Models.EstadoSolicitud().Select(IdEstado);
-
-            int IdModalidad = Solicitud.IdModalidad;
-            Models.Modalidad Modalidad = new Models.Modalidad().Select(IdModalidad);
-
-            LimpiarModal();
-            OcultarMostrarPanelesABM(true);
-
-            CargarComboModalSolicitante();
-            ddlModalSolicitante.SelectedValue = IdUsuario.ToCryptoID();
-            ddlModalSolicitante.Enabled = false;
-
-            CargarComboModalActividades();
-            CargarComboModalSoloModalidades();
-
-            ddlModalActividad.SelectedValue = Modalidad.IdActividad.ToCryptoID().ToString();
-            ddlModalModalidad.SelectedValue = Solicitud.IdModalidad.ToCryptoID().ToString();
-
-            hdnIdSolicitud.Value = IdSolicitud.ToString();
-            txtModalNombreSolicitud.Text = Solicitud.Nombre;
-
-            txtModalObservaciones.Text = Solicitud.Observaciones;
-            txtModalEstadoSolicitud.Text = Estado.Nombre;
-
-            txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
-            txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
-            txtModalFechaHasta.Enabled = false;
-            txtModalFechaDesde.Enabled = false;
-
-            DateTime FHActualiz = (DateTime)Solicitud.FHUltimaActualizacionEstado;
-            if (FHActualiz != null)
-            {
-                txtModalFechaUltimaActualizacion.Text = FHActualiz.ToString();
-            }
-            txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
-
-            chkVant.Checked = Solicitud.IdAeronave.HasValue;
-            chkVant_CheckedChanged(null, null);
-
-            GetTripulantesDeSolicitud(IdSolicitud);
-            GetUbicacionesDeSolicitud(IdSolicitud);
-
-            MostrarABM();
-
             if (e.CommandName.Equals("Detalle"))
             { // Detalle
+                int IdSolicitud = e.CommandArgument.ToString().ToInt();
+                Models.Solicitud Solicitud = new Models.Solicitud().Select(IdSolicitud);
+
+                int IdUsuario = Solicitud.IdUsuario;
+                Models.Usuario Usuario = new Models.Usuario().Select(IdUsuario);
+
+                int IdEstado = (int)Solicitud.IdEstadoSolicitud;
+                Models.EstadoSolicitud Estado = new Models.EstadoSolicitud().Select(IdEstado);
+
+                int IdModalidad = Solicitud.IdModalidad;
+                Models.Modalidad Modalidad = new Models.Modalidad().Select(IdModalidad);
+
+                LimpiarModal();
+                OcultarMostrarPanelesABM(true);
+
+                CargarComboModalSolicitante();
+                ddlModalSolicitante.SelectedValue = IdUsuario.ToCryptoID();
+                ddlModalSolicitante.Enabled = false;
+
+                CargarComboModalActividades();
+                CargarComboModalSoloModalidades();
+
+                ddlModalActividad.SelectedValue = Modalidad.IdActividad.ToCryptoID().ToString();
+                ddlModalModalidad.SelectedValue = Solicitud.IdModalidad.ToCryptoID().ToString();
+
+                hdnIdSolicitud.Value = IdSolicitud.ToString();
+                txtModalNombreSolicitud.Text = Solicitud.Nombre;
+
+                txtModalObservaciones.Text = Solicitud.Observaciones;
+                txtModalEstadoSolicitud.Text = Estado.Nombre;
+
+                txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
+                txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
+                txtModalFechaHasta.Enabled = false;
+                txtModalFechaDesde.Enabled = false;
+
+                DateTime FHActualiz = (DateTime)Solicitud.FHUltimaActualizacionEstado;
+                if (FHActualiz != null)
+                {
+                    txtModalFechaUltimaActualizacion.Text = FHActualiz.ToString();
+                }
+                txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
+
+                chkVant.Checked = Solicitud.IdAeronave.HasValue;
+                chkVant_CheckedChanged(null, null);
+
+                GetTripulantesDeSolicitud(IdSolicitud);
+                GetUbicacionesDeSolicitud(IdSolicitud);
+
+                MostrarABM();
+
                 btnGenerarKMZ.Visible = true;
                 btnRespuestaPDF.Visible = true;
                 btnEnviarMail.Visible = true;
                 HabilitarDeshabilitarTxts(false);
                 GetInteresadosSoloVinculadosSolicitud(hdnIdSolicitud.Value.ToInt());
                 pnlInteresadosVinculados.Visible = true;
-            }
 
-            VerHistorialSolicitud();
+                VerHistorialSolicitud();
+            }
+            else if (e.CommandName.Equals("Eliminar"))
+            {
+                int IdSolicitud = e.CommandArgument.ToString().ToInt();
+
+                Models.Solicitud Solicitud = new Models.Solicitud().Select(IdSolicitud);
+
+                if (Solicitud != null)
+                {
+                    Solicitud.FHBaja = DateTime.Now;
+                    Solicitud.Update();
+
+                    Alert("Éxito", "La Solicitud ha sido eliminada.", AlertType.success);
+                    btnFiltrar_Click(null, null);
+                }
+            }
         }
 
         protected void GetUbicacionesDeSolicitud(int IdSolicitud)
@@ -717,7 +740,7 @@ namespace REApp.Forms
             //Llama al metodo GetRespuesta()
             Models.Documento Respuesta = GetRespuesta(true);
         }
-        
+
 
         protected Models.Documento GetRespuesta(bool Descarga)
         {
@@ -745,7 +768,7 @@ namespace REApp.Forms
                     Response.ContentEncoding = Encoding.UTF8;
                     Response.End();
                 }
-                
+
 
             }
             else
@@ -896,7 +919,7 @@ namespace REApp.Forms
             }
 
             return Documento;
-            
+
         }
 
         protected void btnEnviarMail_Click(object sender, EventArgs e)
@@ -972,6 +995,11 @@ namespace REApp.Forms
             catch (Exception)
             {
             }
+        }
+
+        protected void ddlVerBajas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnFiltrar_Click(null, null);
         }
     }
 }
