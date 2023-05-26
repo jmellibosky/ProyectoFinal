@@ -15,8 +15,8 @@ namespace REApp.Forms
             
             if (!IsPostBack)
             {
-                cargarDatosUsuario();
                 CargarComboRol();
+                cargarDatosUsuario();
             }
 
         }
@@ -34,8 +34,8 @@ namespace REApp.Forms
             txtModalDni.Text = Usuario.Dni.ToString();
             txtModalTipoDni.Text = Usuario.TipoDni;
             txtModalCuit.Text = Usuario.Cuit;
-            txtModalFechaNac.TextMode = TextBoxMode.SingleLine;
-            txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString();
+            txtModalFechaNac.TextMode = TextBoxMode.Date;
+            txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString("yyyy-MM-dd");
             txtModalCorreo.Text = Usuario.Email;
             txtModalTelefono.Text = Usuario.Telefono;
         }
@@ -60,30 +60,6 @@ namespace REApp.Forms
                     UsuarioViejo.Email = txtModalCorreo.Text;
                     UsuarioViejo.Cuit = txtModalCuit.Text;
 
-                    
-                    string validacionPasswordActual = generarHash(UsuarioViejo.SaltKey, txtModalPasswordActual.Text);
-                    //Se modifica la contrseña si tiene algo dentro del textbox
-                    if ((txtModalPassword.Text != ""))
-                    {
-                        //Si las contraseñas nueva que escribio y su confirmacion son correctas
-                        if ((txtModalPassword.Text == txtModalConfirmarPassword.Text))
-                        {
-                            //Si la contraseña actual ingresada es correcta
-                            if (validacionPasswordActual == UsuarioViejo.Password)
-                            {
-                                string salt = SecurityHelper.GenerateSalt(70);
-                                string password = txtModalPassword.Text;
-                                UsuarioViejo.Password = generarHash(salt, password);
-                                UsuarioViejo.SaltKey = salt;
-                                Alert("Contraseña modificada", "Se cambió con éxito su contraseña.", AlertType.success);
-                            }
-                            Alert("Error", "La contraseña actual no es correcta", AlertType.error);
-                        }
-                        else
-                        {
-                            Alert("Error", "Las contraseñas no coinciden.", AlertType.error);
-                        }
-                    }
                     UsuarioViejo.Update();
 
                     hdnIdUsuario.Value = "";
@@ -91,6 +67,65 @@ namespace REApp.Forms
                 }
             }
         }
+
+        protected void btnCambioPassword_Click(object sender, EventArgs e)
+        {
+            pnlABM.Visible = false;
+            btnVolver.Visible = true;
+            pnlCambioPassword.Visible = true;
+            lblRequisitos.Text = "La contraseña debe tener los siguientes requisitos:.<br />" +
+                         "*Tener al menos 8 caracteres.<br />" +
+                         "*Contiene al menos un numero.<br />" +
+                         "*Contiene al menos una letra en minúscula.<br />" +
+                         "*Contiene al menos una letra en mayúscula.<br />" +
+                         "*Contiene al menos un carácter especial.";
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            pnlABM.Visible = true;
+            pnlCambioPassword.Visible = false;
+            btnVolver.Visible = false;
+        }
+
+        protected void btnActualizarPassword_Click(object sender, EventArgs e)
+        {
+            if (ValidarCamposPassword())
+            {
+                Models.Usuario UsuarioViejo = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
+
+                string validacionPasswordActual = generarHash(UsuarioViejo.SaltKey, txtModalPasswordActual.Text);
+
+                //Se modifica la contrseña si tiene algo dentro del textbox
+                if ((txtModalPassword.Text != ""))
+                {
+                    //Si las contraseñas nueva que escribio y su confirmacion son correctas
+                    if ((txtModalPassword.Text == txtModalConfirmarPassword.Text))
+                    {
+                        //Si la contraseña actual ingresada es correcta
+                        if (validacionPasswordActual == UsuarioViejo.Password)
+                        {
+                            string salt = SecurityHelper.GenerateSalt(70);
+                            string password = txtModalPassword.Text;
+                            UsuarioViejo.Password = generarHash(salt, password);
+                            UsuarioViejo.SaltKey = salt;
+                            UsuarioViejo.Update();
+                            Alert("Contraseña modificada", "Se cambió con éxito su contraseña.", AlertType.success);
+                        }
+                        else
+                        {
+                            Alert("Error", "La contraseña actual no es correcta", AlertType.error);
+                        }
+                    }
+                    else
+                    {
+                        Alert("Error", "Las contraseñas no coinciden.", AlertType.error);
+                    }
+                }
+            }
+        }
+
+
 
         protected bool ValidarCampos()
         {
@@ -153,6 +188,37 @@ namespace REApp.Forms
             return true;
         }
 
+        protected bool ValidarCamposPassword()
+        {
+            if (txtModalPasswordActual.Text.Equals(""))
+            {
+                Alert("Error", "Por favor, ingrese la contraseña actual.", AlertType.error);
+                return false;
+            }
+            //Validacion password nueva
+            if (txtModalPassword.Text.Equals(""))
+            {
+                Alert("Error", "Por favor, ingrese la contraseña nueva.", AlertType.error);
+                return false;
+            }
+            if (txtModalConfirmarPassword.Text.Equals(""))
+            {
+                Alert("Error", "Por favor, ingrese la confirmacion de la contraseña nueva.", AlertType.error);
+                return false;
+            }
+            
+            string passwordPatern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$";
+
+            if (!Regex.IsMatch(txtModalPassword.Text, passwordPatern))
+            {
+                Alert("Error", "Por favor ingrese una contraseña nueva valida. Debe cumplir con todos los requisitos.", AlertType.error);
+                return false;
+            }
+
+
+            return true;
+        }
+
         protected string generarHash(string salt, string password)
         {
             string hashedpass = SecurityHelper.HashPassword(password, salt, 10101, 70);
@@ -171,6 +237,7 @@ namespace REApp.Forms
                 }
             }
         }
+
 
     }
 }

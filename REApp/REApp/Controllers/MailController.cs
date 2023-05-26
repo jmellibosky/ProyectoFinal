@@ -31,8 +31,8 @@ namespace REApp
     {
         // PARAMETROS DE ENVÍO MAIL
         private string NombreOrigen = "REAPP";
-        private string CorreoOrigen = "joaquinm.utn@gmail.com";
-        private string PassCorreo = "vandpjxiqkcfpeas";
+        private string CorreoOrigen = "reapp.utn@gmail.com";
+        private string PassCorreo = "bjzkdehztdaerdby";
 
         // ATRIBUTOS DE ENVÍO MAIL
         private string Asunto { get; set; }
