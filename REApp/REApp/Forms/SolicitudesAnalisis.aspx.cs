@@ -254,6 +254,7 @@ namespace REApp.Forms
             pnlABM.Visible = true;
             btnVolver.Visible = true;
             pnlInteresados.Visible = false;
+            btnGenerarKMZ.Visible = true;
         }
 
         protected void MostrarInteresados()
@@ -263,6 +264,7 @@ namespace REApp.Forms
             pnlListado.Visible = false;
             pnlABM.Visible = false;
             btnVolver.Visible = true;
+            btnGenerarKMZ.Visible = false;
         }
 
         //True p/visible, False p/ invisible

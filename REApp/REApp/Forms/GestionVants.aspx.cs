@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using MagicSQL;
+﻿using MagicSQL;
 using REApp.Models;
+using System;
+using System.Data;
+using System.Web.UI.WebControls;
 using static REApp.Navegacion;
 
 namespace REApp.Forms
@@ -44,7 +38,7 @@ namespace REApp.Forms
                     CargarComboSolicitante();
                     cargarGvVants();
                 }
-                if ( idRolInt == 2)
+                if (idRolInt == 2)
                 {
                     CargarComboSolicitante();
                     cargarGvVants();
@@ -76,7 +70,7 @@ namespace REApp.Forms
                 gvVants.DataSource = null;
             }
             gvVants.DataBind();
-            
+
 
         }
 
@@ -215,15 +209,15 @@ namespace REApp.Forms
             txtLugarGuardado.Text = Vant.LugarGuardado;
             txtNumeroSerie.Text = Vant.NumeroSerie;
 
-            
-            ddlProvincia.SelectedValue = Localidad.IdProvincia.ToCryptoID().ToString(); 
+
+            ddlProvincia.SelectedValue = Localidad.IdProvincia.ToCryptoID().ToString();
             ddlLocalidadPartido.SelectedValue = Localidad.IdLocalidad.ToCryptoID().ToString();
             habilitarDeshabilitarInputs(true);
 
 
             MostrarABM();
 
-            if(Vant.MotivoBaja != null)
+            if (Vant.MotivoBaja != null)
             {
                 txtFabricante.Enabled = false;
                 txtAñoFabricacion.Enabled = false;
@@ -278,6 +272,7 @@ namespace REApp.Forms
             ddlLocalidadPartido.SelectedValue = Localidad.IdLocalidad.ToCryptoID().ToString();
 
             MostrarABM();
+            btnGuardar.Visible = false;
 
             //Deshabilitar inputs
             habilitarDeshabilitarInputs(false);
@@ -368,7 +363,7 @@ namespace REApp.Forms
         //BOTON GUARDAR
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            if(ValidarCampos())
+            if (ValidarCampos())
             {
                 Models.Vant Vant = null;
                 if (hdnIdVant.Value.Equals(""))
@@ -475,6 +470,7 @@ namespace REApp.Forms
             btnNuevo.Visible = false;
             pnlABM.Visible = true;
             btnVolver.Visible = true;
+            btnGuardar.Visible = true;
 
             pnlMotivoBaja.Visible = false;
             txtMotivoBaja.Enabled = false;
@@ -545,7 +541,7 @@ namespace REApp.Forms
                 Alert("Error", "Por favor, seleccione la Provincia.", AlertType.error);
                 return false;
             }
-            if(pnlMotivoBaja.Visible & txtMotivoBaja.Text.Equals(""))
+            if (pnlMotivoBaja.Visible & txtMotivoBaja.Text.Equals(""))
             {
                 Alert("Error", "Por favor, ingrese el Motivo de Baja.", AlertType.error);
                 return false;
