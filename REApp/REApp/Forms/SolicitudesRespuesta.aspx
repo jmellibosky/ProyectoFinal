@@ -113,7 +113,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
     <div class="container">
         <h1 class="row justify-content-center mb-0 pb-0 pt-5">
-            <label style="font-family:Azonix; letter-spacing: 3px" class="fw-normal mb-3 pb-2">Gestión de Solicitudes en Respuesta</label>
+            <label style="font-family: Azonix; letter-spacing: 3px" class="fw-normal mb-3 pb-2">Gestión de Solicitudes en Respuesta</label>
         </h1>
         <%--Se borra el AutoPostBack porq hay q cargar el dgv de otra forma.--%>
         <br />
@@ -138,8 +138,20 @@
                 <div class="conteiner">
                     <div class="row">
                         <div class="col">
-                            <asp:Label runat="server">Solicitantes</asp:Label>
-                            <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" Width="300px" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" />
+                            <div class="row">
+                                <div class="col form-group">
+                                    <asp:Label runat="server">Solicitantes</asp:Label>
+                                    <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" Width="300px" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" />
+                                </div>
+                                <div class="col form-group">
+                                    <asp:Label runat="server">Ver Solicitudes Eliminadas</asp:Label>
+                                    <asp:DropDownList runat="server" ID="ddlVerBajas" CssClass="form-control select-single" Width="300px" AutoPostBack="true" OnSelectedIndexChanged="ddlVerBajas_SelectedIndexChanged">
+                                        <asp:ListItem Text="No" Value="0" />
+                                        <asp:ListItem Text="Sí" Value="1" />
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+
                             <br />
 
                             <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
@@ -181,7 +193,7 @@
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                             </asp:LinkButton>
-                                                           <%-- Comentado por las dudas, se remueve por la falta de necesidad de acceder a un notam--%>
+                                                            <%-- Comentado por las dudas, se remueve por la falta de necesidad de acceder a un notam--%>
                                                             <%--<asp:LinkButton ID="lnkMailRespuesta" runat="server" CommandName="EnviarMailRespuesta"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                 <i class="fa-solid fa-envelope" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
@@ -198,6 +210,10 @@
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                                     <i class="fa fa-comments" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                                             </asp:LinkButton>
+                                                            <asp:LinkButton ID="btnEliminar" ToolTip="Eliminar" runat="server" CommandName="Eliminar"
+                                                                CommandArgument='<%# Eval("IdSolicitud") %>' Visible='<%# ddlSolicitante.Enabled %>'>
+                                                                <i class="fa fa-trash text-danger" aria-hidden="true" style='font-size: 15px; margin-left: 10px'></i>
+                                                            </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                 </Columns>
@@ -213,7 +229,7 @@
 
             <asp:Panel ID="pnlABM" runat="server" Visible="false">
                 <br />
-<%--                <div class="row">
+                <%--                <div class="row">
                     <div class="col-12 alert alert-warning" role="alert">
                         <div class="row">
                             <h5><asp:Label runat="server" Text="Acciones" /></h5>
@@ -446,9 +462,9 @@
 
                                         <br />
                                         <%--InteresadosVinculados--%>
-                                            <div class="row">
-                                                <h5>Interesados Vinculados</h5>
-                                            </div>
+                                        <div class="row">
+                                            <h5>Interesados Vinculados</h5>
+                                        </div>
                                         <asp:Panel runat="server" ID="pnlInteresadosVinculados" Visible="false">
                                             <div class="row" style="overflow: auto; height: 400px; width: 1100px;">
                                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
