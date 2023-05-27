@@ -42,7 +42,14 @@ namespace REApp.Controllers
 
         public string ConstruirHTML()
         {
-            string template = File.ReadAllText(System.Web.Hosting.HostingEnvironment.MapPath("~/Content/html/" + TemplatePath));
+            string Path = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/html/" + TemplatePath);
+
+            if (Path == null)
+            {
+                Path = System.IO.Path.GetFullPath("../../Content/html/" + TemplatePath);
+            }
+
+            string template = File.ReadAllText(Path);
 
             string html = template.Replace("$TITULO$", Titulo).Replace("$DESCRIPCION$", Descripcion);
 
