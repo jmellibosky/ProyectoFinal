@@ -7,7 +7,7 @@ namespace REApp.Models
 {
     public partial class Documento : ISUD<Documento>
     {
-        public Documento() : base(1) { } // base(SPs_Version)
+        public Documento() : base(2) { } // base(SPs_Version)
 
         // Properties
 
@@ -38,5 +38,15 @@ namespace REApp.Models
         public int? IdTripulacion { get; set; }
 
         public int? IdTipoDocumento { get; set; }
+
+        public bool? NotificacionEmail { get; set; }
+
+        public int? IdUsuarioAprobadoPor { get; set; }
+
+        public DateTime? FHAprobacion { get; set; }
+
+        public int? IdUsuarioRechazadoPor { get; set; }
+
+        public DateTime? FHRechazo { get; set; }
     }
 }
