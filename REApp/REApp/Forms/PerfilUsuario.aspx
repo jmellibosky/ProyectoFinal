@@ -113,6 +113,23 @@
 
 <asp:Content ID="cBody" ContentPlaceHolderID="cphBody" runat="server">
 
+
+    <%-- Encabezado --%>
+    <div class="row">
+        <div class="col-12">
+
+            <h1 class="row justify-content-center mb-0 pb-0 pt-5">
+                <label style="font-family: Azonix; letter-spacing: 3px" class="fw-normal mb-3 pb-2">Perfil de Usuario</label>
+            </h1>
+            <br />
+            <div style="text-align: end;">
+                <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVolver_Click" />
+            </div>
+
+        </div>
+    </div>
+
+
     <asp:Panel ID="pnlABM" runat="server">
         <div class="row">
             <div class="col-12">
@@ -136,7 +153,7 @@
                                     <asp:Panel ID="pnlModalRol" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
                                         <%--Lo deje invisible al ddlModalSolicitante, ver--%>
                                         <asp:Label Text="Rol" runat="server" />
-                                        <asp:DropDownList runat="server" ID="ddlModalRol" CssClass="form-control select-single" Enabled="false"/>
+                                        <asp:DropDownList runat="server" ID="ddlModalRol" CssClass="form-control select-single" Enabled="false" />
                                     </asp:Panel>
                                 </div>
                                 <div class="row">
@@ -175,20 +192,6 @@
                                     <hr />
                                     <hr />
                                 </div>
-                                <div class="row">
-                                    <h6>Desea cambiar su contraseña?</h6>
-                                </div>
-                                <div class="row">
-                                    <asp:Panel ID="pnlPassword" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
-                                        <asp:Label Text="Contraseña actual:" runat="server" />
-                                        <asp:TextBox runat="server" ID="txtModalPasswordActual" CssClass="form-control" TextMode="Password" />
-                                        <hr />
-                                        <asp:Label Text="Contraseña Nueva" runat="server" />
-                                        <asp:TextBox runat="server" ID="txtModalPassword" CssClass="form-control" TextMode="Password" />                                        
-                                        <asp:Label Text="Confirmar Contraseña" runat="server" />
-                                        <asp:TextBox runat="server" ID="txtModalConfirmarPassword" CssClass="form-control" TextMode="Password" />
-                                    </asp:Panel>
-                                </div>
 
                                 <div class="row">
                                     <asp:HiddenField ID="hdnIdUsuario" runat="server" />
@@ -211,13 +214,46 @@
                             <div class="row">
                                 <div style="justify-content: center;">
                                     <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" OnClick="btnGuardar_Click1" />
+                                    <hr />
+
                                 </div>
                             </div>
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
+                    <div style="text-align: center;">
+                        <asp:Button ID="btnCambioPassword" Text="Cambiar contraseña ->" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnCambioPassword_Click" />
+                    </div>
+
                 </div>
             </div>
+        </div>
+    </asp:Panel>
+
+    <%--Panel actualizacion Password--%>
+    <asp:Panel ID="pnlCambioPassword" runat="server" Visible="false">
+        <div class="row">
+            <h6>Desea cambiar su contraseña?</h6>
+        </div>
+        <div class="row">
+                <asp:Panel ID="pnlPassword" CssClass="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 form-group" runat="server">
+                    <asp:Label Text="Contraseña actual:" runat="server" />
+                    <asp:TextBox runat="server" ID="txtModalPasswordActual" CssClass="form-control" TextMode="Password" />
+                    <hr />
+                    <asp:Label Text="Contraseña Nueva" runat="server" />
+                    <asp:TextBox runat="server" ID="txtModalPassword" CssClass="form-control" TextMode="Password" />
+                    <asp:Label Text="Confirmar Contraseña" runat="server" />
+                    <asp:TextBox runat="server" ID="txtModalConfirmarPassword" CssClass="form-control" TextMode="Password" />
+                    <hr />
+                    <hr />
+                    <asp:Label ID="lblRequisitos" runat="server" Text=""></asp:Label>
+                </asp:Panel>
+        </div>
+
+        <div style="justify-content: center;">
+            <hr />
+            <hr />
+            <asp:Button ID="btnActualizarPassword" Text="Actualizar Contraseña" CssClass="btn btn-success" runat="server" OnClick="btnActualizarPassword_Click" />
         </div>
     </asp:Panel>
 
