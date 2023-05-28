@@ -342,6 +342,7 @@ namespace REApp.Forms
             gvVANTs.DataBind();
             gvTripulacion.DataSource = null;
             gvTripulacion.DataBind();
+            Ubicaciones = null;
             //fupKMZ.Attributes.Clear();
         }
 
