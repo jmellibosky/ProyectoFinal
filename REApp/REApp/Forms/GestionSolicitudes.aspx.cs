@@ -739,17 +739,30 @@ namespace REApp.Forms
 
             if (!TieneValidacionEANA)
             {
-                Alert("Error", "Su usuario no se encuentro autorizado para crear solicitudes. Su usuario aún  no ha sido validado por el Administrador.", AlertType.error);
+                Alert("Error", "Su usuario no se encuentra autorizado para crear solicitudes. Su usuario aún  no ha sido validado por el Administrador.", AlertType.error);
             }
             return TieneValidacionEANA;
         }
 
+        protected bool validarDocumentosAdminOperador()
+        {
+            bool TieneDocCertificadoMedicoAceptado = false;
+            bool TieneDocCevantAceptado = false;
+            bool TieneDocCertificadoCompetenciaAceptado = false;
+            bool TieneDocPolizaAceptado = false;
+
+            int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
+
+            //logica validacion doc
+            return true;
+        }
 
         protected bool ValidarDocumentacion()
         {
             bool TieneCertificadoMedico = false;
             bool TieneCertificadoCompetencia = false;
             bool TieneCEVANT = false;
+            bool TienePoliza = false;
 
 
             int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
@@ -761,6 +774,7 @@ namespace REApp.Forms
                 int IdCertificadoMedico = new TipoDocumento().Select("Nombre = 'Certificado Médico'")[0].IdTipoDocumento;
                 int IdCertificadoComptencia = new TipoDocumento().Select("Nombre = 'Certificado de Competencia'")[0].IdTipoDocumento;
                 int IdCEVANT = new TipoDocumento().Select("Nombre = 'CEVANT'")[0].IdTipoDocumento;
+                int IdPoliza = new TipoDocumento().Select("Nombre = 'Póliza VANT'")[0].IdTipoDocumento;
 
                 foreach (Documento Doc in DocumentosUsuario)
                 {
@@ -777,6 +791,10 @@ namespace REApp.Forms
                         if (Doc.IdTipoDocumento.Value == IdCEVANT)
                         {
                             TieneCEVANT = true;
+                        }
+                        if (Doc.IdTipoDocumento.Value == IdPoliza)
+                        {
+                            TienePoliza = true;
                         }
                     }
                 }
@@ -798,16 +816,20 @@ namespace REApp.Forms
             {
                 Alert("Error", "No se encontró CEVANT o el mismo ha caducado. Por favor, verifique su documentación.", AlertType.error);
             }
+            else if (!TienePoliza)
+            {
+                Alert("Error", "No se encontró Póliza o la misma ha caducado. Por favor, verifique su documentación.", AlertType.error);
+            }
 
-            return TieneCertificadoMedico && TieneCertificadoCompetencia && TieneCEVANT;
+            return TieneCertificadoMedico && TieneCertificadoCompetencia && TieneCEVANT && TienePoliza;
         }
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             // Si el usuario logueado no es de tipo Solicitante O se validó la documentación
-            if (!Session["IdRol"].ToString().Equals("3") || ValidarDocumentacion())
+            if (!Session["IdRol"].ToString().Equals("3") || ValidarUsuarioEANA())
             {
-                if (ValidarUsuarioEANA())
+                if (ValidarDocumentacion())
                 {
                     LimpiarModal();
                     OcultarMostrarPanelesABM(false);

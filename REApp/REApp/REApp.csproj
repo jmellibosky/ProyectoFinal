@@ -189,6 +189,7 @@
     <Content Include="Forms\CambioEstadoSolicitud.aspx" />
     <Content Include="Forms\GestionInteresados.aspx" />
     <Content Include="Forms\PerfilUsuario.aspx" />
+    <Content Include="Forms\ValidacionDocumentacion.aspx" />
     <Content Include="Forms\VistaEstaticaSolicitud.aspx" />
     <Content Include="Forms\FileUpload.aspx" />
     <Content Include="Forms\ForoMensajes.aspx" />
@@ -386,6 +387,13 @@
     </Compile>
     <Compile Include="Forms\PerfilUsuario.aspx.designer.cs">
       <DependentUpon>PerfilUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ValidacionDocumentacion.aspx.cs">
+      <DependentUpon>ValidacionDocumentacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\ValidacionDocumentacion.aspx.designer.cs">
+      <DependentUpon>ValidacionDocumentacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\VistaEstaticaSolicitud.aspx.cs">
       <DependentUpon>VistaEstaticaSolicitud.aspx</DependentUpon>
