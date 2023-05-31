@@ -157,7 +157,7 @@
                         </div>
                         <br />
                     </div>
-                </asp:Panel>
+                <%--</asp:Panel>--%>
             </div>
         </div>
     </asp:Panel>
@@ -214,6 +214,7 @@
             </asp:Panel>
         </div>
     </div>
+    </asp:Panel>
     <%--  --%>
     <%--Panel Solicitante--%>
 
@@ -246,6 +247,7 @@
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
@@ -318,6 +320,7 @@
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
@@ -392,6 +395,7 @@
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
@@ -469,6 +473,7 @@
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
