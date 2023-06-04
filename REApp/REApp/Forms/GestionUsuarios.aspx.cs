@@ -399,6 +399,7 @@ namespace REApp.Forms
             builder.AppendTexto("Sus datos para ingresar al sistema son los siguientes: ");
             builder.AppendSaltoLinea(1);
             builder.AppendTexto("Email: " + usuario.Email);
+            builder.AppendSaltoLinea(1);
             builder.AppendTexto("Contraseña: " + password);
             builder.AppendSaltoLinea(2);
             builder.AppendTexto("Esta contraseña fue generada automaticamente, porfavor cambiela al ingresar al sistema.");

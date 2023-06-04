@@ -739,17 +739,23 @@ namespace REApp.Forms
 
             if (!TieneValidacionEANA)
             {
-                Alert("Error", "Su usuario no se encuentro autorizado para crear solicitudes. Su usuario aún  no ha sido validado por el Administrador.", AlertType.error);
+                Alert("Error", "Su usuario no se encuentra autorizado para crear solicitudes. Su usuario aún  no ha sido validado por el Administrador.", AlertType.error);
             }
             return TieneValidacionEANA;
         }
 
-
         protected bool ValidarDocumentacion()
         {
+            //Para la validacion, se tiene en cuenta que si tenga al menos un tipo de documento que este aprobado y con la fecha de vencimiento bien
+
             bool TieneCertificadoMedico = false;
             bool TieneCertificadoCompetencia = false;
             bool TieneCEVANT = false;
+            bool TienePoliza = false;
+            bool EstaAprobadoCMedico = false;
+            bool EstaAprobadoCCompetencia = false;
+            bool EstaAprobadoCEVANT = false;
+            bool EstaAprobadoPoliza = false;
 
 
             int IdUsuario = ddlSolicitante.SelectedValue.ToIntID();
@@ -761,6 +767,7 @@ namespace REApp.Forms
                 int IdCertificadoMedico = new TipoDocumento().Select("Nombre = 'Certificado Médico'")[0].IdTipoDocumento;
                 int IdCertificadoComptencia = new TipoDocumento().Select("Nombre = 'Certificado de Competencia'")[0].IdTipoDocumento;
                 int IdCEVANT = new TipoDocumento().Select("Nombre = 'CEVANT'")[0].IdTipoDocumento;
+                int IdPoliza = new TipoDocumento().Select("Nombre = 'Póliza VANT'")[0].IdTipoDocumento;
 
                 foreach (Documento Doc in DocumentosUsuario)
                 {
@@ -778,6 +785,30 @@ namespace REApp.Forms
                         {
                             TieneCEVANT = true;
                         }
+                        if (Doc.IdTipoDocumento.Value == IdPoliza)
+                        {
+                            TienePoliza = true;
+                        }
+                    }
+                    //Validacion documentos aprobado por Operador/Admin EANA
+                    if (Doc.FHAprobacion < DateTime.Now && Doc.FHRechazo == null)
+                    {
+                        if (Doc.IdTipoDocumento.Value == IdCertificadoMedico)
+                        {
+                            EstaAprobadoCMedico = true;
+                        }
+                        if (Doc.IdTipoDocumento.Value == IdCertificadoComptencia)
+                        {
+                            EstaAprobadoCCompetencia = true;
+                        }
+                        if (Doc.IdTipoDocumento.Value == IdCEVANT)
+                        {
+                            EstaAprobadoCEVANT = true;
+                        }
+                        if (Doc.IdTipoDocumento.Value == IdPoliza)
+                        {
+                            EstaAprobadoPoliza = true;
+                        }
                     }
                 }
             }
@@ -785,29 +816,50 @@ namespace REApp.Forms
             {
                 Alert("Error", "Ocurrió un error en la validación de los documentos.", AlertType.error);
             }
-
-            if (!TieneCertificadoCompetencia)
+            //Mensajes validacion Fecha de Vencimiento
+            if (!TieneCertificadoMedico)
+            {
+                Alert("Error", "No se encontró Certificado Médico o el mismo ha caducado. Por favor, verifique su documentación.", AlertType.error);
+            }
+            else if (!EstaAprobadoCMedico)
+            {
+                Alert("Error", "Su Certificado Medico aún no ha sido aprobado por un operador de EANA. Ud. no podrá crear una solicitud hasta que se realice la validación correspondiente.", AlertType.error);
+            }
+            else if (!TieneCertificadoCompetencia)
             {
                 Alert("Error", "No se encontró Certificado de Competencia o el mismo ha caducado. Por favor, verifique su documentación.", AlertType.error);
             }
-            else if (!TieneCertificadoMedico)
+            else if (!EstaAprobadoCCompetencia)
             {
-                Alert("Error", "No se encontró Certificado Médico o el mismo ha caducado. Por favor, verifique su documentación.", AlertType.error);
+                Alert("Error", "Su Certificado de Competencia aún no ha sido aprobado por un operador de EANA. Ud. no podrá crear una solicitud hasta que se realice la validación correspondiente.", AlertType.error);
             }
             else if (!TieneCEVANT)
             {
                 Alert("Error", "No se encontró CEVANT o el mismo ha caducado. Por favor, verifique su documentación.", AlertType.error);
             }
+            else if (!EstaAprobadoCEVANT)
+            {
+                Alert("Error", "Su CEVANT aún no ha sido aprobado por un operador de EANA. Ud. no podrá crear una solicitud hasta que se realice la validación correspondiente.", AlertType.error);
+            }
+            else if (!TienePoliza)
+            {
+                Alert("Error", "No se encontró Póliza o la misma ha caducado. Por favor, verifique su documentación.", AlertType.error);
+            }
+            else if (!EstaAprobadoPoliza)
+            {
+                Alert("Error", "Su Seguro/Póliza aún no ha sido aprobado por un operador de EANA. Ud. no podrá crear una solicitud hasta que se realice la validación correspondiente.", AlertType.error);
+            }
 
-            return TieneCertificadoMedico && TieneCertificadoCompetencia && TieneCEVANT;
+            return TieneCertificadoMedico && TieneCertificadoCompetencia && TieneCEVANT && TienePoliza && EstaAprobadoCMedico && EstaAprobadoCCompetencia && EstaAprobadoCEVANT && EstaAprobadoPoliza;
         }
+
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             // Si el usuario logueado no es de tipo Solicitante O se validó la documentación
-            if (!Session["IdRol"].ToString().Equals("3") || ValidarDocumentacion())
+            if (!Session["IdRol"].ToString().Equals("3") || ValidarUsuarioEANA())
             {
-                if (ValidarUsuarioEANA())
+                if (ValidarDocumentacion())
                 {
                     LimpiarModal();
                     OcultarMostrarPanelesABM(false);

@@ -49,14 +49,6 @@ namespace REApp.Forms
                     ddlSolicitante.SelectedValue = id.ToCryptoID().ToString();
                     ddlSolicitante.Enabled = false;
                     MostrarPanelSolicitante();
-                    //Certificado Medico
-                    //CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM, 0);
-                    //Cert Competencia
-                    //CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia, 0);
-                    //CEVANT
-                    //CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant, 0);
-                    //Poliza
-                    //CargarDoc(6, gvSeguroPoliza, pnlFuSeguroPoliza, pnlFechaVencimientoSeguroPoliza, pnlBtnSubirArchivoSeguroPoliza, 0);
                 }
                 
             }
@@ -173,10 +165,6 @@ namespace REApp.Forms
                 uploadMethod(FileUpload6, idTipoDoc, "Seguro/Póliza");
                 //Alert("Seguro/Poliza cargado con éxito", "Se ha vinculado un nuevo Seguro/Poliza a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
             }
-            //CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM);
-            //CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia);
-            //CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant);
-
         }
 
         protected void uploadMethod(System.Web.UI.WebControls.FileUpload FileUpload,int idTipoDoc, string titulo)
@@ -322,10 +310,6 @@ namespace REApp.Forms
                 );
             }
             Alert("Documento eliminado con éxito", "Se ha eliminado el documento seleccionado.", AlertType.success, "/Forms/FileUpload.aspx");
-            //CargarDoc(2, gvCertMedico, pnlFuCM, pnlFechaVencimientoCM, pnlBtnSubirArchivoCM);
-            //CargarDoc(3, gvCertCompetencia, pnlFUCertCompetencia, pnlFechaVencimientoCertCompetencia, pnlBtnSubirArchivoCertCompetencia);
-            //CargarDoc(4, gvCevant, pnlFUCevant, pnlFechaVencimientoCevant, pnlBtnSubirArchivoCevant);
-            //BindGrid();
         }
 
         protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
