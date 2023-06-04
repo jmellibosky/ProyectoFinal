@@ -771,45 +771,50 @@ namespace REApp.Forms
 
                 foreach (Documento Doc in DocumentosUsuario)
                 {
-                    if (Doc.FHVencimiento.Value > DateTime.Now)
+                    //se validan solamente los doc del usuario, no de los triupulantes
+                    if (Doc.IdTripulacion == null)
                     {
-                        if (Doc.IdTipoDocumento.Value == IdCertificadoMedico)
+                        if (Doc.FHVencimiento.Value > DateTime.Now)
                         {
-                            TieneCertificadoMedico = true;
+                            if (Doc.IdTipoDocumento.Value == IdCertificadoMedico)
+                            {
+                                TieneCertificadoMedico = true;
+                            }
+                            if (Doc.IdTipoDocumento.Value == IdCertificadoComptencia)
+                            {
+                                TieneCertificadoCompetencia = true;
+                            }
+                            if (Doc.IdTipoDocumento.Value == IdCEVANT)
+                            {
+                                TieneCEVANT = true;
+                            }
+                            if (Doc.IdTipoDocumento.Value == IdPoliza)
+                            {
+                                TienePoliza = true;
+                            }
                         }
-                        if (Doc.IdTipoDocumento.Value == IdCertificadoComptencia)
+                        //Validacion documentos aprobado por Operador/Admin EANA
+                        if (Doc.FHAprobacion < DateTime.Now && Doc.FHRechazo == null)
                         {
-                            TieneCertificadoCompetencia = true;
-                        }
-                        if (Doc.IdTipoDocumento.Value == IdCEVANT)
-                        {
-                            TieneCEVANT = true;
-                        }
-                        if (Doc.IdTipoDocumento.Value == IdPoliza)
-                        {
-                            TienePoliza = true;
+                            if (Doc.IdTipoDocumento.Value == IdCertificadoMedico)
+                            {
+                                EstaAprobadoCMedico = true;
+                            }
+                            if (Doc.IdTipoDocumento.Value == IdCertificadoComptencia)
+                            {
+                                EstaAprobadoCCompetencia = true;
+                            }
+                            if (Doc.IdTipoDocumento.Value == IdCEVANT)
+                            {
+                                EstaAprobadoCEVANT = true;
+                            }
+                            if (Doc.IdTipoDocumento.Value == IdPoliza)
+                            {
+                                EstaAprobadoPoliza = true;
+                            }
                         }
                     }
-                    //Validacion documentos aprobado por Operador/Admin EANA
-                    if (Doc.FHAprobacion < DateTime.Now && Doc.FHRechazo == null)
-                    {
-                        if (Doc.IdTipoDocumento.Value == IdCertificadoMedico)
-                        {
-                            EstaAprobadoCMedico = true;
-                        }
-                        if (Doc.IdTipoDocumento.Value == IdCertificadoComptencia)
-                        {
-                            EstaAprobadoCCompetencia = true;
-                        }
-                        if (Doc.IdTipoDocumento.Value == IdCEVANT)
-                        {
-                            EstaAprobadoCEVANT = true;
-                        }
-                        if (Doc.IdTipoDocumento.Value == IdPoliza)
-                        {
-                            EstaAprobadoPoliza = true;
-                        }
-                    }
+
                 }
             }
             catch (Exception ex)

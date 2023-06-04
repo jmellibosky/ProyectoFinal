@@ -155,6 +155,13 @@ namespace REApp.Forms
             builder.AppendSaltoLinea(3);
             builder.AppendTexto("Nos comunicamos de REAPP, queriamos informarle que su " + nombreTipoDoc + " con nombre: " + documento.Nombre + " ha sido rechazado por un operador de EANA.");
             builder.AppendSaltoLinea(2);
+            if (documento.IdTripulacion != null)
+            {
+                int idTripulante = (int)documento.IdTripulacion;
+                Tripulacion tripulante = new Tripulacion().Select(idTripulante);
+                builder.AppendTexto("El documento pertence a su tripulante: " + tripulante.Apellido + ", "+ tripulante.Nombre + ".");
+                builder.AppendSaltoLinea(2);
+            }
             builder.AppendTexto("Por favor verifique que haya subido un documento valido y que la fecha de vencimiento coincida con la especificada dentro del mismo.");
             builder.AppendSaltoLinea(2);
             builder.AppendTexto("Se ha habilitado para que pueda subir un " + nombreTipoDoc + " nuevo.");
@@ -177,9 +184,14 @@ namespace REApp.Forms
             builder.AppendSaltoLinea(3);
             builder.AppendTexto("Nos comunicamos de REAPP, queriamos informarle que su " + nombreTipoDoc + " con nombre: '" + documento.Nombre + "' ha sido aprobado por un operador de EANA.");
             builder.AppendSaltoLinea(2);
-            builder.AppendTexto("Ahora ya posee un " + nombreTipoDoc + " válido.");
-            builder.AppendSaltoLinea(2);
-            builder.AppendTexto("En caso de poseer todos los documentos con fecha de vencimiento válida y aprobados por un operador de EANA, está habilitado a crear nuevas solicitudes de REA.");
+            if (documento.IdTripulacion != null)
+            {
+                int idTripulante = (int)documento.IdTripulacion;
+                Tripulacion tripulante = new Tripulacion().Select(idTripulante);
+                builder.AppendTexto("El documento pertence a su tripulante: " + tripulante.Apellido + ", " + tripulante.Nombre + ".");
+                builder.AppendSaltoLinea(2);
+            }
+            builder.AppendTexto("En caso de que todos los documentos subidos al sistema se encuentren vigentes y estén aprobado por un operador de EANA, Ud. se encuentra habilitado para crear nuevas solicitudes de REA.");
             builder.AppendSaltoLinea(4);
             builder.AppendTexto("Saludos.");
             builder.AppendSaltoLinea(2);

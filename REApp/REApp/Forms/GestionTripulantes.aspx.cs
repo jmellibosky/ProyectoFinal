@@ -154,8 +154,8 @@ namespace REApp.Forms
                 txtModalApellido.Text = Tripulacion.Apellido;
                 txtModalNombre.Text = Tripulacion.Nombre;
                 txtModalDNI.Text = Tripulacion.DNI;
-                txtModalFechaNacimiento.TextMode = TextBoxMode.SingleLine;
-                txtModalFechaNacimiento.Text = Tripulacion.FechaNacimiento.ToString();
+                txtModalFechaNacimiento.TextMode = TextBoxMode.Date;
+                txtModalFechaNacimiento.Text = Tripulacion.FechaNacimiento.ToString("yyyy-MM-dd");
                 txtModalTelefono.Text = Tripulacion.Telefono;
                 txtModalCorreo.Text = Tripulacion.Correo;
                 int idTripulacion = Tripulacion.IdTripulacion;
@@ -186,8 +186,8 @@ namespace REApp.Forms
                 txtModalApellido.Text = Tripulacion.Apellido;
                 txtModalNombre.Text = Tripulacion.Nombre;
                 txtModalDNI.Text = Tripulacion.DNI;
-                txtModalFechaNacimiento.TextMode = TextBoxMode.SingleLine;
-                txtModalFechaNacimiento.Text = Tripulacion.FechaNacimiento.ToString();
+                txtModalFechaNacimiento.TextMode = TextBoxMode.Date;
+                txtModalFechaNacimiento.Text = Tripulacion.FechaNacimiento.ToString("yyyy-MM-dd");  
                 txtModalTelefono.Text = Tripulacion.Telefono;
                 txtModalCorreo.Text = Tripulacion.Correo;
                 int idTripulacion = Tripulacion.IdTripulacion;

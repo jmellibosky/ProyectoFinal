@@ -357,8 +357,9 @@
                                                             <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
                                                             <asp:BoundField DataField="IdTipoDocumento" HeaderText="ID DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
                                                             <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
-                                                            <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                                            <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                                            <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}"/>
+                                                            <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}"/>
+                                                            <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                                             <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                                                 <ItemTemplate>
                                                                     <%-- Boton con link para descargar archivo--%>
@@ -414,8 +415,9 @@
                                                             <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
                                                             <asp:BoundField DataField="IdTipoDocumento" HeaderText="ID DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
                                                             <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
-                                                            <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                                            <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                                            <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}"/>
+                                                            <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}"/>
+                                                            <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                                             <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                                                 <ItemTemplate>
                                                                     <%-- Boton con link para descargar archivo--%>

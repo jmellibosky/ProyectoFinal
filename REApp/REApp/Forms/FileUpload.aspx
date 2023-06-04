@@ -105,6 +105,15 @@
             margin: 4px 2px;
             cursor: pointer;
         }
+
+        .table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+        .myDiv {
+  padding: 30px;
+}
+
     </style>
 
     <%-- JS --%>
@@ -181,7 +190,7 @@
                         <asp:BoundField DataField="Extension" HeaderText="EXTENSIÓN" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                         <asp:BoundField DataField="NombreTipoDoc" HeaderText="TIPO DOC" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                         <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                        <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center"/>
                         <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                         <asp:BoundField DataField="VinculadoSolicitud" HeaderText="Vinculado a Solicitud" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
 
@@ -221,7 +230,7 @@
     <asp:Panel ID="PanelSolicitante" runat="server" Visible="false">
         <div class="row">
             <%--FileUpload 2--%>
-            <div class="col-sm-6">
+            <div class="col-sm-6 myDiv">
                 <div class="row">
                     <asp:Label runat="server" CssClass="font-weight-bold" ForeColor="black" ID="lblCertM">Certificado Médico</asp:Label>
                 </div>
@@ -241,12 +250,12 @@
                             <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                             <Columns>
                                 <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="IdTipoDocumento" HeaderText="ID DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+                                <%--<asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
+                                <%--<asp:BoundField DataField="IdTipoDocumento" HeaderText="TIPO DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center"/>
+                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
@@ -294,7 +303,7 @@
                 <br />
             </div>
             <%--FileUpload 3--%>
-            <div class="col-sm-6">
+            <div class="col-sm-6 myDiv">
                 <div class="row">
                     <asp:Label runat="server" CssClass="font-weight-bold" ForeColor="black" ID="Label1">Certificado de Competencia</asp:Label>
                 </div>
@@ -314,12 +323,12 @@
                             <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                             <Columns>
                                 <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="IdTipoDocumento" HeaderText="ID DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+                                <%--<asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
+                                <%--<asp:BoundField DataField="IdTipoDocumento" HeaderText="TIPO DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
@@ -369,7 +378,7 @@
             </div>
 
             <%--FileUpload 4--%>
-            <div class="col-sm-6">
+            <div class="col-sm-6 myDiv">
                 <div class="row">
                     <asp:Label runat="server" CssClass="font-weight-bold" ForeColor="black" ID="Label2">CEVANT</asp:Label>
                 </div>
@@ -389,12 +398,12 @@
                             <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                             <Columns>
                                 <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="IdTipoDocumento" HeaderText="ID DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+                                <%--<asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
+                                <%--<asp:BoundField DataField="IdTipoDocumento" HeaderText="TIPO DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center"/>
+                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
@@ -447,7 +456,7 @@
 
 
             <%--FileUpload 5--%>
-            <div class="col-sm-6">
+            <div class="col-sm-6 myDiv">
                 <div class="row">
                     <asp:Label runat="server" CssClass="font-weight-bold" ForeColor="black" ID="Label3">Seguro/Póliza</asp:Label>
                 </div>
@@ -467,12 +476,12 @@
                             <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                             <Columns>
                                 <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="IdTipoDocumento" HeaderText="ID DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+                                <%--<asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
+                                <%--<asp:BoundField DataField="IdTipoDocumento" HeaderText="TIPO DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center"/>
+                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>

@@ -20,7 +20,7 @@ namespace REApp.Models
 
         public string DNI { get; set; }
 
-        public DateTime? FechaNacimiento { get; set; }
+        public DateTime FechaNacimiento { get; set; }
 
         public string Telefono { get; set; }
 
