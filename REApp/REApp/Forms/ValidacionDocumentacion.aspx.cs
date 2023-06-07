@@ -227,7 +227,6 @@ namespace REApp.Forms
 
                         LinkButton lnkBtnRechazo = (LinkButton)e.Row.FindControl("lnkRechazarArchivo");
                         LinkButton lnkBtnAprobado = (LinkButton)e.Row.FindControl("lnkAceptarArchivo");
-
                         // Si el documento está Aprobado, deshabilitar el botón de rechazo
                         if (!string.IsNullOrEmpty(row["FHAprobacion"].ToString()))
                         {
@@ -243,7 +242,6 @@ namespace REApp.Forms
                     }
                 }
             }
-
         }
     }
 }

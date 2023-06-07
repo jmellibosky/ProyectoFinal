@@ -207,8 +207,6 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info"
-                                            ToolTip='<%# Eval("VinculadoSolicitud").ToString() == "Si" ? "Este documento se encuentra vinculado a una solicitud vigente." : "No se encuentra vinculado a una solicitud vigente" %>'
-                                            Enabled='<%# Eval("VinculadoSolicitud").ToString() != "Si" %>'
                                             OnClick="lnkDownload_Click"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                             <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>

@@ -107,13 +107,13 @@
         }
 
         .table-container {
-  overflow-x: auto;
-  max-width: 100%;
-}
-        .myDiv {
-  padding: 30px;
-}
+            overflow-x: auto;
+            max-width: 100%;
+        }
 
+        .myDiv {
+            padding: 30px;
+        }
     </style>
 
     <%-- JS --%>
@@ -134,10 +134,7 @@
     <%--Panel Admin--%>
     <asp:Panel ID="PanelAdmin" runat="server" Visible="false">
         <%-- Mostrar Archivos--%>
-
-
         <div class="container justify-content-center">
-
             <%--DDL y Carga de Archivos--%>
             <div class="row">
                 <div class="col align-self-start">
@@ -166,63 +163,59 @@
                         </div>
                         <br />
                     </div>
-                <%--</asp:Panel>--%>
+                </asp:Panel>
             </div>
         </div>
-    </asp:Panel>
-    <%--DGV Admin--%>
-    <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
-        <div class="row" style="overflow: auto; height: 375px; width: 1100px;">
-            <asp:Panel ID="upDoc" Style="width: 100%;" runat="server">
-                <asp:GridView ID="gvArchivos"
-                    runat="server"
-                    AutoGenerateColumns="false"
-                    CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvArchivos_RowDataBound">
-                    <AlternatingRowStyle BackColor="white" />
-                    <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
-                    <RowStyle BackColor="#e1dddd" />
-                    <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
-                    <Columns>
-                        <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                        <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="NombreUsuario" HeaderText="PROPIETARIO" ItemStyle-Width="10%" />
-                        <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
-                        <asp:BoundField DataField="Extension" HeaderText="EXTENSIÓN" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="NombreTipoDoc" HeaderText="TIPO DOC" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center"/>
-                        <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="VinculadoSolicitud" HeaderText="Vinculado a Solicitud" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+        <%--    </asp:Panel>--%>
+        <%--DGV Admin--%>
+        <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
+            <div class="row" style="overflow: auto; height: 375px; width: 1100px;">
+                <asp:Panel ID="upDoc" Style="width: 100%;" runat="server">
+                    <asp:GridView ID="gvArchivos"
+                        runat="server"
+                        AutoGenerateColumns="false"
+                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvArchivos_RowDataBound">
+                        <AlternatingRowStyle BackColor="white" />
+                        <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                        <RowStyle BackColor="#e1dddd" />
+                        <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+                        <Columns>
+                            <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                            <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+                            <asp:BoundField DataField="NombreUsuario" HeaderText="PROPIETARIO" ItemStyle-Width="10%" />
+                            <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
+                            <asp:BoundField DataField="Extension" HeaderText="EXTENSIÓN" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                            <asp:BoundField DataField="NombreTipoDoc" HeaderText="TIPO DOC" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                            <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
+                            <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
+                            <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                            <asp:BoundField DataField="VinculadoSolicitud" HeaderText="Vinculado a Solicitud" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
 
-                        <%-- Boton con link para descargar archivo--%>
-                        <asp:TemplateField ItemStyle-Width="10%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
-                            <ItemTemplate>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info"
-                                            ToolTip='<%# Eval("VinculadoSolicitud").ToString() == "Si" ? "Este documento se encuentra vinculado a una solicitud vigente." : "No se encuentra vinculado a una solicitud vigente" %>'
-                                            Enabled='<%# Eval("VinculadoSolicitud").ToString() != "Si" %>'
-                                            OnClick="lnkDownload_Click1"
-                                            CommandArgument='<%# Eval("IdDocumento") %>'>
+                            <%-- Boton con link para descargar archivo--%>
+                            <asp:TemplateField ItemStyle-Width="10%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info"
+                                                OnClick="lnkDownload_Click1"
+                                                CommandArgument='<%# Eval("IdDocumento") %>'>
                                             <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
-                                        </asp:LinkButton>
+                                            </asp:LinkButton>
 
-                                        <%--Boton para eliminar archivo de la BD--%>
-                                        <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click"
-                                            CommandArgument='<%# Eval("IdDocumento") %>'>
+                                            <%--Boton para eliminar archivo de la BD--%>
+                                            <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-danger" OnClick="lnkEliminarArchivo_Click"
+                                                CommandArgument='<%# Eval("IdDocumento") %>'>
                                             <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; color:#525252' ></i>
-                                        </asp:LinkButton>
+                                            </asp:LinkButton>
+                                        </div>
                                     </div>
-                                </div>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-
-                    </Columns>
-
-                </asp:GridView>
-            </asp:Panel>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </asp:Panel>
+            </div>
         </div>
-    </div>
     </asp:Panel>
     <%--  --%>
     <%--Panel Solicitante--%>
@@ -254,13 +247,13 @@
                                 <%--<asp:BoundField DataField="IdTipoDocumento" HeaderText="TIPO DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center"/>
+                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
+                                <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
-                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' OnClick="lnkDownload_Click1"
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
@@ -329,11 +322,11 @@
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
+                                <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
-                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' OnClick="lnkDownload_Click1"
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
@@ -402,14 +395,13 @@
                                 <%--<asp:BoundField DataField="IdTipoDocumento" HeaderText="TIPO DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center"/>
+                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
+                                <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
-                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>'
-                                            Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' OnClick="lnkDownload_Click1"
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
@@ -480,13 +472,13 @@
                                 <%--<asp:BoundField DataField="IdTipoDocumento" HeaderText="TIPO DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center"/>
+                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
+                                <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
-                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este documento se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' OnClick="lnkDownload_Click1"
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>

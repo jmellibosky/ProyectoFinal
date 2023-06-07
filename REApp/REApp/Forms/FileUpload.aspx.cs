@@ -371,6 +371,7 @@ namespace REApp.Forms
                     LinkButton lnkBtn = (LinkButton)e.Row.FindControl("lnkEliminarArchivo");
                     lnkBtn.Visible = false;
                 }
+
             }
         }
 

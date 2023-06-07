@@ -232,10 +232,10 @@
                                                             <ItemTemplate>
                                                                 <div class="row">
                                                                     <div class="col-12">
-                                                                        <asp:LinkButton ID="btnEditar" CssClass="btn btn-warning" CommandName="Editar" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este tripulante se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
+                                                                        <asp:LinkButton ID="btnEditar" CssClass="btn btn-warning" CommandName="Editar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
                                                             <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; color:#525252' ></i>    
                                                                         </asp:LinkButton>
-                                                                        <asp:LinkButton ID="btnEliminar" CssClass="btn btn-danger" CommandName="Eliminar" ToolTip='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? "Este tripulante se encuentra vinculado a una solicitud vigente." : "" %>' Enabled='<%# (Eval("VinculadoSolicitud").ToString() == "1") ? false : true %>' CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
+                                                                        <asp:LinkButton ID="btnEliminar" CssClass="btn btn-danger" CommandName="Eliminar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
                                                             <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; color:#525252' ></i>
                                                                         </asp:LinkButton>
                                                                         <asp:LinkButton ID="btnVerDetalle" CssClass="btn btn-secondary" CommandName="Detalle" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
