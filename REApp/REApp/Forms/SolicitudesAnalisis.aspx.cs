@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -91,6 +92,7 @@ namespace REApp.Forms
             using (SP sp = new SP("bd_reapp"))
             {
                 int IdUsuario = ddlModalSolicitante.SelectedValue.ToIntID();
+                DataTable dataTableFiltradaTrip = new DataTable();
 
                 DataTable dt = sp.Execute("usp_GetTripulacionDeSolicitud",
                     P.Add("IdSolicitud", IdSolicitud),
@@ -99,13 +101,26 @@ namespace REApp.Forms
 
                 if (dt.Rows.Count > 0)
                 {
-                    gvTripulacion.DataSource = dt;
+                    dataTableFiltradaTrip = dt.AsEnumerable().Where(row => row.Field<int>("Checked") == 1).CopyToDataTable();
+                    gvTripulacion.DataSource = dataTableFiltradaTrip;
                 }
                 else
                 {
                     gvTripulacion.DataSource = null;
                 }
                 gvTripulacion.DataBind();
+
+                //Borrar si no cambiamos el SP de la base
+                //if (dt.Rows.Count > 0)
+                //{
+                //    var dataTableFiltrada = dt.AsEnumerable().Where(row => row.Field<int>("Checked") == 1).CopyToDataTable();
+                //    gvTripulacion.DataSource = dt;
+                //}
+                //else
+                //{
+                //    gvTripulacion.DataSource = null;
+                //}
+                //gvTripulacion.DataBind();
             }
         }
 
@@ -397,6 +412,8 @@ namespace REApp.Forms
         {
             pnlSeleccionVants.Visible = !chkVant.Checked;
 
+            DataTable dataTableFiltradaVants = new DataTable();
+
             DataTable dt = null;
             if (!chkVant.Checked)
             {
@@ -407,9 +424,12 @@ namespace REApp.Forms
                     P.Add("IdUsuario", ddlModalSolicitante.SelectedValue.ToIntID())
                 );
 
+                //Para que muestre solo los Vants activos utilizamos la tabla auxiliar, si cambiamos el SP tambien tenemos que cambiar aca.
+
                 if (dt.Rows.Count > 0)
                 {
-                    gvVANTs.DataSource = dt;
+                    dataTableFiltradaVants = dt.AsEnumerable().Where(row => row.Field<int>("Checked") == 1).CopyToDataTable();
+                    gvVANTs.DataSource = dataTableFiltradaVants;
                 }
                 else
                 {
