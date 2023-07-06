@@ -24,7 +24,7 @@
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <!-- Empieza SideBar Administrador -->
-            <div class="border-end-a sidebarToggle" runat="server" id="sidebarAdmin">
+            <div class="border-end-a sidebarToggle" runat="server" id="sidebarAdmin" style="width: 440px">
                 <%-- Aca es donde depende si es Admin o no lo que se muestra --%>
                 <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;margin:10px 10px 10px 10px"></image>
                 <%--<div runat="server" id="lblRol" class="sidebar-heading border-bottom bg-light">Rol Sistema</div>--%>
@@ -76,7 +76,7 @@
                 </div>
             </div>
             <!-- Empieza SideBar Solicitante -->
-            <div class="border-end-s sidebarToggle" runat="server" id="sidebarSolicitante">
+            <div class="border-end-s sidebarToggle" runat="server" id="sidebarSolicitante" style="width: 440px">
                 <%-- Aca es donde depende si es Admin o no lo que se muestra --%>
                 <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;margin:10px 10px 10px 10px"></image>
                 <%--<div runat="server" id="lblRol" class="sidebar-heading border-bottom bg-light">Rol Sistema</div>--%>
@@ -104,7 +104,7 @@
                 </div>
             </div>
             <!-- Empieza SideBar Operador -->
-            <div class="border-end-o sidebarToggle" runat="server" id="sidebarOperador">
+            <div class="border-end-o sidebarToggle" runat="server" id="sidebarOperador" style="width: 440px">
                 <%-- Aca es donde depende si es Admin o no lo que se muestra --%>
                 <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;margin:10px 10px 10px 10px"></image>
                 <%--<div runat="server" id="lblRol" class="sidebar-heading border-bottom bg-light">Rol Sistema</div>--%>
@@ -112,40 +112,40 @@
                     <ul id="side-menu3" class="nav">
                         <%-- Operador --%>
                         <li id="li6" style="" runat="server">
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="HomeForm.aspx">HOME
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="HomeForm.aspx">HOME
                                 <i class="fa fa-home"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">GESTIÓN DE SOLICITUDES
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/GestionSolicitudes">GESTIÓN DE SOLICITUDES
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRecepcion">&nbsp; &nbsp; RECEPCIÓN DE SOLICITUDES REA
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRecepcion">&nbsp; &nbsp; RECEPCIÓN DE SOLICITUDES REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesAnalisis">&nbsp; &nbsp; VALIDACIÓN ANÁLISIS REA
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/SolicitudesAnalisis">&nbsp; &nbsp; VALIDACIÓN ANÁLISIS REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesCoordinacion">&nbsp; &nbsp; VALIDACIÓN COORDINACIÓN REA
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/SolicitudesCoordinacion">&nbsp; &nbsp; VALIDACIÓN COORDINACIÓN REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRespuesta">&nbsp; &nbsp; RESPUESTA REA
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/SolicitudesRespuesta">&nbsp; &nbsp; RESPUESTA REA
                                 <i class="fas fa-plane-departure"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">GESTIÓN DE TRIPULACIÓN
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/GestionTripulantes.aspx">GESTIÓN DE TRIPULACIÓN
                                 <i class="fas fa-users"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionUsuarios.aspx">GESTIÓN DE USUARIOS
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/GestionUsuarios.aspx">GESTIÓN DE USUARIOS
                                 <i class="fas fa-user"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">GESTIÓN DE VANTS
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">GESTIÓN DE VANTS
                                 <i class="fas fa-plane"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">GESTION DE DOCUMENTACIÓN
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">GESTION DE DOCUMENTACIÓN
                                 <i class="fas fa-list"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/ValidacionDocumentacion.aspx">&nbsp; &nbsp; VALIDACIÓN DE DOCUMENTACIÓN
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/ValidacionDocumentacion.aspx">&nbsp; &nbsp; VALIDACIÓN DE DOCUMENTACIÓN
                                 <i class="fas fa-list"></i>
                             </a>
-                            <a class="list-group-item list-group-item-action p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">GESTION DE INTERESADOS
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">GESTION DE INTERESADOS
                                 <i class="fas fa-address-book"></i>
                             </a>
                         </li>
