@@ -20,19 +20,19 @@ namespace REApp.Forms.HomeDash
 
                 if (idRolInt == 3) //Solicitante
                 {
-                    //lblRol.InnerText = "Solicitante";
+                    nombreRol.InnerText = "Solicitante";
                     sidebarOperador.Style["display"] = "none";
                     sidebarAdmin.Style["display"] = "none";
                 }
                 else if (idRolInt == 1) //Administrador
                 {
-                    //lblRol.InnerText = "Administrador";
+                    nombreRol.InnerText = "Administrador";
                     sidebarOperador.Style["display"] = "none";
                     sidebarSolicitante.Style["display"] = "none";
                 }
                 else if (idRolInt == 2) //Operador
                 {
-                    //lblRol.InnerText = "Operador";
+                    nombreRol.InnerText = "Operador";
                     sidebarSolicitante.Style["display"] = "none";
                     sidebarAdmin.Style["display"] = "none";
                 }
