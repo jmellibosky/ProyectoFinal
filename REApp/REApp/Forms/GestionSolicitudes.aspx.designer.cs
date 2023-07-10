@@ -447,6 +447,15 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.CheckBox chkEsPoligono;
 
         /// <summary>
+        /// Control hdnUbicacionId.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnUbicacionId;
+
+        /// <summary>
         /// Control pnlProvincia.
         /// </summary>
         /// <remarks>
@@ -591,13 +600,13 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Button btnGuardarPuntoGeografico;
 
         /// <summary>
-        /// Control btnGuardarUbicacion.
+        /// Control Button1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardarUbicacion;
+        protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
         /// Control rptUbicaciones.
@@ -607,6 +616,15 @@ namespace REApp.Forms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptUbicaciones;
+
+        /// <summary>
+        /// Control gridUbicaciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gridUbicaciones;
 
         /// <summary>
         /// Control upTripulacion.

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.UI;
@@ -41,6 +42,34 @@ namespace REApp.Forms
                 }
             }
         }
+
+        public List<UbicacionPrueba> UbicacionesPruebas
+        {
+            get
+            {
+                if (ViewState["UbicacionesPruebas"] == null)
+                {
+                    return new List<UbicacionPrueba>();
+                }
+                else
+                {
+                    return ViewState["UbicacionesPruebas"].ToString().ToList<UbicacionPrueba>();
+                }
+            }
+            set
+            {
+                if (value == null)
+                {
+                    ViewState["UbicacionesPruebas"] = null;
+                }
+                else
+                {
+                    ViewState["UbicacionesPruebas"] = value.ToJson();
+                }
+            }
+        }
+
+        private static List<UbicacionPrueba> initialUbicaciones = new List<UbicacionPrueba>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -1181,8 +1210,43 @@ namespace REApp.Forms
         {
             if (ValidarGuardarUbicacion())
             {
+                bool poligono = true;
+                int idUbicacion = 0;
+                int idProvincia = ddlProvincia.SelectedValue.ToIntID(); ///////VER SIT A BIEN HACER ASI EL ID PROVINCIA
+                //string idProvincia = idProvincia.
+                if (chkEsPoligono.Checked) // Si es poligono, tenemos que recorrer la tabla (o lista de poligono) y para cada una agregar a la tabla/lista ubicaciones
+                {
+
+                }
+                else //Si no es poligono, agregamos directamente
+                {
+                    string latitud = txtCircunferenciaLatitud.Text;
+                    string longitud = txtCircunferenciaLongitud.Text;
+                    string radio = txtCircunferenciaRadio.Text;
+                    string altura = txtCircunferenciaAltura.Text;
+                    poligono = false;
+                    
+
+                    if (!string.IsNullOrWhiteSpace(hdnUbicacionId.Value))
+                    {
+                        idUbicacion = Convert.ToInt32(hdnUbicacionId.Value);
+                    }
+
+                    AgregarUbicacion(idUbicacion, poligono,latitud, longitud, radio, altura, idProvincia);
+                }
+
+
+                UpdateUbicacionesTable();
+
+                // Limpiar los campos de entrada
+                LimpiarTextBox();
+
+
+
                 pnlAgregarUbicacion.Visible = false;
                 pnlAgregarPuntoGeograficoYGrilla.Visible = false;
+
+
                 btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = true;
                 AgregarUbicacionRepeater();
 
@@ -1687,6 +1751,175 @@ namespace REApp.Forms
                 }
             }
         }
+
+        ////////////////////TABLA UBICACIONES/////////////////////
+
+        //protected void btnCargarDatos_Click()
+        //{
+        //    if (string.IsNullOrWhiteSpace(hdnUbicacionId.Value))
+        //    {
+        //        AgregarUbicacion(txtCircunferenciaLatitud.Text, txtCircunferenciaLongitud.Text, txtCircunferenciaRadio.Text, txtCircunferenciaAltura.Text);
+        //    }
+        //    else
+        //    {
+        //        int ubicacionId = Convert.ToInt32(hdnUbicacionId.Value);
+        //        ModificarUbicacion(ubicacionId, txtCircunferenciaLatitud.Text, txtCircunferenciaLongitud.Text, txtCircunferenciaRadio.Text);
+        //        hdnUbicacionId.Value = string.Empty;
+        //    }
+
+        //    UpdateUbicacionesTable();
+        //    LimpiarTextBox();
+        //}
+
+        protected void lnkModificar_Click(object sender, EventArgs e)
+        {
+
+            LinkButton btnModificar = (LinkButton)sender;
+            int ubicacionId = Convert.ToInt32(btnModificar.CommandArgument);
+            UbicacionPrueba ubicacion = ObtenerUbicacion(ubicacionId);
+
+            pnlAgregarUbicacion.Visible = true;
+            pnlAgregarPuntoGeograficoYGrilla.Visible = true;
+            btnAgregarUbicacion.Visible = false;
+
+
+            if (ubicacion != null)
+            {
+                txtCircunferenciaLatitud.Text = ubicacion.Latitud;
+                txtCircunferenciaLongitud.Text = ubicacion.Longitud;
+                txtCircunferenciaRadio.Text = ubicacion.Radio;
+                txtCircunferenciaAltura.Text = ubicacion.Altura;
+                hdnUbicacionId.Value = ubicacionId.ToString();
+            }
+        }
+
+        protected void lnkEliminar_Click(object sender, EventArgs e)
+        {
+            LinkButton btnEliminar = (LinkButton)sender;
+            int ubicacionId = Convert.ToInt32(btnEliminar.CommandArgument);
+            EliminarUbicacion(ubicacionId);
+            UpdateUbicacionesTable();
+        }
+
+
+
+        private void InitializeUbicacionesTable()
+        {
+            UpdateUbicacionesTable();
+        }
+
+
+        private void AgregarUbicacion(int idUbicacion, bool poligono, string latitud, string longitud, string radio,string altura, int idProvincia)
+        {
+            //// Crea una nueva ubicación con un ID generado automáticamente
+            int numeroubicación = GetNextUbicacionId();
+            UbicacionPrueba ubicaciónAgregada = new UbicacionPrueba(numeroubicación, idUbicacion, poligono, latitud, longitud, radio, altura, idProvincia);
+
+            //// Agrega la ubicación a la lista de ubicaciones
+            initialUbicaciones.Add(ubicaciónAgregada);
+
+        }
+
+        private void ModificarUbicacion(int ubicacionId, string latitud, string longitud, string radio)
+        {
+            // Obtiene la ubicación existente de la lista de ubicaciones
+            UbicacionPrueba ubicacion = ObtenerUbicacion(ubicacionId);
+
+            if (ubicacion != null)
+            {
+                // Actualiza los datos de la ubicación
+                ubicacion.Latitud = latitud;
+                ubicacion.Longitud = longitud;
+                ubicacion.Radio = radio;
+            }
+        }
+
+        private void EliminarUbicacion(int ubicacionId)
+        {
+            // Obtiene la ubicación existente de la lista de ubicaciones
+            UbicacionPrueba ubicacion = ObtenerUbicacion(ubicacionId);
+
+            if (ubicacion != null)
+            {
+                // Elimina la ubicación de la lista de ubicaciones
+                List<UbicacionPrueba> ubicaciones = ObtenerUbicaciones();
+                ubicaciones.Remove(ubicacion);
+            }
+        }
+
+        private void UpdateUbicacionesTable()
+        {
+
+
+            // Asigna la lista de ubicaciones como origen de datos del GridView
+            gridUbicaciones.DataSource = initialUbicaciones;
+            gridUbicaciones.DataBind();
+        }
+
+        private void LimpiarTextBox()
+        {
+            txtCircunferenciaLatitud.Text = string.Empty;
+            txtCircunferenciaLongitud.Text = string.Empty;
+            txtCircunferenciaRadio.Text = string.Empty;
+            txtCircunferenciaAltura.Text = string.Empty;
+            hdnUbicacionId.Value = string.Empty;
+            txtPoligonoAltura.Text = string.Empty;
+            txtPoligonoLatitud.Text = string.Empty;
+            txtPoligonoLongitud.Text = string.Empty;
+        }
+
+        private int GetNextUbicacionId()
+        {
+            // Genera un nuevo ID automáticamente para una ubicación
+            // En este ejemplo, incrementamos un contador y lo devolvemos
+
+            int maxId = 0;
+
+            foreach (UbicacionPrueba ubicacion in initialUbicaciones)
+            {
+                if (ubicacion.Id > maxId)
+                {
+                    maxId = ubicacion.Id;
+                }
+            }
+
+            return maxId + 1;
+        }
+
+        private List<UbicacionPrueba> ObtenerUbicaciones()
+        {
+            // Obtiene la lista de ubicaciones del GridView
+
+            List<UbicacionPrueba> ubicaciones = new List<UbicacionPrueba>();
+
+            foreach (GridViewRow row in gridUbicaciones.Rows)
+            {
+                int id = Convert.ToInt32(row.Cells[0].Text);
+                int idUbicación = Convert.ToInt32(row.Cells[1].Text);
+                bool poligono = Convert.ToBoolean(row.Cells[2].Text);
+                string latitud = row.Cells[3].Text;
+                string longitud = row.Cells[4].Text;
+                string radio = row.Cells[5].Text;
+                string altura = row.Cells[6].Text;
+                int idProvincia = Convert.ToInt32(row.Cells[7].Text);
+
+                UbicacionPrueba ubicacion = new UbicacionPrueba(id, idUbicación, poligono, latitud, longitud, radio, altura, idProvincia);
+                ubicaciones.Add(ubicacion);
+            }
+
+            return ubicaciones;
+        }
+
+        private UbicacionPrueba ObtenerUbicacion(int ubicacionId)
+        {
+            // Busca una ubicación por su ID en la lista de ubicaciones
+
+            List<UbicacionPrueba> ubicaciones = ObtenerUbicaciones();
+            return ubicaciones.FirstOrDefault(u => u.Id == ubicacionId);
+        }
+
+
+
     }
 
     public class UbicacionRedux
@@ -1698,5 +1931,28 @@ namespace REApp.Forms
         public string IdUbicacion { get; set; }
 
         public int IdProvincia { get; set; }
+    }
+
+    public class UbicacionPrueba
+    {
+        public int Id { get; set; } //Id de la lista
+        public int IdUbicacion { get; set; } //Id de la bd (si recien se crean. van a estar en 0 y despues se deberían setear. Los diferentes de 0 es porque vienen de la bd)
+        public bool Poligono  { get; set; } //True == Punto de poligono; False == Circunferencia
+        public string Latitud { get; set; }
+        public string Longitud { get; set; }
+        public string Radio { get; set; }
+        public string Altura { get; set; }
+        public int IdProvincia { get; set; }
+        public UbicacionPrueba(int id, int idUbicacion, bool poligono, string latitud, string longitud, string radio, string altura, int idProvincia)
+        {
+            Id = id;
+            IdUbicacion = idUbicacion;
+            Poligono = poligono;
+            Latitud = latitud;
+            Longitud = longitud;
+            Radio = radio;
+            Altura = altura;
+            IdProvincia = idProvincia;
+        }
     }
 }
