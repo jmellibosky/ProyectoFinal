@@ -19,8 +19,8 @@ namespace AsyncMailSender
             while (true)
             {
                 TimeSpan HoraActual = DateTime.Now.TimeOfDay;
-                TimeSpan HoraInicioProceso = new TimeSpan(13, 10, 0); // Por defecto a las 8 AM
-                TimeSpan HoraFinProceso = new TimeSpan(13, 30, 0);
+                TimeSpan HoraInicioProceso = new TimeSpan(20, 44, 0); // Por defecto a las 8 AM
+                TimeSpan HoraFinProceso = new TimeSpan(20, 45, 0);
 
                 int MilisegundosEspera = (int)HoraFinProceso.Subtract(HoraInicioProceso).TotalSeconds * 1000;
 

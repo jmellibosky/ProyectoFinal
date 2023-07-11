@@ -128,7 +128,6 @@ namespace REApp.Forms
             {
                 List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
                 parameters.Add(P.Add("IdEstadoSolicitud1", 1));
-                parameters.Add(P.Add("IdEstadoSolicitud2", 11));
                 if (!ddlSolicitante.SelectedItem.Value.Equals("#"))
                 {
                     parameters.Add(P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()));

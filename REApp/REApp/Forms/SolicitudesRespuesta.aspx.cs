@@ -131,6 +131,8 @@ namespace REApp.Forms
             using (SP sp = new SP("bd_reapp"))
             {
                 List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+                string idUsuario = Session["IdUsuario"].ToString();
+                parameters.Add(P.Add("IdOperador", idUsuario));
                 parameters.Add(P.Add("IdEstadoSolicitud1", 5));
                 parameters.Add(P.Add("IdEstadoSolicitud2", 6));
                 parameters.Add(P.Add("IdEstadoSolicitud3", 7));
