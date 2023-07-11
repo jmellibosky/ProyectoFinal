@@ -1211,29 +1211,61 @@ namespace REApp.Forms
             if (ValidarGuardarUbicacion())
             {
                 bool poligono = true;
-                int idUbicacion = 0;
                 int idProvincia = ddlProvincia.SelectedValue.ToIntID(); ///////VER SIT A BIEN HACER ASI EL ID PROVINCIA
-                //string idProvincia = idProvincia.
-                if (chkEsPoligono.Checked) // Si es poligono, tenemos que recorrer la tabla (o lista de poligono) y para cada una agregar a la tabla/lista ubicaciones
+
+                if (string.IsNullOrWhiteSpace(hdnUbicacionId.Value)) //Si hdnUbicacionId está vacio, es porque se está creando uno nuevo que se agregará a la lista
                 {
 
-                }
-                else //Si no es poligono, agregamos directamente
-                {
-                    string latitud = txtCircunferenciaLatitud.Text;
-                    string longitud = txtCircunferenciaLongitud.Text;
-                    string radio = txtCircunferenciaRadio.Text;
-                    string altura = txtCircunferenciaAltura.Text;
-                    poligono = false;
-                    
+                    int idUbicacion = 0;
 
-                    if (!string.IsNullOrWhiteSpace(hdnUbicacionId.Value))
+                                                                            //string idProvincia = idProvincia.
+                    if (chkEsPoligono.Checked) // Si es poligono, tenemos que recorrer la tabla (o lista de poligono) y para cada una agregar a la tabla/lista ubicaciones
                     {
-                        idUbicacion = Convert.ToInt32(hdnUbicacionId.Value);
+
+                    }
+                    else //Si no es poligono, agregamos directamente
+                    {
+                        string latitud = txtCircunferenciaLatitud.Text;
+                        string longitud = txtCircunferenciaLongitud.Text;
+                        string radio = txtCircunferenciaRadio.Text;
+                        string altura = txtCircunferenciaAltura.Text;
+                        poligono = false;
+
+
+                        if (!string.IsNullOrWhiteSpace(hdnUbicacionId.Value))
+                        {
+                            idUbicacion = Convert.ToInt32(hdnUbicacionId.Value);
+                        }
+
+                        AgregarUbicacion(idUbicacion, poligono, latitud, longitud, radio, altura, idProvincia);
+                    }
+                }
+                else //Si hdnUbicaciónId no está vacio, es porque se está modificando uno. 
+                {
+
+                    if (chkEsPoligono.Checked) // Si es poligono, tenemos que recorrer la tabla (o lista de poligono) y para cada una agregar a la tabla/lista ubicaciones
+                    {
+
+                    }
+                    else //Si no es poligono, obtenemos de la lista la ubicación con ese id. Modificamos sus valores
+                    {
+                        foreach (UbicacionPrueba ubicacion in initialUbicaciones)
+                        {
+                            if (ubicacion.Id == Convert.ToInt32(hdnUbicacionId.Value))
+                            {
+                                ubicacion.Latitud = txtCircunferenciaLatitud.Text;
+                                ubicacion.Longitud = txtCircunferenciaLongitud.Text;
+                                ubicacion.Radio = txtCircunferenciaRadio.Text;
+                                ubicacion.Altura = txtCircunferenciaAltura.Text;
+                                ubicacion.IdProvincia = idProvincia;
+                            }
+                        }
                     }
 
-                    AgregarUbicacion(idUbicacion, poligono,latitud, longitud, radio, altura, idProvincia);
+
+
                 }
+
 
 
                 UpdateUbicacionesTable();
@@ -1243,8 +1275,8 @@ namespace REApp.Forms
 
 
 
-                pnlAgregarUbicacion.Visible = false;
-                pnlAgregarPuntoGeograficoYGrilla.Visible = false;
+                //pnlAgregarUbicacion.Visible = false;
+                //pnlAgregarPuntoGeograficoYGrilla.Visible = false;
 
 
                 btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = true;
@@ -1785,11 +1817,22 @@ namespace REApp.Forms
 
             if (ubicacion != null)
             {
-                txtCircunferenciaLatitud.Text = ubicacion.Latitud;
-                txtCircunferenciaLongitud.Text = ubicacion.Longitud;
-                txtCircunferenciaRadio.Text = ubicacion.Radio;
-                txtCircunferenciaAltura.Text = ubicacion.Altura;
-                hdnUbicacionId.Value = ubicacionId.ToString();
+                if (ubicacion.Poligono)
+                {
+                    chkEsPoligono.Enabled = true;
+                    txtPoligonoAltura.Text = ubicacion.Altura;
+                    txtPoligonoLatitud.Text = ubicacion.Latitud;
+                    txtPoligonoLongitud.Text = ubicacion.Longitud;
+                }
+                else
+                {
+                    txtCircunferenciaLatitud.Text = ubicacion.Latitud;
+                    txtCircunferenciaLongitud.Text = ubicacion.Longitud;
+                    txtCircunferenciaRadio.Text = ubicacion.Radio;
+                    txtCircunferenciaAltura.Text = ubicacion.Altura;
+                    hdnUbicacionId.Value = ubicacionId.ToString();
+                }
+
             }
         }
 
@@ -1798,6 +1841,8 @@ namespace REApp.Forms
             LinkButton btnEliminar = (LinkButton)sender;
             int ubicacionId = Convert.ToInt32(btnEliminar.CommandArgument);
             EliminarUbicacion(ubicacionId);
+
+
             UpdateUbicacionesTable();
         }
 
@@ -1836,14 +1881,12 @@ namespace REApp.Forms
 
         private void EliminarUbicacion(int ubicacionId)
         {
-            // Obtiene la ubicación existente de la lista de ubicaciones
-            UbicacionPrueba ubicacion = ObtenerUbicacion(ubicacionId);
-
-            if (ubicacion != null)
+            foreach (UbicacionPrueba ubicacion in initialUbicaciones)
             {
-                // Elimina la ubicación de la lista de ubicaciones
-                List<UbicacionPrueba> ubicaciones = ObtenerUbicaciones();
-                ubicaciones.Remove(ubicacion);
+                if (ubicacion.Id == ubicacionId)
+                {
+                    initialUbicaciones.Remove(ubicacion);
+                }
             }
         }
 
