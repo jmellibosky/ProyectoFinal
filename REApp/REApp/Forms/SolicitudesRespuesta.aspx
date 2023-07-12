@@ -141,13 +141,22 @@
                             <div class="row">
                                 <div class="col form-group">
                                     <asp:Label runat="server">Solicitantes</asp:Label>
-                                    <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" Width="300px" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" />
+                                    <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" />
+                                </div>
+                                <div class="col form-group">
+                                    <asp:Label runat="server">Ver Solicitudes Finalizadas</asp:Label>
+                                    <asp:DropDownList runat="server" ID="ddlVerFinalizadas" CssClass="form-control select-single" AutoPostBack="true" OnSelectedIndexChanged="ddlVerFinalizadas_SelectedIndexChanged">
+                                        <asp:ListItem Text="No" Value="0" />
+                                        <asp:ListItem Text="Sí" Value="1" />
+                                        <asp:ListItem Text="Todas" Value="2" />
+                                    </asp:DropDownList>
                                 </div>
                                 <div class="col form-group">
                                     <asp:Label runat="server">Ver Solicitudes Eliminadas</asp:Label>
-                                    <asp:DropDownList runat="server" ID="ddlVerBajas" CssClass="form-control select-single" Width="300px" AutoPostBack="true" OnSelectedIndexChanged="ddlVerBajas_SelectedIndexChanged">
+                                    <asp:DropDownList runat="server" ID="ddlVerBajas" CssClass="form-control select-single" AutoPostBack="true" OnSelectedIndexChanged="ddlVerBajas_SelectedIndexChanged">
                                         <asp:ListItem Text="No" Value="0" />
                                         <asp:ListItem Text="Sí" Value="1" />
+                                        <asp:ListItem Text="Todas" Value="2" />
                                     </asp:DropDownList>
                                 </div>
                             </div>

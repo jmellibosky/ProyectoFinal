@@ -139,17 +139,11 @@ namespace REApp.Forms
                 parameters.Add(P.Add("IdEstadoSolicitud4", 8));
                 parameters.Add(P.Add("IdEstadoSolicitud5", 12));
                 parameters.Add(P.Add("IdEstadoSolicitud6", 10));
+                parameters.Add(P.Add("VerBajas", ddlVerBajas.SelectedItem.Value));
+                parameters.Add(P.Add("VerFinalizadas", ddlVerFinalizadas.SelectedItem.Value));
                 if (!ddlSolicitante.SelectedItem.Value.Equals("#"))
                 {
                     parameters.Add(P.Add("IdUsuario", ddlSolicitante.SelectedItem.Value.ToIntID()));
-                }
-                if (ddlVerBajas.SelectedItem.Value.Equals("0"))
-                {
-                    parameters.Add(P.Add("VerBajas", "0"));
-                }
-                else
-                {
-                    parameters.Add(P.Add("VerBajas", "1"));
                 }
                 dt = sp.Execute("usp_GetSolicitudesPorEstado", parameters.ToArray());
             }
@@ -1000,6 +994,11 @@ namespace REApp.Forms
         }
 
         protected void ddlVerBajas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnFiltrar_Click(null, null);
+        }
+
+        protected void ddlVerFinalizadas_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnFiltrar_Click(null, null);
         }

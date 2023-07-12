@@ -24,19 +24,26 @@ namespace REApp.Forms
             int id = idUsuario.ToInt();
             //**HASTA ACA**
 
-            if (IsPostBack)
-            {
-                if (idRolInt == 1 || idRolInt == 2)
-                {
-                    BindGrid();
-                }
+            //if (IsPostBack)
+            //{
+            //    if (idRolInt == 1 || idRolInt == 2)
+            //    {
+            //        BindGrid();
+            //    }
 
-            }
+            //}
             if (!IsPostBack)
             {
                 if (idRolInt == 1 || idRolInt == 2)
                 {
                     CargarComboSolicitante();
+
+                    if (Session["IdSolicitanteValidacionDocumentacion"] != null)
+                    {
+                        int IdSolicitante = Session["IdSolicitanteValidacionDocumentacion"].ToString().ToInt();
+                        ddlSolicitante.SelectedValue = IdSolicitante.ToCryptoID();
+                    }
+
                     BindGrid();
                 }
             }
@@ -124,6 +131,7 @@ namespace REApp.Forms
             int idUsuario = ddlSolicitante.SelectedItem.Value.ToIntID();
             Usuario Usuario = new Usuario().Select(idUsuario);
             EnviarMailAprobacionDocumento(Usuario, Documento, nombreTipoDoc);
+            upGrilla.Update();
 
             Alert("Documento aceptado con éxito", "Se ha actualizado su documento y se ha guardado la fecha y usuario que lo actualizó. Se envió email al usuario informando la aprobación del mismo.", AlertType.success, "/Forms/ValidacionDocumentacion.aspx");
         }
@@ -144,6 +152,8 @@ namespace REApp.Forms
             int idUsuario = ddlSolicitante.SelectedItem.Value.ToIntID();
             Usuario Usuario = new Usuario().Select(idUsuario);
             EnviarMailRechazoDocumento(Usuario, Documento, nombreTipoDoc);
+            upGrilla.Update();
+
             Alert("Documento rechazado con éxito", "Se ha actualizado su documento y se ha guardado la fecha y usuario que lo actualizó. Se envió email al usuario informando el rechazo del mismo.", AlertType.error, "/Forms/ValidacionDocumentacion.aspx");
         }
 
@@ -242,6 +252,12 @@ namespace REApp.Forms
                     }
                 }
             }
+        }
+
+        protected void ddlSolicitante_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Session["IdSolicitanteValidacionDocumentacion"] = ddlSolicitante.SelectedValue.ToIntID();
+            BindGrid();
         }
     }
 }

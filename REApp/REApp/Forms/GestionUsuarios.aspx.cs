@@ -552,9 +552,26 @@ namespace REApp.Forms
             UsuarioViejo.ValidacionEANA = true;
             UsuarioViejo.Update();
 
+            EnviarMail(UsuarioViejo.Apellido + ", " + UsuarioViejo.Nombre, UsuarioViejo.Email);
+
             hdnIdUsuario.Value = "";
             Alert("Usuario validado con éxito", "Se ha validado el usuario seleccionado.", AlertType.success, "/Forms/GestionUsuarios.aspx");
+        }
 
+        protected void EnviarMail(string Nombre, string Email)
+        {
+            HTMLBuilder HTML = new HTMLBuilder("REAPP - Usuario Validado", "GenericMailTemplate.html");
+            HTML.AppendTexto("Buenas tardes.");
+            HTML.AppendSaltoLinea(2);
+            HTML.AppendTexto("Le informamos que su usuario en REAPP ha sido validado por un administrador de EANA.");
+            HTML.AppendTexto("A continuación, puede ingresar sus documentos y continuar su gestión en REAPP.");
+
+            string cuerpo = HTML.ConstruirHTML();
+
+            MailController mail = new MailController("REAPP - Usuario Validado", cuerpo);
+            mail.Add(Nombre, Email);
+
+            bool Exito = mail.Enviar();
         }
 
         //para Generacion de password

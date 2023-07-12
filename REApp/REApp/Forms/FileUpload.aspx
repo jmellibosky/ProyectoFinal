@@ -187,9 +187,9 @@
                             <asp:BoundField DataField="Extension" HeaderText="EXTENSIÓN" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                             <asp:BoundField DataField="NombreTipoDoc" HeaderText="TIPO DOC" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                             <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
+                            <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
                             <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="VinculadoSolicitud" HeaderText="Vinculado a Solicitud" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                            <asp:BoundField DataField="VinculadoSolicitud" HeaderText="VINCULADO A SOLICITUD" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
 
                             <%-- Boton con link para descargar archivo--%>
                             <asp:TemplateField ItemStyle-Width="10%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">

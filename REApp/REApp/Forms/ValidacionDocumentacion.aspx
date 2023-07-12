@@ -165,7 +165,7 @@
             <div class="row">
                 <div class="col align-self-start">
                     <asp:Label runat="server">Solicitantes</asp:Label>
-                    <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" AutoPostBack="true" Width="300px" />
+                    <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" AutoPostBack="true" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" />
                 </div>
             </div>
         </div>
@@ -175,58 +175,62 @@
 
     <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
         <div class="row" style="overflow: auto; height: 375px; width: 1100px;">
-            <asp:Panel ID="upDoc" Style="width: 100%;" runat="server">
-                <asp:GridView ID="gvArchivos"
-                    runat="server"
-                    AutoGenerateColumns="false"
-                    CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvArchivos_RowDataBound" DataKeyNames="IdDocumento">
-                    <AlternatingRowStyle BackColor="white" />
-                    <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
-                    <RowStyle BackColor="#e1dddd" />
-                    <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
-                    <Columns>
-                        <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                        <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="NombreUsuario" HeaderText="PROPIETARIO" ItemStyle-Width="10%" />
-                        <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
-                        <asp:BoundField DataField="NombreTipoDoc" HeaderText="TIPO DOC" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="AsociadoATripulante" HeaderText="ESTA ASOCIADO A TRIPULANTE" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="NombreTripulante" HeaderText="TRIPULANTE" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}"/>
-                        <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}"/>
-                        <asp:BoundField DataField="VinculadoSolicitud" HeaderText="Vinculado a Solicitud" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="FHAprobacion" HeaderText="FECHA APROBACION" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}"/>
-                        <asp:BoundField DataField="NombreUsuarioAprobadoPor" HeaderText="USUARIO QUE APROBO" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="FHRechazo" HeaderText="FECHA RECHAZO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}"/>
-                        <asp:BoundField DataField="NombreUsuarioRechazadoPor" HeaderText="USUARIO QUE RECHAZO" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+            <asp:UpdatePanel runat="server" ID="upGrilla" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <asp:Panel ID="upDoc" Style="width: 100%;" runat="server">
+                        <asp:GridView ID="gvArchivos"
+                            runat="server"
+                            AutoGenerateColumns="false"
+                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" OnRowDataBound="gvArchivos_RowDataBound" DataKeyNames="IdDocumento">
+                            <AlternatingRowStyle BackColor="white" />
+                            <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                            <RowStyle BackColor="#e1dddd" />
+                            <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+                            <Columns>
+                                <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="NombreUsuario" HeaderText="PROPIETARIO" ItemStyle-Width="10%" />
+                                <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
+                                <asp:BoundField DataField="NombreTipoDoc" HeaderText="TIPO DOC" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="AsociadoATripulante" HeaderText="ESTA ASOCIADO A TRIPULANTE" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="NombreTripulante" HeaderText="TRIPULANTE" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" />
+                                <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" />
+                                <asp:BoundField DataField="VinculadoSolicitud" HeaderText="Vinculado a Solicitud" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHAprobacion" HeaderText="FECHA APROBACION" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" />
+                                <asp:BoundField DataField="NombreUsuarioAprobadoPor" HeaderText="USUARIO QUE APROBO" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="FHRechazo" HeaderText="FECHA RECHAZO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" />
+                                <asp:BoundField DataField="NombreUsuarioRechazadoPor" HeaderText="USUARIO QUE RECHAZO" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
 
-                        <%-- Boton con link para descargar archivo--%>
-                        <asp:TemplateField ItemStyle-Width="10%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
-                            <ItemTemplate>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info"
-                                            OnClick="lnkDownload_Click"
-                                            CommandArgument='<%# Eval("IdDocumento") %>'>
+                                <%-- Boton con link para descargar archivo--%>
+                                <asp:TemplateField ItemStyle-Width="10%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info"
+                                                    OnClick="lnkDownload_Click"
+                                                    CommandArgument='<%# Eval("IdDocumento") %>'>
                                             <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
-                                        </asp:LinkButton>
-                                        <%--Boton para aceptar archivo en la BD--%>
-                                        <asp:LinkButton ID="lnkAceptarArchivo" runat="server" CssClass="btn" OnClick="lnkAceptarArchivo_Click" 
-                                            CommandArgument='<%# Eval("IdDocumento") %>'> 
+                                                </asp:LinkButton>
+                                                <%--Boton para aceptar archivo en la BD--%>
+                                                <asp:LinkButton ID="lnkAceptarArchivo" runat="server" CssClass="btn" OnClick="lnkAceptarArchivo_Click"
+                                                    CommandArgument='<%# Eval("IdDocumento") %>'> 
                                             <i class="fa-solid fa-square-check" aria-hidden="true" style='font-size:25px; color:lawngreen' ></i>
-                                        </asp:LinkButton>
-                                        <asp:LinkButton ID="lnkRechazarArchivo" runat="server" CssClass="btn" OnClick="lnkRechazarArchivo_Click"
-                                            CommandArgument='<%# Eval("IdDocumento") %>'>
+                                                </asp:LinkButton>
+                                                <asp:LinkButton ID="lnkRechazarArchivo" runat="server" CssClass="btn" OnClick="lnkRechazarArchivo_Click"
+                                                    CommandArgument='<%# Eval("IdDocumento") %>'>
                                             <i class="fa-solid fa-square-xmark" aria-hidden="true" style='font-size:25px; color:red' ></i>
-                                        </asp:LinkButton>
-                                    </div>
-                                </div>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
-            </asp:Panel>
+                                                </asp:LinkButton>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
+                    </asp:Panel>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
     </div>
 
