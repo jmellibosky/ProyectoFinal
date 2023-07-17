@@ -647,7 +647,8 @@
                                                             <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
                                                                 <ItemTemplate>
                                                                     <asp:HiddenField Value='<%# Eval("IdTripulacion") %>' runat="server" ID="hdnIdTripulacion" />
-                                                                    <asp:CheckBox runat="server" ID="chkTripulacionVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
+                                                                    <asp:CheckBox runat="server" ID="chkTripulacionVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' Visible='<%# Eval("Documentacion").ToString().Equals("0") ? false : true %>' />
+                                                                    <asp:Panel runat="server" ID="pnlAdvertencia" ToolTip="Este Tripulante no posee documentación aprobada por EANA." Visible='<%# Eval("Documentacion").ToString().Equals("0") ? true : false %>'><i class="fa fa-solid fa-triangle-exclamation"></i></asp:Panel>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
                                                         </Columns>
