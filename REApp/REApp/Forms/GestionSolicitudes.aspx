@@ -444,15 +444,15 @@
                                                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                                 <div class="row">
                                                                                     <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
-                                                                                        <asp:Label Text="Latitud" runat="server" />
+                                                                                        <asp:Label Text="Latitud (+/- XX.XXXX)" runat="server" />
                                                                                         <asp:TextBox ID="txtCircunferenciaLatitud" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
                                                                                     </asp:Panel>
                                                                                     <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
-                                                                                        <asp:Label Text="Longitud" runat="server" />
+                                                                                        <asp:Label Text="Longitud (+/- XX.XXXX)" runat="server" />
                                                                                         <asp:TextBox ID="txtCircunferenciaLongitud" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
                                                                                     </asp:Panel>
                                                                                     <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
-                                                                                        <asp:Label Text="Altura (m.s.n.m.)" runat="server" />
+                                                                                        <asp:Label Text="Altura (Ground Level)" runat="server" />
                                                                                         <asp:TextBox ID="txtCircunferenciaAltura" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
                                                                                     </asp:Panel>
                                                                                     <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">

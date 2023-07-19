@@ -1,13 +1,10 @@
-﻿using System;
+﻿using MagicSQL;
+using REApp.Controllers;
+using REApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using MagicSQL;
-using REApp.Models;
-using REApp.Controllers;
 using static REApp.Navegacion;
 
 namespace REApp.Forms
@@ -38,14 +35,14 @@ namespace REApp.Forms
                     //Se carga la grilla de interesados, para mandar mail a c/u
                     GetInteresadosSoloVinculadosSolicitud(IdSolicitud);
                     //Si es explotador, no se le muestra la grilla de interesados
-                    if (idRolInt ==3)
+                    if (idRolInt == 3)
                     {
                         pnlGvInteresado.Visible = false;
                     }
                     else
                     {
                         pnlGvInteresado.Visible = true;
-                    }  
+                    }
                 }
                 else
                 {
@@ -131,6 +128,8 @@ namespace REApp.Forms
                             EnviarMailCoordinacion(nombre, email, idInteresado, IdSolicitud);
                         }
                     }
+
+                    frm = $"/Forms/SolicitudesCoordinacion.aspx";
                     Alert("Estado de solicitud modificado con éxito", "La solicitud ha sido cambiada a estado EnCoordinacion", AlertType.success, frm);
                 }
                 if (IdEstado == 2)
@@ -139,6 +138,7 @@ namespace REApp.Forms
                 }
                 if (IdEstado == 5)
                 {
+                    frm = $"/Forms/SolicitudesRespuesta.aspx";
                     Alert("Estado de solicitud modificado con éxito", "La solicitud ha sido cambiada a estado PendienteRespuesta", AlertType.success, frm);
                 }
             }
