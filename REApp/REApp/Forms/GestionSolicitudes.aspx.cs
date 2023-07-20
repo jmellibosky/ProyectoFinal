@@ -1034,10 +1034,10 @@ namespace REApp.Forms
                 txtModalEstadoSolicitud.Text = Estado.Nombre;
                 int idEstadoActual = Estado.IdEstadoSolicitud;
 
-                txtModalFechaDesde.TextMode = TextBoxMode.SingleLine;
-                txtModalFechaHasta.TextMode = TextBoxMode.SingleLine;
-                txtModalFechaDesde.Text = Solicitud.FHDesde.ToString();
-                txtModalFechaHasta.Text = Solicitud.FHHasta.ToString();
+                txtModalFechaDesde.TextMode = TextBoxMode.Date;
+                txtModalFechaHasta.TextMode = TextBoxMode.Date;
+                txtModalFechaDesde.Text = Solicitud.FHDesde.ToString("yyyy-MM-dd");
+                txtModalFechaHasta.Text = Solicitud.FHHasta.ToString("yyyy-MM-dd");
                 txtModalFechaHasta.Enabled = false;
                 txtModalFechaDesde.Enabled = false;
 
