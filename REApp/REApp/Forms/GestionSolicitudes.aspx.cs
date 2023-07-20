@@ -88,13 +88,13 @@ namespace REApp.Forms
             if (IsPostBack)
             {
                 BindGrid();
-                //LbArchivo.Text = "";
             }
             if (!IsPostBack)
             {
                 //Rol Admin o Operador
                 if (idRolInt == 1)
                 {
+                    btnNuevo.Visible = false;
                     CargarFiltros();
                     BindGrid();
                     btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = false;
@@ -928,6 +928,10 @@ namespace REApp.Forms
             hdnIdSolicitud.Value = "";
             hdnIdEstadoAnterior.Value = "";
             if (Session["IdRol"].ToString().ToInt() == 2)
+            {//Buscar otra forma de hacer
+                btnNuevo.Visible = false;
+            }
+            if (Session["IdRol"].ToString().ToInt() == 1)
             {//Buscar otra forma de hacer
                 btnNuevo.Visible = false;
             }

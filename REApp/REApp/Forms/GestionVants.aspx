@@ -163,7 +163,7 @@
                                 <h6>SOLICITANTES<h6>
                                 <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" AutoPostBack="true" Width="300px"/>
                             <div class="col-12 text-center" id="divFiltrar" runat="server">
-                                <asp:Button ID="btnFiltrar" Text="Filtrar" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnFiltrar_Click" />
+                                <asp:Button ID="btnFiltrar" Text="Filtrar" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnFiltrar_Click" Visible="false" />
                             </div>
                         </div>
                         <br />

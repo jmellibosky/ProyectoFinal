@@ -140,26 +140,26 @@ namespace REApp.Forms
                 //Alert("Archivo cargado con éxito", "Se ha cargado un nuevo archivo al usuario seleccionado.", AlertType.success, "/Forms/FileUpload.aspx");
             }
             //
-            if (FileUpload2.HasFile)
+            else if (FileUpload2.HasFile)
             {
                 int idTipoDoc = lnkUpload2.CommandArgument.ToInt();
                 uploadMethod(FileUpload2, idTipoDoc, "Certificado Médico");
                 //Alert("Certificado Médico cargado con éxito", "Se ha vinculado un nuevo Certificado Médico a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
 
             }
-            if (FileUpload3.HasFile) 
+            else if (FileUpload3.HasFile) 
             {
                 int idTipoDoc = lnkUpload3.CommandArgument.ToInt();
                 uploadMethod(FileUpload3, idTipoDoc, "Certificado de Competencia");
                 //Alert("Certificado de Competencia cargado con éxito", "Se ha vinculado un nuevo Certificado de Competencia a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
             }
-            if (FileUpload4.HasFile)
+            else if (FileUpload4.HasFile)
             {
                 int idTipoDoc = lnkUpload4.CommandArgument.ToInt();
                 uploadMethod(FileUpload4, idTipoDoc, "CEVANT");
                 //Alert("CEVANT cargado con éxito", "Se ha vinculado un nuevo CEVANT a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
             }
-            if (FileUpload6.HasFile)
+            else if (FileUpload6.HasFile)
             {
                 int idTipoDoc = lnkUpload6.CommandArgument.ToInt();
                 uploadMethod(FileUpload6, idTipoDoc, "Seguro/Póliza");

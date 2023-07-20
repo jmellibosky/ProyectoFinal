@@ -141,14 +141,13 @@
                     <asp:Label runat="server">Solicitantes</asp:Label>
                     <asp:DropDownList runat="server" ID="ddlSolicitante" CssClass="form-control select-single" OnSelectedIndexChanged="ddlSolicitante_SelectedIndexChanged" AutoPostBack="true" Width="300px" />
                 </div>
-                <asp:Panel ID="pnlFuAdmin" runat="server">
+                <asp:Panel ID="pnlFuAdmin" runat="server" Visible="false">
                     <div class="col align-self-end border">
                         <asp:FileUpload ID="FileUpload1" runat="server" />
                         <br />
                         <hr />
                         <br />
                         <div class="row">
-                            <%--<label class="form-label font-weight-bold ml-2" for="txtFechaVencimiento">Fecha de Vencimiento</label>--%>
                             <asp:Label CssClass="width: 50%; text-align: right; text-md-center font-weight-bold" runat="server">Fecha de Vencimiento:&nbsp &nbsp</asp:Label>
                             <input type="date" id="txtFechaVencimientoAdmin" runat="server" />
                             <hr />
@@ -248,7 +247,7 @@
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                <%--<asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
@@ -321,7 +320,7 @@
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                <%--<asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
@@ -396,7 +395,7 @@
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                <%--<asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
@@ -473,7 +472,7 @@
                                 <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCI- MIENTO" ItemStyle-Width="10%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                <%--<asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="Estado" HeaderText="ESTADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
