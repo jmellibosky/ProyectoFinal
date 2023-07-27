@@ -204,7 +204,7 @@
                             <asp:BoundField DataField="NombreRol" HeaderText="ROL"          ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                             <asp:BoundField DataField="Dni" HeaderText="DNI"                ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                             <asp:BoundField DataField="Telefono" HeaderText="TELÉFONO"      ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
-                            <asp:BoundField DataField="ValidacionEANA" HeaderText="ACTIVO"  ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="ValidacionEANAtabla" HeaderText="ACTIVO"  ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                             <asp:BoundField DataField="Cuit" HeaderText="CUIT"              ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center"/>
 
                             <%-- Boton con link para ver detalles solicitud--%>
