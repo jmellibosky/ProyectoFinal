@@ -4,7 +4,7 @@
 
 <html lang="es">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - Mi aplicación ASP.NET</title>
@@ -13,7 +13,7 @@
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
 
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <script src="https://kit.fontawesome.com/b0b95091aa.js" crossorigin="anonymous"></script>
 
@@ -37,7 +37,25 @@
     <script>
         $(document).ready(function () {
             Init();
+
+            // AGREGA EL LOGO DE CARGA A TODO LO QUE TENGA LA CLASE spn
+            $("a, .btn").click(function () {
+                $("#busy").show();
+            });
+
+            // Oculta el div procesando
+            $("#busy").hide();
         });
+
+        function OcultarGif() {
+            // AGREGA EL LOGO DE CARGA A TODO LO QUE TENGA LA CLASE spn
+            $("a, .btn").click(function () {
+                $("#busy").show();
+            });
+
+            // Oculta el div procesando
+            $("#busy").hide();
+        }
     </script>
 
     <%-- Sweet Alert--%>
@@ -70,6 +88,9 @@
         </asp:ScriptManager>
 
         <div class="container body-content">
+            <%-- Div procesando --%>
+            <div id="busy" style="background: url(../../Content/avion.gif) center center no-repeat rgba(255, 255, 255, 0.7); position: fixed; top: 5px; left: 0px; width: 100%; height: 100%; z-index: 999999;"></div>
+
             <asp:ContentPlaceHolder ID="cphBody" runat="server">
             </asp:ContentPlaceHolder>
         </div>

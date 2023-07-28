@@ -21,7 +21,7 @@ namespace REApp
                 Response.Redirect("/Forms/UserLogin.aspx");
             }
 
-            
+            Navegacion.JSFunction("OcultarGif");
         }
 
         //Gestion de Cookies
