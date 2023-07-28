@@ -305,14 +305,14 @@ namespace REApp.Forms
                             // RECORRO LOS PUNTOS GEOGRÁFICOS DE LA UBICACIÓN
                             for (int j = 0; j < AuxUbicaciones[i].PuntosGeograficos.Count; j++)
                             {
-                                // CREO OBJETO PUNTOGEOGRAFICO
-                                Models.PuntoGeografico PuntoGeografico = AuxUbicaciones[i].PuntosGeograficos[j];
+                            //    // CREO OBJETO PUNTOGEOGRAFICO
+                            //    Models.PuntoGeografico PuntoGeografico = AuxUbicaciones[i].PuntosGeograficos[j];
 
-                                // SETEO LOS CAMPOS EL OBJETO
-                                PuntoGeografico.IdUbicacion = Ubicacion.IdUbicacion;
+                            //    // SETEO LOS CAMPOS EL OBJETO
+                            //    PuntoGeografico.IdUbicacion = Ubicacion.IdUbicacion;
 
-                                // INSERT EN TABLA PUNTOGEOGRAFICO
-                                PuntoGeografico.Insert(tn);
+                            //    // INSERT EN TABLA PUNTOGEOGRAFICO
+                            //    PuntoGeografico.Insert(tn);
                             }
                         }
 

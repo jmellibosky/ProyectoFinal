@@ -474,6 +474,15 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.DropDownList ddlProvincia;
 
         /// <summary>
+        /// Control txtAltura.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAltura;
+
+        /// <summary>
         /// Control pnlAgregarCircunferencia.
         /// </summary>
         /// <remarks>
@@ -499,15 +508,6 @@ namespace REApp.Forms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCircunferenciaLongitud;
-
-        /// <summary>
-        /// Control txtCircunferenciaAltura.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCircunferenciaAltura;
 
         /// <summary>
         /// Control txtCircunferenciaRadio.
@@ -573,13 +573,13 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.TextBox txtPoligonoLongitud;
 
         /// <summary>
-        /// Control txtPoligonoAltura.
+        /// Control hdnPoligono.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoligonoAltura;
+        protected global::System.Web.UI.WebControls.HiddenField hdnPoligono;
 
         /// <summary>
         /// Control gvPuntosGeograficos.
@@ -598,6 +598,15 @@ namespace REApp.Forms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGuardarPuntoGeografico;
+
+        /// <summary>
+        /// Control Button2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button2;
 
         /// <summary>
         /// Control Button1.

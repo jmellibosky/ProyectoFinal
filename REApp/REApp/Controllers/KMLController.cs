@@ -49,7 +49,7 @@ namespace REApp
 
                     // Creo la Ubicación
                     UbicacionRedux Ubicacion = new UbicacionRedux();
-                    List<PuntoGeografico> PuntosGeograficos = new List<PuntoGeografico>();
+                    List<PuntoGeograficoRedux> PuntosGeograficos = new List<PuntoGeograficoRedux>();
 
                     for (int j = 0; j < Coordinates.Length; j++)
                     {
@@ -59,7 +59,7 @@ namespace REApp
                         {
                             // Se encontraron al menos tres coordenadas.
                             // Si se encontraran menos de tres coordenadas, se trata de un punto o una línea pero no un polígono.
-                            PuntoGeografico PuntoGeografico = new PuntoGeografico()
+                            PuntoGeograficoRedux PuntoGeografico = new PuntoGeograficoRedux()
                             {
                                 Latitud = XYZ[0].Replace('.',',').ToDouble(),
                                 Longitud = XYZ[1].Replace('.', ',').ToDouble(),
