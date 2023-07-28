@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using REApp.Models;
+using REApp.Controllers;
 
 namespace REApp.Forms
 {
@@ -45,7 +46,41 @@ namespace REApp.Forms
                     Usuario usuario = new Usuario().Select(IdUsuario);
                     usuario.ValidacionCorreo = true;
                     usuario.Update();
+
+                    NotificarAdmins();
                 }
+            }
+        }
+
+        protected void NotificarAdmins()
+        {
+            try
+            {
+                List<Usuario> Usuarios = new Usuario().Select("IdRol = 1 AND DeletedOn IS NULL");
+
+                HTMLBuilder builder = new HTMLBuilder("Nuevo Usuario Registrado", "GenericMailTemplate.html");
+
+                builder.AppendTexto($"Buenos días.");
+                builder.AppendSaltoLinea(2);
+                builder.AppendTexto("Se ha registrado un nuevo usuario en REAPP. Recuerde validarlo para permitirle continuar su gestión.");
+                builder.AppendSaltoLinea(1);
+                builder.AppendTexto("Saludos.");
+                builder.AppendSaltoLinea(1);
+                builder.AppendTexto("Equipo de REApp.");
+                string cuerpo = builder.ConstruirHTML();
+
+                MailController mail = new MailController("Confirmación de Usuario", cuerpo);
+
+                foreach (Usuario usuario in Usuarios)
+                {
+                    mail.Add($"{usuario.Nombre} {usuario.Apellido}", usuario.Email);
+                }
+
+                mail.Enviar();
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 

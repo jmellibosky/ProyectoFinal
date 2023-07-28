@@ -179,7 +179,7 @@
                             </div>
 
                             <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
-                                <div class="row" style="overflow: auto; height: 425px; width: 1400px;">
+                                <div class="row" style="height: 425px; width: 1400px;">
                                     <asp:UpdatePanel ID="upSolicitudes" Style="width: 100%;" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                                         <ContentTemplate>
 
@@ -220,8 +220,18 @@
                                                                 <i class="fa fa-comments" aria-hidden="true" style='font-size: 15px; margin-left: 10px; color: #525252'></i>
                                                             </asp:LinkButton>
 
-                                                            <asp:LinkButton ID="btnEliminar" ToolTip="Eliminar" runat="server" CommandName="Eliminar"
-                                                                CommandArgument='<%# Eval("IdSolicitud") %>' Visible='<%# ddlSolicitante.Enabled %>'>
+                                                            <asp:LinkButton ID="btnEliminarExplotador" ToolTip="Eliminar" runat="server" CommandName="EliminarExplotador"
+                                                                CommandArgument='<%# Eval("IdSolicitud") %>' Visible='<%# !ddlSolicitante.Enabled %>'>
+                                                                <i class="fa fa-trash text-danger" aria-hidden="true" style='font-size: 15px; margin-left: 10px'></i>
+                                                            </asp:LinkButton>
+
+                                                            <asp:LinkButton ID="btnEliminarBaja" ToolTip="Eliminar" runat="server" CommandName="EliminarBaja"
+                                                                CommandArgument='<%# Eval("IdSolicitud") %>' Visible='<%# ddlSolicitante.Enabled && GetRol() == 2 %>'>
+                                                                <i class="fa fa-trash text-danger" aria-hidden="true" style='font-size: 15px; margin-left: 10px'></i>
+                                                            </asp:LinkButton>
+
+                                                            <asp:LinkButton ID="btnEliminarBajaExcepcional" ToolTip="Eliminar" runat="server" CommandName="EliminarBajaExcepcional"
+                                                                CommandArgument='<%# Eval("IdSolicitud") %>' Visible='<%# ddlSolicitante.Enabled && GetRol() == 1 %>'>
                                                                 <i class="fa fa-trash text-danger" aria-hidden="true" style='font-size: 15px; margin-left: 10px'></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>

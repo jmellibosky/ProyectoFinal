@@ -72,6 +72,11 @@ namespace REApp.Forms
         private static List<UbicacionRedux> listaUbicaciones = new List<UbicacionRedux>();
         private static List<PuntoGeograficoRedux> listaPuntosGeograficos = new List<PuntoGeograficoRedux>();
 
+        protected int GetRol()
+        {
+            return Session["IdRol"].ToString().ToInt();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.Form.Attributes.Add("enctype", "multipart/form-data");
@@ -835,59 +840,41 @@ namespace REApp.Forms
 
             try
             {
-                List<Documento> DocumentosUsuario = new Documento().Select($"IdUsuario = {IdUsuario}");
-
-                int IdCertificadoMedico = new TipoDocumento().Select("Nombre = 'Certificado Médico'")[0].IdTipoDocumento;
-                int IdCertificadoComptencia = new TipoDocumento().Select("Nombre = 'Certificado de Competencia'")[0].IdTipoDocumento;
-                int IdCEVANT = new TipoDocumento().Select("Nombre = 'CEVANT'")[0].IdTipoDocumento;
-                int IdPoliza = new TipoDocumento().Select("Nombre = 'Póliza VANT'")[0].IdTipoDocumento;
-
-                foreach (Documento Doc in DocumentosUsuario)
+                DataTable dtCertificadoMedico = new SP("bd_reapp").Execute("usp_GetDocumentacionDeUsuario",
+                        P.Add("IdUsuario", IdUsuario),
+                        P.Add("NombreDocumento", "Certificado Médico")
+                );
+                DataTable dtCertificadoCompetencia = new SP("bd_reapp").Execute("usp_GetDocumentacionDeUsuario",
+                        P.Add("IdUsuario", IdUsuario),
+                        P.Add("NombreDocumento", "Certificado de Competencia")
+                );
+                DataTable dtCEVANT = new SP("bd_reapp").Execute("usp_GetDocumentacionDeUsuario",
+                        P.Add("IdUsuario", IdUsuario),
+                        P.Add("NombreDocumento", "CEVANT")
+                );
+                DataTable dtPolizaVANT = new SP("bd_reapp").Execute("usp_GetDocumentacionDeUsuario",
+                        P.Add("IdUsuario", IdUsuario),
+                        P.Add("NombreDocumento", "Póliza VANT")
+                );
+                if (dtCertificadoMedico.Rows.Count > 0)
                 {
-                    //se validan solamente los doc del usuario, no de los triupulantes
-                    if (Doc.IdTripulacion == null)
-                    {
-                        if (Doc.FHVencimiento.Value > DateTime.Now)
-                        {
-                            if (Doc.IdTipoDocumento.Value == IdCertificadoMedico)
-                            {
-                                TieneCertificadoMedico = true;
-                            }
-                            if (Doc.IdTipoDocumento.Value == IdCertificadoComptencia)
-                            {
-                                TieneCertificadoCompetencia = true;
-                            }
-                            if (Doc.IdTipoDocumento.Value == IdCEVANT)
-                            {
-                                TieneCEVANT = true;
-                            }
-                            if (Doc.IdTipoDocumento.Value == IdPoliza)
-                            {
-                                TienePoliza = true;
-                            }
-                        }
-                        //Validacion documentos aprobado por Operador/Admin EANA
-                        if (Doc.FHAprobacion < DateTime.Now && Doc.FHRechazo == null)
-                        {
-                            if (Doc.IdTipoDocumento.Value == IdCertificadoMedico)
-                            {
-                                EstaAprobadoCMedico = true;
-                            }
-                            if (Doc.IdTipoDocumento.Value == IdCertificadoComptencia)
-                            {
-                                EstaAprobadoCCompetencia = true;
-                            }
-                            if (Doc.IdTipoDocumento.Value == IdCEVANT)
-                            {
-                                EstaAprobadoCEVANT = true;
-                            }
-                            if (Doc.IdTipoDocumento.Value == IdPoliza)
-                            {
-                                EstaAprobadoPoliza = true;
-                            }
-                        }
-                    }
-
+                    TieneCertificadoMedico = true;
+                    EstaAprobadoCMedico = dtCertificadoMedico.Rows[0]["Documento"].ToString().ToInt() == 2;
+                }
+                if (dtCertificadoCompetencia.Rows.Count > 0)
+                {
+                    TieneCertificadoCompetencia = true;
+                    EstaAprobadoCCompetencia = dtCertificadoMedico.Rows[0]["Documento"].ToString().ToInt() == 2;
+                }
+                if (dtCEVANT.Rows.Count > 0)
+                {
+                    TieneCEVANT = true;
+                    EstaAprobadoCEVANT = dtCertificadoMedico.Rows[0]["Documento"].ToString().ToInt() == 2;
+                }
+                if (dtPolizaVANT.Rows.Count > 0)
+                {
+                    TienePoliza = true;
+                    EstaAprobadoPoliza = dtCertificadoMedico.Rows[0]["Documento"].ToString().ToInt() == 2;
                 }
             }
             catch (Exception ex)
@@ -1143,8 +1130,10 @@ namespace REApp.Forms
                 }
                 VerHistorialSolicitud();
             }
-            else if (e.CommandName.Equals("Eliminar"))
+            else if (e.CommandName.Equals("EliminarExplotador"))
             {
+                // ELIMINACIÓN POR PARTE DEL EXPLOTADOR
+                // NO SOLICITA OBSERVACIÓN
                 int IdSolicitud = e.CommandArgument.ToString().ToInt();
 
                 Solicitud Solicitud = new Solicitud().Select(IdSolicitud);
@@ -1157,6 +1146,40 @@ namespace REApp.Forms
                     Alert("Éxito", "La Solicitud ha sido eliminada.", AlertType.success);
                     btnFiltrar_Click(null, null);
                 }
+            }
+            else if (e.CommandName.Equals("EliminarBaja"))
+            {
+                Solicitud Solicitud = new Solicitud().Select(e.CommandArgument.ToString().ToInt());
+
+                // ESTADOS DONDE EL OPERADOR PUEDE DAR DE BAJA
+                List<int> EstadosBaja = new List<int>() { 1, 2, 3, 4, 5, 9 };
+
+                if (EstadosBaja.Contains(Solicitud.IdEstadoSolicitud.Value))
+                {
+                    // ELIMINACIÓN POR PARTE DEL OPERADOR ANTES DE QUE HAYA SIDO APROBADA
+                    int IdSolicitud = Solicitud.IdSolicitud;
+                    int IdEstado = 12;
+                    string FrmAnterior = "/Forms/GestionSolicitudes.aspx";
+
+                    string url = $"/Forms/CambioEstadoSolicitud.aspx?S={IdSolicitud}&E={IdEstado}&frm={FrmAnterior}";
+
+                    Response.Redirect(url);
+                }
+                else
+                {
+                    Alert("Error", "No es posible dar de baja la solicitud en este estado.", AlertType.error);
+                }
+            }
+            else if (e.CommandName.Equals("EliminarBajaExcepcional"))
+            {
+                // ELIMINACIÓN POR PARTE DEL ADMINISTRADOR
+                int IdSolicitud = e.CommandArgument.ToString().ToInt();
+                int IdEstado = 13;
+                string FrmAnterior = "/Forms/GestionSolicitudes.aspx";
+
+                string url = $"/Forms/CambioEstadoSolicitud.aspx?S={IdSolicitud}&E={IdEstado}&frm={FrmAnterior}";
+
+                Response.Redirect(url);
             }
         }
 
@@ -1233,7 +1256,7 @@ namespace REApp.Forms
             }
         }
 
-            protected void ddlModalActividad_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlModalActividad_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idActividad = ddlModalActividad.SelectedItem.Value.ToIntID();
 

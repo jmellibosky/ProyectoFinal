@@ -114,7 +114,7 @@ namespace REApp.Forms
                     Alert("Estado de solicitud cambiado con éxito", "La solicitud ha sido cambiada a estado PendienteModificacion", AlertType.success, frm);
                 }
                 //Si pasa al estado enCoordinacion
-                if (IdEstado == 3)
+                else if (IdEstado == 3)
                 {
                     //Se envia mail los interesados, cargados en la grilla q se muestra solo al operador.
                     for (int i = 0; i < gvSoloInteresadosVinculados.Rows.Count; i++)
@@ -132,18 +132,20 @@ namespace REApp.Forms
                     frm = $"/Forms/SolicitudesCoordinacion.aspx";
                     Alert("Estado de solicitud modificado con éxito", "La solicitud ha sido cambiada a estado EnCoordinacion", AlertType.success, frm);
                 }
-                if (IdEstado == 2)
+                else if (IdEstado == 2)
                 {
                     Alert("Estado de solicitud modificado con éxito", "La solicitud ha sido cambiada a estado EnAnalisis", AlertType.success, frm);
                 }
-                if (IdEstado == 5)
+                else if (IdEstado == 5)
                 {
                     frm = $"/Forms/SolicitudesRespuesta.aspx";
                     Alert("Estado de solicitud modificado con éxito", "La solicitud ha sido cambiada a estado PendienteRespuesta", AlertType.success, frm);
                 }
+                else
+                {
+                    Alert("Estado de solicitud modificado con éxito", "La solicitud ha sido cambiada a un nuevo estado.", AlertType.success, frm);
+                }
             }
-            //Alert("Estado de solicitud modificado con éxito", "La solicitud ha sido cambiada a un nuevo estado.", AlertType.success, frm);
-            //Response.Redirect(frm);
         }
 
         //Mismo mail que se envia en Analisis
