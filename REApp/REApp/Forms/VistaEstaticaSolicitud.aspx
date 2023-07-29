@@ -218,7 +218,7 @@
                                         <h5>Ubicaciones</h5>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
-                                        <asp:Button ID="btnGenerarKMZ" runat="server" Text="Descargar KMZ" OnClick="btnGenerarKMZ_Click" CssClass="btn btn-dark text-right" />
+                                        <asp:Button ID="btnGenerarKMZ" runat="server" Text="Descargar KMZ" OnClick="btnGenerarKMZ_Click" CssClass="btn btn-dark text-right no-gif" />
                                     </div>
                                 </div>
                                 <div class="row">

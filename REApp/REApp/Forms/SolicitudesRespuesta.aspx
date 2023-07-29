@@ -122,8 +122,8 @@
     <div style="text-align: end;">
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
-                <asp:Button ID="btnGenerarKMZ" Text="Generar KMZ" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnGenerarKMZ_Click" />
-                <asp:Button ID="btnRespuestaPDF" Text="Generar Respuesta" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnRespuestaPDF_Click" />
+                <asp:Button ID="btnGenerarKMZ" Text="Generar KMZ" Visible="false" CssClass="btn btn-info btn-dark no-gif" runat="server" OnClick="btnGenerarKMZ_Click" />
+                <asp:Button ID="btnRespuestaPDF" Text="Generar Respuesta" Visible="false" CssClass="btn btn-info btn-dark no-gif" runat="server" OnClick="btnRespuestaPDF_Click" />
                 <asp:Button ID="btnEnviarMail" Text="Enviar Respuesta" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnEnviarMail_Click" />
                 <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVolver_Click" />
             </ContentTemplate>

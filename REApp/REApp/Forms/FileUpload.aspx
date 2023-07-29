@@ -195,7 +195,7 @@
                                 <ItemTemplate>
                                     <div class="row">
                                         <div class="col-12">
-                                            <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info"
+                                            <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info no-gif"
                                                 OnClick="lnkDownload_Click1"
                                                 CommandArgument='<%# Eval("IdDocumento") %>'>
                                             <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
@@ -252,7 +252,7 @@
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
-                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" OnClick="lnkDownload_Click1"
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info no-gif" OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
@@ -325,7 +325,7 @@
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
-                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" OnClick="lnkDownload_Click1"
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info no-gif" OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
@@ -400,7 +400,7 @@
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
-                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" OnClick="lnkDownload_Click1"
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info no-gif" OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
@@ -477,7 +477,7 @@
                                 <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%-- Boton con link para descargar archivo--%>
-                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info" OnClick="lnkDownload_Click1"
+                                        <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info no-gif" OnClick="lnkDownload_Click1"
                                             CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>

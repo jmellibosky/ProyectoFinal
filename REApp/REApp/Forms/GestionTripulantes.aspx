@@ -363,7 +363,7 @@
                                                             <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                                                 <ItemTemplate>
                                                                     <%-- Boton con link para descargar archivo--%>
-                                                                    <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click"
+                                                                    <asp:LinkButton ID="lnkDownload" runat="server" CssClass="no-gif" OnClick="lnkDownload_Click"
                                                                         CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                                                     </asp:LinkButton>
@@ -421,7 +421,7 @@
                                                             <asp:TemplateField ItemStyle-Width="15%" ItemStyle-Wrap="false" HeaderText="ACCIONES" ItemStyle-HorizontalAlign="Center">
                                                                 <ItemTemplate>
                                                                     <%-- Boton con link para descargar archivo--%>
-                                                                    <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click"
+                                                                    <asp:LinkButton ID="lnkDownload" runat="server" CssClass="no-gif" OnClick="lnkDownload_Click"
                                                                         CommandArgument='<%# Eval("IdDocumento") %>'>
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                                                     </asp:LinkButton>

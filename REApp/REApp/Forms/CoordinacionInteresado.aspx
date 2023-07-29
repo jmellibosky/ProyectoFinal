@@ -195,7 +195,7 @@
                                 <br />
                                 <div class="row">
                                     <div class="col-12">
-                                        <asp:Button ID="btnGenerarKMZ" runat="server" Text="Descargar KMZ" OnClick="btnGenerarKMZ_Click" CssClass="btn btn-dark" />
+                                        <asp:Button ID="btnGenerarKMZ" runat="server" Text="Descargar KMZ" OnClick="btnGenerarKMZ_Click" CssClass="btn btn-dark no-gif" />
                                     </div>
                                 </div>
                                 <hr />
