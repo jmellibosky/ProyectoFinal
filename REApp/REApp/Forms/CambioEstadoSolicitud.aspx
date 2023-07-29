@@ -111,7 +111,7 @@
     <%-- Encabezado --%>
     <div class="container">
         <h1 class="row justify-content-center">
-            <label style="font-family:Azonix; letter-spacing: 3px" class="fw-normal mb-3 pb-2">Cambiar Estado de Solicitud</label>
+            <label style="font-style: italic; font-family:'REM', sans-serif; letter-spacing: 3px" class="fw-normal mb-3 pb-2">Cambiar Estado de Solicitud</label>
         </h1>
         <br />
     </div>

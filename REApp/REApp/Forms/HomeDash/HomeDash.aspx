@@ -61,13 +61,13 @@
                             <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">GESTIÓN DE VANTS
                                 <i class="fas fa-plane"></i>
                             </a>
-                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">GESTION DE DOCUMENTACIÓN
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">GESTIÓN DE DOCUMENTACIÓN
                                 <i class="fas fa-list"></i>
                             </a>
                             <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/ValidacionDocumentacion.aspx">&nbsp; &nbsp; VALIDACIÓN DE DOCUMENTACIÓN
                                 <i class="fas fa-list"></i>
                             </a>
-                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">GESTION DE INTERESADOS
+                            <a class="list-group-item-a list-group-item-action-a p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">GESTIÓN DE INTERESADOS
                                 <i class="fas fa-address-book"></i>
                             </a>
                            
@@ -139,13 +139,13 @@
                             <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/GestionVants.aspx">GESTIÓN DE VANTS
                                 <i class="fas fa-plane"></i>
                             </a>
-                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">GESTION DE DOCUMENTACIÓN
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/FileUpload.aspx">GESTIÓN DE DOCUMENTACIÓN
                                 <i class="fas fa-list"></i>
                             </a>
                             <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/ValidacionDocumentacion.aspx">&nbsp; &nbsp; VALIDACIÓN DE DOCUMENTACIÓN
                                 <i class="fas fa-list"></i>
                             </a>
-                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">GESTION DE INTERESADOS
+                            <a class="list-group-item-o list-group-item-action-o p-3" runat="server" target="iframePage" href="/Forms/GestionInteresados.aspx">GESTIÓN DE INTERESADOS
                                 <i class="fas fa-address-book"></i>
                             </a>
                         </li>
