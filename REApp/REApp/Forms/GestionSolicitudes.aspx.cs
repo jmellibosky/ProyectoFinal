@@ -493,7 +493,36 @@ namespace REApp.Forms
                                     //// INSERT EN TABLA PUNTOGEOGRAFICO
                                     PuntoGeografico.Insert(tn);
                                 }
+                            }
 
+                            // RECORRO LAS UBICACIONES DE LAS IMPORTADAS EN KML
+                            List<UbicacionRedux> AuxUbicaciones = Ubicaciones;
+                            foreach (UbicacionRedux ubicacion in AuxUbicaciones)
+                            {
+                                Models.Ubicacion Ubicacion = new Models.Ubicacion();
+
+
+                                Ubicacion.IdSolicitud = Solicitud.IdSolicitud;
+                                Ubicacion.Altura = ubicacion.Altura;
+                                Ubicacion.IdProvincia = (ubicacion.IdProvincia == 0) ? 1 : ubicacion.IdProvincia;
+
+                                Ubicacion.Insert(tn);
+
+                                foreach (PuntoGeograficoRedux puntoGeografico in ubicacion.PuntosGeograficos)
+                                {
+                                    Models.PuntoGeografico PuntoGeografico = new Models.PuntoGeografico();
+                                    PuntoGeografico.IdUbicacion = Ubicacion.IdUbicacion;
+                                    PuntoGeografico.EsPoligono = puntoGeografico.EsPoligono;
+                                    if (!puntoGeografico.EsPoligono)
+                                    {
+                                        PuntoGeografico.Radio = puntoGeografico.Radio;
+                                    }
+                                    PuntoGeografico.Latitud = puntoGeografico.Latitud;
+                                    PuntoGeografico.Longitud = puntoGeografico.Longitud;
+
+                                    //// INSERT EN TABLA PUNTOGEOGRAFICO
+                                    PuntoGeografico.Insert(tn);
+                                }
                             }
 
                             // RECORRO LA GRILLA DE TRIPULANTES

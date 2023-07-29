@@ -127,8 +127,8 @@
     <div style="text-align: end;">
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
-                <asp:Button ID="btnNuevo" Text="Nueva Solicitud" CssClass="btn btn-primary btn-dark spn" runat="server" OnClick="btnNuevo_Click"/>
-                <asp:Button ID="btnGenerarKMZ" Text="Generar KMZ" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnGenerarKMZ_Click" />
+                <asp:Button ID="btnNuevo" Text="Nueva Solicitud" CssClass="btn btn-primary btn-dark spn" runat="server" OnClick="btnNuevo_Click" />
+                <asp:Button ID="btnGenerarKMZ" Text="Generar KMZ" Visible="false" CssClass="btn btn-info btn-dark no-gif" runat="server" OnClick="btnGenerarKMZ_Click" />
                 <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVolver_Click" />
             </ContentTemplate>
         </asp:UpdatePanel>
@@ -400,18 +400,7 @@
                                             <%--AGREGAR UBICACIONES--%>
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="row">
-                                                    <div class="col">
-                                                        <asp:UpdatePanel runat="server">
-                                                            <ContentTemplate>
-                                                                <div class="row">
-                                                                    <div class="col">
-                                                                        <asp:Button ID="btnAgregarUbicacion" Text="Agregar Ubicación" runat="server" CssClass="btn btn-block btn-success" OnClick="btnAgregarUbicacion_Click" />
-                                                                    </div>
-                                                                </div>
-                                                            </ContentTemplate>
-                                                        </asp:UpdatePanel>
-                                                    </div>
-                                                    <div class="col">
+                                                    <div class="col-12">
                                                         <div class="row">
                                                             <div class="col">
                                                                 <asp:FileUpload runat="server" ID="fupKML" />
@@ -425,7 +414,39 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <%--UBICACIONES AGREGADAS--%>
+                                                <div class="col-12">
+                                                    <h3>Ubicaciones Importadas</h3>
+                                                    <asp:Repeater ID="rptUbicaciones" runat="server">
+                                                        <ItemTemplate>
+                                                            <div class="row">
+                                                                <div class="col-12 alert alert-success" role="alert">
+                                                                    <h5>
+                                                                        <asp:Label ID="lblRptTipoUbicacion" runat="server" />
+                                                                    </h5>
+                                                                    <hr />
+                                                                    <asp:HiddenField ID="hdnRptIdUbicacion" Value="0" runat="server" />
+                                                                    <asp:HiddenField ID="hdnRptIdProvincia" Value="0" runat="server" />
+                                                                    <asp:Label ID="lblRptDatos" runat="server" />
+                                                                </div>
+                                                            </div>
+                                                        </ItemTemplate>
+                                                    </asp:Repeater>
+                                                </div>
                                                 <br />
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <asp:UpdatePanel runat="server">
+                                                            <ContentTemplate>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <asp:Button ID="btnAgregarUbicacion" Text="Agregar Ubicación" runat="server" CssClass="btn btn-block btn-success" OnClick="btnAgregarUbicacion_Click" />
+                                                                    </div>
+                                                                </div>
+                                                            </ContentTemplate>
+                                                        </asp:UpdatePanel>
+                                                    </div>
+                                                </div>
 
                                                 <div class="row">
                                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -481,7 +502,7 @@
                                                                     </asp:Panel>
 
 
-                                                                     <%--NUEVO POLIGONO--%>
+                                                                    <%--NUEVO POLIGONO--%>
                                                                     <asp:Panel ID="pnlAgregarPoligono" class="alert alert-primary" role="alert" runat="server" Visible="false">
                                                                         <div class="row">
                                                                             <asp:UpdatePanel runat="server">
@@ -570,29 +591,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <%--UBICACIONES AGREGADAS--%>
-                                            <div class="col-6">
-                                                <asp:Repeater ID="rptUbicaciones" runat="server">
-                                                    <ItemTemplate>
-                                                        <div class="row">
-                                                            <div class="col-12 alert alert-success" role="alert">
-                                                                <h5>
-                                                                    <asp:Label ID="lblRptTipoUbicacion" runat="server" />
-                                                                </h5>
-                                                                <hr />
-                                                                <asp:HiddenField ID="hdnRptIdUbicacion" Value="0" runat="server" />
-                                                                <asp:HiddenField ID="hdnRptIdProvincia" Value="0" runat="server" />
-                                                                <asp:Label ID="lblRptDatos" runat="server" />
-                                                            </div>
-                                                        </div>
-                                                    </ItemTemplate>
-                                                </asp:Repeater>
-                                            </div>
                                         </div>
                                         <hr />
 
-                                       <%--TABLA UBICACIONES--%>
+                                        <%--TABLA UBICACIONES--%>
 
                                         </hr>
 
