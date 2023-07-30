@@ -224,15 +224,13 @@
                                                     <RowStyle BackColor="#e1dddd" />
                                                     <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                                                     <Columns>
-                                                        <asp:BoundField HeaderText="NOMBRE" DataField="Nombre" ItemStyle-Width="20%" />
-                                                        <asp:BoundField HeaderText="APELLIDO" DataField="Apellido" ItemStyle-Width="20%" />
+                                                        <asp:BoundField HeaderText="NOMBRE" DataField="Nombre" ItemStyle-Width="30%" />
+                                                        <asp:BoundField HeaderText="APELLIDO" DataField="Apellido" ItemStyle-Width="25%" />
                                                         <asp:BoundField HeaderText="DNI" DataField="DNI" ItemStyle-Width="20%" />
                                                         <asp:BoundField HeaderText="TELÉFONO" DataField="Telefono" ItemStyle-Width="20%" />
-                                                        <asp:TemplateField HeaderText="ACCIONES" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center">
+                                                        <asp:TemplateField  ItemStyle-Width="5%" ItemStyle-Wrap="false" HeaderText="ACCIONES">
                                                             <ItemTemplate>
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <asp:LinkButton ID="btnEditar" CssClass="btn btn-warning" CommandName="Editar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
+                                                                        <asp:LinkButton ID="btnEditar" CssClass="btn btn-warning no-gif" CommandName="Editar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
                                                             <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; color:#525252' ></i>    
                                                                         </asp:LinkButton>
                                                                         <asp:LinkButton ID="btnEliminar" CssClass="btn btn-danger" CommandName="Eliminar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
@@ -241,8 +239,7 @@
                                                                         <asp:LinkButton ID="btnVerDetalle" CssClass="btn btn-secondary" CommandName="Detalle" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
                                                             <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
                                                                         </asp:LinkButton>
-                                                                    </div>
-                                                                </div>
+
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                     </Columns>
