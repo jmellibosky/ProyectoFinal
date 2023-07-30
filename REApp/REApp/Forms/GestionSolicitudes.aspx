@@ -112,6 +112,23 @@
             cursor: pointer;
         }
     </style>
+
+        <script type="text/javascript">
+            function disableAccionesColumn() {
+                var grid = document.getElementById('<%= gridUbicaciones.ClientID %>'); // Obtener referencia a la tabla gridUbicaciones
+
+                // Obtener la columna de índice 12, que es la columna "ACCIONES" (recuerda que se cuenta desde 0)
+                var accionesColumn = grid.getElementsByTagName('tr')[0].getElementsByTagName('th')[12];
+                accionesColumn.style.display = 'none'; // Ocultar la columna "ACCIONES"
+
+                // Deshabilitar todos los botones en la columna "ACCIONES"
+                var botonesAcciones = grid.querySelectorAll('td:nth-child(13) a');
+                for (var i = 0; i < botonesAcciones.length; i++) {
+                    botonesAcciones[i].setAttribute('disabled', 'disabled');
+                }
+            }
+        </script>
+
 </asp:Content>
 
 
@@ -206,9 +223,10 @@
                                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="ACCIONES" ItemStyle-Width="10%">
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="lnkVerDetalles" ToolTip="Ver Detalles" runat="server" OnClick="lnkVerDetalles_Click" CommandName="Detalle"
-                                                                CommandArgument='<%# Eval("IdSolicitud") %>'>
+                                                                CommandArgument='<%# Eval("IdSolicitud") %>' OnClientClick="disableAccionesColumn();">
                                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size: 15px; color: #525252' /></i>
                                                             </asp:LinkButton>
+    
 
                                                             <asp:LinkButton ID="lnkEditar" Visible='<%# Eval("Editable").ToString().Equals("1") %>' ToolTip="Editar Solicitud" runat="server" OnClick="lnkEditar_Click" CommandName="Editar"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
@@ -630,18 +648,18 @@
                                             <RowStyle BackColor="#e1dddd" />
                                             <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                                             <Columns>
-                                                <asp:BoundField DataField="Id" HeaderText="ID" />
-                                                <asp:BoundField DataField="IdUbicacion" HeaderText="IDUBICACIÓN" />
+                                                <asp:BoundField DataField="Id" HeaderText="ID" Visible="false" />
+                                                <asp:BoundField DataField="IdUbicacion" HeaderText="IDUBICACIÓN" Visible="false" />
                                                 <asp:BoundField DataField="Poligono" HeaderText="TIPO" />
                                                 <asp:BoundField DataField="Latitud" HeaderText="LATITUD" />
                                                 <asp:BoundField DataField="Longitud" HeaderText="LONGUITUD" />
                                                 <asp:BoundField DataField="Radio" HeaderText="RADIO" />
                                                 <asp:BoundField DataField="Altura" HeaderText="ALTURA" />
                                                 <asp:BoundField DataField="idProvincia" HeaderText="PROVINCIA" />
-                                                <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="GRUPO" />
-                                                <asp:BoundField DataField="estadoUbicacion" HeaderText="ESTADO UBICACION" />
-                                                <asp:BoundField DataField="IdPuntoGeografico" HeaderText="IDPUNTOGEOGRAFICO" />
-                                                <asp:BoundField DataField="EliminarBD" HeaderText="ELIMINAR PUNTO GEOGRAFICO" />
+                                                <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="UBICACIÓN NÚMERO:" />
+                                                <asp:BoundField DataField="estadoUbicacion" HeaderText="ESTADO UBICACION" Visible="false" />
+                                                <asp:BoundField DataField="IdPuntoGeografico" HeaderText="IDPUNTOGEOGRAFICO" Visible="false" />
+                                                <asp:BoundField DataField="EliminarBD" HeaderText="ELIMINAR PUNTO GEOGRAFICO" Visible="false" />
                                                 <asp:TemplateField HeaderText="ACCIONES">
                                                     <ItemTemplate>
 

@@ -385,6 +385,7 @@ namespace REApp.Forms
 
         protected void lnkVerDetalles_Click(object sender, EventArgs e)
         {
+            ScriptManager.RegisterStartupScript(Page, GetType(), "DisableAccionesColumnScript", "disableAccionesColumn();", true);
 
         }
 
@@ -1379,6 +1380,12 @@ namespace REApp.Forms
             listaPuntosGeograficos.Clear();
             LimpiarTextBox();
 
+            chkEsPoligono_CheckedChanged(sender, e);
+            if(rbPoligono.Checked)
+            {
+                rbPoligono.Checked = false;
+                rbCircunferencia.Checked = true;
+            }
             pnlAgregarUbicacion.Visible = false;
             pnlAgregarPuntoGeograficoYGrilla.Visible = false;
 
@@ -1479,6 +1486,11 @@ namespace REApp.Forms
 
                 // Limpiar los campos de entrada
                 LimpiarTextBox();
+                if(rbPoligono.Checked)
+                {
+                    rbPoligono.Checked = false;
+                    rbCircunferencia.Checked = true;
+                }
 
                 pnlAgregarUbicacion.Visible = false;
                 pnlAgregarPuntoGeograficoYGrilla.Visible = false;
@@ -1494,9 +1506,8 @@ namespace REApp.Forms
             btnAgregarPuntoGeografico.Visible = false;
             btnGuardarPuntoGeografico.Visible = true;
 
-            txtPoligonoLatitud.Text =
-            txtPoligonoLongitud.Text =
-            txtAltura.Text = "";
+            txtPoligonoLatitud.Text = "";
+            txtPoligonoLongitud.Text ="";
         }
 
         protected void btnGuardarPuntoGeografico_Click(object sender, EventArgs e)
@@ -2095,24 +2106,22 @@ namespace REApp.Forms
             gridUbicaciones.DataBind();
 
             //Formato de tabla
+            
             foreach (GridViewRow row in gridUbicaciones.Rows)
             {
+
                 int idProvincia = Convert.ToInt32(row.Cells[7].Text); // Obtener el número de idProvincia
 
                 string provincia = ddlProvincia.Items[idProvincia - 1].Text;//Obtener el valor string 
 
                 row.Cells[7].Text = provincia;
 
-                if (row.Cells[2].Text == "False")
-                {
-                    row.Cells[2].Text = "Circunferencia";
-                }
-                else
-                {
-                    row.Cells[2].Text = "Poligono";
-                }
 
-                if (Convert.ToInt32(row.Cells[8].Text) % 2 == 0)
+                int idUbicacionGrupo = Convert.ToInt32(row.Cells[8].Text);
+
+
+
+                if (idUbicacionGrupo % 2 == 0)
                 {
                     row.BackColor = System.Drawing.Color.FromArgb(193, 193, 193);
                 }
@@ -2122,17 +2131,13 @@ namespace REApp.Forms
                 }
 
 
-                if (row.Cells[9].Text == "1")
+                if (row.Cells[2].Text == "False")
                 {
-                    row.Cells[9].Text = "Nuevo";
-                }
-                else if (row.Cells[9].Text == "2")
-                {
-                    row.Cells[9].Text = "Base de Datos";
+                    row.Cells[2].Text = "Circunferencia";
                 }
                 else
                 {
-                    row.Cells[9].Text = "Base de Datos Modificado";
+                    row.Cells[2].Text = "Poligono";
                 }
 
 
