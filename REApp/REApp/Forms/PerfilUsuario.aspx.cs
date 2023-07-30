@@ -73,12 +73,6 @@ namespace REApp.Forms
             pnlABM.Visible = false;
             btnVolver.Visible = true;
             pnlCambioPassword.Visible = true;
-            lblRequisitos.Text = "La contraseña debe tener los siguientes requisitos:.<br />" +
-                         "*Tener al menos 8 caracteres.<br />" +
-                         "*Contiene al menos un numero.<br />" +
-                         "*Contiene al menos una letra en minúscula.<br />" +
-                         "*Contiene al menos una letra en mayúscula.<br />" +
-                         "*Contiene al menos un carácter especial.";
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
@@ -207,7 +201,7 @@ namespace REApp.Forms
                 return false;
             }
             
-            string passwordPatern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$";
+            string passwordPatern = @"^(?=.*[A-Z])(?=.*\d).+$";
 
             if (!Regex.IsMatch(txtModalPassword.Text, passwordPatern))
             {

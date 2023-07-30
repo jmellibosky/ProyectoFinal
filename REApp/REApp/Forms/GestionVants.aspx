@@ -183,7 +183,7 @@
 
                                                         <Columns>  
                                                             <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                            <asp:BoundField DataField="IdVant" ItemStyle-Width="10%"  ItemStyle-HorizontalAlign="Center" HeaderText="ID" />
+                                                            <%--<asp:BoundField DataField="IdVant" ItemStyle-Width="10%"  ItemStyle-HorizontalAlign="Center" HeaderText="ID" />--%>
                                                             <asp:BoundField DataField="Fabricante" ItemStyle-Width="20%" HeaderText="FABRICANTE" /> 
                                                             <asp:BoundField DataField="Marca" ItemStyle-Width="20%"  HeaderText="MARCA" />
                                                             <asp:BoundField DataField="Modelo" ItemStyle-Width="20%"  HeaderText="MODELO" />

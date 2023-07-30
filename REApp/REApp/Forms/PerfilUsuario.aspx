@@ -125,7 +125,6 @@
             <div style="text-align: end;">
                 <asp:Button ID="btnVolver" Text="Volver al Listado" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVolver_Click" />
             </div>
-
         </div>
     </div>
 
@@ -189,8 +188,6 @@
                                         <asp:Label Text="Teléfono" runat="server" />
                                         <asp:TextBox runat="server" ID="txtModalTelefono" CssClass="form-control" />
                                     </asp:Panel>
-                                    <hr />
-                                    <hr />
                                 </div>
 
                                 <div class="row">
@@ -212,7 +209,7 @@
                                 </asp:Panel>
                             </div>
                             <div class="row">
-                                <div style="justify-content: center;">
+                                <div style="justify-content: center;text-align: center;">
                                     <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" OnClick="btnGuardar_Click1" />
                                     <hr />
 
@@ -221,7 +218,7 @@
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-                    <div style="text-align: center;">
+                    <div style="text-align: end;">
                         <asp:Button ID="btnCambioPassword" Text="Cambiar contraseña ->" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnCambioPassword_Click" />
                     </div>
 
@@ -242,16 +239,16 @@
                     <hr />
                     <asp:Label Text="Contraseña Nueva" runat="server" />
                     <asp:TextBox runat="server" ID="txtModalPassword" CssClass="form-control" TextMode="Password" />
+                    <div class="form-outline mb-3">
+                        <span class="form-label ml-2" >*La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.</span>
+                    </div>
                     <asp:Label Text="Confirmar Contraseña" runat="server" />
-                    <asp:TextBox runat="server" ID="txtModalConfirmarPassword" CssClass="form-control" TextMode="Password" />
-                    <hr />
-                    <hr />
+                    <asp:TextBox runat="server" ID="txtModalConfirmarPassword" CssClass="form-control" TextMode="Password"  />
                     <asp:Label ID="lblRequisitos" runat="server" Text=""></asp:Label>
                 </asp:Panel>
         </div>
 
         <div style="justify-content: center;">
-            <hr />
             <hr />
             <asp:Button ID="btnActualizarPassword" Text="Actualizar Contraseña" CssClass="btn btn-success" runat="server" OnClick="btnActualizarPassword_Click" />
         </div>

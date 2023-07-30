@@ -351,8 +351,8 @@
                                                         <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                                                         <Columns>
                                                             <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                            <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
-                                                            <asp:BoundField DataField="IdTipoDocumento" HeaderText="ID DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+                                                            <%--<asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
+                                                            <%--<asp:BoundField DataField="IdTipoDocumento" HeaderText="ID DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
                                                             <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                                             <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}"/>
                                                             <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}"/>
@@ -409,8 +409,8 @@
                                                         <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                                                         <Columns>
                                                             <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                            <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
-                                                            <asp:BoundField DataField="IdTipoDocumento" HeaderText="ID DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
+                                                            <%--<asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
+                                                            <%--<asp:BoundField DataField="IdTipoDocumento" HeaderText="ID DOC" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
                                                             <asp:BoundField DataField="Nombre" HeaderText="DOCUMENTO" ItemStyle-Width="10%" />
                                                             <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}"/>
                                                             <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}"/>

@@ -197,7 +197,7 @@
 
                         <Columns>  
                             <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                            <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO"   ItemStyle-Width="5%"/>
+                            <%--<asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO"   ItemStyle-Width="5%"/>--%>
                             <asp:BoundField DataField="Nombre" HeaderText="NOMBRE"          ItemStyle-Width="15%"/>
                             <asp:BoundField DataField="Apellido" HeaderText="APELLIDO"      ItemStyle-Width="15%"/>
                             <asp:BoundField DataField="Email" HeaderText="EMAIL"            ItemStyle-Width="20%"/>
@@ -218,6 +218,12 @@
                                     </asp:LinkButton>
                                     <asp:LinkButton ID="btnDetalle" CommandName="DisplayUser" CommandArgument='<%# Eval("IdUsuario") %>' runat="server">
                                         <i class="fa fa-eye" aria-hidden="true" style='font-size:15px; color:#525252' ></i> 
+                                    </asp:LinkButton>
+                                    <asp:LinkButton ID="btnActivarUsuario" CommandName="ActivarUsuario" CommandArgument='<%# Eval("IdUsuario") %>' Visible='<%# Eval("ValidacionEANA").ToString().Equals("False") %>' runat="server" >
+                                        <i class="fa fa-check" aria-hidden="true" style='font-size:15px; color:#525252' ></i> 
+                                    </asp:LinkButton>
+                                    <asp:LinkButton ID="btnDesactivarUsuario" CommandName="DesactivarUsuario" CommandArgument='<%# Eval("IdUsuario") %>' Visible='<%# Eval("ValidacionEANA").ToString().Equals("True") %>' runat="server" >
+                                        <i class="fa fa-x" aria-hidden="true" style='font-size:15px; color:#525252' ></i> 
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField> 
@@ -311,7 +317,7 @@
                                         <div class="row">
                                             <div style="justify-content:center;">
                                                 <asp:Button ID="btnGuardar" Text="Guardar" CssClass="btn btn-success" runat="server" OnClick="btnGuardar_Click1" />
-                                                <asp:Button ID="btnValidar" Text="Validar Usuario" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnValidar_Click" />
+                                                <%--<asp:Button ID="btnValidar" Text="Validar Usuario" Visible="false" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnValidar_Click" />--%>
                                             </div>
                                         </div>
                                     </div>

@@ -247,19 +247,16 @@ namespace REApp.Forms
                 txtModalDni.Text = Usuario.Dni.ToString();
                 txtModalTipoDni.Text = Usuario.TipoDni;
                 txtModalCuit.Text = Usuario.Cuit;
-                txtModalFechaNac.TextMode = TextBoxMode.SingleLine;
-                txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString();
+                txtModalFechaNac.TextMode = TextBoxMode.Date;
+                txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString("yyyy-MM-dd");
                 txtModalCorreo.Text = Usuario.Email;
                 txtModalTelefono.Text = Usuario.Telefono;
 
                 MostrarABM();
                 habilitarDeshabilitarInputs(false);
 
-                //validacionEANA solo para Administradores
-                if (Session["IdRol"].ToString().ToInt() == 1)
-                {//Buscar otra forma de hacer 
-                    btnValidar.Visible = true;
-                }
+                //btnValidar.Visible = false;
+    
 
 
             }
@@ -282,19 +279,40 @@ namespace REApp.Forms
                 txtModalDni.Text = Usuario.Dni.ToString();
                 txtModalTipoDni.Text = Usuario.TipoDni;
                 txtModalCuit.Text = Usuario.Cuit;
-                txtModalFechaNac.TextMode = TextBoxMode.SingleLine;
-                txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString();
+                txtModalFechaNac.TextMode = TextBoxMode.Date;
+                txtModalFechaNac.Text = Usuario.FechaNacimiento.ToString("yyyy-MM-dd");
                 txtModalCorreo.Text = Usuario.Email;
                 txtModalTelefono.Text = Usuario.Telefono;
 
                 habilitarDeshabilitarInputs(true);
-                btnValidar.Visible = false;
+                //validacionEANA solo para Administradores
+                //if (Session["IdRol"].ToString().ToInt() == 1)
+                //{
+                //    btnValidar.Visible = true;
+                //}
             }
-            if (e.CommandName.Equals("DeleteUser"))
+            else if (e.CommandName.Equals("DeleteUser"))
             {
                 MostrarMsgEliminar();
                 lblDeleteMessage.Text = "¿Desea confirmar la eliminación del usuario " + Usuario.Nombre + " " + Usuario.Apellido + "?";
                 hdnDeleteUserId.Value = Usuario.IdUsuario.ToString();
+            }
+            else if (e.CommandName.Equals("ActivarUsuario"))
+            {
+                //Activa el usuario y envia email
+                Usuario.ValidacionEANA = true;
+                Alert("Usuario activado con éxito", "Se ha validado el usuario seleccionado. Se le notificó por email al mismo", AlertType.success, "/Forms/GestionUsuarios.aspx");
+                EnviarMail(Usuario.Apellido + ", " + Usuario.Nombre, Usuario.Email);
+                Usuario.Update();
+                hdnIdUsuario.Value = "";
+            }
+            else if (e.CommandName.Equals("DesactivarUsuario"))
+            {
+                //Desactiva el usuario
+                Usuario.ValidacionEANA = false;
+                Alert("Usuario desactivado con éxito", "El usuario seleccionado se encuentra inactivo.", AlertType.success, "/Forms/GestionUsuarios.aspx");
+                Usuario.Update();
+                hdnIdUsuario.Value = "";
             }
         }
 
@@ -543,20 +561,27 @@ namespace REApp.Forms
             }
         }
 
-        protected void btnValidar_Click(object sender, EventArgs e)
-        {
-            //Models.Usuario UsuarioViejo = null;
-            Models.Usuario UsuarioViejo = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
+        //protected void btnValidar_Click(object sender, EventArgs e)
+        //{
+        //    //Models.Usuario UsuarioViejo = null;
+        //    Models.Usuario UsuarioViejo = new Models.Usuario().Select(hdnIdUsuario.Value.ToInt());
 
-            // Update
-            UsuarioViejo.ValidacionEANA = true;
-            UsuarioViejo.Update();
+        //    // Update
+        //    if (UsuarioViejo.ValidacionEANA == true)
+        //    {
+        //        UsuarioViejo.ValidacionEANA = false;
+        //    }
+        //    else
+        //    {
+        //        UsuarioViejo.ValidacionEANA = true;
+        //    }
+        //    UsuarioViejo.Update();
 
-            EnviarMail(UsuarioViejo.Apellido + ", " + UsuarioViejo.Nombre, UsuarioViejo.Email);
+        //    EnviarMail(UsuarioViejo.Apellido + ", " + UsuarioViejo.Nombre, UsuarioViejo.Email);
 
-            hdnIdUsuario.Value = "";
-            Alert("Usuario validado con éxito", "Se ha validado el usuario seleccionado.", AlertType.success, "/Forms/GestionUsuarios.aspx");
-        }
+        //    hdnIdUsuario.Value = "";
+        //    Alert("Usuario validado con éxito", "Se ha validado el usuario seleccionado.", AlertType.success, "/Forms/GestionUsuarios.aspx");
+        //}
 
         protected void EnviarMail(string Nombre, string Email)
         {
