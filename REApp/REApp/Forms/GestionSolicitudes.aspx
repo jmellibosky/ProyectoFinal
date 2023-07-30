@@ -197,7 +197,7 @@
 
                                                 <Columns>
                                                     <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                    <asp:BoundField DataField="IdSolicitud" HeaderText="ID" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                                    <asp:BoundField DataField="IdSolicitud" HeaderText="ID" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" Visible="false" />
                                                     <asp:BoundField DataField="NombreUsuario" HeaderText="SOLICITANTE" ItemStyle-Width="20%" />
                                                     <asp:BoundField DataField="Nombre" HeaderText="NOMBRE SOLICITUD" ItemStyle-Width="20%" />
                                                     <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
@@ -210,7 +210,7 @@
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size: 15px; color: #525252' /></i>
                                                             </asp:LinkButton>
-    
+
 
                                                             <asp:LinkButton ID="lnkEditar" Visible='<%# Eval("Editable").ToString().Equals("1") %>' ToolTip="Editar Solicitud" runat="server" OnClick="lnkEditar_Click" CommandName="Editar"
                                                                 CommandArgument='<%# Eval("IdSolicitud") %>'>
@@ -413,6 +413,21 @@
                                         <div class="row">
                                             <%--AGREGAR UBICACIONES--%>
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <asp:UpdatePanel runat="server">
+                                                            <ContentTemplate>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <asp:Button ID="btnAgregarUbicacion" Text="Agregar Ubicación" runat="server" CssClass="btn btn-block btn-success" OnClick="btnAgregarUbicacion_Click" />
+                                                                    </div>
+                                                                </div>
+                                                            </ContentTemplate>
+                                                        </asp:UpdatePanel>
+                                                    </div>
+                                                </div>
+                                                <br />
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <div class="row">
@@ -429,7 +444,7 @@
                                                     </div>
                                                     <%--UBICACIONES AGREGADAS--%>
                                                     <div class="col-6">
-                                                        <h5 id="h5Ubicaciones" runat="server" visible="false">Ubicaciones Importadas</h5>
+                                                        <h5 id="h5Ubicaciones" runat="server" visible="true">Ubicaciones Importadas</h5>
                                                         <asp:Repeater ID="rptUbicaciones" runat="server">
                                                             <ItemTemplate>
                                                                 <div class="row">
@@ -447,21 +462,6 @@
                                                         </asp:Repeater>
                                                     </div>
                                                 </div>
-                                                <br />
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <asp:UpdatePanel runat="server">
-                                                            <ContentTemplate>
-                                                                <div class="row">
-                                                                    <div class="col">
-                                                                        <asp:Button ID="btnAgregarUbicacion" Text="Agregar Ubicación" runat="server" CssClass="btn btn-block btn-success" OnClick="btnAgregarUbicacion_Click" />
-                                                                    </div>
-                                                                </div>
-                                                            </ContentTemplate>
-                                                        </asp:UpdatePanel>
-                                                    </div>
-                                                </div>
-
                                                 <div class="row">
                                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <%--NUEVA UBICACIÓN--%>
@@ -570,19 +570,19 @@
 
                                                                                         <Columns>
                                                                                             <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                                                            <asp:BoundField DataField="Id" HeaderText="ID" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center"/>
+                                                                                            <asp:BoundField DataField="Id" HeaderText="ID" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
                                                                                             <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
                                                                                             <asp:BoundField DataField="Longitud" HeaderText="LONGITUD" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
                                                                                             <asp:TemplateField HeaderText="ACCIONES">
                                                                                                 <ItemTemplate>
 
-                                                                                                    <asp:LinkButton ID="btnModificarPuntoGeografico" runat="server" OnClick="lnkModificarPuntoGeografico_Click" CommandName="Modificar"
+                                                                                                    <asp:LinkButton ID="btnModificarPuntoGeografico" ToolTip="Editar Punto Geográfico" runat="server" OnClick="lnkModificarPuntoGeografico_Click" CommandName="Modificar"
                                                                                                         CommandArgument='<%# Eval("Id") %>'>
                                                                                                         <i class="fa fa-pencil" aria-hidden="true" style='font-size: 15px; color: #525252' /></i>
                                                                                                     </asp:LinkButton>
 
 
-                                                                                                    <asp:LinkButton ID="btnEliminarPuntoGeografico" runat="server" OnClick="lnkEliminarPuntoGeografico_Click" CommandName="Eliminar"
+                                                                                                    <asp:LinkButton ID="btnEliminarPuntoGeografico" ToolTip="Eliminar Punto Geográfico" runat="server" OnClick="lnkEliminarPuntoGeografico_Click" CommandName="Eliminar"
                                                                                                         CommandArgument='<%# Eval("Id") %>'>
                                                                                                         <i class="fa fa-trash-can" aria-hidden="true" style='font-size: 15px; color: #525252' /></i>
                                                                                                     </asp:LinkButton>
@@ -628,28 +628,28 @@
                                             <RowStyle BackColor="#e1dddd" />
                                             <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                                             <Columns>
-                                                <asp:BoundField DataField="Id" HeaderText="ID" Visible="false" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="IdUbicacion" HeaderText="IDUBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="NRO UBICACIÓN" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="Poligono" HeaderText="TIPO" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="Longitud" HeaderText="LONGUITUD" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="Radio" HeaderText="RADIO" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="Altura" HeaderText="ALTURA" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="idProvincia" HeaderText="PROVINCIA" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="estadoUbicacion" HeaderText="ESTADO UBICACION" Visible="false" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="IdPuntoGeografico" HeaderText="IDPUNTOGEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="EliminarBD" HeaderText="ELIMINAR PUNTO GEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="Id" HeaderText="ID" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="IdUbicacion" HeaderText="IDUBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="NRO UBICACIÓN" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="Poligono" HeaderText="TIPO" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="Longitud" HeaderText="LONGUITUD" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="Radio" HeaderText="RADIO" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="Altura" HeaderText="ALTURA" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="idProvincia" HeaderText="PROVINCIA" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="estadoUbicacion" HeaderText="ESTADO UBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="IdPuntoGeografico" HeaderText="IDPUNTOGEOGRÁFICO" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="EliminarBD" HeaderText="ELIMINAR PUNTO GEOGRÁFICO" Visible="false" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:TemplateField HeaderText="ACCIONES">
                                                     <ItemTemplate>
 
-                                                        <asp:LinkButton ID="btnEditarUbicacion" runat="server" OnClick="lnkModificar_Click" CommandName="Modificar"
+                                                        <asp:LinkButton ID="btnEditarUbicacion" ToolTip="Editar Punto Geográfico" runat="server" OnClick="lnkModificar_Click" CommandName="Modificar"
                                                             CommandArgument='<%# Eval("Id") %>'>
                                                                 <i class="fa fa-pencil" aria-hidden="true" style='font-size: 15px; color: #525252' /></i>
                                                         </asp:LinkButton>
 
 
-                                                        <asp:LinkButton ID="btnEliminarUbicacion" runat="server" OnClick="lnkEliminar_Click" CommandName="Eliminar"
+                                                        <asp:LinkButton ID="btnEliminarUbicacion" ToolTip="Editar Punto Geográfico" runat="server" OnClick="lnkEliminar_Click" CommandName="Eliminar"
                                                             CommandArgument='<%# Eval("Id") %>'>
                                                                 <i class="fa fa-trash-can" aria-hidden="true" style='font-size: 15px; color: #525252' /></i>
                                                         </asp:LinkButton>
@@ -667,18 +667,18 @@
                                             <RowStyle BackColor="#e1dddd" />
                                             <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                                             <Columns>
-                                                <asp:BoundField DataField="Id" HeaderText="ID" Visible="false" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="IdUbicacion" HeaderText="IDUBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="NRO UBICACIÓN" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="Poligono" HeaderText="TIPO" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="Longitud" HeaderText="LONGUITUD" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="Radio" HeaderText="RADIO" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="Altura" HeaderText="ALTURA" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="idProvincia" HeaderText="PROVINCIA" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="estadoUbicacion" HeaderText="ESTADO UBICACION" Visible="false" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="IdPuntoGeografico" HeaderText="IDPUNTOGEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center"/>
-                                                <asp:BoundField DataField="EliminarBD" HeaderText="ELIMINAR PUNTO GEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="Id" HeaderText="ID" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="IdUbicacion" HeaderText="IDUBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="NRO UBICACIÓN" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="Poligono" HeaderText="TIPO" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="Longitud" HeaderText="LONGUITUD" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="Radio" HeaderText="RADIO" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="Altura" HeaderText="ALTURA" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="idProvincia" HeaderText="PROVINCIA" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="estadoUbicacion" HeaderText="ESTADO UBICACION" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="IdPuntoGeografico" HeaderText="IDPUNTOGEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="EliminarBD" HeaderText="ELIMINAR PUNTO GEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center" />
                                             </Columns>
                                         </asp:GridView>
 

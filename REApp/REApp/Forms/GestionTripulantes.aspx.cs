@@ -200,10 +200,22 @@ namespace REApp.Forms
             }
             if (e.CommandName.Equals("Eliminar"))
             { // Eliminar
-
-                lblMensajeEliminacion.Text = "¿Desea confirmar la eliminación del tripulante " + Tripulacion.Nombre + " " + Tripulacion.Apellido + "?";
                 hdnEliminar.Value = Tripulacion.IdTripulacion.ToString();
-                pnlAlertaEliminar.Visible = true;
+                using (SP sp = new SP("bd_reapp"))
+                {
+                    sp.Execute("usp_DarDeBajaTripulacionUsuario",
+                        P.Add("IdTripulacion", hdnEliminar.Value.ToInt()),
+                        P.Add("IdUsuario", ddlSolicitante.SelectedValue.ToIntID())
+                    );
+                }
+                //pnlAlertaEliminar.Visible = false;
+                //Alert("Tripulante dado de baja con éxito", "Se ha dado de baja el Tripulante seleccionado.", AlertType.success, "/Forms/GestionTripulantes.aspx");
+                Alert("Tripulante dado de baja con éxito", "Se ha dado de baja el Tripulante seleccionado.", AlertType.success);
+                //lblMensajeEliminacion.Text = "¿Desea confirmar la eliminación del tripulante " + Tripulacion.Nombre + " " + Tripulacion.Apellido + "?";
+
+                //pnlAlertaEliminar.Visible = true;
+                //filtrarTripulantesXSolicitante();
+                btnFiltrar_Click(null, null);
             }
         }
 
@@ -552,8 +564,8 @@ namespace REApp.Forms
             }
             pnlAlertaEliminar.Visible = false;
             Alert("Tripulante dado de baja con éxito", "Se ha dado de baja el Tripulante seleccionado.", AlertType.success, "/Forms/GestionTripulantes.aspx");
-
-            //btnFiltrar_Click(null, null);
+            //filtrarTripulantesXSolicitante();
+            btnFiltrar_Click(null, null);
         }
 
         //Subida de Archivos

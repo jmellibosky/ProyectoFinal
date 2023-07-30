@@ -411,6 +411,15 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.GridView gvVANTs;
 
         /// <summary>
+        /// Control btnAgregarUbicacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAgregarUbicacion;
+
+        /// <summary>
         /// Control fupKML.
         /// </summary>
         /// <remarks>
@@ -445,15 +454,6 @@ namespace REApp.Forms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptUbicaciones;
-
-        /// <summary>
-        /// Control btnAgregarUbicacion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarUbicacion;
 
         /// <summary>
         /// Control pnlAgregarUbicacion.

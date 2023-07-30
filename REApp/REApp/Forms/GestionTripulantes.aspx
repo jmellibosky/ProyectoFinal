@@ -230,15 +230,16 @@
                                                         <asp:BoundField HeaderText="TELÉFONO" DataField="Telefono" ItemStyle-Width="20%" />
                                                         <asp:TemplateField  ItemStyle-Width="5%" ItemStyle-Wrap="false" HeaderText="ACCIONES">
                                                             <ItemTemplate>
-                                                                        <asp:LinkButton ID="btnEditar" CssClass="btn btn-warning no-gif" CommandName="Editar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
-                                                            <i class="fa fa-pencil" aria-hidden="true" style='font-size:15px; color:#525252' ></i>    
+                                                                        <asp:LinkButton ID="btnVerDetalle"  ToolTip="Ver Detalle" CommandName="Detalle" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
+                                                            <i class="fa fa-eye" aria-hidden="true" style='font-size: 15px; color: #525252; margin-right: 5px;' /></i>
                                                                         </asp:LinkButton>
-                                                                        <asp:LinkButton ID="btnEliminar" CssClass="btn btn-danger" CommandName="Eliminar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
-                                                            <i class="fa fa-trash-can" aria-hidden="true" style='font-size:15px; color:#525252' ></i>
+                                                                        <asp:LinkButton ID="btnEditar"  ToolTip="Editar Tripulante" CommandName="Editar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
+                                                            <i class="fa fa-pencil" aria-hidden="true" style='font-size: 15px; color: #525252; margin-right: 5px;'></i> 
                                                                         </asp:LinkButton>
-                                                                        <asp:LinkButton ID="btnVerDetalle" CssClass="btn btn-secondary" CommandName="Detalle" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
-                                                            <i class="fa fa-eye" aria-hidden="true" style='font-size:15px;   color:#525252'/>  </i>
+                                                                        <asp:LinkButton ID="btnEliminar"  ToolTip="Eliminar Tripulante" CommandName="Eliminar" CommandArgument='<%# Eval("IdTripulacion") %>' runat="server">
+                                                            <i class="fa fa-trash text-danger" aria-hidden="true" style='font-size: 15px; margin-left: 15px; margin-right: 5px;'></i>
                                                                         </asp:LinkButton>
+
 
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
