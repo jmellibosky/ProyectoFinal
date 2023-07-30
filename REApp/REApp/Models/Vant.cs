@@ -30,7 +30,7 @@ namespace REApp.Models
 
         public string NumeroSerie { get; set; }
 
-        public DateTime? AñoFabricacion { get; set; }
+        public DateTime AñoFabricacion { get; set; }
 
         public string LugarFabricacion { get; set; }
 

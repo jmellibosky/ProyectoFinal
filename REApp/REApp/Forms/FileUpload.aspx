@@ -258,8 +258,9 @@
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
                                         <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-success" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
-                                            CommandArgument='<%# Eval("IdDocumento") %>'>
+                                            CommandArgument='<%# Eval("IdDocumento") %>' Visible='<%# Eval("Estado").ToString() != ("Aprobado") %>'>
                                                 <%--Icono resubir/actualizar en vez de eliminar, para solicitantes--%>
+                                            <%--'<%# Eval("Estado").ToString() != ("Aprobado") %>'--%>
                                                 <i class="fa-sharp fa-solid fa-file-arrow-up" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
                                         <%--Historial de archivos CM--%>
@@ -331,7 +332,7 @@
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
                                         <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-success" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
-                                            CommandArgument='<%# Eval("IdDocumento") %>'>
+                                            CommandArgument='<%# Eval("IdDocumento") %>' Visible='<%# Eval("Estado").ToString() != ("Aprobado") %>'>
                                                 <%--Icono resubir/actualizar en vez de eliminar, para solicitantes--%>
                                                 <i class="fa-sharp fa-solid fa-file-arrow-up" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
@@ -406,7 +407,7 @@
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
                                         <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-success" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
-                                            CommandArgument='<%# Eval("IdDocumento") %>'>
+                                            CommandArgument='<%# Eval("IdDocumento") %>' Visible='<%# Eval("Estado").ToString() != ("Aprobado") %>'>
                                                 <%--Icono resubir/actualizar en vez de eliminar, para solicitantes--%>
                                                 <i class="fa-sharp fa-solid fa-file-arrow-up" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>
@@ -483,7 +484,7 @@
                                         </asp:LinkButton>
                                         <%--Boton para eliminar archivo de la BD--%>
                                         <asp:LinkButton ID="lnkEliminarArchivo" runat="server" CssClass="btn btn-success" OnClick="lnkEliminarArchivo_Click" ToolTip="Actualizar archivo"
-                                            CommandArgument='<%# Eval("IdDocumento") %>'>
+                                            CommandArgument='<%# Eval("IdDocumento") %>' Visible='<%# Eval("Estado").ToString() != ("Aprobado") %>'>
                                                 <%--Icono resubir/actualizar en vez de eliminar, para solicitantes--%>
                                                 <i class="fa-sharp fa-solid fa-file-arrow-up" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                         </asp:LinkButton>

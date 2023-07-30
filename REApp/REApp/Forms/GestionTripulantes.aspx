@@ -361,12 +361,12 @@
                                                                 <ItemTemplate>
                                                                     <%-- Boton con link para descargar archivo--%>
                                                                     <asp:LinkButton ID="lnkDownload" runat="server" CssClass="no-gif" OnClick="lnkDownload_Click"
-                                                                        CommandArgument='<%# Eval("IdDocumento") %>'>
+                                                                        CommandArgument='<%# Eval("IdDocumento") %>' >
                                                 <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                                                     </asp:LinkButton>
                                                                     <%--Boton para eliminar archivo de la BD--%>
                                                                     <asp:LinkButton ID="lnkEliminarArchivo" runat="server" OnClick="lnkEliminarArchivo_Click"
-                                                                        CommandArgument='<%# Eval("IdDocumento") %>'>
+                                                                        CommandArgument='<%# Eval("IdDocumento") %>' Visible='<%# Eval("Estado").ToString() != ("Aprobado") %>'>
                                                 <i class="fa fa-trash-can" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                                                     </asp:LinkButton>
                                                                 </ItemTemplate>
@@ -424,7 +424,7 @@
                                                                     </asp:LinkButton>
                                                                     <%--Boton para eliminar archivo de la BD--%>
                                                                     <asp:LinkButton ID="lnkEliminarArchivo" runat="server" OnClick="lnkEliminarArchivo_Click"
-                                                                        CommandArgument='<%# Eval("IdDocumento") %>'>
+                                                                        CommandArgument='<%# Eval("IdDocumento") %>' Visible='<%# Eval("Estado").ToString() != ("Aprobado") %>'>
                                                 <i class="fa fa-trash-can" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                                                     </asp:LinkButton>
                                                                 </ItemTemplate>

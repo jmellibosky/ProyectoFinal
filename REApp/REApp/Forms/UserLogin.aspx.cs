@@ -20,99 +20,112 @@ namespace REApp.Forms
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            string correo = txt_email.Value;
-            string password = txt_password.Value;
-            string saltkey;
-            DataTable dt = new DataTable();
-            DataTable dt2 = new DataTable();
-            int flagLogin;
-
-            bool flagCaptcha = false;
-
-            //Checkeamos que el captcha este correcto
-            if (String.IsNullOrEmpty(Recaptcha.Response))
+            try
             {
-                //Aca iria una alerta para mostrar que se tiene que no tiene que estar vacio
-                flagCaptcha = false;
-                Alert("Error", "Por favor, complete el captcha.", AlertType.error);
-            }
-            else
-            {
-                if (Recaptcha.Verify().Success)
-                {
-                    //Funciona, no hace falta mostrar mas nada, solo prender la bandera o redireccionar
-                    flagCaptcha = true;
-                }
-                else
-                {
-                    //Mostrar error diciendo que no es success, con nuestro tipo de captcha capaz no hace falta 
+                string correo = txt_email.Value;
+                string password = txt_password.Value;
+                string saltkey;
+                DataTable dt = new DataTable();
+                DataTable dt2 = new DataTable();
+                int flagLogin;
 
+                bool flagCaptcha = false;
+
+
+                //Checkeamos que el captcha este correcto
+                if (String.IsNullOrEmpty(Recaptcha.Response))
+                {
+                    //Aca iria una alerta para mostrar que se tiene que no tiene que estar vacio
                     flagCaptcha = false;
                     Alert("Error", "Por favor, complete el captcha.", AlertType.error);
                 }
-            }
-
-            //Podriamos implementar SweetAlerts para dejarlo mas bonito
-            using (SP sp = new SP("bd_reapp"))
-            {
-                dt = sp.Execute("usp_CorreoSaltCheck", P.Add("correo", correo));
-                if (dt.Rows.Count > 0)
+                else
                 {
-                    saltkey = dt.Rows[0][0].ToString();
+                    if (Recaptcha.Verify().Success)
+                    {
+                        //Funciona, no hace falta mostrar mas nada, solo prender la bandera o redireccionar
+                        flagCaptcha = true;
+                    }
+                    else
+                    {
+                        //Mostrar error diciendo que no es success, con nuestro tipo de captcha capaz no hace falta 
+
+                        flagCaptcha = false;
+                        Alert("Error", "Por favor, complete el captcha.", AlertType.error);
+                    }
+                }
+
+                //Podriamos implementar SweetAlerts para dejarlo mas bonito
+                using (SP sp = new SP("bd_reapp"))
+                {
+                    dt = sp.Execute("usp_CorreoSaltCheck", P.Add("correo", correo));
+                    if (dt.Rows.Count > 0)
+                    {
+                        saltkey = dt.Rows[0][0].ToString();
+                    }
+                    else
+                    {
+                        saltkey = "";
+                    }
+                }
+
+                string hashedpass = SecurityHelper.HashPassword(password, saltkey, 10101, 70);
+
+                using (SP sp2 = new SP("bd_reapp"))
+                {
+                    dt2 = sp2.Execute("usp_CorreoPassCheck", P.Add("correo", correo), P.Add("pass", hashedpass));
+                    flagLogin = dt2.Rows.Count;
+                }
+
+                if (flagLogin == 1 && flagCaptcha == true)
+                {
+                    //Ver si esto es completamente seguro
+                    string idUsuario = dt2.Rows[0][0].ToString();
+
+                    Usuario usuario = new Usuario().Select(idUsuario.ToInt());
+
+                    string nombreuser = usuario.Nombre;
+                    string apellidouser = usuario.Apellido;
+                    string idRol = usuario.IdRol.ToString();
+                    string nombrecompleto = nombreuser + " " + apellidouser;
+                    bool ValidacionCorreo = usuario.ValidacionCorreo;
+
+                    Session["Username"] = nombrecompleto;
+                    Session["UsuarioCompleto"] = dt2;
+                    Session["IdUsuario"] = idUsuario;
+                    Session["IdRol"] = idRol;
+
+                    if (ValidacionCorreo)
+                    {
+                        CreateCookie(nombrecompleto, idUsuario);
+                        Response.Redirect("/Forms/HomeDash/HomeDash.aspx");
+                    }
+                    else
+                    {
+                        Alert("Validación de Cuenta", "Es necesario que valide su cuenta antes de ingresar.", AlertType.error);
+                    }
                 }
                 else
                 {
-                    saltkey = "";
+                    txt_password.Value = "";
+                    txt_email.Value = "";
+                    txt_email.Focus();
+
+                }
+                if (flagLogin == 0)
+                {
+                    Alert("Datos erróneos.", "Se ha producido un problema al iniciar sesión. Comprueba el correo electrónico y la contraseña o crea una cuenta.", AlertType.error, "/Forms/UserLogin.aspx");
+                }
+                if (flagCaptcha == false)
+                {
+                    Alert("Error", "Por favor, verificar Captcha para iniciar sesión.", AlertType.error);
                 }
             }
-
-            string hashedpass = SecurityHelper.HashPassword(password, saltkey, 10101, 70);
-
-            using (SP sp2 = new SP("bd_reapp"))
+            catch (Exception)
             {
-                dt2 = sp2.Execute("usp_CorreoPassCheck", P.Add("correo", correo), P.Add("pass", hashedpass));
-                flagLogin = dt2.Rows.Count;
-            }
-
-            if (flagLogin == 1 && flagCaptcha == true)
-            {
-                //Ver si esto es completamente seguro
-                string idUsuario = dt2.Rows[0][0].ToString();
-
-                Usuario usuario = new Usuario().Select(idUsuario.ToInt());
-
-                string nombreuser = usuario.Nombre;
-                string apellidouser = usuario.Apellido;
-                string idRol = usuario.IdRol.ToString();
-                string nombrecompleto = nombreuser + " " + apellidouser;
-                bool ValidacionCorreo = usuario.ValidacionCorreo;
-
-                Session["Username"] = nombrecompleto;
-                Session["UsuarioCompleto"] = dt2;
-                Session["IdUsuario"] = idUsuario;
-                Session["IdRol"] = idRol;
+                Alert("Datos erróneos.", "Se ha producido un problema al iniciar sesión. Comprueba el correo electrónico y la contraseña o crea una cuenta.", AlertType.error, "/Forms/UserLogin.aspx");
+                //throw;
                 
-                if (ValidacionCorreo)
-                {
-                    CreateCookie(nombrecompleto, idUsuario);
-                    Response.Redirect("/Forms/HomeDash/HomeDash.aspx");
-                }
-                else
-                {
-                    Alert("Validación de Cuenta", "Es necesario que valide su cuenta antes de ingresar.", AlertType.error);
-                }
-            }
-            else
-            {
-                txt_password.Value = "";
-                txt_email.Value = "";
-                txt_email.Focus();
-
-            }
-
-            if (flagCaptcha == false)
-            {
-                Alert("Error", "Por favor, verificar Captcha para iniciar sesión.", AlertType.error);
             }
 
         }

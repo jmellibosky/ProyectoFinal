@@ -200,10 +200,10 @@ namespace REApp.Forms
             ddlModalSolicitante.SelectedValue = ddlSolicitante.SelectedValue;
             ddlModalSolicitante.Enabled = false;
 
-            txtAñoFabricacion.TextMode = TextBoxMode.DateTime;
+            //txtAñoFabricacion.TextMode = TextBoxMode.DateTime;
             txtFabricante.Text = Vant.Fabricante;
-            txtAñoFabricacion.TextMode = TextBoxMode.SingleLine;
-            txtAñoFabricacion.Text = Vant.AñoFabricacion.ToString();
+            txtAñoFabricacion.TextMode = TextBoxMode.Date;
+            txtAñoFabricacion.Text = Vant.AñoFabricacion.ToString("yyyy-MM-dd");
             txtModelo.Text = Vant.Modelo;
             txtLugarFabricacion.Text = Vant.LugarFabricacion;
             txtLugarGuardado.Text = Vant.LugarGuardado;
@@ -260,8 +260,8 @@ namespace REApp.Forms
 
 
             txtFabricante.Text = Vant.Fabricante;
-            txtAñoFabricacion.TextMode = TextBoxMode.SingleLine;
-            txtAñoFabricacion.Text = Vant.AñoFabricacion.ToString();
+            txtAñoFabricacion.TextMode = TextBoxMode.Date;
+            txtAñoFabricacion.Text = Vant.AñoFabricacion.ToString("yyyy-MM-dd");
             txtModelo.Text = Vant.Modelo;
             txtLugarFabricacion.Text = Vant.LugarFabricacion;
             txtLugarGuardado.Text = Vant.LugarGuardado;
@@ -445,7 +445,7 @@ namespace REApp.Forms
             ddlLocalidadPartido.Items.Clear();
             ddlProvincia.Items.Clear();
             txtMotivoBaja.Text = "";
-            txtAñoFabricacion.TextMode = TextBoxMode.DateTime;
+            txtAñoFabricacion.TextMode = TextBoxMode.Date;
 
             pnlError.Visible = false;
         }
@@ -474,7 +474,7 @@ namespace REApp.Forms
 
             pnlMotivoBaja.Visible = false;
             txtMotivoBaja.Enabled = false;
-            txtAñoFabricacion.TextMode = TextBoxMode.DateTime;
+            txtAñoFabricacion.TextMode = TextBoxMode.Date;
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)

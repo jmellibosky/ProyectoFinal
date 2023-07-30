@@ -693,10 +693,6 @@ namespace REApp.Forms
                 {
                     lnkBtn.Visible = false;
                 }
-                if (hdnFuCM.Value == "Editar")
-                {
-                    lnkBtn.Visible = true;
-                }
             }
         }
 
@@ -710,10 +706,7 @@ namespace REApp.Forms
                 {
                     lnkBtn.Visible = false;
                 }
-                if (hdnFuCertComp.Value == "Editar")
-                {
-                    lnkBtn.Visible = true;
-                }
+
             }
         }
 
