@@ -412,7 +412,7 @@
                                             <%--AGREGAR UBICACIONES--%>
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="row">
-                                                    <div class="col-12">
+                                                    <div class="col-6">
                                                         <div class="row">
                                                             <div class="col">
                                                                 <asp:FileUpload runat="server" ID="fupKML" />
@@ -425,25 +425,25 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <%--UBICACIONES AGREGADAS--%>
-                                                <div class="col-12">
-                                                    <h3>Ubicaciones Importadas</h3>
-                                                    <asp:Repeater ID="rptUbicaciones" runat="server">
-                                                        <ItemTemplate>
-                                                            <div class="row">
-                                                                <div class="col-12 alert alert-success" role="alert">
-                                                                    <h5>
-                                                                        <asp:Label ID="lblRptTipoUbicacion" runat="server" />
-                                                                    </h5>
-                                                                    <hr />
-                                                                    <asp:HiddenField ID="hdnRptIdUbicacion" Value="0" runat="server" />
-                                                                    <asp:HiddenField ID="hdnRptIdProvincia" Value="0" runat="server" />
-                                                                    <asp:Label ID="lblRptDatos" runat="server" />
+                                                    <%--UBICACIONES AGREGADAS--%>
+                                                    <div class="col-6">
+                                                        <h5>Ubicaciones Importadas</h5>
+                                                        <asp:Repeater ID="rptUbicaciones" runat="server">
+                                                            <ItemTemplate>
+                                                                <div class="row">
+                                                                    <div class="col-12 alert alert-success" role="alert">
+                                                                        <h5>
+                                                                            <asp:Label ID="lblRptTipoUbicacion" runat="server" />
+                                                                        </h5>
+                                                                        <hr />
+                                                                        <asp:HiddenField ID="hdnRptIdUbicacion" Value="0" runat="server" />
+                                                                        <asp:HiddenField ID="hdnRptIdProvincia" Value="0" runat="server" />
+                                                                        <asp:Label ID="lblRptDatos" runat="server" />
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </ItemTemplate>
-                                                    </asp:Repeater>
+                                                            </ItemTemplate>
+                                                        </asp:Repeater>
+                                                    </div>
                                                 </div>
                                                 <br />
                                                 <div class="row">
@@ -470,7 +470,7 @@
                                                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                                                             <div class="row">
                                                                                 <div class="col">
-                                                                                    <asp:RadioButton GroupName="EsPoligono" runat="server" ID="rbCircunferencia" AutoPostBack="true" OnCheckedChanged="rbCircunferencia_CheckedChanged" />
+                                                                                    <asp:RadioButton GroupName="EsPoligono" runat="server" Checked="true" ID="rbCircunferencia" AutoPostBack="true" OnCheckedChanged="rbCircunferencia_CheckedChanged" />
                                                                                     <asp:Label Text="Circunferencia" runat="server" />
                                                                                 </div>
                                                                             </div>

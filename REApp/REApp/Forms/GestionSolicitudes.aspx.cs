@@ -1370,6 +1370,9 @@ namespace REApp.Forms
             txtCircunferenciaLongitud.Text =
             txtCircunferenciaRadio.Text = "";
             gvPuntosGeograficos.DataSource = null;
+
+            rbCircunferencia.Checked = true;
+            rbCircunferencia_CheckedChanged(null, null);
         }
         protected void btnCancelarUbicacion_Click(object sender, EventArgs e)
         {
