@@ -104,6 +104,7 @@ namespace REApp.Forms
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     ddlModalRol.Items.Add(new ListItem(dt.Rows[i]["Nombre"].ToString(), dt.Rows[i]["IdRol"].ToString().ToInt().ToCryptoID()));
+                    //ddlModalRol.Items.Remove(ddlModalRol.Items.FindByText("Interesado"));
                 }
             }
         }
@@ -162,9 +163,24 @@ namespace REApp.Forms
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             LimpiarModal();
+            habilitarTextBoxsNuevo();
             MostrarABM();
             txtModalFechaNac.TextMode = TextBoxMode.Date;
 
+        }
+
+        protected void habilitarTextBoxsNuevo()
+        {
+            txtModalNombreUsuario.Enabled =
+            txtModalApellidoUsuario.Enabled =
+            txtModalDni.Enabled =
+            txtModalFechaNac.Enabled =
+            txtModalCorreo.Enabled =
+            txtModalTelefono.Enabled =
+            txtModalCuit.Enabled =
+            ddlModalRol.Enabled =
+            txtModalTipoDni.Enabled = true;
+            txtModalFechaNac.TextMode = TextBoxMode.Date;
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
@@ -383,7 +399,7 @@ namespace REApp.Forms
                         EnviarMailConfirmacion(Usuario, password);
                     }
                     hdnIdUsuario.Value = "";
-                    Alert("Usuario creado con éxito", "", AlertType.success, "/Forms/GestionUsuarios.aspx");
+                    Alert("Usuario creado con éxito", "Se ha enviado un email con la contraseña provisional. ", AlertType.success, "/Forms/GestionUsuarios.aspx");
                 }
             }
         }
@@ -420,7 +436,7 @@ namespace REApp.Forms
             builder.AppendSaltoLinea(1);
             builder.AppendTexto("Contraseña: " + password);
             builder.AppendSaltoLinea(2);
-            builder.AppendTexto("Esta contraseña fue generada automaticamente, porfavor cambiela al ingresar al sistema.");
+            builder.AppendTexto("Ésta contraseña fue generada automaticamente, porfavor cámbiela al ingresar al sistema.");
             builder.AppendSaltoLinea(2);
             builder.AppendTexto("Saludos.");
             builder.AppendSaltoLinea(1);
@@ -450,6 +466,12 @@ namespace REApp.Forms
                 Alert("Error", "Por favor, ingrese el DNI del usuario.", AlertType.error);
                 return false;
             }
+            if (txtModalFechaNac.Text.Equals(""))
+            {
+                Alert("Error", "Por favor, ingrese la fecha de nacimiento del usuario.", AlertType.error);
+                return false;
+            }
+
             string numberPattern = @"^\d+$";
 
 

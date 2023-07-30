@@ -136,34 +136,62 @@ namespace REApp.Forms
             {
                 //En panel admin se hardcodea con tipoDoc 1 hasta q se haga el codigo
                 //int idTipoDoc = lnkUpload1.CommandArgument.ToInt();
-                uploadMethod(FileUpload1, 1, "Varios");
-                //Alert("Archivo cargado con éxito", "Se ha cargado un nuevo archivo al usuario seleccionado.", AlertType.success, "/Forms/FileUpload.aspx");
+                //uploadMethod(FileUpload1, 1, "Varios");
             }
             //
+            //CERTIFICADO MEDICO
             else if (FileUpload2.HasFile)
             {
-                int idTipoDoc = lnkUpload2.CommandArgument.ToInt();
-                uploadMethod(FileUpload2, idTipoDoc, "Certificado Médico");
-                //Alert("Certificado Médico cargado con éxito", "Se ha vinculado un nuevo Certificado Médico a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
+                if ((txtFechaVencimientoCertMedico.Value.ToDateTime() >= DateTime.Today) || txtFechaVencimientoCertMedico.Value == "")
+                {
+                    int idTipoDoc = lnkUpload2.CommandArgument.ToInt();
+                    uploadMethod(FileUpload2, idTipoDoc, "Certificado Médico");
+                }
+                else
+                {
+                    Alert("Error en la fecha de vencimiento del Certificado Médico", "Debe ser mayor a la actual.", AlertType.error, "/Forms/FileUpload.aspx");
+                }
 
             }
+            //CERTIFICADO DE COMPETENCIA
             else if (FileUpload3.HasFile) 
             {
-                int idTipoDoc = lnkUpload3.CommandArgument.ToInt();
-                uploadMethod(FileUpload3, idTipoDoc, "Certificado de Competencia");
-                //Alert("Certificado de Competencia cargado con éxito", "Se ha vinculado un nuevo Certificado de Competencia a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
+                if ((txtFechaVencimientoCertCompetencia.Value.ToDateTime() >= DateTime.Today) || txtFechaVencimientoCertCompetencia.Value == "")
+                {
+                    int idTipoDoc = lnkUpload3.CommandArgument.ToInt();
+                    uploadMethod(FileUpload3, idTipoDoc, "Certificado de Competencia");
+                }
+                else
+                {
+                    Alert("Error en la fecha de vencimiento del Certificado de Competencia", "Debe ser mayor a la actual.", AlertType.error, "/Forms/FileUpload.aspx");
+                }
             }
+            //CEVANT
             else if (FileUpload4.HasFile)
             {
-                int idTipoDoc = lnkUpload4.CommandArgument.ToInt();
-                uploadMethod(FileUpload4, idTipoDoc, "CEVANT");
-                //Alert("CEVANT cargado con éxito", "Se ha vinculado un nuevo CEVANT a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
+                if ((txtFechaVencimientoCevant.Value.ToDateTime() >= DateTime.Today) || txtFechaVencimientoCevant.Value == "")
+                {
+                    int idTipoDoc = lnkUpload4.CommandArgument.ToInt();
+                    uploadMethod(FileUpload4, idTipoDoc, "CEVANT");
+                }
+                else
+                {
+                    Alert("Error en la fecha de vencimiento del CEVANT", "Debe ser mayor a la actual.", AlertType.error, "/Forms/FileUpload.aspx");
+                }
             }
+            //SEGURO/POLIZA
             else if (FileUpload6.HasFile)
             {
-                int idTipoDoc = lnkUpload6.CommandArgument.ToInt();
-                uploadMethod(FileUpload6, idTipoDoc, "Seguro/Póliza");
-                //Alert("Seguro/Poliza cargado con éxito", "Se ha vinculado un nuevo Seguro/Poliza a su usuario.", AlertType.success, "/Forms/FileUpload.aspx");
+
+                if ((txtFechaVencimientoSeguroPoliza.Value.ToDateTime() >= DateTime.Today) || txtFechaVencimientoSeguroPoliza.Value == "")
+                {
+                    int idTipoDoc = lnkUpload6.CommandArgument.ToInt();
+                    uploadMethod(FileUpload6, idTipoDoc, "Seguro/Póliza");
+                }
+                else
+                {
+                    Alert("Error en la fecha de vencimiento del Seguro/Póliza", "Debe ser mayor a la actual.", AlertType.error, "/Forms/FileUpload.aspx");
+                }
             }
         }
 

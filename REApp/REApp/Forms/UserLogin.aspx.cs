@@ -36,7 +36,8 @@ namespace REApp.Forms
                 if (String.IsNullOrEmpty(Recaptcha.Response))
                 {
                     //Aca iria una alerta para mostrar que se tiene que no tiene que estar vacio
-                    flagCaptcha = false;
+                    //flagCaptcha = false;
+                    flagCaptcha = true;
                     Alert("Error", "Por favor, complete el captcha.", AlertType.error);
                 }
                 else

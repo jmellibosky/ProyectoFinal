@@ -2,6 +2,7 @@
 using REApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using static REApp.Navegacion;
@@ -279,11 +280,23 @@ namespace REApp.Forms
         }
 
         protected void CargarInteresados()
-        {
-            List<Interesado> Interesados = new Interesado().Select();
+        {//OBTIENE TODOS LOS INTERESADOS
+            using (SP sp = new SP("bd_reapp"))
+            {
+                DataTable dt = sp.Execute("usp_GetInteresados"
+                );
 
-            gvInteresados.DataSource = Interesados.ToDataTable();
-            gvInteresados.DataBind();
+                if (dt.Rows.Count > 0)
+                {
+                    gvInteresados.DataSource = dt;
+                }
+                else
+                {
+                    gvInteresados.DataSource = null;
+                }
+                gvInteresados.DataBind();
+            }
         }
+
     }
 }

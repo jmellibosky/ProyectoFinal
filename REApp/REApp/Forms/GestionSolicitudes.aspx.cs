@@ -892,17 +892,17 @@ namespace REApp.Forms
                 if (dtCertificadoCompetencia.Rows.Count > 0)
                 {
                     TieneCertificadoCompetencia = true;
-                    EstaAprobadoCCompetencia = dtCertificadoMedico.Rows[0]["Documento"].ToString().ToInt() == 2;
+                    EstaAprobadoCCompetencia = dtCertificadoCompetencia.Rows[0]["Documento"].ToString().ToInt() == 2;
                 }
                 if (dtCEVANT.Rows.Count > 0)
                 {
                     TieneCEVANT = true;
-                    EstaAprobadoCEVANT = dtCertificadoMedico.Rows[0]["Documento"].ToString().ToInt() == 2;
+                    EstaAprobadoCEVANT = dtCEVANT.Rows[0]["Documento"].ToString().ToInt() == 2;
                 }
                 if (dtPolizaVANT.Rows.Count > 0)
                 {
                     TienePoliza = true;
-                    EstaAprobadoPoliza = dtCertificadoMedico.Rows[0]["Documento"].ToString().ToInt() == 2;
+                    EstaAprobadoPoliza = dtPolizaVANT.Rows[0]["Documento"].ToString().ToInt() == 2;
                 }
             }
             catch (Exception ex)
