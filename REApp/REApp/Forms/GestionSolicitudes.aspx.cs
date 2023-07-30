@@ -379,13 +379,14 @@ namespace REApp.Forms
             Ubicaciones = null;
             listaUbicaciones.Clear();
             //fupKMZ.Attributes.Clear();
+            h5Ubicaciones.Visible = false;
         }
 
 
 
         protected void lnkVerDetalles_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(Page, GetType(), "DisableAccionesColumnScript", "disableAccionesColumn();", true);
+
 
         }
 
@@ -982,6 +983,9 @@ namespace REApp.Forms
 
 
                     MostrarABM();
+
+                    gridUbicaciones.Visible = true;
+                    gridUbicacionesConsulta.Visible = false;
                 }
 
             }
@@ -1129,7 +1133,18 @@ namespace REApp.Forms
 
                 GetTripulantesDeSolicitud(IdSolicitud);
                 GetUbicacionesDeSolicitud(IdSolicitud);
-
+                if(e.CommandName.Equals("Detalle"))
+                {
+                    gridUbicaciones.Visible = false;
+                    gridUbicacionesConsulta.Visible = true;
+                    tablaUbicacionesConsulta();
+                }
+                else
+                {
+                    gridUbicaciones.Visible = true;
+                    gridUbicacionesConsulta.Visible = false;
+                    UpdateUbicacionesTable();
+                }
                 MostrarABM();
 
                 if (e.CommandName.Equals("Detalle"))
@@ -1216,25 +1231,6 @@ namespace REApp.Forms
 
         protected void GetUbicacionesDeSolicitud(int IdSolicitud)
         {
-            //DataTable dt = new SP("bd_reapp").Execute("usp_GetPuntosGeograficosDeSolicitud", P.Add("IdSolicitud", IdSolicitud));
-
-            //if (dt.Rows.Count > 0)
-            //{
-
-            //    rptUbicaciones.DataSource = dt;
-            //    rptUbicaciones.DataBind();
-
-            //    for (int i = 0; i < rptUbicaciones.Items.Count; i++)
-            //    {
-            //        ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text = dt.Rows[i]["TipoUbicacion"].ToString();
-            //        ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text = dt.Rows[i]["Datos"].ToString();
-            //        ((HiddenField)rptUbicaciones.Items[i].FindControl("hdnRptIdUbicacion")).Value = dt.Rows[i]["IdUbicacion"].ToString();
-            //        ((HiddenField)rptUbicaciones.Items[i].FindControl("hdnRptIdProvincia")).Value = dt.Rows[i]["IdProvincia"].ToString();
-            //    }
-            //}
-
-
-
             DataTable dtUbicaciones = new SP("bd_reapp").Execute("usp_GetUbicacionesDeSolicitud", P.Add("IdSolicitud", IdSolicitud)); //OBTENEMOS UBICACIONES
 
             if (dtUbicaciones.Rows.Count > 0)
@@ -1281,8 +1277,6 @@ namespace REApp.Forms
 
                     listaUbicaciones.Add(ubicacion);
                 }
-                UpdateUbicacionesTable();
-
 
             }
         }
@@ -1915,6 +1909,8 @@ namespace REApp.Forms
                         ((Label)rptUbicaciones.Items[i].FindControl("lblRptTipoUbicacion")).Text = "Polígono";
                         ((Label)rptUbicaciones.Items[i].FindControl("lblRptDatos")).Text = UbicacionesStr[i];
                     }
+
+                    h5Ubicaciones.Visible = true;
                 }
             }
         }
@@ -2058,13 +2054,13 @@ namespace REApp.Forms
             DataTable dt = new DataTable();
             dt.Columns.Add("Id");
             dt.Columns.Add("IdUbicacion");
+            dt.Columns.Add("IdUbicacionGrupo");
             dt.Columns.Add("Poligono");
             dt.Columns.Add("Latitud");
             dt.Columns.Add("Longitud");
             dt.Columns.Add("Radio");
             dt.Columns.Add("Altura");
             dt.Columns.Add("idProvincia");
-            dt.Columns.Add("IdUbicacionGrupo");
             dt.Columns.Add("estadoUbicacion");
             dt.Columns.Add("IdPuntoGeografico");
             dt.Columns.Add("EliminarBD");
@@ -2096,7 +2092,7 @@ namespace REApp.Forms
                         string nuevoEliminarBD = puntoGeografico.eliminarBD.ToString();
 
 
-                        dt.Rows.Add(nuevoId, nuevoIdUbicacion, nuevoPoligono, nuevoLatitud, nuevoLonguitud, nuevoRadio, nuevoAltura, nuevoIdProvincia, nuevoIdUbicacionGrupo, nuevoEstadoUbicacion, nuevoIdPuntoGeografico, nuevoEliminarBD);
+                        dt.Rows.Add(nuevoId, nuevoIdUbicacion, nuevoIdUbicacionGrupo, nuevoPoligono, nuevoLatitud, nuevoLonguitud, nuevoRadio, nuevoAltura, nuevoIdProvincia, nuevoEstadoUbicacion, nuevoIdPuntoGeografico, nuevoEliminarBD);
 
                     }
 
@@ -2110,14 +2106,14 @@ namespace REApp.Forms
             foreach (GridViewRow row in gridUbicaciones.Rows)
             {
 
-                int idProvincia = Convert.ToInt32(row.Cells[7].Text); // Obtener el número de idProvincia
+                int idProvincia = Convert.ToInt32(row.Cells[8].Text); // Obtener el número de idProvincia
 
                 string provincia = ddlProvincia.Items[idProvincia - 1].Text;//Obtener el valor string 
 
                 row.Cells[7].Text = provincia;
 
 
-                int idUbicacionGrupo = Convert.ToInt32(row.Cells[8].Text);
+                int idUbicacionGrupo = Convert.ToInt32(row.Cells[2].Text);
 
 
 
@@ -2131,13 +2127,105 @@ namespace REApp.Forms
                 }
 
 
-                if (row.Cells[2].Text == "False")
+                if (row.Cells[3].Text == "False")
                 {
-                    row.Cells[2].Text = "Circunferencia";
+                    row.Cells[3].Text = "Circunferencia";
                 }
                 else
                 {
-                    row.Cells[2].Text = "Poligono";
+                    row.Cells[3].Text = "Poligono";
+                }
+
+
+            }
+        }
+
+
+        private void tablaUbicacionesConsulta()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("IdUbicacion");
+            dt.Columns.Add("IdUbicacionGrupo");
+            dt.Columns.Add("Poligono");
+            dt.Columns.Add("Latitud");
+            dt.Columns.Add("Longitud");
+            dt.Columns.Add("Radio");
+            dt.Columns.Add("Altura");
+            dt.Columns.Add("idProvincia");
+            dt.Columns.Add("estadoUbicacion");
+            dt.Columns.Add("IdPuntoGeografico");
+            dt.Columns.Add("EliminarBD");
+            foreach (UbicacionRedux ubicacion in listaUbicaciones)
+            {
+                foreach (PuntoGeograficoRedux puntoGeografico in ubicacion.PuntosGeograficos)
+                {
+                    if (!puntoGeografico.eliminarBD)
+                    {
+                        string nuevoId = puntoGeografico.Id.ToString(); //id de tabla
+                        string nuevoIdUbicacion = null; //id de ubicacion bd
+                        if (ubicacion.IdUbicacion != null)
+                        {
+                            nuevoIdUbicacion = ubicacion.IdUbicacion;
+                        }
+                        string nuevoPoligono = puntoGeografico.EsPoligono.ToString();
+                        string nuevoLatitud = puntoGeografico.Latitud.ToString();
+                        string nuevoLonguitud = puntoGeografico.Longitud.ToString();
+                        string nuevoRadio = null;
+                        if (puntoGeografico.EsPoligono == false)
+                        {
+                            nuevoRadio = puntoGeografico.Radio.ToString();
+                        }
+                        string nuevoAltura = ubicacion.Altura.ToString();
+                        string nuevoIdProvincia = ubicacion.IdProvincia.ToString();
+                        string nuevoIdUbicacionGrupo = ubicacion.IdUbicacionGrupo.ToString();
+                        string nuevoEstadoUbicacion = ubicacion.estadoUbicacion.ToString();
+                        string nuevoIdPuntoGeografico = puntoGeografico.IdPuntoGeografico.ToString(); //id de ubicacion de bd
+                        string nuevoEliminarBD = puntoGeografico.eliminarBD.ToString();
+
+
+                        dt.Rows.Add(nuevoId, nuevoIdUbicacion, nuevoIdUbicacionGrupo, nuevoPoligono, nuevoLatitud, nuevoLonguitud, nuevoRadio, nuevoAltura, nuevoIdProvincia, nuevoEstadoUbicacion, nuevoIdPuntoGeografico, nuevoEliminarBD);
+
+                    }
+
+                }
+            }
+            gridUbicacionesConsulta.DataSource = dt;
+            gridUbicacionesConsulta.DataBind();
+
+            //Formato de tabla
+
+            foreach (GridViewRow row in gridUbicacionesConsulta.Rows)
+            {
+
+                int idProvincia = Convert.ToInt32(row.Cells[8].Text); // Obtener el número de idProvincia
+
+                string provincia = ddlProvincia.Items[idProvincia - 1].Text;//Obtener el valor string 
+
+                row.Cells[8].Text = provincia;
+
+
+                int idUbicacionGrupo = Convert.ToInt32(row.Cells[2].Text);
+
+
+
+                if (idUbicacionGrupo % 2 == 0)
+                {
+                    row.BackColor = System.Drawing.Color.FromArgb(193, 193, 193);
+                }
+                else
+                {
+                    row.BackColor = System.Drawing.Color.White;
+                }
+
+
+                if (row.Cells[3].Text == "False")
+                {
+                    row.Cells[3].Text = "Circunferencia";
+                }
+                else
+                {
+                    row.Cells[3].Text = "Poligono";
                 }
 
 

@@ -429,6 +429,15 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Button btnEscanearKML;
 
         /// <summary>
+        /// Control h5Ubicaciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl h5Ubicaciones;
+
+        /// <summary>
         /// Control rptUbicaciones.
         /// </summary>
         /// <remarks>
@@ -652,6 +661,15 @@ namespace REApp.Forms
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gridUbicaciones;
+
+        /// <summary>
+        /// Control gridUbicacionesConsulta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gridUbicacionesConsulta;
 
         /// <summary>
         /// Control upTripulacion.

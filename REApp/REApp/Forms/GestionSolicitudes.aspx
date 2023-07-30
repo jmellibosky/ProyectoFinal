@@ -113,22 +113,6 @@
         }
     </style>
 
-        <script type="text/javascript">
-            function disableAccionesColumn() {
-                var grid = document.getElementById('<%= gridUbicaciones.ClientID %>'); // Obtener referencia a la tabla gridUbicaciones
-
-                // Obtener la columna de índice 12, que es la columna "ACCIONES" (recuerda que se cuenta desde 0)
-                var accionesColumn = grid.getElementsByTagName('tr')[0].getElementsByTagName('th')[12];
-                accionesColumn.style.display = 'none'; // Ocultar la columna "ACCIONES"
-
-                // Deshabilitar todos los botones en la columna "ACCIONES"
-                var botonesAcciones = grid.querySelectorAll('td:nth-child(13) a');
-                for (var i = 0; i < botonesAcciones.length; i++) {
-                    botonesAcciones[i].setAttribute('disabled', 'disabled');
-                }
-            }
-        </script>
-
 </asp:Content>
 
 
@@ -223,7 +207,7 @@
                                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="ACCIONES" ItemStyle-Width="10%">
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="lnkVerDetalles" ToolTip="Ver Detalles" runat="server" OnClick="lnkVerDetalles_Click" CommandName="Detalle"
-                                                                CommandArgument='<%# Eval("IdSolicitud") %>' OnClientClick="disableAccionesColumn();">
+                                                                CommandArgument='<%# Eval("IdSolicitud") %>'>
                                                                 <i class="fa fa-eye" aria-hidden="true" style='font-size: 15px; color: #525252' /></i>
                                                             </asp:LinkButton>
     
@@ -445,7 +429,7 @@
                                                     </div>
                                                     <%--UBICACIONES AGREGADAS--%>
                                                     <div class="col-6">
-                                                        <h5>Ubicaciones Importadas</h5>
+                                                        <h5 id="h5Ubicaciones" runat="server" visible="false">Ubicaciones Importadas</h5>
                                                         <asp:Repeater ID="rptUbicaciones" runat="server">
                                                             <ItemTemplate>
                                                                 <div class="row">
@@ -586,9 +570,9 @@
 
                                                                                         <Columns>
                                                                                             <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                                                            <asp:BoundField DataField="Id" HeaderText="ID" ItemStyle-Width="20%" />
-                                                                                            <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-Width="20%" />
-                                                                                            <asp:BoundField DataField="Longitud" HeaderText="LONGITUD" ItemStyle-Width="20%" />
+                                                                                            <asp:BoundField DataField="Id" HeaderText="ID" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center"/>
+                                                                                            <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                                                            <asp:BoundField DataField="Longitud" HeaderText="LONGITUD" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
                                                                                             <asp:TemplateField HeaderText="ACCIONES">
                                                                                                 <ItemTemplate>
 
@@ -608,6 +592,7 @@
                                                                                         </Columns>
                                                                                     </asp:GridView>
                                                                                 </div>
+
                                                                             </div>
 
                                                                             <hr />
@@ -633,13 +618,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr />
 
                                         <%--TABLA UBICACIONES--%>
-
-                                        </hr>
-
-
                                         <asp:GridView ID="gridUbicaciones" runat="server"
                                             AutoGenerateColumns="false"
                                             CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
@@ -648,18 +628,18 @@
                                             <RowStyle BackColor="#e1dddd" />
                                             <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                                             <Columns>
-                                                <asp:BoundField DataField="Id" HeaderText="ID" Visible="false" />
-                                                <asp:BoundField DataField="IdUbicacion" HeaderText="IDUBICACIÓN" Visible="false" />
-                                                <asp:BoundField DataField="Poligono" HeaderText="TIPO" />
-                                                <asp:BoundField DataField="Latitud" HeaderText="LATITUD" />
-                                                <asp:BoundField DataField="Longitud" HeaderText="LONGUITUD" />
-                                                <asp:BoundField DataField="Radio" HeaderText="RADIO" />
-                                                <asp:BoundField DataField="Altura" HeaderText="ALTURA" />
-                                                <asp:BoundField DataField="idProvincia" HeaderText="PROVINCIA" />
-                                                <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="UBICACIÓN NÚMERO:" />
-                                                <asp:BoundField DataField="estadoUbicacion" HeaderText="ESTADO UBICACION" Visible="false" />
-                                                <asp:BoundField DataField="IdPuntoGeografico" HeaderText="IDPUNTOGEOGRAFICO" Visible="false" />
-                                                <asp:BoundField DataField="EliminarBD" HeaderText="ELIMINAR PUNTO GEOGRAFICO" Visible="false" />
+                                                <asp:BoundField DataField="Id" HeaderText="ID" Visible="false" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="IdUbicacion" HeaderText="IDUBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="NRO UBICACIÓN" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="Poligono" HeaderText="TIPO" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="Longitud" HeaderText="LONGUITUD" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="Radio" HeaderText="RADIO" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="Altura" HeaderText="ALTURA" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="idProvincia" HeaderText="PROVINCIA" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="estadoUbicacion" HeaderText="ESTADO UBICACION" Visible="false" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="IdPuntoGeografico" HeaderText="IDPUNTOGEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="EliminarBD" HeaderText="ELIMINAR PUNTO GEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center"/>
                                                 <asp:TemplateField HeaderText="ACCIONES">
                                                     <ItemTemplate>
 
@@ -676,6 +656,29 @@
 
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+
+                                        <asp:GridView ID="gridUbicacionesConsulta" runat="server"
+                                            AutoGenerateColumns="false"
+                                            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" Visible="false">
+                                            <AlternatingRowStyle BackColor="white" />
+                                            <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                            <RowStyle BackColor="#e1dddd" />
+                                            <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+                                            <Columns>
+                                                <asp:BoundField DataField="Id" HeaderText="ID" Visible="false" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="IdUbicacion" HeaderText="IDUBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="NRO UBICACIÓN" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="Poligono" HeaderText="TIPO" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="Longitud" HeaderText="LONGUITUD" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="Radio" HeaderText="RADIO" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="Altura" HeaderText="ALTURA" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="idProvincia" HeaderText="PROVINCIA" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="estadoUbicacion" HeaderText="ESTADO UBICACION" Visible="false" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="IdPuntoGeografico" HeaderText="IDPUNTOGEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center"/>
+                                                <asp:BoundField DataField="EliminarBD" HeaderText="ELIMINAR PUNTO GEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center"/>
                                             </Columns>
                                         </asp:GridView>
 
