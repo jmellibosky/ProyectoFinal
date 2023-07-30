@@ -969,7 +969,8 @@ namespace REApp.Forms
                     ddlModalSolicitante.Enabled = false;
                     btnGuardar.Visible = true;
 
-                    chkVant.Checked = false;
+                    rbVant.Checked = true;
+                    rbAeronave.Checked = false;
                     chkVant_CheckedChanged(null, null);
 
                     pnlHistorialSolicitud.Visible = false;
@@ -1121,7 +1122,8 @@ namespace REApp.Forms
                 }
                 txtModalFechaSolicitud.Text = Solicitud.FHAlta.ToString();
 
-                chkVant.Checked = Solicitud.IdAeronave.HasValue;
+                rbVant.Checked = !Solicitud.IdAeronave.HasValue;
+                rbAeronave.Checked = Solicitud.IdAeronave.HasValue;
                 chkVant_CheckedChanged(null, null);
 
                 GetTripulantesDeSolicitud(IdSolicitud);
@@ -1294,15 +1296,19 @@ namespace REApp.Forms
 
                 if (Actividad.AdmiteVANTs.HasValue && Actividad.AdmiteVANTs.Value)
                 { // Admite VANTs
-                    chkVant.Checked = false;
-                    chkVant.Enabled = false;
+                    rbVant.Checked = true;
+                    rbVant.Enabled = false;
+                    rbAeronave.Checked = false;
+                    rbAeronave.Enabled = false;
                     pnlVehiculos.Visible = true;
                     chkVant_CheckedChanged(null, null);
                 }
                 else if (Actividad.AdmiteAeronaves.HasValue && Actividad.AdmiteAeronaves.Value)
                 { // Admite Aeronaves
-                    chkVant.Checked = true;
-                    chkVant.Enabled = false;
+                    rbVant.Checked = false;
+                    rbVant.Enabled = false;
+                    rbAeronave.Checked = true;
+                    rbAeronave.Enabled = false;
                     pnlVehiculos.Visible = true;
                     chkVant_CheckedChanged(null, null);
                 }
@@ -1322,10 +1328,10 @@ namespace REApp.Forms
 
         protected void chkVant_CheckedChanged(object sender, EventArgs e)
         {
-            pnlSeleccionVants.Visible = !chkVant.Checked;
+            pnlSeleccionVants.Visible = !rbAeronave.Checked;
 
             DataTable dt = null;
-            if (!chkVant.Checked)
+            if (!rbAeronave.Checked)
             {
                 if (hdnIdSolicitud.Value.Equals(""))
                 { // Si el txtModalFechaSolicitud no está visible, entonces estamos creando Solicitud
@@ -1392,7 +1398,7 @@ namespace REApp.Forms
                     NuevaUbicacion.estadoUbicacion = 1; // porque son todas nuevas ubicaciones
                     NuevaUbicacion.Altura = txtAltura.Text.Replace('.', ',').Replace('.', ',').ToDouble();
 
-                    if (chkEsPoligono.Checked)
+                    if (rbPoligono.Checked)
                     {
                         List<PuntoGeograficoRedux> PuntosGeograficos = new List<PuntoGeograficoRedux>();
                         int? proximoId = GetNextUbicacionId();
@@ -1497,7 +1503,8 @@ namespace REApp.Forms
                 pnlAgregarPuntoGeografico.Visible = false;
                 btnAgregarPuntoGeografico.Visible = true;
                 btnGuardarPuntoGeografico.Visible = false;
-                chkEsPoligono.Enabled = true;
+                rbPoligono.Enabled = true;
+                rbCircunferencia.Enabled = true;
 
                 if (hdnPoligono.Value == "")
                 {
@@ -1532,8 +1539,10 @@ namespace REApp.Forms
 
         protected void chkEsPoligono_CheckedChanged(object sender, EventArgs e)
         {
-            pnlAgregarPoligono.Visible = chkEsPoligono.Checked;
-            pnlAgregarCircunferencia.Visible = !chkEsPoligono.Checked;
+            pnlAgregarPoligono.Visible = rbPoligono.Checked;
+            pnlAgregarPoligono.Visible = !rbCircunferencia.Checked;
+            pnlAgregarCircunferencia.Visible = !rbPoligono.Checked;
+            pnlAgregarCircunferencia.Visible = rbCircunferencia.Checked;
             listaPuntosGeograficos.Clear();
         }
 
@@ -1572,7 +1581,7 @@ namespace REApp.Forms
 
         protected bool ValidarGuardarUbicacion()
         {
-            if (!chkEsPoligono.Checked)
+            if (rbCircunferencia.Checked)
             {
                 if (txtAltura.Text.Equals(""))
                 {
@@ -1664,7 +1673,7 @@ namespace REApp.Forms
 
             if (pnlSeleccionVants.Visible)
             { // Si no está visible es porque la Actividad elegida no admite ni VANTs ni Aeronaves
-                if (!chkVant.Checked)
+                if (!rbAeronave.Checked)
                 {
                     bool TieneVants = false;
                     for (int i = 0; i < gvVANTs.Rows.Count; i++)
@@ -1937,7 +1946,8 @@ namespace REApp.Forms
 
             }
 
-            chkEsPoligono.Enabled = false;
+            rbPoligono.Enabled = false;
+            rbCircunferencia.Enabled = false;
         }
 
         protected void mostrarModificarPoligono()
@@ -2128,7 +2138,8 @@ namespace REApp.Forms
 
         private void LimpiarTextBox()
         {
-            chkEsPoligono.Enabled = true;
+            rbCircunferencia.Enabled = true;
+            rbPoligono.Enabled = true;
             txtCircunferenciaLatitud.Text = string.Empty;
             txtCircunferenciaLongitud.Text = string.Empty;
             txtCircunferenciaRadio.Text = string.Empty;
@@ -2233,7 +2244,8 @@ namespace REApp.Forms
                     txtPoligonoLatitud.Text = puntoGeografico.Latitud.ToString();
                     txtPoligonoLongitud.Text = puntoGeografico.Longitud.ToString();
                     hdnPoligono.Value = puntoGeografico.Id.ToString();
-                    chkEsPoligono.Enabled = false;
+                    rbPoligono.Enabled = false;
+                    rbCircunferencia.Enabled = false;
                     break;
 
                 }
@@ -2275,6 +2287,26 @@ namespace REApp.Forms
                 nuevoId++;
             }
 
+        }
+
+        protected void rbAeronave_CheckedChanged(object sender, EventArgs e)
+        {
+            chkVant_CheckedChanged(sender, e);
+        }
+
+        protected void rbVant_CheckedChanged(object sender, EventArgs e)
+        {
+            chkVant_CheckedChanged(sender, e);
+        }
+
+        protected void rbCircunferencia_CheckedChanged(object sender, EventArgs e)
+        {
+            chkEsPoligono_CheckedChanged(sender, e);
+        }
+
+        protected void rbPoligono_CheckedChanged(object sender, EventArgs e)
+        {
+            chkEsPoligono_CheckedChanged(sender, e);
         }
     }
 

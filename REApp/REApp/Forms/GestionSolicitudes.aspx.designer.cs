@@ -375,13 +375,22 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Panel pnlVehiculos;
 
         /// <summary>
-        /// Control chkVant.
+        /// Control rbVant.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkVant;
+        protected global::System.Web.UI.WebControls.RadioButton rbVant;
+
+        /// <summary>
+        /// Control rbAeronave.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbAeronave;
 
         /// <summary>
         /// Control pnlSeleccionVants.
@@ -447,13 +456,22 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.Panel pnlAgregarUbicacion;
 
         /// <summary>
-        /// Control chkEsPoligono.
+        /// Control rbCircunferencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkEsPoligono;
+        protected global::System.Web.UI.WebControls.RadioButton rbCircunferencia;
+
+        /// <summary>
+        /// Control rbPoligono.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbPoligono;
 
         /// <summary>
         /// Control hdnUbicacionId.

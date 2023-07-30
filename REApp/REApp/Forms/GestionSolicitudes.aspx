@@ -338,9 +338,21 @@
                                                 <h5>Vehículos Aéreos</h5>
                                             </div>
                                             <div class="row">
-                                                <asp:Label Text="VANT" runat="server" />
-                                                <asp:CheckBox ID="chkVant" runat="server" CssClass="switchery" AutoPostBack="true" OnCheckedChanged="chkVant_CheckedChanged" />
-                                                <asp:Label Text="Aeronave" runat="server" />
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <asp:RadioButton GroupName="VANT" ID="rbVant" Checked="true" runat="server" AutoPostBack="true" OnCheckedChanged="rbVant_CheckedChanged" />
+                                                            <asp:Label Text="VANT" runat="server" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <asp:RadioButton GroupName="VANT" ID="rbAeronave" runat="server" AutoPostBack="true" OnCheckedChanged="rbAeronave_CheckedChanged" />
+                                                            <asp:Label Text="Aeronave" runat="server" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <%--<asp:CheckBox ID="chkVant" runat="server" CssClass="switchery" AutoPostBack="true" OnCheckedChanged="chkVant_CheckedChanged" />--%>
                                             </div>
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
@@ -456,9 +468,20 @@
                                                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                     <div class="row">
                                                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                                                            <asp:Label Text="Circunferencia" runat="server" />
-                                                                            <asp:CheckBox ID="chkEsPoligono" runat="server" AutoPostBack="true" OnCheckedChanged="chkEsPoligono_CheckedChanged" />
-                                                                            <asp:Label Text="Polígono" runat="server" />
+                                                                            <div class="row">
+                                                                                <div class="col">
+                                                                                    <asp:RadioButton GroupName="EsPoligono" runat="server" ID="rbCircunferencia" AutoPostBack="true" OnCheckedChanged="rbCircunferencia_CheckedChanged" />
+                                                                                    <asp:Label Text="Circunferencia" runat="server" />
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col">
+                                                                                    <asp:RadioButton GroupName="EsPoligono" runat="server" ID="rbPoligono" AutoPostBack="true" OnCheckedChanged="rbPoligono_CheckedChanged" />
+                                                                                    <asp:Label Text="Polígono" runat="server" />
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <%--<asp:CheckBox ID="chkEsPoligono" runat="server" AutoPostBack="true" OnCheckedChanged="chkEsPoligono_CheckedChanged" />--%>
                                                                             <asp:HiddenField ID="hdnUbicacionId" runat="server" />
                                                                         </div>
                                                                         <div class="row">
