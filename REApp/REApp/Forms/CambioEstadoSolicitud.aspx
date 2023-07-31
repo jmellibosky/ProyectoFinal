@@ -111,7 +111,7 @@
     <%-- Encabezado --%>
     <div class="container">
         <h1 class="row justify-content-center">
-            <label style="font-style: italic; font-family:'REM', sans-serif; letter-spacing: 3px" class="fw-normal mb-3 pb-2">Cambiar Estado de Solicitud</label>
+            <label style="font-style: italic; font-family: 'REM', sans-serif; letter-spacing: 3px" class="fw-normal mb-3 pb-2">Cambiar Estado de Solicitud</label>
         </h1>
         <br />
     </div>
@@ -122,7 +122,7 @@
             ID="gvSoloInteresadosVinculados"
             runat="server"
             AutoGenerateColumns="false"
-            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px"> 
+            CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
             <AlternatingRowStyle BackColor="white" />
             <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
             <RowStyle BackColor="#e1dddd" />
@@ -130,13 +130,13 @@
 
             <Columns>
                 <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                <asp:BoundField DataField="IdInteresado" HeaderText="ID INTERESADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="IdInteresado" HeaderText="ID INTERESADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" visible="false"/>
                 <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
-                <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO" ItemStyle-Width="20%" />
+                <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO" ItemStyle-Width="20%" Visible="false" />
                 <asp:BoundField DataField="Email" HeaderText="EMAIL" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
 
                 <%-- Boton con link para ver detalles solicitud--%>
-                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="-" ItemStyle-Width="10%">
+                <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="-" ItemStyle-Width="10%" Visible="false">
                     <ItemTemplate>
                         <asp:HiddenField Value='<%# Eval("IdInteresado") %>' runat="server" ID="hdnIdInteresadoVinculado" />
                         <asp:HiddenField Value='<%# Eval("Email") %>' runat="server" ID="hdnEmail" />
@@ -188,5 +188,5 @@
         </div>
     </asp:Panel>
 
-    
+
 </asp:Content>
