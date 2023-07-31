@@ -31,41 +31,52 @@ namespace REApp.Forms
         {
             int IdInteresado = e.CommandArgument.ToString().ToInt();
             Interesado Interesado = new Interesado().Select(IdInteresado);
-
             LimpiarModal();
-
-            CargarProvincias();
-
-            hdnIdInteresado.Value = IdInteresado.ToString();
-            txtApellido.Text = Interesado.Apellido;
-            txtNombre.Text = Interesado.Nombre;
-            txtTelefono.Text = Interesado.Telefono;
-            txtEmail.Text = Interesado.Email;
-            txtObservaciones.Text = Interesado.Observacion;
-            if (Interesado.IdProvincia.HasValue)
+            if (e.CommandName.Equals("Editar") || e.CommandName.Equals("Detalle"))
             {
-                ddlProvincia.SelectedValue = Interesado.IdProvincia.Value.ToCryptoID();
-                ddlProvincia_SelectedIndexChanged(null, null);
-            }
-            if (Interesado.IdLocalidad.HasValue)
-            {
-                ddlLocalidad.SelectedValue = Interesado.IdLocalidad.Value.ToCryptoID();
-            }
-            MostrarABM();
+                
 
-            if (e.CommandName.Equals("Editar"))
-            { // Editar
-                HabilitarCampos(true);
+                CargarProvincias();
+
+                hdnIdInteresado.Value = IdInteresado.ToString();
+                txtApellido.Text = Interesado.Apellido;
+                txtNombre.Text = Interesado.Nombre;
+                txtTelefono.Text = Interesado.Telefono;
+                txtEmail.Text = Interesado.Email;
+                txtObservaciones.Text = Interesado.Observacion;
+                if (Interesado.IdProvincia.HasValue)
+                {
+                    ddlProvincia.SelectedValue = Interesado.IdProvincia.Value.ToCryptoID();
+                    ddlProvincia_SelectedIndexChanged(null, null);
+                }
+                if (Interesado.IdLocalidad.HasValue)
+                {
+                    ddlLocalidad.SelectedValue = Interesado.IdLocalidad.Value.ToCryptoID();
+                }
+                MostrarABM();
+
+                if (e.CommandName.Equals("Editar"))
+                { // Editar
+                    HabilitarCampos(true);
+                }
+                if (e.CommandName.Equals("Detalle"))
+                {//Detalle
+                    HabilitarCampos(false);
+                }
             }
-            if (e.CommandName.Equals("Detalle"))
-            {//Detalle
-                HabilitarCampos(false);
-            }
-            if (e.CommandName.Equals("Eliminar"))
-            { // Eliminar
-                lblMensajeEliminacion.Text = "¿Desea confirmar la eliminación del Interesado " + Interesado.Nombre + " " + Interesado.Apellido + "?";
+            else
+            {
+                 // Eliminar
+                //lblMensajeEliminacion.Text = "¿Desea confirmar la eliminación del Interesado " + Interesado.Nombre + " " + Interesado.Apellido + "?";
                 hdnEliminar.Value = Interesado.IdInteresado.ToString();
-                pnlAlertaEliminar.Visible = true;
+                //pnlAlertaEliminar.Visible = true;
+                
+                Interesado.FHBaja = DateTime.Now;
+                Interesado.Update();
+
+                //pnlAlertaEliminar.Visible = false;
+                Alert("Interesado dado de baja con éxito", "Se ha dado de baja el Interesado seleccionado.", AlertType.success);
+                CargarInteresados();
             }
         }
 

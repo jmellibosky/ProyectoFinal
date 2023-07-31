@@ -211,10 +211,10 @@
                                                                 <asp:LinkButton ID="btnVerDetalle" CommandName="Detalle" CommandArgument='<%# Eval("IdInteresado") %>' runat="server" ToolTip="Ver Detalles">
                                                             <i class="fa fa-eye" aria-hidden="true" style='font-size: 15px; color: #525252' /></i>
                                                                 </asp:LinkButton>
-                                                                <asp:LinkButton ID="btnEditar" CommandName="Editar" CommandArgument='<%# Eval("IdInteresado") %>' runat="server" ToolTip="Editar Tripulante">
+                                                                <asp:LinkButton ID="btnEditar" CommandName="Editar" CommandArgument='<%# Eval("IdInteresado") %>' runat="server" ToolTip="Editar Interesado">
                                                             <i class="fa fa-pencil" aria-hidden="true" style='font-size: 15px; color: #525252'></i>  
                                                                 </asp:LinkButton>
-                                                                <asp:LinkButton ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdInteresado") %>' runat="server" ToolTip="Eliminar Tripulante">
+                                                                <asp:LinkButton ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdInteresado") %>' runat="server" ToolTip="Eliminar Interesado">
                                                             <i class="fa fa-trash text-danger" aria-hidden="true" style='font-size: 15px; margin-left: 10px'></i>
                                                                 </asp:LinkButton>
 
