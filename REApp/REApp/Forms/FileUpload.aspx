@@ -168,7 +168,7 @@
         <%--    </asp:Panel>--%>
         <%--DGV Admin--%>
         <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
-            <div class="row" style="overflow: auto; height: 375px; width: 1100px;">
+            <div class="row" style="width: 100%;">
                 <asp:Panel ID="upDoc" Style="width: 100%;" runat="server">
                     <asp:GridView ID="gvArchivos"
                         runat="server"

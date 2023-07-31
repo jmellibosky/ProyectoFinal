@@ -24,7 +24,7 @@ namespace REApp.Forms
             int id = idUsuario.ToInt();
             //**HASTA ACA**
 
-            //if (IsPostBack)
+            //if (IsPostBack)gvArchivos
             //{
             //    if (idRolInt == 1 || idRolInt == 2)
             //    {

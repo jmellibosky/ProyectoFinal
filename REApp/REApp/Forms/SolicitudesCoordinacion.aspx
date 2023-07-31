@@ -153,7 +153,7 @@
                             <br />
 
                             <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
-                                <div class="row" style="overflow: auto; height: 450px; width: 1450px;">
+                                <div class="row" style="width: 100%;">
                                     <asp:UpdatePanel ID="upSolicitudes" Style="width: 100%;" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                                         <ContentTemplate>
 
@@ -170,7 +170,7 @@
 
                                                 <Columns>
                                                     <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                    <asp:BoundField DataField="IdSolicitud" HeaderText="NRO REA (ID)" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" Visible="false" />
+                                                    <asp:BoundField DataField="IdSolicitud" HeaderText="NRO REA (ID)" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center"/>
                                                     <asp:BoundField DataField="NombreUsuario" HeaderText="SOLICITANTE" ItemStyle-Width="10%" />
                                                     <asp:BoundField DataField="Nombre" HeaderText="NOMBRE SOLICITUD" ItemStyle-Width="15%" />
                                                     <asp:BoundField DataField="NombreModalidad" HeaderText="MODALIDAD" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />

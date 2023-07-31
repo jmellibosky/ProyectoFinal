@@ -484,31 +484,6 @@ namespace REApp.Forms
             btnFiltrar_Click(null, null);
         }
 
-        //protected void btnGuardarInteresados_Click(object sender, EventArgs e)
-        //{
-        //    for (int i = 0; i < gvInteresados.Rows.Count; i++)
-        //    {
-
-        //        if (((CheckBox)gvInteresados.Rows[i].FindControl("chkInteresadoVinculado")).Checked)
-        //        { // SI ESTÁ CHEQUEADO
-        //          // CREO OBJETO INTERESADO SOLICITUD
-        //            Models.InteresadoSolicitud InteresadoSolicitud = new Models.InteresadoSolicitud();
-
-        //            // SETEO LOS CAMPOS DEL OBJETO
-        //            InteresadoSolicitud.FHVinculacion = DateTime.Now;
-        //            InteresadoSolicitud.IdSolicitud = hdnIdSolicitudInteresado.Value.ToInt();
-        //            InteresadoSolicitud.IdInteresado = ((HiddenField)gvInteresados.Rows[i].FindControl("hdnIdInteresado")).Value.ToInt();
-
-        //            // INSERT EN TABLA INTERESADOSOLICITUD
-        //            InteresadoSolicitud.Insert();
-        //            Alert("Se actualizaron los interesados de la solicitud", "Los mismos seran notificados por mail al pasar la solicitud al siguiente estado.", AlertType.success, "/Forms/SolicitudesAnalisis.aspx");
-        //        }
-        //    }
-        //    MostrarABM();
-        //    btnFiltrar_Click(null, null);
-        //}
-
-
         protected void btnGuardarInteresados_Click(object sender, EventArgs e)
         {
 
@@ -543,7 +518,7 @@ namespace REApp.Forms
 
                     // INSERT EN TABLA INTERESADOSOLICITUD
                     InteresadoSolicitud.Insert();
-                    Alert("Se actualizaron los interesados de la solicitud", "Los mismos seran notificados por mail al pasar la solicitud al siguiente estado.", AlertType.success, "/Forms/SolicitudesAnalisis.aspx");
+                    
                 }
             }
 
@@ -567,6 +542,7 @@ namespace REApp.Forms
                 }
 
             }
+            Alert("Se actualizaron los interesados de la solicitud", "Los mismos seran notificados por mail al pasar la solicitud al siguiente estado.", AlertType.success, "/Forms/SolicitudesAnalisis.aspx");
 
             MostrarABM();
             btnFiltrar_Click(null, null);

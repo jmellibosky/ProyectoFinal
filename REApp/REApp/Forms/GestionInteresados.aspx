@@ -188,7 +188,7 @@
                             </div>
                             <div class="row">
                                 <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
-                                    <div class="row" style="overflow: auto; height: 400px; width: 1175px;">
+                                    <div class="row" style="width: 100%;">
                                         <asp:UpdatePanel ID="upInteresados" Style="width: 100%;" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                             <ContentTemplate>
                                                 <asp:GridView
