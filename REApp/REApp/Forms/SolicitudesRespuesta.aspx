@@ -146,8 +146,8 @@
                                 <div class="col form-group">
                                     <asp:Label runat="server">Ver Solicitudes Finalizadas</asp:Label>
                                     <asp:DropDownList runat="server" ID="ddlVerFinalizadas" CssClass="form-control select-single" AutoPostBack="true" OnSelectedIndexChanged="ddlVerFinalizadas_SelectedIndexChanged">
-                                        <asp:ListItem Text="No" Value="0" />
-                                        <asp:ListItem Text="Sí" Value="1" />
+                                        <asp:ListItem Text="No" Value="1" />
+                                        <asp:ListItem Text="Sí" Value="0" />
                                         <asp:ListItem Text="Todas" Value="2" />
                                     </asp:DropDownList>
                                 </div>

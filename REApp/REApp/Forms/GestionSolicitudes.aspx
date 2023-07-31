@@ -630,7 +630,7 @@
                                             <Columns>
                                                 <asp:BoundField DataField="Id" HeaderText="ID" Visible="false" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="IdUbicacion" HeaderText="IDUBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center" />
-                                                <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="NRO UBICACIÓN" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="NRO. UBICACIÓN" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="Poligono" HeaderText="TIPO" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="Longitud" HeaderText="LONGUITUD" ItemStyle-HorizontalAlign="Center" />
@@ -716,7 +716,7 @@
                                                             <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
                                                             <asp:BoundField DataField="Apellido" HeaderText="APELLIDO" ItemStyle-Width="20%" />
                                                             <asp:BoundField DataField="DNI" HeaderText="DNI" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
-                                                            <asp:BoundField DataField="Telefono" HeaderText="TELEFONO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                            <asp:BoundField DataField="Telefono" HeaderText="TELÉFONO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
 
                                                             <%-- Boton con link para ver detalles solicitud--%>
                                                             <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">

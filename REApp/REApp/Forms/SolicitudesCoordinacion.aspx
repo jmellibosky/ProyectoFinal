@@ -170,7 +170,7 @@
 
                                                 <Columns>
                                                     <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                    <asp:BoundField DataField="IdSolicitud" HeaderText="NRO REA (ID)" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                                    <asp:BoundField DataField="IdSolicitud" HeaderText="NRO REA (ID)" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" Visible="false" />
                                                     <asp:BoundField DataField="NombreUsuario" HeaderText="SOLICITANTE" ItemStyle-Width="10%" />
                                                     <asp:BoundField DataField="Nombre" HeaderText="NOMBRE SOLICITUD" ItemStyle-Width="15%" />
                                                     <asp:BoundField DataField="NombreModalidad" HeaderText="MODALIDAD" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
@@ -295,135 +295,251 @@
                                                 <asp:Button Text="Ver Historial" ID="btnVerHistorialSolicitud" CssClass="btn btn-info btn-dark" runat="server" OnClick="btnVerHistorialSolicitud_Click" />
                                             </asp:Panel>--%>
                                         </div>
+
                                         <hr />
 
 
-
-                                        <%--TRIPULANTES--%>
-                                        <div class="row">
-                                            <h5>Tripulantes</h5>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <asp:GridView
-                                                    ID="gvTripulacion"
-                                                    runat="server"
-                                                    AutoGenerateColumns="false"
-                                                    CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
-                                                    <AlternatingRowStyle BackColor="white" />
-                                                    <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
-                                                    <RowStyle BackColor="#e1dddd" />
-                                                    <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
-
-                                                    <Columns>
-                                                        <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                        <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
-                                                        <asp:BoundField DataField="Apellido" HeaderText="APELLIDO" ItemStyle-Width="20%" />
-                                                        <asp:BoundField DataField="DNI" HeaderText="DNI" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
-                                                        <asp:BoundField DataField="Telefono" HeaderText="TELÉFONO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
-                                                    </Columns>
-                                                </asp:GridView>
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <%--HISTORIAL DE ESTADOS--%>
-                                        <asp:Panel ID="pnlHistorialSolicitud" runat="server" Visible="true">
+                                        <asp:Panel ID="pnlVehiculos" runat="server">
+                                            <%--VEHÍCULOS AÉREOS--%>
                                             <div class="row">
-                                                <h5>Historial de Estados</h5>
+                                                <h5>Vehículos Aéreos</h5>
                                             </div>
                                             <div class="row">
-                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-                                                    <%--GRILLA CON HISTORIAL DE CAMBIOS--%>
-                                                    <asp:GridView
-                                                        ID="gvHistorial"
-                                                        runat="server"
-                                                        AutoGenerateColumns="false"
-                                                        CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
-                                                        <AlternatingRowStyle BackColor="white" />
-                                                        <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
-                                                        <RowStyle BackColor="#e1dddd" />
-                                                        <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
-                                                        <Columns>
-                                                            <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                            <asp:BoundField DataField="EstadoAnterior" HeaderText="ESTADO ANTERIOR" ItemStyle-Width="20%" />
-                                                            <asp:BoundField DataField="EstadoActual" HeaderText="ESTADO ACTUAL" ItemStyle-Width="20%" />
-                                                            <asp:BoundField DataField="FechaCambio" HeaderText="FECHA CAMBIO ESTADO" ItemStyle-Width="20%" />
-                                                            <asp:BoundField DataField="Usuario" HeaderText="USUARIO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
-                                                            <asp:BoundField DataField="Observaciones" HeaderText="OBSERVACIONES" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
-                                                        </Columns>
-                                                    </asp:GridView>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <asp:RadioButton GroupName="VANT" ID="rbVant" Checked="true" runat="server" AutoPostBack="true" Enabled="false" />
+                                                            <asp:Label Text="VANT" runat="server" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <asp:RadioButton GroupName="VANT" ID="rbAeronave" runat="server" AutoPostBack="true" Enabled="false"/>
+                                                            <asp:Label Text="Aeronave" runat="server" />
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                <%--<asp:CheckBox ID="chkVant" runat="server" CssClass="switchery" AutoPostBack="true" OnCheckedChanged="chkVant_CheckedChanged" />--%>
                                             </div>
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
+
+                                                    <%--AFECTACIÓN DE VANTS (SÓLO SI SE CHKVANT.CHECKED=FALSE)--%>
+                                                    <asp:Panel ID="pnlSeleccionVants" Visible="true" runat="server">
+
+                                                        <%--VANTS--%>
+                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="row">
+                                                                            <asp:GridView
+                                                                                ID="gvVANTs"
+                                                                                runat="server"
+                                                                                AutoGenerateColumns="false"
+                                                                                CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                                                                                <AlternatingRowStyle BackColor="white" />
+                                                                                <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                                                <RowStyle BackColor="#e1dddd" />
+                                                                                <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+
+                                                                                <Columns>
+                                                                                    <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                                                                    <asp:BoundField DataField="IdVant" HeaderText="ID" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" Visible="false" />
+                                                                                    <asp:BoundField DataField="Marca" HeaderText="MARCA" ItemStyle-Width="20%" />
+                                                                                    <asp:BoundField DataField="Modelo" HeaderText="MODELO" ItemStyle-Width="20%" />
+                                                                                    <asp:BoundField DataField="Clase" HeaderText="CLASE" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                                                    <asp:BoundField DataField="NumeroSerie" HeaderText="NRO. SERIE" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+
+                                                                                    <%-- Boton con link para ver detalles solicitud--%>
+<%--                                                                                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
+                                                                                        <ItemTemplate>
+                                                                                            <asp:HiddenField Value='<%# Eval("IdVant") %>' runat="server" ID="hdnIdVant" />
+                                                                                            <asp:CheckBox runat="server" ID="chkVANTVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
+                                                                                        </ItemTemplate>
+                                                                                    </asp:TemplateField>--%>
+                                                                                </Columns>
+                                                                            </asp:GridView>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </asp:Panel>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
                                             <hr />
                                         </asp:Panel>
 
-                                        <%--AFECTADOS ASOCIADOS A LA REA--%>
+                                        <%--TABLA UBICACIONES--%>
                                         <div class="row">
-                                            <h5>Afectados asociados a la REA</h5>
+                                            <h5>Ubicaciones</h5>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <!-- Panel de Provincia -->
+                                            <asp:Panel ID="pnlProvincia" CssClass="form-group" runat="server" Visible="false">
+                                                <asp:Label Text="Provincia" runat="server" />
+                                                <asp:DropDownList runat="server" ID="ddlProvincia" CssClass="form-control select-single" />
+                                            </asp:Panel>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <asp:GridView ID="gridUbicacionesConsulta" runat="server"
+                                                    AutoGenerateColumns="false"
+                                                    CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px" Visible="true">
+                                                    <AlternatingRowStyle BackColor="white" />
+                                                    <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                    <RowStyle BackColor="#e1dddd" />
+                                                    <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+                                                    <Columns>
+                                                        <asp:BoundField DataField="Id" HeaderText="ID" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="IdUbicacion" HeaderText="IDUBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="NRO UBICACIÓN" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="Poligono" HeaderText="TIPO" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="Longitud" HeaderText="LONGUITUD" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="Radio" HeaderText="RADIO" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="Altura" HeaderText="ALTURA" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="idProvincia" HeaderText="PROVINCIA" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="estadoUbicacion" HeaderText="ESTADO UBICACION" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="IdPuntoGeografico" HeaderText="IDPUNTOGEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="EliminarBD" HeaderText="ELIMINAR PUNTO GEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                    </Columns>
+                                                </asp:GridView>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    </br>
+                                    <hr />
+
+
+                                    <%--TRIPULANTES--%>
+                                    <div class="row">
+                                        <h5>Tripulantes</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <asp:GridView
+                                                ID="gvTripulacion"
+                                                runat="server"
+                                                AutoGenerateColumns="false"
+                                                CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                                                <AlternatingRowStyle BackColor="white" />
+                                                <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                <RowStyle BackColor="#e1dddd" />
+                                                <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+
+                                                <Columns>
+                                                    <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                                    <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
+                                                    <asp:BoundField DataField="Apellido" HeaderText="APELLIDO" ItemStyle-Width="20%" />
+                                                    <asp:BoundField DataField="DNI" HeaderText="DNI" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                    <asp:BoundField DataField="Telefono" HeaderText="TELÉFONO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                </Columns>
+                                            </asp:GridView>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <%--HISTORIAL DE ESTADOS--%>
+                                    <asp:Panel ID="pnlHistorialSolicitud" runat="server" Visible="true">
+                                        <div class="row">
+                                            <h5>Historial de Estados</h5>
                                         </div>
                                         <div class="row">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                                <%--GRILLA CON HISTORIAL DE CAMBIOS--%>
                                                 <asp:GridView
-                                                    ID="gvAfectados"
+                                                    ID="gvHistorial"
                                                     runat="server"
                                                     AutoGenerateColumns="false"
-                                                    OnRowCommand="gvAfectados_RowCommand"
                                                     CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
                                                     <AlternatingRowStyle BackColor="white" />
                                                     <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
                                                     <RowStyle BackColor="#e1dddd" />
                                                     <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
-
                                                     <Columns>
                                                         <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                                        <asp:BoundField DataField="IdInteresado" HeaderText="NRO. APROBADOR" ItemStyle-Width="20%" />
-                                                        <asp:BoundField DataField="NombreInteresado" HeaderText="INTERESADO" ItemStyle-Width="20%" />
-                                                        <asp:BoundField DataField="NombreProvincia" HeaderText="PROVINCIA" ItemStyle-Width="20%" />
-                                                        <asp:BoundField DataField="Estado" HeaderText="NOMBREESTADO" ItemStyle-Width="20%" />
-                                                        <asp:BoundField DataField="FHCoordinacion" HeaderText="FECHA APROBACIÓN" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
-                                                        <asp:TemplateField HeaderText="ACCIONES" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center">
-                                                            <ItemTemplate>
-                                                                <%--BOTÓN PULGAR ARRIBA - SÓLO VISIBLE CUANDO EL INTERESADO RECHAZÓ O AÚN NO RESPONDE--%>
-                                                                <asp:LinkButton ToolTip="Brindar Aprobación en lugar de Interesado" ID="lnkAprobarInteresado" runat="server" Visible='<%# !Eval("Estado").ToString().Equals("Aprobado") %>' CommandName="Aprobar" CommandArgument='<%# Eval("IdInteresadoSolicitud") %>'>
-                                                                    <i class="fa fa-thumbs-up" aria-hidden="true" style='font-size:15px;color:#525252'/>  </i>
-                                                                </asp:LinkButton>
-
-                                                                <%--BOTÓN REENVIAR MAIL - SÓLO VISIBLE CUANDO EL INTERESADO AÚN NO RESPONDE--%>
-                                                                <asp:LinkButton ToolTip="Reenviar Mail a Interesado" ID="lnkReenviarMail" runat="server" Visible='<%# Eval("Estado").ToString().Equals("Pendiente de Respuesta") %>' CommandName="Reenviar" CommandArgument='<%# Eval("IdInteresado") %>'>
-                                                                    <i class="fa fa-reply" aria-hidden="true" style='font-size:15px;color:#525252'/>  </i>
-                                                                </asp:LinkButton>
-
-                                                                <%--BOTÓN LIMPIAR RESPUESTA - SÓLO VISIBLE CUANDO EL INTERESADO YA RESPONDIÓ--%>
-                                                                <asp:LinkButton ToolTip="Limpiar la Respuesta del Interesado" ID="lnkLimpiarRespuesta" runat="server" Visible='<%# !Eval("Estado").ToString().Equals("Pendiente de Respuesta") %>' CommandName="Limpiar" CommandArgument='<%# Eval("IdCoordinacion") %>'>
-                                                                    <i class="fa fa-arrows-repeat" aria-hidden="true" style='font-size:15px;color:#525252'/>  </i>
-                                                                </asp:LinkButton>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
+                                                        <asp:BoundField DataField="EstadoAnterior" HeaderText="ESTADO ANTERIOR" ItemStyle-Width="20%" />
+                                                        <asp:BoundField DataField="EstadoActual" HeaderText="ESTADO ACTUAL" ItemStyle-Width="20%" />
+                                                        <asp:BoundField DataField="FechaCambio" HeaderText="FECHA CAMBIO ESTADO" ItemStyle-Width="20%" />
+                                                        <asp:BoundField DataField="Usuario" HeaderText="USUARIO" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="Observaciones" HeaderText="OBSERVACIONES" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
                                                     </Columns>
                                                 </asp:GridView>
                                             </div>
                                         </div>
                                         <hr />
+                                    </asp:Panel>
 
-                                        <div class="row">
-                                            <h5>Mensajes de Afectados</h5>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-                                                <asp:Panel runat="server" ID="pnlMensajes" class="alert alert-primary" role="alert">
-                                                    <asp:Repeater ID="rptMensajes" runat="server">
+                                    <%--AFECTADOS ASOCIADOS A LA REA--%>
+                                    <div class="row">
+                                        <h5>Afectados asociados a la REA</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                            <asp:GridView
+                                                ID="gvAfectados"
+                                                runat="server"
+                                                AutoGenerateColumns="false"
+                                                OnRowCommand="gvAfectados_RowCommand"
+                                                CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
+                                                <AlternatingRowStyle BackColor="white" />
+                                                <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
+                                                <RowStyle BackColor="#e1dddd" />
+                                                <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
+
+                                                <Columns>
+                                                    <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
+                                                    <asp:BoundField DataField="IdInteresado" HeaderText="NRO. APROBADOR" ItemStyle-Width="20%" />
+                                                    <asp:BoundField DataField="NombreInteresado" HeaderText="INTERESADO" ItemStyle-Width="20%" />
+                                                    <asp:BoundField DataField="NombreProvincia" HeaderText="PROVINCIA" ItemStyle-Width="20%" />
+                                                    <asp:BoundField DataField="Estado" HeaderText="NOMBREESTADO" ItemStyle-Width="20%" />
+                                                    <asp:BoundField DataField="FHCoordinacion" HeaderText="FECHA APROBACIÓN" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
+                                                    <asp:TemplateField HeaderText="ACCIONES" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center">
                                                         <ItemTemplate>
-                                                            <asp:Label ID="lblRptNombreInteresado" Font-Bold="true" runat="server" Text='<%# Eval("NombreInteresado").ToString() + ", " + Eval("FHCoordinacion").ToString() %>' />
-                                                            <asp:HiddenField ID="hdnRptIdInteresado" Value='<%# Eval("IdInteresado") %>' runat="server" />
-                                                            <br />
-                                                            <asp:Label ID="lblRptMensajeInteresado" runat="server" Text='<%# Eval("MensajeInteresado").ToString() %>' />
-                                                            <hr />
+                                                            <%--BOTÓN PULGAR ARRIBA - SÓLO VISIBLE CUANDO EL INTERESADO RECHAZÓ O AÚN NO RESPONDE--%>
+                                                            <asp:LinkButton ToolTip="Brindar Aprobación en lugar de Interesado" ID="lnkAprobarInteresado" runat="server" Visible='<%# !Eval("Estado").ToString().Equals("Aprobado") %>' CommandName="Aprobar" CommandArgument='<%# Eval("IdInteresadoSolicitud") %>'>
+                                                                    <i class="fa fa-thumbs-up" aria-hidden="true" style='font-size:15px;color:#525252'/>  </i>
+                                                            </asp:LinkButton>
+
+                                                            <%--BOTÓN REENVIAR MAIL - SÓLO VISIBLE CUANDO EL INTERESADO AÚN NO RESPONDE--%>
+                                                            <asp:LinkButton ToolTip="Reenviar Mail a Interesado" ID="lnkReenviarMail" runat="server" Visible='<%# Eval("Estado").ToString().Equals("Pendiente de Respuesta") %>' CommandName="Reenviar" CommandArgument='<%# Eval("IdInteresado") %>'>
+                                                                    <i class="fa fa-reply" aria-hidden="true" style='font-size:15px;color:#525252'/>  </i>
+                                                            </asp:LinkButton>
+
+                                                            <%--BOTÓN LIMPIAR RESPUESTA - SÓLO VISIBLE CUANDO EL INTERESADO YA RESPONDIÓ--%>
+                                                            <asp:LinkButton ToolTip="Limpiar la Respuesta del Interesado" ID="lnkLimpiarRespuesta" runat="server" Visible='<%# !Eval("Estado").ToString().Equals("Pendiente de Respuesta") %>' CommandName="Limpiar" CommandArgument='<%# Eval("IdCoordinacion") %>'>
+                                                                    <i class="fa fa-arrows-repeat" aria-hidden="true" style='font-size:15px;color:#525252'/>  </i>
+                                                            </asp:LinkButton>
                                                         </ItemTemplate>
-                                                    </asp:Repeater>
-                                                </asp:Panel>
-                                            </div>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                            </asp:GridView>
                                         </div>
-                                        <hr />
+                                    </div>
+                                    <hr />
+
+                                    <div class="row">
+                                        <h5>Mensajes de Afectados</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                            <asp:Panel runat="server" ID="pnlMensajes" class="alert alert-primary" role="alert">
+                                                <asp:Repeater ID="rptMensajes" runat="server">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblRptNombreInteresado" Font-Bold="true" runat="server" Text='<%# Eval("NombreInteresado").ToString() + ", " + Eval("FHCoordinacion").ToString() %>' />
+                                                        <asp:HiddenField ID="hdnRptIdInteresado" Value='<%# Eval("IdInteresado") %>' runat="server" />
+                                                        <br />
+                                                        <asp:Label ID="lblRptMensajeInteresado" runat="server" Text='<%# Eval("MensajeInteresado").ToString() %>' />
+                                                        <hr />
+                                                    </ItemTemplate>
+                                                </asp:Repeater>
+                                            </asp:Panel>
+                                        </div>
+                                    </div>
+                                    <hr />
                                     </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
