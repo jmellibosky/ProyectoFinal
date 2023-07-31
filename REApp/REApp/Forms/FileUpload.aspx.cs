@@ -142,7 +142,7 @@ namespace REApp.Forms
             //CERTIFICADO MEDICO
             else if (FileUpload2.HasFile)
             {
-                if ((txtFechaVencimientoCertMedico.Value.ToDateTime() >= DateTime.Today) || txtFechaVencimientoCertMedico.Value == "")
+                if ((txtFechaVencimientoCertMedico.Value.ToDateTime() >= DateTime.Today))
                 {
                     int idTipoDoc = lnkUpload2.CommandArgument.ToInt();
                     uploadMethod(FileUpload2, idTipoDoc, "Certificado Médico");
@@ -156,7 +156,7 @@ namespace REApp.Forms
             //CERTIFICADO DE COMPETENCIA
             else if (FileUpload3.HasFile) 
             {
-                if ((txtFechaVencimientoCertCompetencia.Value.ToDateTime() >= DateTime.Today) || txtFechaVencimientoCertCompetencia.Value == "")
+                if ((txtFechaVencimientoCertCompetencia.Value.ToDateTime() >= DateTime.Today))
                 {
                     int idTipoDoc = lnkUpload3.CommandArgument.ToInt();
                     uploadMethod(FileUpload3, idTipoDoc, "Certificado de Competencia");
@@ -169,7 +169,7 @@ namespace REApp.Forms
             //CEVANT
             else if (FileUpload4.HasFile)
             {
-                if ((txtFechaVencimientoCevant.Value.ToDateTime() >= DateTime.Today) || txtFechaVencimientoCevant.Value == "")
+                if ((txtFechaVencimientoCevant.Value.ToDateTime() >= DateTime.Today))
                 {
                     int idTipoDoc = lnkUpload4.CommandArgument.ToInt();
                     uploadMethod(FileUpload4, idTipoDoc, "CEVANT");
@@ -183,7 +183,7 @@ namespace REApp.Forms
             else if (FileUpload6.HasFile)
             {
 
-                if ((txtFechaVencimientoSeguroPoliza.Value.ToDateTime() >= DateTime.Today) || txtFechaVencimientoSeguroPoliza.Value == "")
+                if ((txtFechaVencimientoSeguroPoliza.Value.ToDateTime() >= DateTime.Today))
                 {
                     int idTipoDoc = lnkUpload6.CommandArgument.ToInt();
                     uploadMethod(FileUpload6, idTipoDoc, "Seguro/Póliza");

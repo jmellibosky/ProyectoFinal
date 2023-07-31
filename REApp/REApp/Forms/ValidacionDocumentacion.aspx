@@ -159,16 +159,16 @@
                             <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                             <Columns>
                                 <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
-                                <%--<asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
+                                <asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" visible="false"/>
                                 <asp:BoundField DataField="NombreUsuario" HeaderText="PROPIETARIO" ItemStyle-Width="10%" />
-                                <%--<asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />--%>
+                                <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
                                 <asp:BoundField DataField="NombreTipoDoc" HeaderText="TIPO DOC" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                                <%--<asp:BoundField DataField="AsociadoATripulante" HeaderText="ESTA ASOCIADO A TRIPULANTE" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />--%>
+                                <asp:BoundField DataField="AsociadoATripulante" HeaderText="ESTA ASOCIADO A TRIPULANTE" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" visible="false"/>
                                 <asp:BoundField DataField="NombreTripulante" HeaderText="TRIPULANTE" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
-                                <%--<asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" />--%>
-                                <%--<asp:BoundField DataField="VinculadoSolicitud" HeaderText="Vinculado a Solicitud" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />--%>
+                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" visible="false"/>
+                                <asp:BoundField DataField="VinculadoSolicitud" HeaderText="Vinculado a Solicitud" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" visible="false"/>
                                 <asp:BoundField DataField="FHAprobacion" HeaderText="FECHA APROBACION" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" />
                                 <asp:BoundField DataField="NombreUsuarioAprobadoPor" HeaderText="USUARIO QUE APROBO" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHRechazo" HeaderText="FECHA RECHAZO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" />
@@ -179,7 +179,7 @@
                                     <ItemTemplate>
                                         <div class="row">
                                             <div class="col-12">
-                                                <asp:LinkButton ID="lnkDownload" runat="server" CssClass="no-gif"
+                                                <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info no-gif"
                                                     OnClick="lnkDownload_Click"
                                                     CommandArgument='<%# Eval("IdDocumento") %>'>
                                             <i class="fa fa-download" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
