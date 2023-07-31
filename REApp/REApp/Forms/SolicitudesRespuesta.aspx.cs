@@ -779,10 +779,10 @@ namespace REApp.Forms
                 string Ubicaciones = "";
                 //Reemplazar esta por el id correspondiente, hardcodeado para testear
                 //int idSolicitud = 97;
-                string anoPresente = DateTime.Today.Year.ToString();
-                string fechaHoy = DateTime.Today.ToShortDateString();
+                string anoPresente = DateTime.UtcNow.Year.ToString();
+                string fechaHoy = DateTime.UtcNow.ToShortDateString();
                 //No esta funcionando correctamente
-                string horaHoy = DateTime.Today.ToShortTimeString();
+                string horaHoy = DateTime.UtcNow.ToShortTimeString();
 
                 string nombreSolicitud = "";
                 string fechaSolicitud = "";
