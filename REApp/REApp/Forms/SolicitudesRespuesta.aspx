@@ -514,11 +514,11 @@
                                                         <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
                                                         <asp:BoundField DataField="IdInteresado" HeaderText="ID INTERESADO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" visible="false"/>
                                                         <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
-                                                        <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO" ItemStyle-Width="20%" />
+                                                        <asp:BoundField DataField="IdUsuario" HeaderText="ID USUARIO" ItemStyle-Width="20%" visible="false"/>
                                                         <asp:BoundField DataField="Email" HeaderText="EMAIL" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
 
                                                         <%-- Boton con link para ver detalles solicitud--%>
-                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
+                                                        <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:HiddenField Value='<%# Eval("IdInteresado") %>' runat="server" ID="hdnIdInteresadoVinculado" />
                                                                 <asp:HiddenField Value='<%# Eval("Email") %>' runat="server" ID="hdnEmail" />
