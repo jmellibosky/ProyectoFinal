@@ -512,11 +512,11 @@
                                                                                 <div class="row">
                                                                                     <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
                                                                                         <asp:Label Text="Latitud (+/- XX.XXXX)" runat="server" />
-                                                                                        <asp:TextBox ID="txtCircunferenciaLatitud" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
+                                                                                        <asp:TextBox ID="txtCircunferenciaLatitud" runat="server" CssClass="form-control" TextMode="Number" step="any"/>
                                                                                     </asp:Panel>
                                                                                     <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
                                                                                         <asp:Label Text="Longitud (+/- XX.XXXX)" runat="server" />
-                                                                                        <asp:TextBox ID="txtCircunferenciaLongitud" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
+                                                                                        <asp:TextBox ID="txtCircunferenciaLongitud" runat="server" CssClass="form-control" TextMode="Number" step="any"/>
                                                                                     </asp:Panel>
                                                                                     <asp:Panel runat="server" CssClass="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
                                                                                         <asp:Label Text="Radio (km)" runat="server" />
@@ -548,11 +548,11 @@
                                                                                         <div class="row">
                                                                                             <asp:Panel runat="server" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
                                                                                                 <asp:Label Text="Latitud" runat="server" />
-                                                                                                <asp:TextBox ID="txtPoligonoLatitud" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
+                                                                                                <asp:TextBox ID="txtPoligonoLatitud" runat="server" CssClass="form-control" TextMode="Number"  step="any"/>
                                                                                             </asp:Panel>
                                                                                             <asp:Panel runat="server" CssClass="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
                                                                                                 <asp:Label Text="Longitud" runat="server" />
-                                                                                                <asp:TextBox ID="txtPoligonoLongitud" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
+                                                                                                <asp:TextBox ID="txtPoligonoLongitud" runat="server" CssClass="form-control" TextMode="Number"  step="any"/>
                                                                                             </asp:Panel>
                                                                                             <asp:HiddenField ID="hdnPoligono" runat="server" />
                                                                                         </div>

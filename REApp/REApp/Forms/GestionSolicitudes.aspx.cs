@@ -1605,11 +1605,6 @@ namespace REApp.Forms
         {
             if (rbCircunferencia.Checked)
             {
-                if (txtAltura.Text.Equals(""))
-                {
-                    Alert("Error", "Por favor, ingrese altura.", AlertType.error);
-                    return false;
-                }
                 if (txtCircunferenciaLatitud.Text.Equals(""))
                 {
                     Alert("Error", "Por favor, ingrese latitud.", AlertType.error);
@@ -1625,15 +1620,33 @@ namespace REApp.Forms
                     Alert("Error", "Por favor, ingrese radio.", AlertType.error);
                     return false;
                 }
+                else
+                {
+                    if(txtCircunferenciaRadio.Text.ToDouble() < 0)
+                    {
+                        Alert("Error", "Por favor, ingrese radio válido.", AlertType.error);
+                        return false;
+                    }
+                }
+
+
+            }
+
+            if (txtAltura.Text.Equals(""))
+            {
+                Alert("Error", "Por favor, ingrese altura.", AlertType.error);
+                return false;
             }
             else
             {
-                if (txtAltura.Text.Equals(""))
+                if(txtAltura.Text.ToDouble() < 0)
                 {
-                    Alert("Error", "Por favor, ingrese altura.", AlertType.error);
+                    Alert("Error", "Por favor, ingrese altura válida.", AlertType.error);
                     return false;
                 }
             }
+            
+            
             return true;
         }
 
@@ -1965,9 +1978,9 @@ namespace REApp.Forms
 
             if (!ubicacion.PuntosGeograficos[0].EsPoligono) //Obtenemos el primer punto geografico de la ubicación para saber si es Circunferencia o Poligono. En este caso si la condición es true, se trata de Circunferencia
             {
-                txtCircunferenciaLatitud.Text = ubicacion.PuntosGeograficos[0].Latitud.ToString();
-                txtCircunferenciaLongitud.Text = ubicacion.PuntosGeograficos[0].Longitud.ToString();
-                txtCircunferenciaRadio.Text = ubicacion.PuntosGeograficos[0].Radio.ToString();
+                txtCircunferenciaLatitud.Text = ubicacion.PuntosGeograficos[0].Latitud.ToString().Replace(',', '.');
+                txtCircunferenciaLongitud.Text = ubicacion.PuntosGeograficos[0].Longitud.ToString().Replace(',', '.');
+                txtCircunferenciaRadio.Text = ubicacion.PuntosGeograficos[0].Radio.ToString().Replace(',', '.');
             }
             else
             {
@@ -1978,8 +1991,8 @@ namespace REApp.Forms
 
                         mostrarModificarPoligono();
 
-                        txtPoligonoLatitud.Text = puntoGeografico.Latitud.ToString();
-                        txtPoligonoLongitud.Text = puntoGeografico.Longitud.ToString();
+                        txtPoligonoLatitud.Text = puntoGeografico.Latitud.ToString().Replace(',', '.');
+                        txtPoligonoLongitud.Text = puntoGeografico.Longitud.ToString().Replace(',', '.');
                         break;
                     }
                 }
@@ -2135,11 +2148,11 @@ namespace REApp.Forms
             foreach (GridViewRow row in gridUbicaciones.Rows)
             {
 
-                int idProvincia = Convert.ToInt32(row.Cells[6].Text); // Obtener el número de idProvincia
+                int idProvincia = Convert.ToInt32(row.Cells[8].Text); // Obtener el número de idProvincia
 
                 string provincia = ddlProvincia.Items[idProvincia - 1].Text;//Obtener el valor string 
 
-                row.Cells[6].Text = provincia;
+                row.Cells[8].Text = provincia;
 
 
                 int idUbicacionGrupo = Convert.ToInt32(row.Cells[2].Text);
