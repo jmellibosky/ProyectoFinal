@@ -351,13 +351,6 @@
                                                                                     <asp:BoundField DataField="Clase" HeaderText="CLASE" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
                                                                                     <asp:BoundField DataField="NumeroSerie" HeaderText="NRO. SERIE" ItemStyle-Width="20%" ItemStyle-HorizontalAlign="Center" />
 
-                                                                                    <%-- Boton con link para ver detalles solicitud--%>
-<%--                                                                                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SELECCIONAR" ItemStyle-Width="10%">
-                                                                                        <ItemTemplate>
-                                                                                            <asp:HiddenField Value='<%# Eval("IdVant") %>' runat="server" ID="hdnIdVant" />
-                                                                                            <asp:CheckBox runat="server" ID="chkVANTVinculado" Checked='<%# Eval("Checked").ToString().Equals("0") ? false : true %>' />
-                                                                                        </ItemTemplate>
-                                                                                    </asp:TemplateField>--%>
                                                                                 </Columns>
                                                                             </asp:GridView>
                                                                         </div>
