@@ -622,7 +622,7 @@
 
                                         <%--TABLA UBICACIONES--%>
                                         <asp:GridView ID="gridUbicaciones" runat="server"
-                                            AutoGenerateColumns="false"
+                                            AutoGenerateColumns="false" OnRowDataBound="gridUbicaciones_RowDataBound"
                                             CssClass="mGrid" PagerStyle-CssClass="pgr" RowStyle-Height="40px">
                                             <AlternatingRowStyle BackColor="white" />
                                             <HeaderStyle BackColor="#20789f" Font-Bold="true" Font-Size="Large" ForeColor="White" />
@@ -644,13 +644,13 @@
                                                 <asp:TemplateField HeaderText="ACCIONES">
                                                     <ItemTemplate>
 
-                                                        <asp:LinkButton ID="btnEditarUbicacion" ToolTip="Editar Punto Geográfico" runat="server" OnClick="lnkModificar_Click" CommandName="Modificar"
+                                                        <asp:LinkButton ID="btnEditarUbicacion" ToolTip="Editar Punto Geográfico" runat="server" OnClick="lnkModificar_Click" CommandName="Modificar"  ItemStyle-HorizontalAlign="Center"
                                                             CommandArgument='<%# Eval("Id") %>'>
                                                                 <i class="fa fa-pencil" aria-hidden="true" style='font-size: 15px; color: #525252' /></i>
                                                         </asp:LinkButton>
 
 
-                                                        <asp:LinkButton ID="btnEliminarUbicacion" ToolTip="Editar Punto Geográfico" runat="server" OnClick="lnkEliminar_Click" CommandName="Eliminar"
+                                                        <asp:LinkButton ID="btnEliminarUbicacion" ToolTip="Editar Punto Geográfico" runat="server" OnClick="lnkEliminar_Click" CommandName="Eliminar"  ItemStyle-HorizontalAlign="Center"
                                                             CommandArgument='<%# Eval("Id") %>'>
                                                                 <i class="fa fa-trash-can" aria-hidden="true" style='font-size: 15px; color: #525252' /></i>
                                                         </asp:LinkButton>

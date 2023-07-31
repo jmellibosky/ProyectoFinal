@@ -990,7 +990,8 @@ namespace REApp.Forms
 
                     listaPuntosGeograficos.Clear();
                     listaUbicaciones.Clear();
-
+                    tablaUbicacionesConsulta();
+                    UpdateUbicacionesTable();
 
                     MostrarABM();
 
@@ -1146,6 +1147,7 @@ namespace REApp.Forms
                     gridUbicaciones.Visible = false;
                     gridUbicacionesConsulta.Visible = true;
                     tablaUbicacionesConsulta();
+                    
                 }
                 else
                 {
@@ -1161,6 +1163,8 @@ namespace REApp.Forms
                     HabilitarDeshabilitarTxts(false);
                     pnlHistorialSolicitud.Visible = true;
                     btnAgregarUbicacion.Visible = btnEscanearKML.Visible = fupKML.Visible = false;
+
+                    
                 }
                 if (e.CommandName.Equals("Editar"))
                 {
@@ -1742,6 +1746,19 @@ namespace REApp.Forms
             }
         }
 
+        protected void gridUbicaciones_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if(hdnIdSolicitud.Value != "")
+                {
+                    LinkButton lnkBtn = (LinkButton)e.Row.FindControl("btnEliminarUbicacion");
+                    lnkBtn.Visible = false;
+                }
+            
+            }
+        }
+
         protected void btnGenerarKMZ_Click(object sender, EventArgs e)
         {
             Models.Documento KML = GetKML();
@@ -2033,7 +2050,7 @@ namespace REApp.Forms
             ActualizarIndicesTabla();
             UpdateUbicacionesTable();
 
-            Alert("¡ATENCIÓN!", "Punto Geográfico Eliminado", AlertType.warning);
+            Alert("Éxito", "El Punto Geográfico fue eliminado", AlertType.success);
         }
 
         private void ActualizarIndicesTabla()
