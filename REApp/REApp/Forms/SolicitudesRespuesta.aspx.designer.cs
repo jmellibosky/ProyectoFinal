@@ -303,13 +303,22 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.TextBox txtModalFechaUltimaActualizacion;
 
         /// <summary>
-        /// Control chkVant.
+        /// Control rbVant.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkVant;
+        protected global::System.Web.UI.WebControls.RadioButton rbVant;
+
+        /// <summary>
+        /// Control rbAeronave.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbAeronave;
 
         /// <summary>
         /// Control pnlSeleccionVants.
@@ -330,13 +339,31 @@ namespace REApp.Forms
         protected global::System.Web.UI.WebControls.GridView gvVANTs;
 
         /// <summary>
-        /// Control rptUbicaciones.
+        /// Control pnlProvincia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptUbicaciones;
+        protected global::System.Web.UI.WebControls.Panel pnlProvincia;
+
+        /// <summary>
+        /// Control ddlProvincia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlProvincia;
+
+        /// <summary>
+        /// Control gridUbicacionesConsulta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gridUbicacionesConsulta;
 
         /// <summary>
         /// Control gvTripulacion.
