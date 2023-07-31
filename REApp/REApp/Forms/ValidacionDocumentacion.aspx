@@ -208,19 +208,19 @@
                                     <ItemTemplate>
                                         <div class="row">
                                             <div class="col-12">
-                                                <asp:LinkButton ID="lnkDownload" runat="server" CssClass="btn btn-info no-gif"
+                                                <asp:LinkButton ID="lnkDownload" runat="server" CssClass="no-gif"
                                                     OnClick="lnkDownload_Click"
                                                     CommandArgument='<%# Eval("IdDocumento") %>'>
-                                            <i class="fas fa-file-pdf" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
+                                            <i class="fa fa-download" aria-hidden="true" style='font-size: 15px; color: #525252'></i>
                                                 </asp:LinkButton>
                                                 <%--Boton para aceptar archivo en la BD--%>
-                                                <asp:LinkButton ID="lnkAceptarArchivo" runat="server" CssClass="btn" OnClick="lnkAceptarArchivo_Click"
+                                                <asp:LinkButton ID="lnkAceptarArchivo" runat="server" CssClass="" OnClick="lnkAceptarArchivo_Click"
                                                     CommandArgument='<%# Eval("IdDocumento") %>'> 
-                                            <i class="fa-solid fa-square-check" aria-hidden="true" style='font-size:25px; color:lawngreen' ></i>
+                                            <i class="fa fa-check" aria-hidden="true" style='font-size:15px; color:green' ></i>
                                                 </asp:LinkButton>
-                                                <asp:LinkButton ID="lnkRechazarArchivo" runat="server" CssClass="btn" OnClick="lnkRechazarArchivo_Click"
+                                                <asp:LinkButton ID="lnkRechazarArchivo" runat="server" CssClass="" OnClick="lnkRechazarArchivo_Click"
                                                     CommandArgument='<%# Eval("IdDocumento") %>'>
-                                            <i class="fa-solid fa-square-xmark" aria-hidden="true" style='font-size:25px; color:red' ></i>
+                                            <i class="fa fa-times" aria-hidden="true" style='font-size:15px; color:red' ></i>
                                                 </asp:LinkButton>
                                             </div>
                                         </div>
