@@ -1271,6 +1271,7 @@ namespace REApp.Forms
                             puntoGeografico.IdPuntoGeografico = dtPuntosGeograficos.Rows[j]["IdPuntoGeografico"].ToString().ToInt();
                             puntoGeografico.Longitud = dtPuntosGeograficos.Rows[j]["Longitud"].ToString().ToDouble();
                             puntoGeografico.Latitud = dtPuntosGeograficos.Rows[j]["Latitud"].ToString().ToDouble();
+
                             if (dtPuntosGeograficos.Rows[j]["EsPoligono"].ToString().ToInt() == 1)
                             {
                                 puntoGeografico.EsPoligono = true;
@@ -1278,7 +1279,7 @@ namespace REApp.Forms
                             else
                             {
                                 puntoGeografico.EsPoligono = false;
-                                puntoGeografico.Radio = dtPuntosGeograficos.Rows[j]["Radio"].ToString().ToInt();
+                                puntoGeografico.Radio = dtPuntosGeograficos.Rows[j]["Radio"].ToString().ToDouble();
                                 id++;
                             }
                             puntoGeografico.eliminarBD = false;
@@ -1959,6 +1960,9 @@ namespace REApp.Forms
             ddlProvincia.SelectedValue = ubicacion.IdProvincia.ToCryptoID();
             hdnUbicacionId.Value = ubicacion.PuntosGeograficos[0].Id.ToString();
 
+            rbPoligono.Enabled = false;
+            rbCircunferencia.Enabled = false;
+
             if (!ubicacion.PuntosGeograficos[0].EsPoligono) //Obtenemos el primer punto geografico de la ubicación para saber si es Circunferencia o Poligono. En este caso si la condición es true, se trata de Circunferencia
             {
                 txtCircunferenciaLatitud.Text = ubicacion.PuntosGeograficos[0].Latitud.ToString();
@@ -1982,8 +1986,7 @@ namespace REApp.Forms
 
             }
 
-            rbPoligono.Enabled = false;
-            rbCircunferencia.Enabled = false;
+
         }
 
         protected void mostrarModificarPoligono()
@@ -2132,11 +2135,11 @@ namespace REApp.Forms
             foreach (GridViewRow row in gridUbicaciones.Rows)
             {
 
-                int idProvincia = Convert.ToInt32(row.Cells[8].Text); // Obtener el número de idProvincia
+                int idProvincia = Convert.ToInt32(row.Cells[6].Text); // Obtener el número de idProvincia
 
                 string provincia = ddlProvincia.Items[idProvincia - 1].Text;//Obtener el valor string 
 
-                row.Cells[7].Text = provincia;
+                row.Cells[6].Text = provincia;
 
 
                 int idUbicacionGrupo = Convert.ToInt32(row.Cells[2].Text);

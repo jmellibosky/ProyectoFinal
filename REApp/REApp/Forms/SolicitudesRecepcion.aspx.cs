@@ -705,7 +705,7 @@ namespace REApp.Forms
                             else
                             {
                                 puntoGeografico.EsPoligono = false;
-                                puntoGeografico.Radio = dtPuntosGeograficos.Rows[j]["Radio"].ToString().ToInt();
+                                puntoGeografico.Radio = dtPuntosGeograficos.Rows[j]["Radio"].ToString().ToDouble();
                                 id++;
                             }
                             puntoGeografico.eliminarBD = false;
