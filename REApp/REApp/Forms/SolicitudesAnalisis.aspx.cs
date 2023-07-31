@@ -7,6 +7,7 @@ using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using static REApp.Navegacion;
+using REApp.Models;
 
 namespace REApp.Forms
 {
@@ -67,11 +68,12 @@ namespace REApp.Forms
             ScriptManager.GetCurrent(Page).RegisterPostBackControl(btnGenerarKMZ);
         }
 
-        protected void GetInteresados()
+        protected void GetInteresados(int idSoli)
         {//OBTIENE TODOS LOS INTERESADOS
             using (SP sp = new SP("bd_reapp"))
             {
-                DataTable dt = sp.Execute("usp_GetInteresados"
+                DataTable dt = sp.Execute("usp_GetInteresadosDeSolicitudParaVinculacion",
+                    P.Add("IdSolicitud", idSoli)
                 );
 
                 if (dt.Rows.Count > 0)
@@ -499,12 +501,54 @@ namespace REApp.Forms
             btnFiltrar_Click(null, null);
         }
 
+        //protected void btnGuardarInteresados_Click(object sender, EventArgs e)
+        //{
+        //    for (int i = 0; i < gvInteresados.Rows.Count; i++)
+        //    {
+
+        //        if (((CheckBox)gvInteresados.Rows[i].FindControl("chkInteresadoVinculado")).Checked)
+        //        { // SI ESTÁ CHEQUEADO
+        //          // CREO OBJETO INTERESADO SOLICITUD
+        //            Models.InteresadoSolicitud InteresadoSolicitud = new Models.InteresadoSolicitud();
+
+        //            // SETEO LOS CAMPOS DEL OBJETO
+        //            InteresadoSolicitud.FHVinculacion = DateTime.Now;
+        //            InteresadoSolicitud.IdSolicitud = hdnIdSolicitudInteresado.Value.ToInt();
+        //            InteresadoSolicitud.IdInteresado = ((HiddenField)gvInteresados.Rows[i].FindControl("hdnIdInteresado")).Value.ToInt();
+
+        //            // INSERT EN TABLA INTERESADOSOLICITUD
+        //            InteresadoSolicitud.Insert();
+        //            Alert("Se actualizaron los interesados de la solicitud", "Los mismos seran notificados por mail al pasar la solicitud al siguiente estado.", AlertType.success, "/Forms/SolicitudesAnalisis.aspx");
+        //        }
+        //    }
+        //    MostrarABM();
+        //    btnFiltrar_Click(null, null);
+        //}
+
+
         protected void btnGuardarInteresados_Click(object sender, EventArgs e)
         {
+
+             DataTable dtInteresadosVinculados = new SP("bd_reapp").Execute("usp_GetInteresadosSoloVinculadosSolicitud",
+                P.Add("IdSolicitud", hdnIdSolicitud.Value)
+            );
+
+            // Creamos la lista para almacenar los valores de la columna "IdInteresadoVinculado".
+            List<int> ListaInteresadosVinculados = new List<int>();
+
+            // Recorremos las filas del DataTable y guardamos los valores de la columna "MiColumna" en la lista.
+            foreach (DataRow fila in dtInteresadosVinculados.Rows)
+            {
+                // Supongamos que el nombre de la columna es "MiColumna" y es de tipo int.
+                int valor = Convert.ToInt32(fila["IdInteresado"]);
+                ListaInteresadosVinculados.Add(valor);
+            }
+
+
+            //Para agregar nuevos interesados sin incluir los actuales
             for (int i = 0; i < gvInteresados.Rows.Count; i++)
             {
-
-                if (((CheckBox)gvInteresados.Rows[i].FindControl("chkInteresadoVinculado")).Checked)
+                if (((CheckBox)gvInteresados.Rows[i].FindControl("chkInteresadoVinculado")).Checked && !ListaInteresadosVinculados.Contains(((HiddenField)gvInteresados.Rows[i].FindControl("hdnIdInteresado")).Value.ToInt()))
                 { // SI ESTÁ CHEQUEADO
                   // CREO OBJETO INTERESADO SOLICITUD
                     Models.InteresadoSolicitud InteresadoSolicitud = new Models.InteresadoSolicitud();
@@ -519,6 +563,28 @@ namespace REApp.Forms
                     Alert("Se actualizaron los interesados de la solicitud", "Los mismos seran notificados por mail al pasar la solicitud al siguiente estado.", AlertType.success, "/Forms/SolicitudesAnalisis.aspx");
                 }
             }
+
+            //Para sacar los interesados ya vinculados
+            for (int i = 0; i < gvInteresados.Rows.Count; i++)
+            {
+                if (!((CheckBox)gvInteresados.Rows[i].FindControl("chkInteresadoVinculado")).Checked && ListaInteresadosVinculados.Contains(((HiddenField)gvInteresados.Rows[i].FindControl("hdnIdInteresado")).Value.ToInt()))
+                { // SI NO ESTÁ CHEQUEADO
+                  // ELIMINAR OBJETO INTERESADO SOLICITUD
+
+                    DataTable dtIdInteresadosVinculados = new SP("bd_reapp").Execute("usp_GetIdInteresadosSoloVinculadosSolicitud",
+                    P.Add("IdSolicitud", hdnIdSolicitud.Value), 
+                    P.Add("IdInteresado", ((HiddenField)gvInteresados.Rows[i].FindControl("hdnIdInteresado")).Value.ToInt()));
+
+                    int IdInteresadoVinculado = dtIdInteresadosVinculados.Rows[0][0].ToString().ToInt();
+
+                    //Borra de la base el interesadoSolicitudVinculado
+                    new SP("bd_reapp").Execute("__InteresadoSolicitudDelete_v1",
+                    P.Add("@IdInteresadoSolicitud", IdInteresadoVinculado));
+
+                }
+
+            }
+
             MostrarABM();
             btnFiltrar_Click(null, null);
         }
@@ -602,7 +668,8 @@ namespace REApp.Forms
         protected void btnVincularInteresados_Click(object sender, EventArgs e)
         {
             hdnIdSolicitudInteresado.Value = hdnIdSolicitud.Value;
-            GetInteresados();
+            int idSoli = hdnIdSolicitud.Value.ToInt();
+            GetInteresados(idSoli);
             MostrarInteresados();
         }
 
