@@ -7,6 +7,7 @@
 <head runat="server">
     <link href="/Content/bootstrap.css" rel="stylesheet" />
     <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../Content/dron.png" rel="icon" type="image/x-icon" />
     <%--<link href="/Content/Site.css" rel="stylesheet" />--%>
     <script src="https://kit.fontawesome.com/8e4807e881.js" crossorigin="anonymous"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>

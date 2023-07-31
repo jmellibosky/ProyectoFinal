@@ -112,35 +112,6 @@
         //$(document).ready(function () {
 
         //});
-        function confirmarAccion() {
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: '¿Deseas aceptar este documento?',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Envia una solicitud AJAX al servidor
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'ValidacionDocumentacion.aspx', true);
-                    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                            // Recibe la respuesta del servidor
-                            var response = xhr.responseText;
-                            if (response === 'success') {
-                                Swal.fire('¡Documento aceptado!', '', 'success');
-                            } else {
-                                Swal.fire('Error al aceptar el documento', '', 'error');
-                            }
-                        }
-                    };
-                    xhr.send();
-                }
-            });
-        }
     </script>
 </asp:Content>
 

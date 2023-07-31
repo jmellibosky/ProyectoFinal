@@ -9,7 +9,8 @@
     <meta name="author" content="" />
     <title>Home Dashboard</title>
     <!-- Favicon y FontAwesome-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <%--<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />--%>
+    <link href="../../Content/dron.png" rel="icon" type="image/x-icon" />
     <script src="https://kit.fontawesome.com/8e4807e881.js" crossorigin="anonymous"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

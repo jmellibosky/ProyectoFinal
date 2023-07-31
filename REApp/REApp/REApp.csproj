@@ -175,12 +175,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\LogoReapp.png" />
+    <Content Include="Content\avion.gif" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dron.ico" />
+    <Content Include="Content\dron.png" />
     <Content Include="Content\html\GenericMailTemplate.html" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
