@@ -174,7 +174,7 @@
     <%--Grilla Validacion Documentacion--%>
 
     <div class="panel-body" style="display: flex; justify-content: center; align-items: center">
-        <div class="row" style="overflow: auto; height: 375px; width: 1100px;">
+        <div class="row" style="width: 100%;">
             <asp:UpdatePanel runat="server" ID="upGrilla" ChildrenAsTriggers="false" UpdateMode="Conditional">
                 <ContentTemplate>
                     <asp:Panel ID="upDoc" Style="width: 100%;" runat="server">
@@ -190,14 +190,14 @@
                                 <%-- El DataField debe contener el mismo nombre que la columna de la BD, que se recupera en BindGrid()--%>
                                 <%--<asp:BoundField DataField="IdDocumento" HeaderText="ID" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="NombreUsuario" HeaderText="PROPIETARIO" ItemStyle-Width="10%" />
-                                <asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />
+                                <%--<asp:BoundField DataField="Nombre" HeaderText="NOMBRE" ItemStyle-Width="20%" />--%>
                                 <asp:BoundField DataField="NombreTipoDoc" HeaderText="TIPO DOC" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="AsociadoATripulante" HeaderText="ESTA ASOCIADO A TRIPULANTE" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                <%--<asp:BoundField DataField="AsociadoATripulante" HeaderText="ESTA ASOCIADO A TRIPULANTE" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="NombreTripulante" HeaderText="TRIPULANTE" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHAlta" HeaderText="FECHA ALTA" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" />
                                 <asp:BoundField DataField="FHVencimiento" HeaderText="FECHA VENCIMIENTO" ItemStyle-Width="15%" DataFormatString="{0:d}" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" />
-                                <asp:BoundField DataField="VinculadoSolicitud" HeaderText="Vinculado a Solicitud" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />
+                                <%--<asp:BoundField DataField="FHBaja" HeaderText="FECHA BAJA" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" />--%>
+                                <%--<asp:BoundField DataField="VinculadoSolicitud" HeaderText="Vinculado a Solicitud" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" />--%>
                                 <asp:BoundField DataField="FHAprobacion" HeaderText="FECHA APROBACION" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" />
                                 <asp:BoundField DataField="NombreUsuarioAprobadoPor" HeaderText="USUARIO QUE APROBO" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="FHRechazo" HeaderText="FECHA RECHAZO" ItemStyle-Width="10%" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:d}" />

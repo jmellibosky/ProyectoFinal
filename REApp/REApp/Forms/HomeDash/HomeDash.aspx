@@ -24,7 +24,7 @@
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <!-- Empieza SideBar Administrador -->
-            <div class="border-end-a sidebarToggle" runat="server" id="sidebarAdmin" style="width: 440px">
+            <div class="border-end-a sidebarToggle" runat="server" id="sidebarAdmin" style="width: 480px; overflow:auto; height:100vh">
                 <%-- Aca es donde depende si es Admin o no lo que se muestra --%>
                 <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;margin:10px 10px 10px 10px"></image>
                 <%--<div runat="server" id="lblRol" class="sidebar-heading border-bottom bg-light">Rol Sistema</div>--%>
@@ -104,7 +104,7 @@
                 </div>
             </div>
             <!-- Empieza SideBar Operador -->
-            <div class="border-end-o sidebarToggle" runat="server" id="sidebarOperador" style="width: 440px">
+            <div class="border-end-o sidebarToggle" runat="server" id="sidebarOperador" style="width: 480px; overflow:auto; height:100vh">
                 <%-- Aca es donde depende si es Admin o no lo que se muestra --%>
                 <image src="/Assets/LogoReapp.png" alt="LogoReapp" class="sidebar-heading border-bottom" style="width: 300px; height: fit-content;margin:10px 10px 10px 10px"></image>
                 <%--<div runat="server" id="lblRol" class="sidebar-heading border-bottom bg-light">Rol Sistema</div>--%>
@@ -186,7 +186,7 @@
                 <!-- Page content-->
                 <div id="content-page" class="container-fluid">
                     <%-- Paginas --%>
-                    <iframe id="iframePage" style="height: 91vh; background-color: white;" name="iframePage" src="HomeForm.aspx" frameborder="0" width="100%" runat="server"></iframe>
+                    <iframe id="iframePage" style="height: 87.6vh; background-color: white;" name="iframePage" src="HomeForm.aspx" frameborder="0" width="100%" runat="server"></iframe>
                 </div>
             </div>
         </div>
