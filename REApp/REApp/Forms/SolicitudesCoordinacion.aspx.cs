@@ -68,7 +68,6 @@ namespace REApp.Forms
         }
 
         private static List<UbicacionRedux> listaUbicaciones = new List<UbicacionRedux>();
-        private static List<PuntoGeograficoRedux> listaPuntosGeograficos = new List<PuntoGeograficoRedux>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -242,6 +241,7 @@ namespace REApp.Forms
             txtModalFechaUltimaActualizacion.Enabled = false;
             txtModalFechaSolicitud.Enabled = false;
             txtModalEstadoSolicitud.Enabled = false;
+            listaUbicaciones.Clear();
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
