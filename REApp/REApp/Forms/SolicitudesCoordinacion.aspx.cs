@@ -548,6 +548,8 @@ namespace REApp.Forms
 
                 Alert("Aprobada", "Solicitud Aprobada por Operador.", AlertType.success);
 
+                int IdSolicitud = hdnIdSolicitud.Value.ToInt();
+                GetAfectadosDeSolicitud(IdSolicitud);
             }
             else if (e.CommandName.Equals("Reenviar"))
             {
