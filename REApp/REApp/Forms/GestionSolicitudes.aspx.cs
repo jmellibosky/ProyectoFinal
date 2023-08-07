@@ -508,7 +508,7 @@ namespace REApp.Forms
 
                                     Ubicacion.IdSolicitud = Solicitud.IdSolicitud;
                                     Ubicacion.Altura = ubicacion.Altura;
-                                    Ubicacion.IdProvincia = (ubicacion.IdProvincia == 0) ? 1 : ubicacion.IdProvincia;
+                                    Ubicacion.IdProvincia = (ubicacion.IdProvincia == 0) ? 7 : ubicacion.IdProvincia;
 
                                     Ubicacion.Insert(tn);
 
@@ -1272,7 +1272,7 @@ namespace REApp.Forms
                             puntoGeografico.Longitud = dtPuntosGeograficos.Rows[j]["Longitud"].ToString().ToDouble();
                             puntoGeografico.Latitud = dtPuntosGeograficos.Rows[j]["Latitud"].ToString().ToDouble();
 
-                            if (dtPuntosGeograficos.Rows[j]["EsPoligono"].ToString().ToInt() == 1)
+                            if (dtPuntosGeograficos.Rows[j]["EsPoligono"].ToString().ToInt() == 1 || dtPuntosGeograficos.Rows[j]["EsPoligono"].ToString() == "True")
                             {
                                 puntoGeografico.EsPoligono = true;
                             }
@@ -1953,6 +1953,8 @@ namespace REApp.Forms
                     h5Ubicaciones.Visible = true;
                 }
             }
+            Alert("Archivo KML importado","Importación exitosa.", AlertType.success);
+            btnGuardar.Focus();
         }
 
         ////////////////////TABLA UBICACIONES/////////////////////

@@ -61,8 +61,8 @@ namespace REApp
                             // Si se encontraran menos de tres coordenadas, se trata de un punto o una línea pero no un polígono.
                             PuntoGeograficoRedux PuntoGeografico = new PuntoGeograficoRedux()
                             {
-                                Latitud = XYZ[0].Replace('.',',').ToDouble(),
-                                Longitud = XYZ[1].Replace('.', ',').ToDouble(),
+                                Latitud = XYZ[1].Replace('.',',').ToDouble(),
+                                Longitud = XYZ[0].Replace('.', ',').ToDouble(),
                                 EsPoligono = true,
                             };
 
