@@ -498,7 +498,7 @@
                                                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                                                                 <!-- Panel de Altura -->
                                                                                 <asp:Panel runat="server" CssClass="form-group">
-                                                                                    <asp:Label Text="Altura (Ground Level)" runat="server" />
+                                                                                    <asp:Label Text="Altura (m) (Ground Level) " runat="server" />
                                                                                     <asp:TextBox ID="txtAltura" runat="server" CssClass="form-control" TextMode="Number" step="0.00000001" />
                                                                                 </asp:Panel>
                                                                             </div>
@@ -630,7 +630,7 @@
                                             <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                                             <Columns>
                                                 <asp:BoundField DataField="Id" HeaderText="ID" Visible="false" ItemStyle-HorizontalAlign="Center" />
-                                                <asp:BoundField DataField="IdUbicacion" HeaderText="IDUBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="IdUbicacion" HeaderText="ID UBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="NRO. UBICACIÓN" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="Poligono" HeaderText="TIPO" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-HorizontalAlign="Center" />
@@ -669,15 +669,15 @@
                                             <SelectedRowStyle BackColor="#669999" Font-Bold="true" ForeColor="white" />
                                             <Columns>
                                                 <asp:BoundField DataField="Id" HeaderText="ID" Visible="false" ItemStyle-HorizontalAlign="Center" />
-                                                <asp:BoundField DataField="IdUbicacion" HeaderText="IDUBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center" />
-                                                <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="NRO UBICACIÓN" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="IdUbicacion" HeaderText="ID UBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="NRO. UBICACIÓN" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="Poligono" HeaderText="TIPO" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-HorizontalAlign="Center" />
-                                                <asp:BoundField DataField="Longitud" HeaderText="LONGUITUD" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="Longitud" HeaderText="LONGITUD" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="Radio" HeaderText="RADIO" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="Altura" HeaderText="ALTURA" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="idProvincia" HeaderText="PROVINCIA" ItemStyle-HorizontalAlign="Center" />
-                                                <asp:BoundField DataField="estadoUbicacion" HeaderText="ESTADO UBICACION" Visible="false" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField DataField="estadoUbicacion" HeaderText="ESTADO UBICACIÓN" Visible="false" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="IdPuntoGeografico" HeaderText="IDPUNTOGEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center" />
                                                 <asp:BoundField DataField="EliminarBD" HeaderText="ELIMINAR PUNTO GEOGRAFICO" Visible="false" ItemStyle-HorizontalAlign="Center" />
                                             </Columns>
