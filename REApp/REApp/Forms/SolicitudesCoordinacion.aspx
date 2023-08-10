@@ -390,7 +390,7 @@
                                                         <asp:BoundField DataField="IdUbicacionGrupo" HeaderText="NRO UBICACIÓN" ItemStyle-HorizontalAlign="Center" />
                                                         <asp:BoundField DataField="Poligono" HeaderText="TIPO" ItemStyle-HorizontalAlign="Center" />
                                                         <asp:BoundField DataField="Latitud" HeaderText="LATITUD" ItemStyle-HorizontalAlign="Center" />
-                                                        <asp:BoundField DataField="Longitud" HeaderText="LONGUITUD" ItemStyle-HorizontalAlign="Center" />
+                                                        <asp:BoundField DataField="Longitud" HeaderText="LONGITUD" ItemStyle-HorizontalAlign="Center" />
                                                         <asp:BoundField DataField="Radio" HeaderText="RADIO" ItemStyle-HorizontalAlign="Center" />
                                                         <asp:BoundField DataField="Altura" HeaderText="ALTURA" ItemStyle-HorizontalAlign="Center" />
                                                         <asp:BoundField DataField="idProvincia" HeaderText="PROVINCIA" ItemStyle-HorizontalAlign="Center" />

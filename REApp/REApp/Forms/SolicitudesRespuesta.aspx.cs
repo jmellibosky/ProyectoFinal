@@ -1055,7 +1055,7 @@ namespace REApp.Forms
                             puntoGeografico.IdPuntoGeografico = dtPuntosGeograficos.Rows[j]["IdPuntoGeografico"].ToString().ToInt();
                             puntoGeografico.Longitud = dtPuntosGeograficos.Rows[j]["Longitud"].ToString().ToDouble();
                             puntoGeografico.Latitud = dtPuntosGeograficos.Rows[j]["Latitud"].ToString().ToDouble();
-                            if (dtPuntosGeograficos.Rows[j]["EsPoligono"].ToString().ToInt() == 1)
+                            if (dtPuntosGeograficos.Rows[j]["EsPoligono"].ToString().ToInt() == 1 || dtPuntosGeograficos.Rows[j]["EsPoligono"].ToString() == "True")
                             {
                                 puntoGeografico.EsPoligono = true;
                             }
