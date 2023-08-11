@@ -981,6 +981,7 @@ namespace REApp.Forms
                     ddlModalSolicitante.Enabled = false;
                     btnGuardar.Visible = true;
 
+
                     rbVant.Checked = true;
                     rbAeronave.Checked = false;
                     chkVant_CheckedChanged(null, null);
@@ -992,11 +993,16 @@ namespace REApp.Forms
                     listaUbicaciones.Clear();
                     tablaUbicacionesConsulta();
                     UpdateUbicacionesTable();
+                    ddlModalActividad_SelectedIndexChanged(null, null);
 
                     MostrarABM();
 
                     gridUbicaciones.Visible = true;
                     gridUbicacionesConsulta.Visible = false;
+
+
+
+
                 }
 
             }
